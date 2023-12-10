@@ -42,8 +42,6 @@ public class BobinaC {
     public void setValorBobina(double valorBobina) {
         this.valorBobina = valorBobina;
     }
-
-       
-    
+ 
 
 }

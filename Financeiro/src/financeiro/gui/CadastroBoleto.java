@@ -5,17 +5,43 @@
  */
 package financeiro.gui;
 
+import financeiro.DAO.BoletoEmpresaDao;
+import financeiro.conexao.Conexao;
+import javax.swing.JOptionPane;
+import financeiro.model.BoletoEmpresa;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Ledilson
  */
 public class CadastroBoleto extends javax.swing.JFrame {
 
+    //Conversão de data
+    private final SimpleDateFormat sdfC = new SimpleDateFormat("dd-MM-yyyy");
+    private final SimpleDateFormat sdfE = new SimpleDateFormat("dd-MM-yyyy");
+
     /**
      * Creates new form CadastroBoleto
      */
     public CadastroBoleto() {
+
         initComponents();
+        
+        
+        carregaTabela();
+        desativaBotoes();
+        desativaCampos();
+        
+        
     }
 
     /**
@@ -28,196 +54,505 @@ public class CadastroBoleto extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        txtClienteReceber = new javax.swing.JTextField();
+        btNovo = new javax.swing.JButton();
+        btGravar = new javax.swing.JButton();
+        btAlterar = new javax.swing.JButton();
+        btExcluir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbBoletoClienteEmpresa = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        txtEmpresaPagar = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtDataClienteReceber = new javax.swing.JTextField();
+        txtValorEmpresaPagar = new javax.swing.JTextField();
+        txtDataEmpresaPagar = new javax.swing.JTextField();
+        txtValorClienteReceber = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro Boleto e Pagamento");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Novo");
+        jLabel2.setText("Data.: ");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(254, 44, 40, 20));
 
-        jButton2.setText("Salvar");
+        jLabel4.setText("Cliente.:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 44, -1, 20));
+        jPanel1.add(txtClienteReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 190, -1));
 
-        jButton3.setText("Editar");
+        btNovo.setText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 80, -1));
 
-        jButton4.setText("Excluir");
+        btGravar.setText("Gravar");
+        btGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGravarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 80, -1));
 
-        jLabel1.setText("Boleto Receber");
+        btAlterar.setText("Alterar");
+        btAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAlterarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, 80, -1));
 
-        jTextField1.setText("jTextField1");
+        btExcluir.setText("Excluir");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 40, 80, -1));
 
-        jLabel2.setText("Data ");
-
-        jTextField2.setText("jTextField2");
-
-        jLabel3.setText("R$");
-
-        jTextField3.setText("jTextField3");
-
-        jLabel4.setText("Boleto a Apagar");
-
-        jTextField4.setText("jTextField4");
-
-        jLabel5.setText("Data");
-
-        jTextField5.setText("jTextField5");
-
-        jLabel6.setText("R$");
-
-        jTextField6.setText("jTextField6");
-
-        jButton5.setText("Buscar");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4)
-                        .addGap(38, 38, 38)
-                        .addComponent(jButton5)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4)
-                            .addComponent(jButton5))
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbBoletoClienteEmpresa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Boleto Receber", "Data", "Valor", "Boleto Apagar", "Valor"
+                "Cleinte a Receber", "Data a Receber", "Valor a Receber", "Empresa a Pagar", "Data a Pagar", "Valor a Pagar"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbBoletoClienteEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbBoletoClienteEmpresaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbBoletoClienteEmpresa);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 154, 750, 330));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("## Pagamento a Receber ##");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
+        jPanel1.add(txtEmpresaPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 110, 170, -1));
+
+        jLabel5.setText("Data.: ");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 114, 40, 20));
+
+        jLabel6.setText("R$.:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, 30, 30));
+        jPanel1.add(txtDataClienteReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 80, -1));
+        jPanel1.add(txtValorEmpresaPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 60, -1));
+
+        txtDataEmpresaPagar.setText(" ");
+        jPanel1.add(txtDataEmpresaPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 82, -1));
+
+        txtValorClienteReceber.setText(" ");
+        txtValorClienteReceber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorClienteReceberActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtValorClienteReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 60, -1));
+
+        jLabel7.setText("Empresa .:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 114, 70, 20));
+
+        jLabel8.setText("R$.:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 114, 30, 20));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("## Pagamento a Pagar ##");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 750, 10));
+
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, 10, 140));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tbBoletoClienteEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbBoletoClienteEmpresaMouseClicked
+
+        //Setando campos de texto com registros
+        BoletoEmpresa e = new BoletoEmpresa();
+        BoletoEmpresaDao dao = new BoletoEmpresaDao();
+
+        int index = tbBoletoClienteEmpresa.getSelectedRow();
+        e = dao.listarBoletoEmpresa().get(index);
+
+        // Setando valores nos campos de texto
+        txtValorClienteReceber.setText(Double.toString(e.getReceberClienteValor()));
+        txtValorEmpresaPagar.setText(Double.toString(e.getPagarEmpresaValor()));
+
+        txtClienteReceber.setText(e.getBoletoClienteReceber());
+        txtEmpresaPagar.setText(e.getBoletoEmpresaPagar());
+
+        /*  FORMATANDO A DATA */
+        SimpleDateFormat sdfC = new SimpleDateFormat("dd-MM-yyyy");
+
+        SimpleDateFormat sdfE = new SimpleDateFormat("dd-MM-yyyy");
+
+        txtDataClienteReceber.setText(sdfC.format(e.getDataClienteReceber()));
+
+        txtDataEmpresaPagar.setText(sdfE.format(e.getDataEmpresaPagar()));
+
+        // Se quiser descomentar a parte de habilitar/desabilitar componentes, você pode fazer algo assim:
+        txtClienteReceber.setEnabled(true);
+        txtEmpresaPagar.setEnabled(true);
+        txtDataClienteReceber.setEnabled(true);
+        txtDataEmpresaPagar.setEnabled(true);
+        txtValorClienteReceber.setEnabled(true);
+        txtValorEmpresaPagar.setEnabled(true);
+        btGravar.setEnabled(false);
+        btAlterar.setEnabled(true);
+        btExcluir.setEnabled(true);
+    }//GEN-LAST:event_tbBoletoClienteEmpresaMouseClicked
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+
+        BoletoEmpresa e = new BoletoEmpresa();
+
+        BoletoEmpresaDao dao = new BoletoEmpresaDao();
+
+        int index = tbBoletoClienteEmpresa.getSelectedRow();
+
+        e = dao.listarBoletoEmpresa().get(index);
+
+        e.setBoletoClienteReceber(txtClienteReceber.getText());
+
+        e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
+
+        // Entrada da Data cliente
+        try {
+            java.util.Date dataFormatada = sdfC.parse(txtDataClienteReceber.getText());
+            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
+            e.setDataClienteReceber(dataSQL);
+        } catch (ParseException ex) {
+            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
+
+            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        // Entrada da Data Empresa
+        try {
+            java.util.Date dataFormatada = sdfE.parse(txtDataEmpresaPagar.getText());
+            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
+            e.setDataEmpresaPagar(dataSQL);
+        } catch (ParseException ex) {
+            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
+
+            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+        //OBTENDO O VALOR DE CLIENTE 
+        String valorReceberClienteText = txtValorClienteReceber.getText();
+        // Convertendo a String para double
+        double valorReceberCliente = Double.parseDouble(valorReceberClienteText);
+        // Definindo o valor convertido na propriedade
+        e.setReceberClienteValor(valorReceberCliente);
+
+        //OBTENDO O VALOR DE EMPRESA 
+        String valorPagarEmpresaText = txtValorEmpresaPagar.getText();
+        // Convertendo a String para double
+        double valorPagarEmpresa = Double.parseDouble(valorPagarEmpresaText);
+        // Definindo o valor convertido na propriedade
+        e.setPagarEmpresaValor(valorPagarEmpresa);
+
+        switch (JOptionPane.showConfirmDialog(null, "Deseja excluir ? \n "
+                + "Cliente:  " + e.getBoletoClienteReceber()
+                + "\n Data: " + e.getDataClienteReceber()
+                + "\n R$: " + e.getReceberClienteValor()
+                + "\n Empresa: " + e.getBoletoEmpresaPagar()
+                + "\n Data: " + e.getDataEmpresaPagar()
+                + "\n R$: " + e.getPagarEmpresaValor()
+                + " ", "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+
+            case 0:
+                dao.remover(e);
+                carregaTabela();
+                limparTexto();
+                desativaBotoes();
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
+
+
+    }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+
+        BoletoEmpresa e = new BoletoEmpresa();
+        BoletoEmpresaDao dao = new BoletoEmpresaDao();
+
+        int index = tbBoletoClienteEmpresa.getSelectedRow();
+        e = dao.listarBoletoEmpresa().get(index);
+
+        e.setBoletoClienteReceber(txtClienteReceber.getText());
+
+        e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
+
+        // Entrada da Data cliente
+        try {
+            java.util.Date dataFormatada = sdfC.parse(txtDataClienteReceber.getText());
+            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
+            e.setDataClienteReceber(dataSQL);
+        } catch (ParseException ex) {
+            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
+
+            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        // Entrada da Data Empresa
+        try {
+            java.util.Date dataFormatada = sdfE.parse(txtDataEmpresaPagar.getText());
+            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
+            e.setDataEmpresaPagar(dataSQL);
+        } catch (ParseException ex) {
+            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
+
+            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+        //OBTENDO O VALOR DE CLIENTE 
+        String valorReceberClienteText = txtValorClienteReceber.getText();
+        // Convertendo a String para double
+        double valorReceberCliente = Double.parseDouble(valorReceberClienteText);
+        // Definindo o valor convertido na propriedade
+        e.setReceberClienteValor(valorReceberCliente);
+
+        //OBTENDO O VALOR DE EMPRESA
+        String valorPagarEmpresaText = txtValorEmpresaPagar.getText();
+        // Convertendo a String para double
+        double valorPagarEmpresa = Double.parseDouble(valorPagarEmpresaText);
+        // Definindo o valor convertido na propriedade
+        e.setPagarEmpresaValor(valorPagarEmpresa);
+
+        switch (JOptionPane.showConfirmDialog(null, " [--ALTERAÇÃO DE DADOS--] \n Dado Atual"
+                + "\n Cliente:  " + e.getBoletoClienteReceber()
+                + "\n Data: " + e.getDataClienteReceber()
+                + "\n R$: " + e.getReceberClienteValor()
+                + "\n Empresa: " + e.getBoletoEmpresaPagar()
+                + "\n Data: " + e.getDataEmpresaPagar()
+                + "\n R$: " + e.getPagarEmpresaValor()
+                + "\n Deseja realmente fazer alteração?",
+                "Alteração de dados.  ", JOptionPane.YES_NO_OPTION)) {
+
+            case 0:
+
+                dao.alterar(e);// faz alteração no banco de dados
+                carregaTabela();
+                limparTexto();
+                desativaBotoes();
+                desativaCampos();
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.",
+                        "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
+
+    }//GEN-LAST:event_btAlterarActionPerformed
+
+    private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
+
+        BoletoEmpresa e = new BoletoEmpresa();
+        BoletoEmpresaDao dao = new BoletoEmpresaDao();
+
+        // Parte do pagamento do cliente
+        e.setBoletoClienteReceber(txtClienteReceber.getText());
+
+        e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
+
+        // Entrada da Data cliente
+        try {
+            java.util.Date dataFormatada = sdfC.parse(txtDataClienteReceber.getText());
+            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
+            e.setDataClienteReceber(dataSQL);
+        } catch (ParseException ex) {
+            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
+
+            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        // Entrada da Data Empresa
+        try {
+            java.util.Date dataFormatada = sdfE.parse(txtDataEmpresaPagar.getText());
+            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
+            e.setDataEmpresaPagar(dataSQL);
+        } catch (ParseException ex) {
+            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
+
+            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+        /*OBTENDO O VALOR DE CLIENTE */
+        String valorReceberClienteText = txtValorClienteReceber.getText();
+        // Convertendo a String para double
+        double valorReceberCliente = Double.parseDouble(valorReceberClienteText);
+        // Definindo o valor convertido na propriedade
+        e.setReceberClienteValor(valorReceberCliente);
+
+        /*OBTENDO O VALOR DE EMPRESA */
+        String valorPagarEmpresaText = txtValorEmpresaPagar.getText();
+        // Convertendo a String para double
+        double valorPagarEmpresa = Double.parseDouble(valorPagarEmpresaText);
+        // Definindo o valor convertido na propriedade
+        e.setPagarEmpresaValor(valorPagarEmpresa);
+
+        // Adicionando o objeto ao banco de dados
+        dao.adicionar(e);
+
+        // Carregando a tabela
+        carregaTabela();
+
+        // Limpar os campos, se necessário
+        limparTexto();
+    }//GEN-LAST:event_btGravarActionPerformed
+
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+
+        limparTexto();
+        ativaBotoes();
+        ativaCampos();
+        btAlterar.setEnabled(false);
+        btExcluir.setEnabled(false);
+    }//GEN-LAST:event_btNovoActionPerformed
+
+    private void txtValorClienteReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorClienteReceberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorClienteReceberActionPerformed
+
+    private void carregaTabela() {
+
+        DefaultTableModel modelo = (DefaultTableModel) tbBoletoClienteEmpresa.getModel();
+        modelo.setNumRows(0);
+
+        //Defini o tamanho da tabela
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(1).setPreferredWidth(10);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(2).setPreferredWidth(10);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(4).setPreferredWidth(10);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(5).setPreferredWidth(10);
+
+
+        /*Outra forma de usar  
+         BobinaDao dao = new BobinaDao();
+
+         try {
+         dao.listar().stream().forEach((p) -> {
+         modelo.addRow(new Object[]{
+         p.getNomeBobina(),
+         p.getValorBobina()
+         });
+         });
+         } catch (Exception Erro) 
+         {
+         JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados " + Erro, "ERRO", JOptionPane.ERROR);
+         }*/
+        try {
+
+            Connection con = Conexao.getConnection();
+            PreparedStatement pstm;
+            ResultSet rs;
+
+            pstm = con.prepareStatement("SELECT * FROM boletoEmpresa ORDER BY nomeBoletoReceber ASC;");
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                    //rs.getString(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(4),
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getString(7)
+                });
+            }
+            Conexao.closeConnection(con, pstm, rs);
+
+        } catch (Exception ErroSql) {
+            JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR);
+        }
+    }
+
+    private void limparTexto() {
+
+        txtClienteReceber.setText("");
+        txtEmpresaPagar.setText("");
+
+        txtDataClienteReceber.setText("");
+        txtDataEmpresaPagar.setText("");
+
+        txtValorClienteReceber.setText("");
+        txtValorEmpresaPagar.setText("");
+
+        btGravar.setEnabled(false);
+        btAlterar.setEnabled(true);
+        btExcluir.setEnabled(true);
+    }
+
+    private void desativaBotoes() {
+        btGravar.setEnabled(false);
+        btAlterar.setEnabled(false);
+        btExcluir.setEnabled(false);
+
+    }
+
+    private void desativaCampos() {
+
+        txtClienteReceber.setEnabled(false);
+        txtEmpresaPagar.setEnabled(false);
+
+        txtDataClienteReceber.setEnabled(false);
+        txtDataEmpresaPagar.setEnabled(false);
+
+        txtValorClienteReceber.setEnabled(false);
+        txtValorEmpresaPagar.setEnabled(false);
+
+    }
+
+    private void ativaBotoes() {
+        btGravar.setEnabled(true);
+        btAlterar.setEnabled(true);
+        btExcluir.setEnabled(true);
+
+    }
+
+    private void ativaCampos() {
+        txtClienteReceber.setEnabled(true);
+        txtEmpresaPagar.setEnabled(true);
+
+        txtDataClienteReceber.setEnabled(true);
+        txtDataEmpresaPagar.setEnabled(true);
+
+        txtValorClienteReceber.setEnabled(true);
+        txtValorEmpresaPagar.setEnabled(true);
+
+    }
 
     /**
      * @param args the command line arguments
@@ -233,16 +568,21 @@ public class CadastroBoleto extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroBoleto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroBoleto.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroBoleto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroBoleto.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroBoleto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroBoleto.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroBoleto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroBoleto.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -255,26 +595,29 @@ public class CadastroBoleto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btAlterar;
+    private javax.swing.JButton btExcluir;
+    private javax.swing.JButton btGravar;
+    private javax.swing.JButton btNovo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTable tbBoletoClienteEmpresa;
+    private javax.swing.JTextField txtClienteReceber;
+    private javax.swing.JTextField txtDataClienteReceber;
+    private javax.swing.JTextField txtDataEmpresaPagar;
+    private javax.swing.JTextField txtEmpresaPagar;
+    private javax.swing.JTextField txtValorClienteReceber;
+    private javax.swing.JTextField txtValorEmpresaPagar;
     // End of variables declaration//GEN-END:variables
+
 }

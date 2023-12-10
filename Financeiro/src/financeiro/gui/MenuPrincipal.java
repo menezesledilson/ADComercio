@@ -17,7 +17,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
      * Creates new form Principal
      */
     public MenuPrincipal() {
+        
         initComponents();
+        // ABRIR NA TELA TODA setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -44,6 +46,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jMenu1.setText("Cadastro Produtos");
 
@@ -57,7 +60,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu1.add(MenuBobina);
         jMenu1.add(jSeparator1);
 
-        jMenuItem4.setText("jMenuItem4");
+        jMenuItem4.setText("Boletos Empresa");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
@@ -93,6 +101,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_MenuBobinaActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        CadastroBoleto mc = new CadastroBoleto();
+        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        mc.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments

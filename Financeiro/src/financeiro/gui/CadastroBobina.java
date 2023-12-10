@@ -27,6 +27,8 @@ public class CadastroBobina extends javax.swing.JFrame {
      */
     public CadastroBobina() {
         initComponents();
+        
+        
         carregaTabela();
         desativaBotoes();
         desativaCampos();
@@ -60,6 +62,7 @@ public class CadastroBobina extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Produtos");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -197,10 +200,15 @@ public class CadastroBobina extends javax.swing.JFrame {
 
         p = dao.listar().get(index);//retorna o objeto do arraylist de acordo com a posição
 
-        switch (JOptionPane.showConfirmDialog(null, " [--ALTERAÇÃO DE PRODUTO--] \n Produto Atual: " + p.getNomeBobina() + "\n R$: "
+        switch (JOptionPane.showConfirmDialog(null, " [--ALTERAÇÃO DE PRODUTO--] \n Produto Atual: " 
+                
+                
+                + p.getNomeBobina() + "\n R$: "
                 + p.getValorBobina() + "0 " 
+                
                 + "\n Será alterado para \n Novo Produto: " + txtDescricao.getText()
-                + "\n R$: " + txtValor.getText()+ "0 " 
+                + "\n R$: " + txtValor.getText()+ "0 "
+                
                 + "\n Deseja realmente fazer alteração? ",
                 " Alteração de dados. ", JOptionPane.YES_NO_OPTION)) {
 
@@ -217,7 +225,8 @@ public class CadastroBobina extends javax.swing.JFrame {
                 break;
 
             case 1:
-                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.", "AVISO", 
+                        JOptionPane.INFORMATION_MESSAGE);
                 break;
         }
     }//GEN-LAST:event_btAlterarActionPerformed
@@ -235,6 +244,7 @@ public class CadastroBobina extends javax.swing.JFrame {
         p.setNomeBobina(txtDescricao.getText());
 
         p.setValorBobina(Double.parseDouble(txtValor.getText()));
+        
 
         switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Produto ? \n "
                 + "Produto:  " + p.getNomeBobina()
