@@ -5,6 +5,7 @@
  */
 package financeiro;
 
+import financeiro.gui.BuscarBoleto;
 import financeiro.gui.CadastroBobina;
 import financeiro.gui.MenuPrincipal;
 import javax.swing.WindowConstants;
@@ -20,7 +21,7 @@ public class FinanceiroPrincipal {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        MenuPrincipal mm = new MenuPrincipal();
+        BuscarBoleto mm = new BuscarBoleto();
 
         mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
