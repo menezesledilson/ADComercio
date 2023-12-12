@@ -499,8 +499,7 @@ public class CadastroBoleto extends javax.swing.JFrame {
                     rs.getString(6),
                     rs.getString(7)
                 });
-            }
-            Conexao.closeConnection(con, pstm, rs);
+            } Conexao.closeConnection(con, pstm, rs);
 
         } catch (Exception ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR);

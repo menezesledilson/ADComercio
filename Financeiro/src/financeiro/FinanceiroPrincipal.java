@@ -5,11 +5,7 @@
  */
 package financeiro;
 
-import financeiro.gui.BuscarBoleto;
-import financeiro.gui.CadastroBobina;
-import financeiro.gui.CadastroBoleto;
-import financeiro.gui.CadastroPedidoBobina;
-import financeiro.gui.MenuPrincipal;
+import financeiro.gui.CadastroFluxoCaixa;
 import javax.swing.WindowConstants;
 
 /**
@@ -31,11 +27,11 @@ public class FinanceiroPrincipal {
         mm.setVisible(true);*/
 
         
-         CadastroPedidoBobina mm = new CadastroPedidoBobina();
+         CadastroFluxoCaixa mm = new CadastroFluxoCaixa();
 
-         mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-         mm.setVisible(true);  
+        mm.setVisible(true);  
          
         /* CadastroBobina mm = new CadastroBobina();
 
@@ -43,5 +39,7 @@ public class FinanceiroPrincipal {
 
          mm.setVisible(true);*/
     }
+
+   
 
 }
