@@ -28,7 +28,6 @@ public class CadastroBobina extends javax.swing.JFrame {
     public CadastroBobina() {
         initComponents();
         
-        
         carregaTabela();
         desativaBotoes();
         desativaCampos();
@@ -203,8 +202,8 @@ public class CadastroBobina extends javax.swing.JFrame {
         switch (JOptionPane.showConfirmDialog(null, " [--ALTERAÇÃO DE PRODUTO--] \n Produto Atual: " 
                 
                 
-                + p.getNomeBobina() + "\n R$: "
-                + p.getValorBobina() + "0 " 
+                + p.getNomeBobina() + 
+                "\n R$: " + p.getValorBobina() + "0 " 
                 
                 + "\n Será alterado para \n Novo Produto: " + txtDescricao.getText()
                 + "\n R$: " + txtValor.getText()+ "0 "

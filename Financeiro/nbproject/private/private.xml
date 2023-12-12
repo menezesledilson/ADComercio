@@ -4,9 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/gui/CadastroBoleto.java</file>
-            <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/gui/CadastroDespesaCasa.java</file>
-            <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/gui/MenuPrincipal.java</file>
-            <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/gui/CadastroBobina.java</file>
+            <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/FinanceiroPrincipal.java</file>
+            <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/gui/BuscarBoleto.java</file>
+            <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/gui/BuscarPedidoBobina.java</file>
         </group>
     </open-files>
 </project-private>

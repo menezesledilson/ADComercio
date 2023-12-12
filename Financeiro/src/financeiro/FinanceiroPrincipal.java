@@ -7,6 +7,8 @@ package financeiro;
 
 import financeiro.gui.BuscarBoleto;
 import financeiro.gui.CadastroBobina;
+import financeiro.gui.CadastroBoleto;
+import financeiro.gui.CadastroPedidoBobina;
 import financeiro.gui.MenuPrincipal;
 import javax.swing.WindowConstants;
 
@@ -21,12 +23,25 @@ public class FinanceiroPrincipal {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        BuscarBoleto mm = new BuscarBoleto();
+        
+      /* CadastroBoleto mm = new CadastroBoleto();
 
         mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        mm.setVisible(true);
+        mm.setVisible(true);*/
 
+        
+         CadastroPedidoBobina mm = new CadastroPedidoBobina();
+
+         mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+         mm.setVisible(true);  
+         
+        /* CadastroBobina mm = new CadastroBobina();
+
+         mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+         mm.setVisible(true);*/
     }
 
 }
