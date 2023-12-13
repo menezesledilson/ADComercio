@@ -27,7 +27,7 @@ public class BuscarBoleto extends javax.swing.JFrame {
        // super();
         initComponents();
         desabilitarBotoes();
-        // habilitarBotoes();
+       // habilitarBotoes();
        
     }
 

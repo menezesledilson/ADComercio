@@ -5,7 +5,9 @@
  */
 package financeiro;
 
+import financeiro.gui.BuscarLivroCaixa;
 import financeiro.gui.CadastroCaixa;
+import financeiro.gui.EmissorCalculoNF;
 import javax.swing.WindowConstants;
 
 /**
@@ -27,7 +29,7 @@ public class FinanceiroPrincipal {
         mm.setVisible(true);*/
 
         
-         CadastroCaixa mm = new CadastroCaixa();
+         EmissorCalculoNF mm = new EmissorCalculoNF();
 
         mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

@@ -15,6 +15,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +28,8 @@ public class CadastroCaixa extends javax.swing.JFrame {
 
     //Data automatica
     private final SimpleDateFormat sdfDataAutomatica = new SimpleDateFormat("dd-MM-yyyy");
+   
+    
 
     /**
      * Creates new form CadastroFluxoCaixa
@@ -38,6 +41,9 @@ public class CadastroCaixa extends javax.swing.JFrame {
         limparTexto();
         DesativaCampos();
         DesativarBotao();
+        
+       // setResizable(false);
+        
     }
 
     /**
@@ -94,7 +100,7 @@ public class CadastroCaixa extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbFluxoCaixa);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 155, 670, 290));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 680, 320));
         jPanel1.add(txtDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 20, 130, -1));
         jPanel1.add(txtEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 80, -1));
         jPanel1.add(txtSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 90, -1));
@@ -167,7 +173,7 @@ public class CadastroCaixa extends javax.swing.JFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 20, 140));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 670, 10));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 680, 10));
 
         btNovo.setText("Novo");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -177,12 +183,180 @@ public class CadastroCaixa extends javax.swing.JFrame {
         });
         jPanel1.add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 70, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 450));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 480));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        AtivarCampos();
+        btEntrada.setEnabled(true);
+        btSaida.setEnabled(true);
+    }//GEN-LAST:event_btNovoActionPerformed
+
+    private void btEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntradaActionPerformed
+        Caixa l = new Caixa();
+        CaixaDao dao = new CaixaDao();
+
+        String entradaText = txtEntrada.getText().trim();
+
+        if (entradaText.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, insira um valor para a entrada.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;  // Encerra o método se o campo de entrada estiver vazio
+        }
+
+        l.setDescricao(txtDescricao.getText());
+        l.setEntrada(Double.parseDouble(txtEntrada.getText()));
+        l.setSaida(0.0); // Definindo a saída como zero para entrada
+
+        dao.entrada(l);
+        carregaTabela();
+    }//GEN-LAST:event_btEntradaActionPerformed
+
+    private void btSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaidaActionPerformed
+        Caixa l = new Caixa();
+        CaixaDao dao = new CaixaDao();
+
+        String entradaText = txtSaida.getText().trim();
+
+        if (entradaText.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, insira um valor para saída.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;  // Encerra o método se o campo de entrada estiver vazio
+        }
+
+        l.setDescricao(txtDescricao.getText());
+        l.setSaida(Double.parseDouble(txtSaida.getText()));
+        l.setEntrada(0.0); // Definindo a entrada como zero para saída
+
+        dao.saida(l);
+        carregaTabela();
+        limparTexto();
+    }//GEN-LAST:event_btSaidaActionPerformed
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+
+        Caixa l = new Caixa();
+        CaixaDao dao = new CaixaDao();
+
+        int index = tbFluxoCaixa.getSelectedRow();
+        l = dao.listarFluxoCaixa().get(index);
+
+        switch (JOptionPane.showConfirmDialog(null, "Deseja excluir a Informção ? \n "
+            + "\n Descrição:  " + l.getDescricao()
+            + "\n Entrada R$: " + l.getEntrada()
+            + "\n Saida R$: " + l.getSaida()
+            + "\n Será alterado"
+            + " \n Descrição: " + txtDescricao.getText()
+            + "\n Entrada R$: " + txtEntrada.getText()
+            + "\n Saida R$: " + txtSaida.getText(),
+            "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+
+        case 0:
+        dao.remover(l);
+        carregaTabela();
+        limparTexto();
+        // desativaBotoes();
+        break;
+        case 1:
+        JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        break;
+        }
+        btNovo.setEnabled(true);
+        DesativaCampos();
+    }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+
+        Caixa l = new Caixa();
+        CaixaDao dao = new CaixaDao();
+
+        int index = tbFluxoCaixa.getSelectedRow();
+        l = dao.listarFluxoCaixa().get(index);
+
+        switch (JOptionPane.showConfirmDialog(null,
+            "[--ALTERAÇÃO DE DADOS--] \n Dado Atual"
+            + "\n Descrição:  " + l.getDescricao()
+            + "\n Entrada R$: " + l.getEntrada()
+            + "\n Saida R$: " + l.getSaida()
+            + "\n Será alterado"
+            + " \n Descrição: " + txtDescricao.getText()
+            + "\n Entrada R$: " + txtEntrada.getText()
+            + "\n Saida R$: " + txtSaida.getText()
+            + "\n Deseja realmente fazer alteração?",
+            "Alteração de dados.", JOptionPane.YES_NO_OPTION)) {
+
+        case 0:
+
+        double novaEntrada = Double.parseDouble(txtEntrada.getText());
+        double novaSaida = Double.parseDouble(txtSaida.getText());
+
+        // Verifica se houve alteração na entrada
+        if (novaEntrada != l.getEntrada()) {
+            l.setEntrada(novaEntrada);
+            dao.entrada(l);
+        }
+
+        // Verifica se houve alteração na saída
+        if (novaSaida != l.getSaida()) {
+            l.setSaida(novaSaida);
+            dao.saida(l);
+        }
+
+        carregaTabela();
+        limparTexto();
+        // desativaBotoes();
+        //desativaCampos();
+        break;
+        case 1:
+        JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.",
+            "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        break;
+        }
+        btNovo.setEnabled(true);
+        DesativaCampos();
+    }//GEN-LAST:event_btAlterarActionPerformed
+
+    private void tbFluxoCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFluxoCaixaMouseClicked
+
+        Caixa l = new Caixa();
+
+        CaixaDao dao = new CaixaDao();
+
+        int index = tbFluxoCaixa.getSelectedRow();
+
+        l = dao.listarFluxoCaixa().get(index);
+
+        txtDescricao.setText(l.getDescricao());
+
+        txtEntrada.setText(Double.toString(l.getEntrada()));
+        txtSaida.setText(Double.toString(l.getSaida()));
+
+        //Configurar a data e hora automatica
+        java.util.Date dataHoraAtual = new java.util.Date();
+        java.sql.Timestamp dataSQL = new java.sql.Timestamp(dataHoraAtual.getTime());
+        l.setDataHora(dataSQL);
+
+        desativaBotoes();
+
+        btNovo.setEnabled(false);
+        btAlterar.setEnabled(true);
+        btExcluir.setEnabled(true);
+
+        txtDescricao.setEnabled(true);
+
+        txtEntrada.setEnabled(true);
+
+        txtSaida.setEnabled(true);
+        /*
+        btEntrada.setEnabled(false);
+        btSaida.setEnabled(false);
+        btAlterar.setEnabled(false);
+        btExcluir.setEnabled(false);
+        */
+    }//GEN-LAST:event_tbFluxoCaixaMouseClicked
 private void carregaTabela() {
+    
 
         DefaultTableModel modelo = (DefaultTableModel) tbFluxoCaixa.getModel();
         modelo.setNumRows(0);
@@ -264,176 +438,6 @@ private void carregaTabela() {
     private void desativaBotoes() {
 
     }
-
-    private void tbFluxoCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFluxoCaixaMouseClicked
-
-        Caixa l = new Caixa();
-
-        CaixaDao dao = new CaixaDao();
-
-        int index = tbFluxoCaixa.getSelectedRow();
-
-        l = dao.listarFluxoCaixa().get(index);
-
-        txtDescricao.setText(l.getDescricao());
-
-        txtEntrada.setText(Double.toString(l.getEntrada()));
-        txtSaida.setText(Double.toString(l.getSaida()));
-
-        //Configurar a data e hora automatica 
-        java.util.Date dataHoraAtual = new java.util.Date();
-        java.sql.Timestamp dataSQL = new java.sql.Timestamp(dataHoraAtual.getTime());
-        l.setDataHora(dataSQL);
-
-        desativaBotoes();
-
-        btNovo.setEnabled(false);
-        btAlterar.setEnabled(true);
-        btExcluir.setEnabled(true);
-
-        txtDescricao.setEnabled(true);
-
-        txtEntrada.setEnabled(true);
-
-        txtSaida.setEnabled(true);
-        /*
-         btEntrada.setEnabled(false);
-         btSaida.setEnabled(false);
-         btAlterar.setEnabled(false);
-         btExcluir.setEnabled(false);
-         */
-
-    }//GEN-LAST:event_tbFluxoCaixaMouseClicked
-
-    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-
-        Caixa l = new Caixa();
-        CaixaDao dao = new CaixaDao();
-
-        int index = tbFluxoCaixa.getSelectedRow();
-        l = dao.listarFluxoCaixa().get(index);
-
-        switch (JOptionPane.showConfirmDialog(null, "Deseja excluir a Informção ? \n "
-                + "\n Descrição:  " + l.getDescricao()
-                + "\n Entrada R$: " + l.getEntrada()
-                + "\n Saida R$: " + l.getSaida()
-                + "\n Será alterado"
-                + " \n Descrição: " + txtDescricao.getText()
-                + "\n Entrada R$: " + txtEntrada.getText()
-                + "\n Saida R$: " + txtSaida.getText(),
-                "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
-
-            case 0:
-                dao.remover(l);
-                carregaTabela();
-                limparTexto();
-                // desativaBotoes();
-                break;
-            case 1:
-                JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                break;
-        }
-        btNovo.setEnabled(true);
-        DesativaCampos();
-    }//GEN-LAST:event_btExcluirActionPerformed
-
-    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-
-        Caixa l = new Caixa();
-        CaixaDao dao = new CaixaDao();
-
-        int index = tbFluxoCaixa.getSelectedRow();
-        l = dao.listarFluxoCaixa().get(index);
-
-        switch (JOptionPane.showConfirmDialog(null,
-                "[--ALTERAÇÃO DE DADOS--] \n Dado Atual"
-                + "\n Descrição:  " + l.getDescricao()
-                + "\n Entrada R$: " + l.getEntrada()
-                + "\n Saida R$: " + l.getSaida()
-                + "\n Será alterado"
-                + " \n Descrição: " + txtDescricao.getText()
-                + "\n Entrada R$: " + txtEntrada.getText()
-                + "\n Saida R$: " + txtSaida.getText()
-                + "\n Deseja realmente fazer alteração?",
-                "Alteração de dados.", JOptionPane.YES_NO_OPTION)) {
-
-            case 0:
-
-                double novaEntrada = Double.parseDouble(txtEntrada.getText());
-                double novaSaida = Double.parseDouble(txtSaida.getText());
-
-                // Verifica se houve alteração na entrada
-                if (novaEntrada != l.getEntrada()) {
-                    l.setEntrada(novaEntrada);
-                    dao.entrada(l);
-                }
-
-                // Verifica se houve alteração na saída
-                if (novaSaida != l.getSaida()) {
-                    l.setSaida(novaSaida);
-                    dao.saida(l);
-                }
-
-                carregaTabela();
-                limparTexto();
-                // desativaBotoes();
-                //desativaCampos();
-                break;
-            case 1:
-                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.",
-                        "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                break;
-        }
-        btNovo.setEnabled(true);
-        DesativaCampos();
-
-    }//GEN-LAST:event_btAlterarActionPerformed
-
-    private void btSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaidaActionPerformed
-        Caixa l = new Caixa();
-        CaixaDao dao = new CaixaDao();
-        
-        String entradaText = txtSaida.getText().trim();
-
-        if (entradaText.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, insira um valor para saída.", "Aviso", JOptionPane.WARNING_MESSAGE);
-            return;  // Encerra o método se o campo de entrada estiver vazio
-        }
-
-        l.setDescricao(txtDescricao.getText());
-        l.setSaida(Double.parseDouble(txtSaida.getText()));
-        l.setEntrada(0.0); // Definindo a entrada como zero para saída
-
-        dao.saida(l);
-        carregaTabela();
-        limparTexto();
-    }//GEN-LAST:event_btSaidaActionPerformed
-
-    private void btEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntradaActionPerformed
-        Caixa l = new Caixa();
-        CaixaDao dao = new CaixaDao();
-
-        String entradaText = txtEntrada.getText().trim();
-
-        if (entradaText.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, insira um valor para a entrada.", "Aviso", JOptionPane.WARNING_MESSAGE);
-            return;  // Encerra o método se o campo de entrada estiver vazio
-        }
-
-        l.setDescricao(txtDescricao.getText());
-        l.setEntrada(Double.parseDouble(txtEntrada.getText()));
-        l.setSaida(0.0); // Definindo a saída como zero para entrada
-
-        dao.entrada(l);
-        carregaTabela();
-
-    }//GEN-LAST:event_btEntradaActionPerformed
-
-    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        AtivarCampos();
-        btEntrada.setEnabled(true);
-        btSaida.setEnabled(true);
-    }//GEN-LAST:event_btNovoActionPerformed
 
     /**
      * @param args the command line arguments
