@@ -2,6 +2,10 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/gui/CadastroCaixa.java</file>
+            <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/gui/CadastroPedidoBobina.java</file>
+            <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/DAO/CaixaDao.java</file>
+        </group>
     </open-files>
 </project-private>

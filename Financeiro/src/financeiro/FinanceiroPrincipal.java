@@ -5,7 +5,7 @@
  */
 package financeiro;
 
-import financeiro.gui.CadastroFluxoCaixa;
+import financeiro.gui.CadastroCaixa;
 import javax.swing.WindowConstants;
 
 /**
@@ -27,7 +27,7 @@ public class FinanceiroPrincipal {
         mm.setVisible(true);*/
 
         
-         CadastroFluxoCaixa mm = new CadastroFluxoCaixa();
+         CadastroCaixa mm = new CadastroCaixa();
 
         mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
