@@ -26,7 +26,7 @@ public class CalculoNFDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("insert into calculonf(descricao,dataEmissao,quantidade,pesoPapel,valorUnitario,frete,impostoIpi,comissao,valorApagar,totalCarga,idbobina) values (?,?,?,?,?,?,?,?,?,?,?,);");
+            pstm = con.prepareStatement("INSERT INTO calculonf(descricao, dataemissao, quantidade, pesopapel, valorunitario, frete, impostoipi, comissao, valorapagar, totalcarga) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 
             pstm.setString(1, calculoNF.getDescricao());
             pstm.setDate(2, calculoNF.getDataEmissao());
@@ -39,7 +39,7 @@ public class CalculoNFDao {
             pstm.setDouble(8, calculoNF.getComissao());
             pstm.setDouble(9, calculoNF.getValorApagar());
             pstm.setDouble(10, calculoNF.getTotalCarga());
-             pstm.setDouble(11, calculoNF.getIdbobina());
+           // pstm.setDouble(11, calculoNF.getIdbobina());
 
             pstm.execute();
 
@@ -57,8 +57,7 @@ public class CalculoNFDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("UPDATE calculonf  set descricao = ?, dataEmissao =?, quantidade = ?, pesoPapel = ?, valorUnitario = ?,frete = ?, impostoIpi = ? ,comissao = ? ,valorApagar = ?,totalCarga = ?, idbobina = ? where id = ?;");
-
+            pstm = con.prepareStatement("UPDATE calculonf SET descricao = ?, dataemissao = ?, quantidade = ?, pesopapel = ?, valorunitario = ?, frete = ?, impostoipi = ?, comissao = ?, valorapagar = ?, totalcarga = ? WHERE id = ?");
             pstm.setString(1, calculoNF.getDescricao());
             pstm.setDate(2, calculoNF.getDataEmissao());
             pstm.setDouble(3, calculoNF.getQuantidade());
@@ -70,7 +69,7 @@ public class CalculoNFDao {
             pstm.setDouble(8, calculoNF.getComissao());
             pstm.setDouble(9, calculoNF.getValorApagar());
             pstm.setDouble(10, calculoNF.getTotalCarga());
-             pstm.setDouble(11, calculoNF.getIdbobina());
+            pstm.setDouble(11, calculoNF.getIdbobina());
 
             pstm.execute();
 
@@ -89,7 +88,7 @@ public class CalculoNFDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareCall("DELETE from calculonf where id =? ; ");
+            pstm = con.prepareStatement("DELETE FROM calculonf WHERE id = ?");
 
             pstm.setLong(1, calculoNF.getId());
 
@@ -124,7 +123,7 @@ public class CalculoNFDao {
 
                 calculoNF.setQuantidade(rs.getInt("quantidade"));
                 calculoNF.setPesoPapel(rs.getDouble("pesoPapel"));
-                
+
                 calculoNF.setValorUnitario(rs.getDouble("valorUnitario"));
                 calculoNF.setFrete(rs.getDouble("frete"));
 

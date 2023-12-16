@@ -6,32 +6,31 @@
 package financeiro.DAO;
 
 import financeiro.conexao.Conexao;
-import financeiro.model.BobinaC;
+import financeiro.model.DetalhesVenda;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Ledilson
  */
-public class BobinaDao {
-
-    public void adicionar(BobinaC bobinaC) {
+public class DetalhesVendaDao {
+    
+     public void adicionar( DetalhesVenda  detalhesVenda) {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("insert into bobina(nomeBobina,valorBobina) values (?, ?);");
+            pstm = con.prepareStatement("insert into detalhesvenda(idevenda,quantidade,id_produto) values (?,?,?);");
 
-            pstm.setString(1, bobinaC.getNomeBobina());
-            pstm.setDouble(2, bobinaC.getValorBobina());
+            pstm.setInt(1,detalhesVenda.getQuantVenda());
+            pstm.setDouble(2, detalhesVenda.getIdBobina());
+             pstm.setDouble(3, detalhesVenda.getIdCompra());
 
             pstm.execute();
 
@@ -44,16 +43,18 @@ public class BobinaDao {
         }
     }
 
-    public void alterar(BobinaC bobinaC) {
+    public void alterar(DetalhesVenda detalhesVenda) {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("update bobina set nomeBobina = ?, valorBobina=? where id =?;");
+            pstm = con.prepareStatement("update detalhesvenda set quantidade = ?, idevenda=?, id_produto = ? where id =?;");
 
-            pstm.setString(1, bobinaC.getNomeBobina());
-            pstm.setDouble(2, bobinaC.getValorBobina());
-            pstm.setLong(3, bobinaC.getId());
+            pstm.setLong(1, detalhesVenda.getIdBobina());
+            pstm.setInt(2, detalhesVenda.getQuantVenda());
+             pstm.setLong(3, detalhesVenda.getIdCompra());
+             
+            pstm.setLong(4, detalhesVenda.getId());
 
             pstm.executeUpdate();
 
@@ -66,15 +67,15 @@ public class BobinaDao {
         }
     }
 
-    public void remover(BobinaC bobinaC) {
+    public void remover(DetalhesVenda detalhesVenda) {
 
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareCall("delete from bobina where id =? ; ");
+            pstm = con.prepareCall("delete from detalhesvenda where id =? ; ");
 
-            pstm.setLong(1, bobinaC.getId());
+            pstm.setLong(1, detalhesVenda.getId());
 
             pstm.executeUpdate();
 
@@ -87,21 +88,21 @@ public class BobinaDao {
         }
     }
 
-    public List<BobinaC> listar() {
-        return listar(null); // Chama o método com termoBusca nulo para listar todas as bobinas
+    public List<DetalhesVenda> listarDetalhes() {
+        return listarDetalhes(null); // Chama o método com termoBusca nulo para listar todas as bobinas
     }
     
 
-    public List<BobinaC> listar(String termoBusca) {
+    public List<DetalhesVenda> listarDetalhes(String termoBusca) {
 
-        List<BobinaC> bobinaCs = new ArrayList<>();
+        List<DetalhesVenda> DetalhesVendass = new ArrayList<>();
 
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
         ResultSet rs = null;
 
         try {
-            String sql = "SELECT * FROM bobina WHERE nomeBobina LIKE ? OR valorBobina LIKE ? ORDER BY nomeBobina ASC;";
+            String sql = "SELECT * FROM detalhesvenda ;";
             pstm = con.prepareStatement(sql);
 
             // Adicione o caractere '%' antes e depois do termo de busca para correspondência parcial
@@ -113,13 +114,13 @@ public class BobinaDao {
             rs = pstm.executeQuery();
 
             while (rs.next()) {
-                BobinaC bobinaC = new BobinaC();
+                DetalhesVenda DetalhesVenda = new DetalhesVenda();
 
-                bobinaC.setId(rs.getLong("id"));
-                bobinaC.setNomeBobina(rs.getString("nomeBobina"));
-                bobinaC.setValorBobina(rs.getDouble("valorBobina"));
+                DetalhesVenda.setId(rs.getLong("id"));
+                DetalhesVenda.setIdBobina(rs.getLong("idBobina"));
+                DetalhesVenda.setQuantVenda((int) rs.getLong("quantidade"));
 
-                bobinaCs.add(bobinaC);
+                DetalhesVendass.add(DetalhesVenda);
             }
 
         } catch (SQLException ErroSql) {
@@ -128,7 +129,7 @@ public class BobinaDao {
             Conexao.closeConnection(con, pstm, rs);
         }
 
-        return bobinaCs;
+        return DetalhesVendass;
     }
 
 }
