@@ -10,7 +10,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -26,6 +29,7 @@ public class BuscarLivroCaixa extends javax.swing.JFrame {
     public BuscarLivroCaixa() {
         initComponents();
         desabilitarBotoes();
+
     }
 
     /**
@@ -48,8 +52,10 @@ public class BuscarLivroCaixa extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         btPesquisa = new javax.swing.JButton();
         btBuscarLivroCaixa = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Fluxo de Caixa");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -60,12 +66,12 @@ public class BuscarLivroCaixa extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Data", "Descricação", "Entrada", "Saída"
+                "Data", "Descrição", "Entrada", "Saída"
             }
         ));
         jScrollPane1.setViewportView(tbBuscarLivroCaixa);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 650, 340));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 710, 360));
         jPanel1.add(dateChooserFimCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 130, -1));
         jPanel1.add(dateChooserInicioCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 130, -1));
 
@@ -74,7 +80,7 @@ public class BuscarLivroCaixa extends javax.swing.JFrame {
 
         jLabel2.setText("Data Inicial");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 650, 20));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 710, 20));
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 10, 90));
@@ -85,7 +91,7 @@ public class BuscarLivroCaixa extends javax.swing.JFrame {
                 btPesquisaActionPerformed(evt);
             }
         });
-        jPanel1.add(btPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, -1, -1));
+        jPanel1.add(btPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 140, 30));
 
         btBuscarLivroCaixa.setText("Procurar Registro");
         btBuscarLivroCaixa.addActionListener(new java.awt.event.ActionListener() {
@@ -93,9 +99,12 @@ public class BuscarLivroCaixa extends javax.swing.JFrame {
                 btBuscarLivroCaixaActionPerformed(evt);
             }
         });
-        jPanel1.add(btBuscarLivroCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, 130, -1));
+        jPanel1.add(btBuscarLivroCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 140, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 450));
+        jButton1.setText("Imprimir");
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 110, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 470));
 
         pack();
         setLocationRelativeTo(null);
@@ -119,7 +128,7 @@ public class BuscarLivroCaixa extends javax.swing.JFrame {
         dateChooserInicioCaixa.setEnabled(false);
         dateChooserFimCaixa.setEnabled(false);
         btBuscarLivroCaixa.setEnabled(false);
-       // btPesquisa.setEnabled(false);
+        // btPesquisa.setEnabled(false);
 
     }
     private void btBuscarLivroCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarLivroCaixaActionPerformed
@@ -136,16 +145,30 @@ public class BuscarLivroCaixa extends javax.swing.JFrame {
         columnModel.getColumn(2).setPreferredWidth(20);
         columnModel.getColumn(3).setPreferredWidth(10);
 
+        // Criar um renderizador centralizado
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
+        
+        tbBuscarLivroCaixa.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        tbBuscarLivroCaixa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+      
         try (Connection con = Conexao.getConnection()) {
             String sql = "SELECT * FROM caixa WHERE (datahora BETWEEN ? AND ?) OR (datahora BETWEEN ? AND ?)";
 
+             //Formatar o valor no campo jtable
+            NumberFormat currencyValorEntrada = NumberFormat.getCurrencyInstance();
+             NumberFormat currencyValorSaida = NumberFormat.getCurrencyInstance();
+            
+            
             try (PreparedStatement pst = con.prepareStatement(sql)) {
                 pst.setObject(1, new java.sql.Timestamp(dateChooserInicioCaixa.getDate().getTime()));
                 pst.setObject(2, new java.sql.Timestamp(dateChooserFimCaixa.getDate().getTime()));
                 pst.setObject(3, new java.sql.Timestamp(dateChooserInicioCaixa.getDate().getTime()));
                 pst.setObject(4, new java.sql.Timestamp(dateChooserFimCaixa.getDate().getTime()));
 
-         //linha para testar a consultar
+                //linha para testar a consultar
                 //  System.out.println("SQL: " + pst.toString());
                 try (ResultSet rs = pst.executeQuery()) {
                     if (!rs.next()) {
@@ -159,8 +182,11 @@ public class BuscarLivroCaixa extends javax.swing.JFrame {
                             model.addRow(new Object[]{
                                 rs.getObject("datahora"),
                                 rs.getObject("descricao"),
-                                rs.getObject("entrada"),
-                                rs.getObject("saida"),});
+                              //  rs.getObject("entrada"),
+                                currencyValorEntrada.format(rs.getDouble("entrada")),
+                                //rs.getObject("saida"),
+                                currencyValorSaida.format(rs.getDouble("saida")),
+                            });
                         } while (rs.next());
                     }
                 }
@@ -213,6 +239,7 @@ public class BuscarLivroCaixa extends javax.swing.JFrame {
     private javax.swing.JButton btPesquisa;
     private com.toedter.calendar.JDateChooser dateChooserFimCaixa;
     private com.toedter.calendar.JDateChooser dateChooserInicioCaixa;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

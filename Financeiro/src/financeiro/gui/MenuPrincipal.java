@@ -26,8 +26,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         //ABRIR NA TELA TODA 
         //  setExtendedState(MAXIMIZED_BOTH);
         // Definir um tamanho específico para o JFrame
-       setSize(800, 600); // Ajuste os valores conforme necessário
-         // setSize(900, 700);
+        setSize(800, 600); // Ajuste os valores conforme necessário
+        // setSize(900, 700);
         // Centralizar o JFrame na tela
         setLocationRelativeTo(null);
         setResizable(false);
@@ -46,6 +46,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
@@ -61,6 +64,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItem6 = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jSeparator8 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jSeparator9 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem14 = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -71,6 +81,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem3.setText("jMenuItem3");
 
         jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem10.setText("jMenuItem10");
+
+        jMenuItem12.setText("jMenuItem12");
+
+        jMenuItem13.setText("jMenuItem13");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,7 +116,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu6.setText("Empresarial");
         jMenu6.add(jSeparator5);
 
-        jMenuItem7.setText("Pedido");
+        jMenuItem7.setText("Pedido Bobinas");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);
@@ -132,6 +148,37 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.add(jSeparator4);
 
         jMenuBar1.add(jMenu2);
+
+        jMenu7.setText("Localizar Registro");
+
+        jMenuItem9.setText("Localizar Caixa");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem9);
+        jMenu7.add(jSeparator8);
+
+        jMenuItem11.setText("Localizar Boleto e Pgamento");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem11);
+        jMenu7.add(jSeparator9);
+
+        jMenuItem14.setText("Localizar Pedidos");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem14);
+        jMenu7.add(jSeparator7);
+
+        jMenuBar1.add(jMenu7);
 
         jMenu3.setText("Backup");
 
@@ -179,7 +226,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuBobinaActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-     
+
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
@@ -195,16 +242,35 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        PostgresBackupRestore mc = new PostgresBackupRestore();
+        CadastroBoleto mc = new CadastroBoleto();
         mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         mc.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        CadastroCaixa mc = new CadastroCaixa();
+        PostgresBackupRestore mc = new PostgresBackupRestore();
         mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         mc.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        BuscarLivroCaixa mc = new BuscarLivroCaixa();
+        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        mc.setVisible(true);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        BuscarBoleto mc = new BuscarBoleto();
+        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        mc.setVisible(true);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+
+        BuscarPedidoBobina mc = new BuscarPedidoBobina();
+        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        mc.setVisible(true);
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -250,8 +316,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -259,11 +331,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
+    private javax.swing.JPopupMenu.Separator jSeparator8;
+    private javax.swing.JPopupMenu.Separator jSeparator9;
     // End of variables declaration//GEN-END:variables
 }

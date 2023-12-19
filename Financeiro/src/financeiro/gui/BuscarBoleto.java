@@ -10,7 +10,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -24,11 +27,11 @@ public class BuscarBoleto extends javax.swing.JFrame {
      * Creates new form BuscarBoleto
      */
     public BuscarBoleto() {
-       // super();
+        // super();
         initComponents();
         desabilitarBotoes();
-       // habilitarBotoes();
-       
+        // habilitarBotoes();
+
     }
 
     /**
@@ -51,9 +54,12 @@ public class BuscarBoleto extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         btPesquisa = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Boletos e Pag.");
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -79,7 +85,7 @@ public class BuscarBoleto extends javax.swing.JFrame {
                 btBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(btBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, -1, -1));
+        jPanel1.add(btBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 53, 150, 30));
 
         jLabel1.setText("Data Inicial");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 87, -1));
@@ -97,18 +103,12 @@ public class BuscarBoleto extends javax.swing.JFrame {
                 btPesquisaActionPerformed(evt);
             }
         });
-        jPanel1.add(btPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, -1, -1));
+        jPanel1.add(btPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 13, 150, 30));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        jButton2.setText("Imprimir");
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 53, 110, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 490));
 
         pack();
         setLocationRelativeTo(null);
@@ -126,15 +126,14 @@ private void habilitarBotoes() {
         dateChooserInicio.setEnabled(false);
         dateChooserFim.setEnabled(false);
         btBuscar.setEnabled(false);
-       // btPesquisa.setEnabled(false);
+        // btPesquisa.setEnabled(false);
 
     }
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
         // TODO add your handling code here:
-         dateChooserInicio.setEnabled(false);
-         dateChooserFim.setEnabled(false);
-        
-        
+        dateChooserInicio.setEnabled(false);
+        dateChooserFim.setEnabled(false);
+
         DefaultTableModel model = (DefaultTableModel) tbBuscar.getModel();
 
         TableColumnModel columnModel = tbBuscar.getColumnModel();
@@ -146,8 +145,23 @@ private void habilitarBotoes() {
         columnModel.getColumn(4).setPreferredWidth(20);
         columnModel.getColumn(5).setPreferredWidth(20);
 
+        // Criar um renderizador centralizado 
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
+        tbBuscar.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        tbBuscar.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        //tbBuscar.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        tbBuscar.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        tbBuscar.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+
         try (Connection con = Conexao.getConnection()) {
             String sql = "SELECT * FROM boletoempresa WHERE (databoletoreceber BETWEEN ? AND ?) OR (databoletoapagar BETWEEN ? AND ?)";
+
+            //Formatar o valor no campo jtable
+            NumberFormat currencyValorReceber = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyValorPagar = NumberFormat.getCurrencyInstance();
 
             try (PreparedStatement pst = con.prepareStatement(sql)) {
                 pst.setObject(1, new java.sql.Timestamp(dateChooserInicio.getDate().getTime()));
@@ -169,11 +183,12 @@ private void habilitarBotoes() {
                             model.addRow(new Object[]{
                                 rs.getObject("nomeboletoreceber"),
                                 rs.getObject("databoletoreceber"),
-                                rs.getObject("valorboletoreceber"),
+                                // rs.getObject("valorboletoreceber"),
+                                currencyValorReceber.format(rs.getDouble("valorboletoreceber")),
                                 rs.getObject("nomeboletoapagar"),
                                 rs.getObject("databoletoapagar"),
-                                rs.getObject("valorboletoapagar")
-
+                                //  rs.getObject("valorboletoapagar")
+                                currencyValorPagar.format(rs.getDouble("valorboletoapagar"))
                             });
                         } while (rs.next());
                     }
@@ -189,7 +204,7 @@ private void habilitarBotoes() {
 
     private void btPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisaActionPerformed
         // TODO add your handling code here:
-         habilitarBotoes();
+        habilitarBotoes();
     }//GEN-LAST:event_btPesquisaActionPerformed
 
     /**
@@ -237,6 +252,7 @@ private void habilitarBotoes() {
     private javax.swing.JButton btPesquisa;
     private com.toedter.calendar.JDateChooser dateChooserFim;
     private com.toedter.calendar.JDateChooser dateChooserInicio;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

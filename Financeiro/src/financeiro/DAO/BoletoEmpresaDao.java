@@ -27,7 +27,7 @@ public class BoletoEmpresaDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("insert into boletoEmpresa(nomeBoletoReceber,dataBoletoReceber,valorBoletoReceber,nomeBoletoApagar,dataBoletoApagar,valorBoletoApagar) values (?,?,?,?,?,?);");
+            pstm = con.prepareStatement("insert into boletoEmpresa(nomeboletoreceber,databoletoreceber,valorboletoreceber,nomeboletoapagar,databoletoapagar,valorboletoapagar) values (?,?,?,?,?,?);");
 
             pstm.setString(1, boletoEmpresa.getBoletoClienteReceber());
             pstm.setDate(2, boletoEmpresa.getDataClienteReceber());
@@ -53,7 +53,7 @@ public class BoletoEmpresaDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("update boletoEmpresa set nomeBoletoReceber = ?, dataBoletoReceber = ?, valorBoletoReceber = ?, nomeBoletoApagar = ?, dataBoletoApagar = ?, valorBoletoApagar = ? where id = ?;");
+            pstm = con.prepareStatement("update boletoempresa set nomeboletoreceber = ?, databoletoreceber = ?, valorboletoreceber = ?, nomeboletoapagar = ?, databoletoapagar = ?, valorboletoapagar = ? where id = ?;");
 
             pstm.setString(1, boletoEmpresa.getBoletoClienteReceber());
             pstm.setDate(2, boletoEmpresa.getDataClienteReceber());
@@ -80,13 +80,14 @@ public class BoletoEmpresaDao {
     public void remover(BoletoEmpresa boletoEmpresa) {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
-
+        
         try {
-            pstm = con.prepareCall("delete from boletoEmpresa where id = ?;");
+            pstm = con.prepareCall("DELETE FROM boletoempresa where id = ?;");
 
             pstm.setLong(1, boletoEmpresa.getId());
 
             pstm.executeUpdate();
+
             JOptionPane.showMessageDialog(null, "Removido com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (SQLException ErroSql) {
@@ -99,7 +100,7 @@ public class BoletoEmpresaDao {
     }
 
     public List<BoletoEmpresa> listarBoletoEmpresa() {
-        
+
         List<BoletoEmpresa> boletoEmpresas = new ArrayList<>();
 
         Connection con = Conexao.getConnection();
@@ -107,7 +108,7 @@ public class BoletoEmpresaDao {
         ResultSet rs = null;
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM boletoEmpresa ORDER BY nomeBoletoReceber ASC;");
+            pstm = con.prepareStatement("SELECT * FROM boletoempresa ORDER BY nomeboletoreceber ASC;");
             rs = pstm.executeQuery();
 
             while (rs.next()) {
@@ -116,15 +117,15 @@ public class BoletoEmpresaDao {
 
                 boletoEmpresa.setId(rs.getLong("id"));
 
-                boletoEmpresa.setBoletoClienteReceber(rs.getString("nomeBoletoReceber"));
-                boletoEmpresa.setBoletoEmpresaPagar(rs.getString("nomeBoletoApagar"));
+                boletoEmpresa.setBoletoClienteReceber(rs.getString("nomeboletoreceber"));
+                boletoEmpresa.setBoletoEmpresaPagar(rs.getString("nomeboletoapagar"));
 
-                boletoEmpresa.setReceberClienteValor(rs.getDouble("valorBoletoReceber"));
-                boletoEmpresa.setPagarEmpresaValor(rs.getDouble("valorBoletoApagar"));
+                boletoEmpresa.setReceberClienteValor(rs.getDouble("valorboletoreceber"));
+                boletoEmpresa.setPagarEmpresaValor(rs.getDouble("valorboletoapagar"));
 
-                boletoEmpresa.setDataClienteReceber(rs.getDate("dataBoletoReceber"));
-                boletoEmpresa.setDataEmpresaPagar(rs.getDate("dataBoletoApagar"));
-                
+                boletoEmpresa.setDataClienteReceber(rs.getDate("databoletoreceber"));
+                boletoEmpresa.setDataEmpresaPagar(rs.getDate("databoletoapagar"));
+
                 boletoEmpresas.add(boletoEmpresa);
             }
         } catch (SQLException ErroSql) {

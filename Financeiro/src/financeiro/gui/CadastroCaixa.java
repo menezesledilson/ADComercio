@@ -25,8 +25,6 @@ public class CadastroCaixa extends javax.swing.JFrame {
 
     //Data automatica
     private final SimpleDateFormat sdfDataAutomatica = new SimpleDateFormat("dd-MM-yyyy");
-   
-    
 
     /**
      * Creates new form CadastroFluxoCaixa
@@ -38,9 +36,8 @@ public class CadastroCaixa extends javax.swing.JFrame {
         limparTexto();
         DesativaCampos();
         DesativarBotao();
-        
-       // setResizable(false);
-        
+
+        // setResizable(false);
     }
 
     /**
@@ -77,6 +74,7 @@ public class CadastroCaixa extends javax.swing.JFrame {
         btNovo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -98,8 +96,14 @@ public class CadastroCaixa extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbFluxoCaixa);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 680, 320));
+
+        txtDescricao.setNextFocusableComponent(txtEntrada);
         jPanel1.add(txtDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 20, 130, -1));
+
+        txtEntrada.setNextFocusableComponent(btEntrada);
         jPanel1.add(txtEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 80, -1));
+
+        txtSaida.setNextFocusableComponent(btSaida);
         jPanel1.add(txtSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 90, -1));
 
         jLabel1.setText("Descrição.:");
@@ -128,6 +132,7 @@ public class CadastroCaixa extends javax.swing.JFrame {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 104, -1, 20));
 
         btSaida.setText("Saida");
+        btSaida.setNextFocusableComponent(txtSaida);
         btSaida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSaidaActionPerformed(evt);
@@ -190,6 +195,7 @@ public class CadastroCaixa extends javax.swing.JFrame {
         AtivarCampos();
         btEntrada.setEnabled(true);
         btSaida.setEnabled(true);
+
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntradaActionPerformed
@@ -199,15 +205,17 @@ public class CadastroCaixa extends javax.swing.JFrame {
         String entradaText = txtEntrada.getText().trim();
 
         if (entradaText.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, insira um valor para a entrada.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Por favor, insira os dados de saída.", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;  // Encerra o método se o campo de entrada estiver vazio
         }
 
         l.setDescricao(txtDescricao.getText());
         l.setEntrada(Double.parseDouble(txtEntrada.getText()));
         l.setSaida(0.0); // Definindo a saída como zero para entrada
-
+        txtSaida.setEnabled(false);
+        btSaida.setEnabled(false);
         dao.entrada(l);
+        limparTexto();
         carregaTabela();
     }//GEN-LAST:event_btEntradaActionPerformed
 
@@ -221,13 +229,17 @@ public class CadastroCaixa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor, insira um valor para saída.", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;  // Encerra o método se o campo de entrada estiver vazio
         }
-
         l.setDescricao(txtDescricao.getText());
         l.setSaida(Double.parseDouble(txtSaida.getText()));
         l.setEntrada(0.0); // Definindo a entrada como zero para saída
 
         dao.saida(l);
         carregaTabela();
+         
+        txtEntrada.setEnabled(false);
+        btEntrada.setEnabled(false);
+        
+        dao.entrada(l);
         limparTexto();
     }//GEN-LAST:event_btSaidaActionPerformed
 
@@ -240,24 +252,25 @@ public class CadastroCaixa extends javax.swing.JFrame {
         l = dao.listarFluxoCaixa().get(index);
 
         switch (JOptionPane.showConfirmDialog(null, "Deseja excluir a Informção ? \n "
-            + "\n Descrição:  " + l.getDescricao()
-            + "\n Entrada R$: " + l.getEntrada()
-            + "\n Saida R$: " + l.getSaida()
-            + "\n Será alterado"
-            + " \n Descrição: " + txtDescricao.getText()
-            + "\n Entrada R$: " + txtEntrada.getText()
-            + "\n Saida R$: " + txtSaida.getText(),
-            "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+                + "\n Descrição:  " + l.getDescricao()
+                + "\n Entrada R$: " + l.getEntrada()
+                + "\n Saida R$: " + l.getSaida()
+                + "\n Será alterado"
+                + " \n Descrição: " + txtDescricao.getText()
+                + "\n Entrada R$: " + txtEntrada.getText()
+                + "\n Saida R$: " + txtSaida.getText(),
+                "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
 
-        case 0:
-        dao.remover(l);
-        carregaTabela();
-        limparTexto();
-        // desativaBotoes();
-        break;
-        case 1:
-        JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-        break;
+            case 0:
+                dao.remover(l);
+                carregaTabela();
+                limparTexto();
+                // desativaBotoes();
+                
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                break;
         }
         btNovo.setEnabled(true);
         DesativaCampos();
@@ -272,43 +285,43 @@ public class CadastroCaixa extends javax.swing.JFrame {
         l = dao.listarFluxoCaixa().get(index);
 
         switch (JOptionPane.showConfirmDialog(null,
-            "[--ALTERAÇÃO DE DADOS--] \n Dado Atual"
-            + "\n Descrição:  " + l.getDescricao()
-            + "\n Entrada R$: " + l.getEntrada()
-            + "\n Saida R$: " + l.getSaida()
-            + "\n Será alterado"
-            + " \n Descrição: " + txtDescricao.getText()
-            + "\n Entrada R$: " + txtEntrada.getText()
-            + "\n Saida R$: " + txtSaida.getText()
-            + "\n Deseja realmente fazer alteração?",
-            "Alteração de dados.", JOptionPane.YES_NO_OPTION)) {
+                "[--ALTERAÇÃO DE DADOS--] \n Dado Atual"
+                + "\n Descrição:  " + l.getDescricao()
+                + "\n Entrada R$: " + l.getEntrada()
+                + "\n Saida R$: " + l.getSaida()
+                + "\n Será alterado"
+                + " \n Descrição: " + txtDescricao.getText()
+                + "\n Entrada R$: " + txtEntrada.getText()
+                + "\n Saida R$: " + txtSaida.getText()
+                + "\n Deseja realmente fazer alteração?",
+                "Alteração de dados.", JOptionPane.YES_NO_OPTION)) {
 
-        case 0:
+            case 0:
 
-        double novaEntrada = Double.parseDouble(txtEntrada.getText());
-        double novaSaida = Double.parseDouble(txtSaida.getText());
+                double novaEntrada = Double.parseDouble(txtEntrada.getText());
+                double novaSaida = Double.parseDouble(txtSaida.getText());
 
-        // Verifica se houve alteração na entrada
-        if (novaEntrada != l.getEntrada()) {
-            l.setEntrada(novaEntrada);
-            dao.entrada(l);
-        }
+                // Verifica se houve alteração na entrada
+                if (novaEntrada != l.getEntrada()) {
+                    l.setEntrada(novaEntrada);
+                    dao.entrada(l);
+                }
 
-        // Verifica se houve alteração na saída
-        if (novaSaida != l.getSaida()) {
-            l.setSaida(novaSaida);
-            dao.saida(l);
-        }
+                // Verifica se houve alteração na saída
+                if (novaSaida != l.getSaida()) {
+                    l.setSaida(novaSaida);
+                    dao.saida(l);
+                }
 
-        carregaTabela();
-        limparTexto();
-        // desativaBotoes();
-        //desativaCampos();
-        break;
-        case 1:
-        JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.",
-            "AVISO", JOptionPane.INFORMATION_MESSAGE);
-        break;
+                carregaTabela();
+                limparTexto();
+                // desativaBotoes();
+                //desativaCampos();
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.",
+                        "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                break;
         }
         btNovo.setEnabled(true);
         DesativaCampos();
@@ -334,9 +347,9 @@ public class CadastroCaixa extends javax.swing.JFrame {
         java.sql.Timestamp dataSQL = new java.sql.Timestamp(dataHoraAtual.getTime());
         l.setDataHora(dataSQL);
 
-        desativaBotoes();
+      
 
-        btNovo.setEnabled(false);
+        btNovo.setEnabled(true);
         btAlterar.setEnabled(true);
         btExcluir.setEnabled(true);
 
@@ -346,14 +359,13 @@ public class CadastroCaixa extends javax.swing.JFrame {
 
         txtSaida.setEnabled(true);
         /*
-        btEntrada.setEnabled(false);
-        btSaida.setEnabled(false);
-        btAlterar.setEnabled(false);
-        btExcluir.setEnabled(false);
-        */
+         btEntrada.setEnabled(false);
+         btSaida.setEnabled(false);
+         btAlterar.setEnabled(false);
+         btExcluir.setEnabled(false);
+         */
     }//GEN-LAST:event_tbFluxoCaixaMouseClicked
-private void carregaTabela() {
-    
+    private void carregaTabela() {
 
         DefaultTableModel modelo = (DefaultTableModel) tbFluxoCaixa.getModel();
         modelo.setNumRows(0);
@@ -374,7 +386,7 @@ private void carregaTabela() {
 
             NumberFormat currencyEntrada = NumberFormat.getCurrencyInstance();
             NumberFormat currencySaida = NumberFormat.getCurrencyInstance();
-            
+
             while (rs.next()) {
                 modelo.addRow(new Object[]{
                     rs.getString("datahora"),
@@ -433,9 +445,7 @@ private void carregaTabela() {
         txtSaida.setEnabled(false);
     }
 
-    private void desativaBotoes() {
-
-    }
+  
 
     /**
      * @param args the command line arguments

@@ -11,6 +11,7 @@ import financeiro.model.PedidoBobina;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -57,10 +58,10 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPedido = new javax.swing.JTable();
         txtNomeEmpresa = new javax.swing.JTextField();
+        txtValor = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtValor = new javax.swing.JTextField();
         txtQuant = new javax.swing.JTextField();
         txtDataPedido = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -81,6 +82,7 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pedido Bobina");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -134,7 +136,12 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbPedido);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 790, 290));
+
+        txtNomeEmpresa.setNextFocusableComponent(txtValor);
         jPanel1.add(txtNomeEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 19, 280, -1));
+
+        txtValor.setNextFocusableComponent(txtQuant);
+        jPanel1.add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 70, -1));
 
         jLabel1.setText("Empresa.:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 19, -1, 30));
@@ -144,8 +151,11 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
 
         jLabel3.setText("Valor.:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, 30));
-        jPanel1.add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 70, -1));
+
+        txtQuant.setNextFocusableComponent(txtDataPedido);
         jPanel1.add(txtQuant, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 40, -1));
+
+        txtDataPedido.setNextFocusableComponent(txtDataEntrega);
         jPanel1.add(txtDataPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(207, 60, 100, -1));
 
         jLabel4.setText("Data Pedido.:");
@@ -153,18 +163,26 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
 
         jLabel5.setText("Data Entrega.:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 110, 80, 20));
+
+        txtDataEntrega.setNextFocusableComponent(txtChequeA);
         jPanel1.add(txtDataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 107, -1));
 
         jLabel6.setText("N.Cheque 1.:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 64, -1, 20));
+
+        txtChequeA.setNextFocusableComponent(txtChequeB);
         jPanel1.add(txtChequeA, new org.netbeans.lib.awtextra.AbsoluteConstraints(399, 60, 50, -1));
 
         jLabel7.setText("N.Cheque 2.:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, -1, 20));
+
+        txtChequeB.setNextFocusableComponent(txtChequeC);
         jPanel1.add(txtChequeB, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 50, -1));
 
         jLabel8.setText("N.Cheque 3.:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, -1, 20));
+
+        txtChequeC.setNextFocusableComponent(btGravar);
         jPanel1.add(txtChequeC, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, 50, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 172, 790, 10));
 
@@ -194,7 +212,7 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
 
         int index = tbPedido.getSelectedRow();
         l = dao.listarPedidoBobina().get(index);
-  
+
         switch (JOptionPane.showConfirmDialog(null,
                 "[--ALTERAÇÃO DE DADOS--] \n Dado Atual"
                 + "\n Empresa:  " + l.getNomeClientePedido()
@@ -268,6 +286,7 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        txtNomeEmpresa.setText("");
 
         limparTexto();
         ativaBotoes();
@@ -306,6 +325,7 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
             // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
 
             JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+            return; // Impede a continuação do método se a data estiver incorreta       
         }
         // Entrada da Data Empresa
         try {
@@ -319,10 +339,15 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
 
             // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+            return; // Impede a continuação do método se a data estiver incorreta
+
         }
 
         // Adicionando o objeto ao banco de dados
         dao.adicionar(l);
+
+        // Exibir mensagem de sucesso
+        JOptionPane.showMessageDialog(null, "Pedido adicionado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
         // Carregando a tabela
         carregaTabela();
@@ -496,12 +521,14 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
 
             pstm = con.prepareStatement("SELECT * FROM pedidobobina ORDER BY nomeCliente ASC;");
             rs = pstm.executeQuery();
-
+            //Formatar o valor no campo jtable
+            NumberFormat currencyValor = NumberFormat.getCurrencyInstance();
             while (rs.next()) {
+
                 modelo.addRow(new Object[]{
                     //rs.getString(1), id da tabela do banco de dados
                     rs.getString(2),
-                    rs.getString(3),
+                    currencyValor.format(rs.getDouble("valorpedido")),
                     rs.getString(4),
                     rs.getString(5),
                     rs.getString(6),
@@ -520,13 +547,16 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
 
     private void CentralizarJTextFields() {
 
+        txtNomeEmpresa.setHorizontalAlignment(SwingConstants.CENTER);
         txtTotalBobina.setHorizontalAlignment(SwingConstants.CENTER);
         txtTotalValor.setHorizontalAlignment(SwingConstants.CENTER);
         txtValor.setHorizontalAlignment(SwingConstants.CENTER);
         txtDataEntrega.setHorizontalAlignment(SwingConstants.CENTER);
         txtDataPedido.setHorizontalAlignment(SwingConstants.CENTER);
         txtQuant.setHorizontalAlignment(SwingConstants.CENTER);
-
+        txtChequeA.setHorizontalAlignment(SwingConstants.CENTER);
+        txtChequeB.setHorizontalAlignment(SwingConstants.CENTER);
+        txtChequeC.setHorizontalAlignment(SwingConstants.CENTER);
         txtTotalBobina.setEnabled(false);
         txtTotalValor.setEnabled(false);
     }
@@ -534,9 +564,8 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
     private void limparTexto() {
 
         txtNomeEmpresa.setText("");
-        txtNomeEmpresa.setText("");
-
         txtQuant.setText("");
+        txtValor.setText("");
 
         txtDataEntrega.setText("");
         txtDataPedido.setText("");

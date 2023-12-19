@@ -13,10 +13,12 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,14 +35,12 @@ public class CadastroBoleto extends javax.swing.JFrame {
      * Creates new form CadastroBoleto
      */
     public CadastroBoleto() {
-
         initComponents();
-        
+
         carregaTabela();
         desativaBotoes();
         desativaCampos();
-        
-        
+        CentralizarJTextFields();
     }
 
     /**
@@ -151,6 +151,8 @@ public class CadastroBoleto extends javax.swing.JFrame {
         jLabel6.setText("R$.:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, 30, 30));
         jPanel1.add(txtDataClienteReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 80, -1));
+
+        txtValorEmpresaPagar.setNextFocusableComponent(btGravar);
         jPanel1.add(txtValorEmpresaPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 60, -1));
 
         txtDataEmpresaPagar.setText(" ");
@@ -192,7 +194,18 @@ public class CadastroBoleto extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+private void CentralizarJTextFields() {
 
+        txtEmpresaPagar.setHorizontalAlignment(SwingConstants.CENTER);
+        txtClienteReceber.setHorizontalAlignment(SwingConstants.CENTER);
+
+        txtValorEmpresaPagar.setHorizontalAlignment(SwingConstants.CENTER);
+        txtValorClienteReceber.setHorizontalAlignment(SwingConstants.CENTER);
+
+        txtDataClienteReceber.setHorizontalAlignment(SwingConstants.CENTER);
+        txtDataEmpresaPagar.setHorizontalAlignment(SwingConstants.CENTER);
+
+    }
     private void tbBoletoClienteEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbBoletoClienteEmpresaMouseClicked
 
         //Setando campos de texto com registros
@@ -233,13 +246,11 @@ public class CadastroBoleto extends javax.swing.JFrame {
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
 
         BoletoEmpresa e = new BoletoEmpresa();
-
         BoletoEmpresaDao dao = new BoletoEmpresaDao();
 
         int index = tbBoletoClienteEmpresa.getSelectedRow();
-
         e = dao.listarBoletoEmpresa().get(index);
-
+        
         e.setBoletoClienteReceber(txtClienteReceber.getText());
 
         e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
@@ -299,7 +310,6 @@ public class CadastroBoleto extends javax.swing.JFrame {
                 break;
         }
 
-
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
@@ -310,53 +320,45 @@ public class CadastroBoleto extends javax.swing.JFrame {
         int index = tbBoletoClienteEmpresa.getSelectedRow();
         e = dao.listarBoletoEmpresa().get(index);
 
-      
         switch (JOptionPane.showConfirmDialog(null,
                 " [--ALTERAÇÃO DE DADOS--] \n Dado Atual"
                 + "\n Cliente:  " + e.getBoletoClienteReceber()
                 + "\n Data à Receber: " + e.getDataClienteReceber()
-                        
-                + "\n Valor à Receber R$: " + e.getReceberClienteValor()       
+                + "\n Valor à Receber R$: " + e.getReceberClienteValor()
                 + "\n Empresa: " + e.getBoletoEmpresaPagar()
-                        
                 + "\n Data à Pagar: " + e.getDataEmpresaPagar()
                 + "\n Valor à Pagar R$: " + e.getPagarEmpresaValor()
-                        
-                + "\n Será alterado"  
-                +"\n Cliente: " + txtClienteReceber.getText()
-                +"\n Data à Receber: " + txtDataEmpresaPagar.getText()
-                + "\n Valor à Pagar R$: " +  txtValorClienteReceber.getText()
-                        
+                + "\n Será alterado"
+                + "\n Cliente: " + txtClienteReceber.getText()
+                + "\n Data à Receber: " + txtDataEmpresaPagar.getText()
+                + "\n Valor à Pagar R$: " + txtValorClienteReceber.getText()
                 + "\n Empresa: " + txtEmpresaPagar.getText()
                 + "\n Data à Receber " + txtDataEmpresaPagar.getText()
-                + "\n Valor à Pagar R$: " + txtValorEmpresaPagar.getText()             
-                        
+                + "\n Valor à Pagar R$: " + txtValorEmpresaPagar.getText()
                 + "\n Deseja realmente fazer alteração?",
                 "Alteração de dados.  ", JOptionPane.YES_NO_OPTION)) {
 
             case 0:
-                
+
                 e.setBoletoClienteReceber(txtClienteReceber.getText());
                 e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
-                              
-                e.setReceberClienteValor(Double.parseDouble(txtValorEmpresaPagar.getText()));             
+
+                e.setReceberClienteValor(Double.parseDouble(txtValorEmpresaPagar.getText()));
                 e.setPagarEmpresaValor(Double.parseDouble(txtValorEmpresaPagar.getText()));
-                
-                
-                
-                 // Entrada da Data cliente
+
+                // Entrada da Data cliente
                 try {
                     java.util.Date dataFormatada = sdfC.parse(txtDataClienteReceber.getText());
                     java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
-                    
+
                     e.setDataClienteReceber(dataSQL);
-                    
+
                 } catch (ParseException ex) {
                     // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
 
                     JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
-                 // Entrada da Data Empresa
+                // Entrada da Data Empresa
                 try {
                     java.util.Date dataFormatada = sdfE.parse(txtDataEmpresaPagar.getText());
 
@@ -369,7 +371,7 @@ public class CadastroBoleto extends javax.swing.JFrame {
                     // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
-  
+
                 dao.alterar(e);// faz alteração no banco de dados
                 carregaTabela();
                 limparTexto();
@@ -403,6 +405,7 @@ public class CadastroBoleto extends javax.swing.JFrame {
             // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
 
             JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         // Entrada da Data Empresa
         try {
@@ -413,6 +416,7 @@ public class CadastroBoleto extends javax.swing.JFrame {
             // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
 
             JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         /*OBTENDO O VALOR DE CLIENTE */
@@ -489,17 +493,24 @@ public class CadastroBoleto extends javax.swing.JFrame {
             pstm = con.prepareStatement("SELECT * FROM boletoEmpresa ORDER BY nomeBoletoReceber ASC;");
             rs = pstm.executeQuery();
 
+            //Formatar o valor no campo jtable
+            NumberFormat currencyReceber = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyApagar = NumberFormat.getCurrencyInstance();
+
             while (rs.next()) {
                 modelo.addRow(new Object[]{
                     //rs.getString(1),
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4),
-                    rs.getString(5),
-                    rs.getString(6),
-                    rs.getString(7)
-                });
-            } Conexao.closeConnection(con, pstm, rs);
+                    rs.getString("nomeboletoreceber"),
+                    rs.getString("databoletoreceber"),
+                    currencyReceber.format(rs.getDouble("valorboletoreceber")),
+                    //rs.getString(4),
+                    rs.getString("nomeboletoapagar"),
+                    rs.getString("databoletoapagar"),
+                    // currencyApagar.format(rs.getDouble("valorboletoApgar")),
+
+                    currencyApagar.format(rs.getDouble("valorboletoapagar")),});
+            }
+            Conexao.closeConnection(con, pstm, rs);
 
         } catch (Exception ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR);

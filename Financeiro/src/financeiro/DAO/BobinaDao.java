@@ -28,7 +28,7 @@ public class BobinaDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("insert into bobina(nomeBobina,valorBobina) values (?, ?);");
+            pstm = con.prepareStatement("insert into bobina(nomebobina,valorbobina) values (?, ?);");
 
             pstm.setString(1, bobinaC.getNomeBobina());
             pstm.setDouble(2, bobinaC.getValorBobina());
@@ -49,10 +49,11 @@ public class BobinaDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("update bobina set nomeBobina = ?, valorBobina=? where id =?;");
+            pstm = con.prepareStatement("update bobina set nomebobina = ?, valorbobina=? where id =?;");
 
             pstm.setString(1, bobinaC.getNomeBobina());
             pstm.setDouble(2, bobinaC.getValorBobina());
+
             pstm.setLong(3, bobinaC.getId());
 
             pstm.executeUpdate();
@@ -72,7 +73,7 @@ public class BobinaDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareCall("delete from bobina where id =? ; ");
+            pstm = con.prepareCall("delete from bobina where id = ? ; ");
 
             pstm.setLong(1, bobinaC.getId());
 
@@ -87,12 +88,7 @@ public class BobinaDao {
         }
     }
 
-    public List<BobinaC> listar() {
-        return listar(null); // Chama o método com termoBusca nulo para listar todas as bobinas
-    }
-    
-
-    public List<BobinaC> listar(String termoBusca) {
+    public List<BobinaC> listarBobinaC() {
 
         List<BobinaC> bobinaCs = new ArrayList<>();
 
@@ -101,18 +97,12 @@ public class BobinaDao {
         ResultSet rs = null;
 
         try {
-            String sql = "SELECT * FROM bobina WHERE nomeBobina LIKE ? OR valorBobina LIKE ? ORDER BY nomeBobina ASC;";
-            pstm = con.prepareStatement(sql);
-
-            // Adicione o caractere '%' antes e depois do termo de busca para correspondência parcial
-            termoBusca = "%" + termoBusca + "%";
-
-            pstm.setString(1, termoBusca);
-            pstm.setString(2, termoBusca);
-
+            pstm = con.prepareStatement("SELECT * FROM bobina ORDER BY nomeBobina ASC;");
+            rs = pstm.executeQuery();
             rs = pstm.executeQuery();
 
             while (rs.next()) {
+
                 BobinaC bobinaC = new BobinaC();
 
                 bobinaC.setId(rs.getLong("id"));
