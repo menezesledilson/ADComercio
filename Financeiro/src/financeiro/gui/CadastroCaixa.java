@@ -13,9 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -377,6 +374,7 @@ private void carregaTabela() {
 
             NumberFormat currencyEntrada = NumberFormat.getCurrencyInstance();
             NumberFormat currencySaida = NumberFormat.getCurrencyInstance();
+            
             while (rs.next()) {
                 modelo.addRow(new Object[]{
                     rs.getString("datahora"),

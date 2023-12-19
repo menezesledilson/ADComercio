@@ -21,6 +21,8 @@ import javax.swing.JOptionPane;
  */
 public class CompraBDao {
 
+    
+
     public void adcionar(CompraBobina compraBobina) {
         //Criar a conexao com banco
         Connection con = Conexao.getConnection();
@@ -32,7 +34,8 @@ public class CompraBDao {
             pstm.setString(2, compraBobina.getDescricaoPedido());
             pstm.setDouble(3, compraBobina.getValorUnitarioPedido());
             pstm.setDouble(4, compraBobina.getPesoPapelPedido());
-              pstm.setDouble(5, compraBobina.getTotalGeralPedido());
+            pstm.setDouble(5, compraBobina.getTotalGeralPedido());
+            //pstm.setDouble(6, compraBobina.getTotalFinalBo());
             pstm.execute();
 
             JOptionPane.showMessageDialog(null, "Adicionado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -120,7 +123,7 @@ public class CompraBDao {
                 compraBobina.setPesoPapelPedido(rs.getDouble("pesopapel"));
                 compraBobina.setValorUnitarioPedido(rs.getDouble("valorunitario"));
                 compraBobina.setNomeEmpresa(rs.getString("nomeempresa"));
-
+                compraBobina.setTotalFinalBo(rs.getDouble("acumulo"));
                 compraBobinas.add(compraBobina);
             }
         } catch (SQLException ErroSql) {

@@ -63,7 +63,6 @@ public class CadastroCompraB extends javax.swing.JFrame {
         cbxCompraB = new javax.swing.JComboBox();
         jButton3 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        btnVender = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -117,7 +116,7 @@ public class CadastroCompraB extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbCompraB);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 690, 170));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 690, 200));
 
         cbxCompraB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione" }));
         cbxCompraB.addActionListener(new java.awt.event.ActionListener() {
@@ -136,18 +135,10 @@ public class CadastroCompraB extends javax.swing.JFrame {
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, -1));
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 170, 50));
 
-        btnVender.setText("Venda");
-        btnVender.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVenderActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
-
         jTextField2.setText("jTextField2");
         jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 380));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 400));
 
         pack();
         setLocationRelativeTo(null);
@@ -172,9 +163,11 @@ private double totalAcumulado = 0.0;
                 double valorTotalPedido = y.getValorUnitarioPedido() * y.getPesoPapelPedido();
                 y.setTotalGeralPedido(valorTotalPedido);
 
-                // Acumula o valor total
+                 
+// Acumula o valor total
                 totalAcumulado += valorTotalPedido;
 
+                //y.setTotalFinalBo(Double.parseDouble(jTextFieldTotalCarga.getText()));
                 // Formata o valor para exibir apenas duas casas decimais
                 DecimalFormat df = new DecimalFormat("#.##");
                 String valorFormatado = df.format(totalAcumulado);
@@ -259,14 +252,6 @@ private double totalAcumulado = 0.0;
         txtValorCompraB.setText("");
         txtValorPesoCompraB.setText("");
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        CadastroVendasDetalhes mc = new CadastroVendasDetalhes();
-        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mc.setVisible(true);
-
-
-    }//GEN-LAST:event_btnVenderActionPerformed
     private void carregaTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tbCompraB.getModel();
         modelo.setNumRows(0);
@@ -278,7 +263,7 @@ private double totalAcumulado = 0.0;
             PreparedStatement pstm;
             ResultSet rs;
 
-            pstm = con.prepareStatement("SELECT id, datapedido, quantidade, descricao, valorunitario, pesopapel, totalpedido FROM pedidocomprabobina ORDER BY datapedido ASC;");
+            pstm = con.prepareStatement("SELECT id, datapedido, quantidade, descricao, valorunitario, pesopapel, totalpedido,acumulo FROM pedidocomprabobina ORDER BY datapedido ASC;");
 
             rs = pstm.executeQuery();
 
@@ -296,7 +281,8 @@ private double totalAcumulado = 0.0;
                     rs.getString("descricao"),
                     rs.getString("valorunitario"),
                     rs.getString("pesopapel"), // df.format(totalPedido) // Adiciona o totalPedido formatado à tabela
-                    rs.getString("totalpedido")
+                    rs.getString("totalpedido"),
+                    rs.getString("acumulo")
                 });
 
             }
@@ -363,7 +349,6 @@ private double totalAcumulado = 0.0;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnVender;
     private javax.swing.JComboBox cbxCompraB;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

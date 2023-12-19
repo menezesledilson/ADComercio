@@ -79,7 +79,8 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         txtTotalValor = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Pedido Bobina");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -169,16 +170,16 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 10, 170));
-        jPanel1.add(txtTotalBobina, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 60, -1));
+        jPanel1.add(txtTotalBobina, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 130, 60, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("<-Total Geral R$->");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 110, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 110, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("<-T Bobinas->");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, -1, -1));
-        jPanel1.add(txtTotalValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 130, 60, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, -1, -1));
+        jPanel1.add(txtTotalValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, 60, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 480));
 

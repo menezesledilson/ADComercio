@@ -20,7 +20,16 @@ public class CompraBobina {
     private Double pesoPapelPedido;
     private Double valorUnitarioPedido;
     private Double totalGeralPedido;
+    private Double totalFinalBo;
 
+    public Double getTotalFinalBo() {
+        return totalFinalBo;
+    }
+
+    public void setTotalFinalBo(Double totalFinalBo) {
+        this.totalFinalBo = totalFinalBo;
+    }
+ 
     
 
     public Long getId() {

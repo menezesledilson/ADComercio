@@ -111,7 +111,7 @@ public class CalculoNFDao {
         ResultSet rs = null;
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM calculo ORDER BY dataemissao ASC;");
+            pstm = con.prepareStatement("SELECT * FROM calculonf ORDER BY dataemissao ASC;");
             rs = pstm.executeQuery();
 
             while (rs.next()) {

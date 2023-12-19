@@ -5,11 +5,24 @@
  */
 package financeiro;
 
+import financeiro.gui.PostgresBackupRestore;
 import financeiro.gui.BuscarLivroCaixa;
 import financeiro.gui.CadastroCaixa;
 import financeiro.gui.CadastroCompraB;
+import financeiro.gui.EmissaoNotaServico;
 import financeiro.gui.EmissorCalculoNF;
-import financeiro.gui.NFTeste;
+import financeiro.gui.MenuPrincipal;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import javax.swing.WindowConstants;
 
 /**
@@ -22,34 +35,13 @@ public class FinanceiroPrincipal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        
-      /* CadastroBoleto mm = new CadastroBoleto();
+
+        MenuPrincipal mm = new MenuPrincipal();
 
         mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        mm.setVisible(true);*/
-        
-        /* CadastroCaixa mm = new CadastroCaixa();
+        mm.setVisible(true);
 
-        mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        mm.setVisible(true); */
-
-        
-     CadastroCompraB mm = new CadastroCompraB();
-
-        mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        mm.setVisible(true);  
-         
-        /*EmissorCalculoNF mm = new EmissorCalculoNF();
-
-         mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-         mm.setVisible(true);*/
     }
-
-   
 
 }

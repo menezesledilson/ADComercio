@@ -11,10 +11,10 @@ import financeiro.model.BobinaC;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.text.NumberFormat;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import sun.security.x509.X500Name;
 
 /**
  *
@@ -27,7 +27,7 @@ public class CadastroBobina extends javax.swing.JFrame {
      */
     public CadastroBobina() {
         initComponents();
-        
+        CentralizarCampos();
         carregaTabela();
         desativaBotoes();
         desativaCampos();
@@ -59,7 +59,7 @@ public class CadastroBobina extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Produtos");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -86,7 +86,7 @@ public class CadastroBobina extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome.", "Valor."
+                "Descrição", "Preço"
             }
         ));
         tbBobina.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -199,15 +199,11 @@ public class CadastroBobina extends javax.swing.JFrame {
 
         p = dao.listar().get(index);//retorna o objeto do arraylist de acordo com a posição
 
-        switch (JOptionPane.showConfirmDialog(null, " [--ALTERAÇÃO DE PRODUTO--] \n Produto Atual: " 
-                
-                
-                + p.getNomeBobina() + 
-                "\n R$: " + p.getValorBobina() + "0 " 
-                
+        switch (JOptionPane.showConfirmDialog(null, " [--ALTERAÇÃO DE PRODUTO--] \n Produto Atual: "
+                + p.getNomeBobina()
+                + "\n R$: " + p.getValorBobina() + "0 "
                 + "\n Será alterado para \n Novo Produto: " + txtDescricao.getText()
-                + "\n R$: " + txtValor.getText()+ "0 "
-                
+                + "\n R$: " + txtValor.getText() + "0 "
                 + "\n Deseja realmente fazer alteração? ",
                 " Alteração de dados. ", JOptionPane.YES_NO_OPTION)) {
 
@@ -224,7 +220,7 @@ public class CadastroBobina extends javax.swing.JFrame {
                 break;
 
             case 1:
-                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.", "AVISO", 
+                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.", "AVISO",
                         JOptionPane.INFORMATION_MESSAGE);
                 break;
         }
@@ -243,7 +239,6 @@ public class CadastroBobina extends javax.swing.JFrame {
         p.setNomeBobina(txtDescricao.getText());
 
         p.setValorBobina(Double.parseDouble(txtValor.getText()));
-        
 
         switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Produto ? \n "
                 + "Produto:  " + p.getNomeBobina()
@@ -295,6 +290,7 @@ public class CadastroBobina extends javax.swing.JFrame {
 
     }
 
+
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
 
         limparTexto();
@@ -305,6 +301,11 @@ public class CadastroBobina extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btNovoActionPerformed
 
+    private void CentralizarCampos() {
+        txtDescricao.setHorizontalAlignment(SwingConstants.CENTER);
+        txtValor.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
     private void carregaTabela() {
 
         DefaultTableModel modelo = (DefaultTableModel) tbBobina.getModel();
@@ -314,32 +315,23 @@ public class CadastroBobina extends javax.swing.JFrame {
         tbBobina.getColumnModel().getColumn(0).setPreferredWidth(350);
         tbBobina.getColumnModel().getColumn(1).setPreferredWidth(20);
 
-        /* BobinaDao dao = new BobinaDao();
-
-         try {
-         dao.listar().stream().forEach((p) -> {
-         modelo.addRow(new Object[]{
-         p.getNomeBobina(),
-         p.getValorBobina()
-         });
-         });
-         } catch (Exception Erro) 
-         {
-         JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados " + Erro, "ERRO", JOptionPane.ERROR);
-         }*/
+       
         try {
 
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
             ResultSet rs;
 
-            pstm = con.prepareStatement("SELECT * FROM bobina ORDER BY nomeBobina ASC;");
+            pstm = con.prepareStatement("SELECT nomebobina, valorbobina FROM bobina ORDER BY nomeBobina ASC;");
             rs = pstm.executeQuery();
+
+            NumberFormat currencyPreco = NumberFormat.getCurrencyInstance();
 
             while (rs.next()) {
                 modelo.addRow(new Object[]{
-                    rs.getString(2),
-                    rs.getString(3)
+                    rs.getString("nomeBobina"),
+                    //rs.getString(3),
+                   currencyPreco.format(rs.getDouble("valorbobina"))
                 });
             }
             Conexao.closeConnection(con, pstm, rs);
@@ -363,16 +355,21 @@ public class CadastroBobina extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroBobina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroBobina.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroBobina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroBobina.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroBobina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroBobina.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroBobina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroBobina.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
