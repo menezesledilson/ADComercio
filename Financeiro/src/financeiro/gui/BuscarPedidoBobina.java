@@ -113,9 +113,14 @@ public class BuscarPedidoBobina extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-        // TODO add your handling code here:
-        dateChooserInicio.setEnabled(false);
-        dateChooserFim.setEnabled(false);
+         // Verificar se as datas inicial e final estão selecionadas
+        if (dateChooserInicio.getDate() == null || dateChooserFim.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione as datas inicial e final antes de realizar a pesquisa.", "Datas não Selecionadas", JOptionPane.WARNING_MESSAGE);
+            return; // Abortar a operação se as datas não estiverem selecionadas
+        }
+        
+       // dateChooserInicio.setEnabled(false);
+        //dateChooserFim.setEnabled(false);
 
         DefaultTableModel model = (DefaultTableModel) tbBuscaPedidoBobina.getModel();
 

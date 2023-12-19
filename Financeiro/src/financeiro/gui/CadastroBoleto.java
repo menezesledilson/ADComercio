@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -77,7 +78,7 @@ public class CadastroBoleto extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Cadastro Boleto e Pagamento");
+        setTitle("Boleto e Pagamento");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -250,7 +251,7 @@ private void CentralizarJTextFields() {
 
         int index = tbBoletoClienteEmpresa.getSelectedRow();
         e = dao.listarBoletoEmpresa().get(index);
-        
+
         e.setBoletoClienteReceber(txtClienteReceber.getText());
 
         e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
@@ -461,12 +462,25 @@ private void CentralizarJTextFields() {
         DefaultTableModel modelo = (DefaultTableModel) tbBoletoClienteEmpresa.getModel();
         modelo.setNumRows(0);
 
+        // Criar um renderizador centralizado
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+       // tbBoletoClienteEmpresa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+       
+         
+
         //Defini o tamanho da tabela
         tbBoletoClienteEmpresa.getColumnModel().getColumn(0).setPreferredWidth(100);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(1).setPreferredWidth(10);
-        tbBoletoClienteEmpresa.getColumnModel().getColumn(2).setPreferredWidth(10);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(2).setPreferredWidth(20);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(3).setPreferredWidth(100);
-        tbBoletoClienteEmpresa.getColumnModel().getColumn(4).setPreferredWidth(10);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(4).setPreferredWidth(20);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(5).setPreferredWidth(10);
 
 
@@ -490,7 +504,7 @@ private void CentralizarJTextFields() {
             PreparedStatement pstm;
             ResultSet rs;
 
-            pstm = con.prepareStatement("SELECT * FROM boletoEmpresa ORDER BY nomeBoletoReceber ASC;");
+            pstm = con.prepareStatement("SELECT * FROM boletoEmpresa ORDER BY databoletoreceber ASC;");
             rs = pstm.executeQuery();
 
             //Formatar o valor no campo jtable

@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -88,6 +89,11 @@ public class CadastroCompraB extends javax.swing.JFrame {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, -1, 30));
 
         jButton2.setText("Emitir NF ");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 120, -1));
         jPanel1.add(jTextFieldTotalCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 40, 70, -1));
 
@@ -163,7 +169,6 @@ private double totalAcumulado = 0.0;
                 double valorTotalPedido = y.getValorUnitarioPedido() * y.getPesoPapelPedido();
                 y.setTotalGeralPedido(valorTotalPedido);
 
-                 
 // Acumula o valor total
                 totalAcumulado += valorTotalPedido;
 
@@ -204,15 +209,15 @@ private double totalAcumulado = 0.0;
         txtValorPesoCompraB.setText("");
     }
 
-    /*private boolean confirmarNovoPedido() {
-     int opcao = JOptionPane.showConfirmDialog(this, "Deseja adicionar mais um pedido?", "Confirmação", JOptionPane.YES_NO_OPTION);
-     return opcao == JOptionPane.YES_OPTION;
-     }*/
     //Comunicação com cbxBobina Adcionar
-    Vector<Integer> idbobinaCompraB = new Vector<Integer>();
-    Vector<Double> valoresCompraB = new Vector<Double>();
+    ArrayList<Integer> idbobinaCompraB = new ArrayList<Integer>();
+    ArrayList<Double> valoresCompraB = new ArrayList<Double>();
 
     public void cbListCompraB() {
+        // Limpar os dados antigos
+        idbobinaCompraB.clear();
+        valoresCompraB.clear();
+        cbxCompraB.removeAllItems();
 
         try {
             BobinaDao dao = new BobinaDao();
@@ -224,14 +229,12 @@ private double totalAcumulado = 0.0;
             rs = pstm.executeQuery();
 
             while (rs.next()) {
-
-                idbobinaCompraB.addElement(rs.getInt(1));
-
+                idbobinaCompraB.add(rs.getInt(1));
                 cbxCompraB.addItem(rs.getString(2));
-
-                valoresCompraB.addElement(rs.getDouble(3));
+                valoresCompraB.add(rs.getDouble(3));
             }
-
+            // Defina o modelo do JComboBox
+                     
         } catch (SQLException ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao listar dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
@@ -240,11 +243,16 @@ private double totalAcumulado = 0.0;
     private void cbxCompraBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCompraBActionPerformed
         // Não use getStateChange() para eventos de ação, pois é específico de eventos de item
         int selectedIndex = cbxCompraB.getSelectedIndex();
-        if (selectedIndex >= 0 && selectedIndex < idbobinaCompraB.size()) {
+        if (selectedIndex >= 0 && selectedIndex < valoresCompraB.size()) {
             double valorSelecionado = valoresCompraB.get(selectedIndex);
             txtValorCompraB.setText(String.valueOf(valorSelecionado));
+        } else {
+            // Adicione logs ou mensagens para identificar quando este bloco é executado
+            System.out.println("Índice selecionado fora dos limites ou valoresCompraB está vazio.");
         }
+
     }//GEN-LAST:event_cbxCompraBActionPerformed
+
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         jTextFieldTotalCarga.setText("");
@@ -252,6 +260,10 @@ private double totalAcumulado = 0.0;
         txtValorCompraB.setText("");
         txtValorPesoCompraB.setText("");
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
     private void carregaTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tbCompraB.getModel();
         modelo.setNumRows(0);

@@ -132,9 +132,14 @@ public class BuscarLivroCaixa extends javax.swing.JFrame {
 
     }
     private void btBuscarLivroCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarLivroCaixaActionPerformed
+        // Verificar se as datas inicial e final estão selecionadas
+        if (dateChooserInicioCaixa.getDate() == null || dateChooserFimCaixa.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione as datas inicial e final antes de realizar a pesquisa.", "Datas não Selecionadas", JOptionPane.WARNING_MESSAGE);
+            return; // Abortar a operação se as datas não estiverem selecionadas
+        }
 
-        dateChooserInicioCaixa.setEnabled(false);
-        dateChooserFimCaixa.setEnabled(false);
+      // dateChooserInicioCaixa.setEnabled(false);
+        //dateChooserFimCaixa.setEnabled(false);
 
         DefaultTableModel model = (DefaultTableModel) tbBuscarLivroCaixa.getModel();
 
@@ -150,18 +155,16 @@ public class BuscarLivroCaixa extends javax.swing.JFrame {
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
         // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
-        
         tbBuscarLivroCaixa.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         tbBuscarLivroCaixa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-      
+
         try (Connection con = Conexao.getConnection()) {
             String sql = "SELECT * FROM caixa WHERE (datahora BETWEEN ? AND ?) OR (datahora BETWEEN ? AND ?)";
 
-             //Formatar o valor no campo jtable
+            //Formatar o valor no campo jtable
             NumberFormat currencyValorEntrada = NumberFormat.getCurrencyInstance();
-             NumberFormat currencyValorSaida = NumberFormat.getCurrencyInstance();
-            
-            
+            NumberFormat currencyValorSaida = NumberFormat.getCurrencyInstance();
+
             try (PreparedStatement pst = con.prepareStatement(sql)) {
                 pst.setObject(1, new java.sql.Timestamp(dateChooserInicioCaixa.getDate().getTime()));
                 pst.setObject(2, new java.sql.Timestamp(dateChooserFimCaixa.getDate().getTime()));
@@ -182,11 +185,10 @@ public class BuscarLivroCaixa extends javax.swing.JFrame {
                             model.addRow(new Object[]{
                                 rs.getObject("datahora"),
                                 rs.getObject("descricao"),
-                              //  rs.getObject("entrada"),
+                                //  rs.getObject("entrada"),
                                 currencyValorEntrada.format(rs.getDouble("entrada")),
                                 //rs.getObject("saida"),
-                                currencyValorSaida.format(rs.getDouble("saida")),
-                            });
+                                currencyValorSaida.format(rs.getDouble("saida")),});
                         } while (rs.next());
                     }
                 }

@@ -114,7 +114,7 @@ public class PedidoBobinaDao {
         ResultSet rs = null;
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM pedidobobina ORDER BY nomeCliente ASC;");
+            pstm = con.prepareStatement("SELECT * FROM pedidobobina ORDER BY datapedido ASC;");
             rs = pstm.executeQuery();
 
             while (rs.next()) {
@@ -123,16 +123,16 @@ public class PedidoBobinaDao {
 
                 pedidoBobina.setId(rs.getLong("id"));
 
-                pedidoBobina.setNomeClientePedido(rs.getString("nomeCliente"));
-                pedidoBobina.setValorPedido(rs.getDouble("valorPedido"));
+                pedidoBobina.setNomeClientePedido(rs.getString("nomecliente"));
+                pedidoBobina.setValorPedido(rs.getDouble("valorpedido"));
 
-                pedidoBobina.setQuantidadeBobina(rs.getInt("quantidadeBobina"));
-                pedidoBobina.setDataPedido(rs.getDate("dataPedido"));
-                pedidoBobina.setDataEntrega(rs.getDate("dataEntrega"));
+                pedidoBobina.setQuantidadeBobina(rs.getInt("quantidadebobina"));
+                pedidoBobina.setDataPedido(rs.getDate("datapedido"));
+                pedidoBobina.setDataEntrega(rs.getDate("dataentrega"));
 
-                pedidoBobina.setNumeroChequeA(rs.getInt("numeroChequeA"));
-                pedidoBobina.setNumeroChequeB(rs.getInt("numeroChequeB"));
-                pedidoBobina.setNumeroChequeC(rs.getInt("numeroChequeC"));
+                pedidoBobina.setNumeroChequeA(rs.getInt("numerochequeA"));
+                pedidoBobina.setNumeroChequeB(rs.getInt("numerochequeB"));
+                pedidoBobina.setNumeroChequeC(rs.getInt("numerochequeC"));
 
                 pedidoBobinas.add(pedidoBobina);
             }

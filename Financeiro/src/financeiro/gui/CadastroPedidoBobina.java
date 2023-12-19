@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -491,6 +492,22 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
         tbPedido.getColumnModel().getColumn(5).setPreferredWidth(15);
         tbPedido.getColumnModel().getColumn(6).setPreferredWidth(10);
         tbPedido.getColumnModel().getColumn(7).setPreferredWidth(10);
+        
+        
+ // Criar um renderizador centralizado
+    	DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    	centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+
+   	// Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
+    	tbPedido.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+    	tbPedido.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+    	tbPedido.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+    	tbPedido.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+    	tbPedido.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+    	tbPedido.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
+    	tbPedido.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
+
 
         try {
             Connection con = Conexao.getConnection();
@@ -519,7 +536,7 @@ public class CadastroPedidoBobina extends javax.swing.JFrame {
                 }
             }
 
-            pstm = con.prepareStatement("SELECT * FROM pedidobobina ORDER BY nomeCliente ASC;");
+            pstm = con.prepareStatement("SELECT * FROM pedidobobina ORDER BY  datapedido ASC;");
             rs = pstm.executeQuery();
             //Formatar o valor no campo jtable
             NumberFormat currencyValor = NumberFormat.getCurrencyInstance();

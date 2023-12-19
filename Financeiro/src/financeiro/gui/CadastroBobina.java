@@ -144,31 +144,42 @@ public class CadastroBobina extends javax.swing.JFrame {
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
 
-        BobinaC b = new BobinaC();
-        BobinaDao dao = new BobinaDao();
+       // Verificar se os campos estão vazios
+    if (txtDescricao.getText().isEmpty() || txtValor.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos antes de gravar.", "Campos Vazios", JOptionPane.WARNING_MESSAGE);
+        return; // Abortar a operação se houver campos vazios
+    }
 
-        int index = tbCadBobinas.getSelectedRow();
-        b = dao.listarBobinaC().get(index);
+    // Criar uma nova instância de BobinaC
+    BobinaC b = new BobinaC();
+    BobinaDao dao = new BobinaDao();
 
-        b.setNomeBobina(txtDescricao.getText());
+    // Atualizar os dados da nova bobina
+    b.setNomeBobina(txtDescricao.getText());
 
-        // Obtendo o valor como uma String do campo de texto
-        String valorBobinaText = txtValor.getText();
+    // Obter o valor como uma String do campo de texto
+    String valorBobinaText = txtValor.getText();
 
+    // Verificar se a conversão para double é válida
+    try {
         // Convertendo a String para double
         double valorBobina = Double.parseDouble(valorBobinaText);
 
         // Definindo o valor convertido na propriedade
         b.setValorBobina(valorBobina);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Valor inválido. Por favor, insira um valor numérico válido.", "Valor Inválido", JOptionPane.WARNING_MESSAGE);
+        return; // Abortar a operação se o valor não for válido
+    }
 
-        dao.adicionar(b);
-        carregaTabela();
+    // Adicionar a nova bobina no banco de dados
+    dao.adicionar(b);
 
-        limparTexto();
+    // Atualizar a tabela
+    carregaTabela();
 
-        // Agora, adicione a nova linha diretamente ao modelo da tabela
-        // DefaultTableModel modelo = (DefaultTableModel) tbBobina.getModel();
-        //modelo.addRow(new Object[]{b.getNomeBobina(), String.valueOf(b.getValorBobina())});
+    // Limpar os campos de texto
+    limparTexto();
 
     }//GEN-LAST:event_btGravarActionPerformed
 

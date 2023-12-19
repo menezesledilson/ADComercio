@@ -15,6 +15,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -85,7 +86,7 @@ public class CadastroCaixa extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Data", "Descrição", "Entrada", "Saida"
+                "Data", "Descrição", "Entrada", "Saída"
             }
         ));
         tbFluxoCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -131,7 +132,7 @@ public class CadastroCaixa extends javax.swing.JFrame {
         jLabel4.setText("Saída.:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 104, -1, 20));
 
-        btSaida.setText("Saida");
+        btSaida.setText("Saída");
         btSaida.setNextFocusableComponent(txtSaida);
         btSaida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -369,10 +370,23 @@ public class CadastroCaixa extends javax.swing.JFrame {
 
         DefaultTableModel modelo = (DefaultTableModel) tbFluxoCaixa.getModel();
         modelo.setNumRows(0);
+        
+         // Criar um renderizador centralizado
+    	DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    	centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+
+   	// Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
+        tbFluxoCaixa.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+    	//tbFluxoCaixa.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+    	tbFluxoCaixa.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+    	tbFluxoCaixa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+    	 
+    	 
 
         //Defini o tamanho da tabela
         tbFluxoCaixa.getColumnModel().getColumn(0).setPreferredWidth(1);
-        tbFluxoCaixa.getColumnModel().getColumn(1).setPreferredWidth(1);
+        tbFluxoCaixa.getColumnModel().getColumn(1).setPreferredWidth(10);
         tbFluxoCaixa.getColumnModel().getColumn(2).setPreferredWidth(1);
         tbFluxoCaixa.getColumnModel().getColumn(3).setPreferredWidth(1);
 
