@@ -29,7 +29,7 @@ public class CadastroBobina extends javax.swing.JFrame {
         initComponents();
         CentralizarCampos();
         carregaTabela();
-        desativaBotoes();
+        // desativaBotoes();
         desativaCampos();
     }
 
@@ -144,42 +144,42 @@ public class CadastroBobina extends javax.swing.JFrame {
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
 
-       // Verificar se os campos estão vazios
-    if (txtDescricao.getText().isEmpty() || txtValor.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos antes de gravar.", "Campos Vazios", JOptionPane.WARNING_MESSAGE);
-        return; // Abortar a operação se houver campos vazios
-    }
+        // Verificar se os campos estão vazios
+        if (txtDescricao.getText().isEmpty() || txtValor.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos antes de gravar.", "Campos Vazios", JOptionPane.WARNING_MESSAGE);
+            return; // Abortar a operação se houver campos vazios
+        }
 
-    // Criar uma nova instância de BobinaC
-    BobinaC b = new BobinaC();
-    BobinaDao dao = new BobinaDao();
+        // Criar uma nova instância de BobinaC
+        BobinaC b = new BobinaC();
+        BobinaDao dao = new BobinaDao();
 
-    // Atualizar os dados da nova bobina
-    b.setNomeBobina(txtDescricao.getText());
+        // Atualizar os dados da nova bobina
+        b.setNomeBobina(txtDescricao.getText());
 
-    // Obter o valor como uma String do campo de texto
-    String valorBobinaText = txtValor.getText();
+        // Obter o valor como uma String do campo de texto
+        String valorBobinaText = txtValor.getText();
 
-    // Verificar se a conversão para double é válida
-    try {
-        // Convertendo a String para double
-        double valorBobina = Double.parseDouble(valorBobinaText);
+        // Verificar se a conversão para double é válida
+        try {
+            // Convertendo a String para double
+            double valorBobina = Double.parseDouble(valorBobinaText);
 
-        // Definindo o valor convertido na propriedade
-        b.setValorBobina(valorBobina);
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Valor inválido. Por favor, insira um valor numérico válido.", "Valor Inválido", JOptionPane.WARNING_MESSAGE);
-        return; // Abortar a operação se o valor não for válido
-    }
+            // Definindo o valor convertido na propriedade
+            b.setValorBobina(valorBobina);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Valor inválido. Por favor, insira um valor numérico válido.", "Valor Inválido", JOptionPane.WARNING_MESSAGE);
+            return; // Abortar a operação se o valor não for válido
+        }
 
-    // Adicionar a nova bobina no banco de dados
-    dao.adicionar(b);
+        // Adicionar a nova bobina no banco de dados
+        dao.adicionar(b);
 
-    // Atualizar a tabela
-    carregaTabela();
+        // Atualizar a tabela
+        carregaTabela();
 
-    // Limpar os campos de texto
-    limparTexto();
+        // Limpar os campos de texto
+        limparTexto();
 
     }//GEN-LAST:event_btGravarActionPerformed
 
@@ -196,12 +196,12 @@ public class CadastroBobina extends javax.swing.JFrame {
         txtDescricao.setText(b.getNomeBobina());
         txtValor.setText(Double.toString(b.getValorBobina()));
 
-        txtDescricao.setEnabled(true);
-        txtValor.setEnabled(true);
+      
         btGravar.setEnabled(false);
         btAlterar.setEnabled(true);
         btExcluir.setEnabled(true);
-
+        ativaCampos();
+        
 
     }//GEN-LAST:event_tbCadBobinasMouseClicked
 

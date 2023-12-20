@@ -62,7 +62,6 @@ public class EmissorCalculoNF extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         txtIPI = new javax.swing.JTextField();
-        Novo = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         btAdicionar = new javax.swing.JButton();
         btEmitir = new javax.swing.JButton();
@@ -70,6 +69,7 @@ public class EmissorCalculoNF extends javax.swing.JFrame {
         lblIpi = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblTotalPagar = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,14 +119,6 @@ public class EmissorCalculoNF extends javax.swing.JFrame {
         jbCalculoNF.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, -1, -1));
         jbCalculoNF.add(txtIPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 80, -1));
 
-        Novo.setText("Limpar");
-        Novo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NovoActionPerformed(evt);
-            }
-        });
-        jbCalculoNF.add(Novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 90, -1));
-
         jLabel14.setText("Digitado pelo usuarioT.Carga");
         jbCalculoNF.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 150, 20));
 
@@ -153,14 +145,16 @@ public class EmissorCalculoNF extends javax.swing.JFrame {
         lblTotalPagar.setText("0.00");
         jbCalculoNF.add(lblTotalPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 160, 70));
 
+        jButton1.setText("Habilitar NS");
+        jbCalculoNF.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jbCalculoNF, javax.swing.GroupLayout.PREFERRED_SIZE, 938, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,14 +196,6 @@ public class EmissorCalculoNF extends javax.swing.JFrame {
 
         }
     }
-    private void NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NovoActionPerformed
-        /* txtTotalCarga.setText("");
-         txtCFrete.setText("");
-         txtCIpi.setText("");
-         txtSomaComissao.setText("");
-         //    txtPeso.setText("");*/
-    }//GEN-LAST:event_NovoActionPerformed
-
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
         CalculoNF n = new CalculoNF();
         CalculoNFDao dao = new CalculoNFDao();
@@ -311,9 +297,9 @@ public class EmissorCalculoNF extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Novo;
     private javax.swing.JButton btAdicionar;
     private javax.swing.JButton btEmitir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

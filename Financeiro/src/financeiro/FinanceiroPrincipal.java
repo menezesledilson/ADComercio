@@ -8,7 +8,7 @@ package financeiro;
 import financeiro.gui.PostgresBackupRestore;
 import financeiro.gui.BuscarLivroCaixa;
 import financeiro.gui.CadastroCaixa;
-import financeiro.gui.CadastroCompraB;
+import financeiro.gui.BuscarNotaServico;
 import financeiro.gui.EmissaoNotaServico;
 import financeiro.gui.EmissorCalculoNF;
 import financeiro.gui.MenuPrincipal;

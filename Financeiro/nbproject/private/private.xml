@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/gui/CadastroCompraB.java</file>
+            <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/model/NotaServico.java</file>
+            <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/gui/MenuPrincipal.java</file>
+            <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/DAO/EmissorNotaServicoDao.java</file>
+            <file>file:/C:/Users/Ledilson/Documents/NetBeansProjects/Financeiro/src/financeiro/gui/EmissorCalculoNF.java</file>
         </group>
     </open-files>
 </project-private>

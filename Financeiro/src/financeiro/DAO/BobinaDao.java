@@ -97,8 +97,7 @@ public class BobinaDao {
         ResultSet rs = null;
 
         try {
-            pstm = con.prepareStatement("SELECT nomebobina, valorbobina FROM bobina ORDER BY nomebobina ASC;");
-            rs = pstm.executeQuery();
+            pstm = con.prepareStatement("SELECT * FROM bobina ORDER BY nomebobina ASC;");
             rs = pstm.executeQuery();
 
             while (rs.next()) {
@@ -106,7 +105,7 @@ public class BobinaDao {
                 BobinaC bobinaC = new BobinaC();
 
                 bobinaC.setId(rs.getLong("id"));
-                
+
                 bobinaC.setNomeBobina(rs.getString("nomebobina"));
                 bobinaC.setValorBobina(rs.getDouble("valorbobina"));
 
