@@ -9,8 +9,10 @@ import financeiro.gui.PostgresBackupRestore;
 import financeiro.gui.BuscarLivroCaixa;
 import financeiro.gui.CadastroCaixa;
 import financeiro.gui.BuscarNotaServico;
+import financeiro.gui.CadastroCredencial;
 import financeiro.gui.EmissaoNotaServico;
 import financeiro.gui.EmissorCalculoNF;
+import financeiro.gui.Login;
 import financeiro.gui.MenuPrincipal;
 import java.awt.Color;
 import java.awt.Font;
@@ -36,7 +38,7 @@ public class FinanceiroPrincipal {
      */
     public static void main(String[] args) {
 
-        MenuPrincipal mm = new MenuPrincipal();
+        Login mm = new Login();
 
         mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

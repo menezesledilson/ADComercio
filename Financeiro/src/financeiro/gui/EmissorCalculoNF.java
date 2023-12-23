@@ -5,20 +5,17 @@
  */
 package financeiro.gui;
 
-import financeiro.DAO.BobinaDao;
-import financeiro.DAO.CalculoNFDao;
+import financeiro.DAO.EmissorNotaServicoDao;
 import financeiro.conexao.Conexao;
-
-import financeiro.model.CalculoNF;
-
+import financeiro.model.NotaServico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
-
+import java.text.NumberFormat;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,8 +29,11 @@ public class EmissorCalculoNF extends javax.swing.JFrame {
      */
     public EmissorCalculoNF() {
         initComponents();
-
         carregaTabela();
+        CentralizarJTextFields();
+        desativaBotoes();
+        btExcluir.setEnabled(false);
+        desativaCampos();
     }
 
     /**
@@ -48,126 +48,362 @@ public class EmissorCalculoNF extends javax.swing.JFrame {
         jbCalculoNF = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbNF = new javax.swing.JTable();
-        txtTotalCarga = new javax.swing.JTextField();
+        tbNotaServico = new javax.swing.JTable();
+        txtTotalCargaFinal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtFrete = new javax.swing.JTextField();
-        txtCIpi = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
         txtComissao = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        txtCFrete = new javax.swing.JTextField();
-        txtSomaComissao = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        txtIPI = new javax.swing.JTextField();
+        txtImposto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        btAdicionar = new javax.swing.JButton();
-        btEmitir = new javax.swing.JButton();
+        lblComissao = new javax.swing.JLabel();
         lblFrete = new javax.swing.JLabel();
-        lblIpi = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        lblTotalPagar = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        lblImposto = new javax.swing.JLabel();
+        txtForncedor = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        btHabilitar = new javax.swing.JButton();
+        btGravar = new javax.swing.JButton();
+        btExcluir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jbCalculoNF.setBackground(new java.awt.Color(204, 204, 204));
-        jbCalculoNF.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Exbir a Comissao");
-        jbCalculoNF.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, -1, 20));
+        jLabel1.setText("Carga Comissão.:");
 
-        tbNF.setModel(new javax.swing.table.DefaultTableModel(
+        tbNotaServico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Quanti", "Bobina", "Valor Unitario", "Peso Papel", "Valor", "Título 6", "Título 7", "Título 8"
+                "Fornecedor", "Carga Geral", "Frete", "Imposto", "Comissão", "Carga Frete", "Carga Imposto", "Valor à pagar"
             }
         ));
-        jScrollPane1.setViewportView(tbNF);
-
-        jbCalculoNF.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 890, 210));
-        jbCalculoNF.add(txtTotalCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 170, 20));
-
-        jLabel6.setText("Comissao  vai ser Digitado pelo Usuario");
-        jbCalculoNF.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, -1, -1));
-        jbCalculoNF.add(txtFrete, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 60, -1));
-        jbCalculoNF.add(txtCIpi, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 70, -1));
-
-        jLabel9.setText("Valor a pagar");
-        jbCalculoNF.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, 110, 20));
-        jbCalculoNF.add(txtComissao, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 80, -1));
-
-        jLabel10.setText("Frete digita vai exibir na tela");
-        jbCalculoNF.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, -1, -1));
-
-        jLabel11.setText("Resultado T.Carga - Frete");
-        jbCalculoNF.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, -1, 20));
-        jbCalculoNF.add(txtCFrete, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 70, -1));
-        jbCalculoNF.add(txtSomaComissao, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 80, -1));
-
-        jLabel12.setText("Resultado T.Carga + IPI");
-        jbCalculoNF.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, -1, 20));
-
-        jLabel13.setText("IPI vai ser Digitado pelo Usuario");
-        jbCalculoNF.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, -1, -1));
-        jbCalculoNF.add(txtIPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 80, -1));
-
-        jLabel14.setText("Digitado pelo usuarioT.Carga");
-        jbCalculoNF.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 150, 20));
-
-        btAdicionar.setText("Gravar");
-        btAdicionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAdicionarActionPerformed(evt);
+        tbNotaServico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbNotaServicoMouseClicked(evt);
             }
         });
-        jbCalculoNF.add(btAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 110, -1));
+        jScrollPane1.setViewportView(tbNotaServico);
 
-        btEmitir.setText("Emiti NF");
-        jbCalculoNF.add(btEmitir, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 120, -1));
+        txtTotalCargaFinal.setNextFocusableComponent(txtFrete);
+
+        jLabel6.setText("Comissão.:");
+
+        txtFrete.setNextFocusableComponent(txtImposto);
+
+        jLabel10.setText("Frete.:");
+
+        jLabel11.setText(" Carga Frete.:");
+
+        jLabel12.setText("Carga Imposto.:");
+
+        jLabel13.setText("Imposto.:");
+
+        jLabel14.setText("T.Carga.:");
+
+        lblComissao.setText("0.00");
 
         lblFrete.setText("0.00");
-        jbCalculoNF.add(lblFrete, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, 190, 40));
 
-        lblIpi.setText("0.00");
-        jbCalculoNF.add(lblIpi, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 190, 210, 50));
+        lblImposto.setText("0.00");
 
-        jLabel4.setText("jLabel4");
-        jbCalculoNF.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, -1, -1));
+        txtForncedor.setNextFocusableComponent(txtTotalCargaFinal);
 
-        lblTotalPagar.setText("0.00");
-        jbCalculoNF.add(lblTotalPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 160, 70));
+        jLabel3.setText("Fornecedor.:");
 
-        jButton1.setText("Habilitar NS");
-        jbCalculoNF.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 30));
+        btHabilitar.setText("Habilitar");
+        btHabilitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btHabilitarActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jbCalculoNF, javax.swing.GroupLayout.PREFERRED_SIZE, 938, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
+        btGravar.setText("Gravar");
+        btGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGravarActionPerformed(evt);
+            }
+        });
+
+        btExcluir.setText("Excluir");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jbCalculoNFLayout = new javax.swing.GroupLayout(jbCalculoNF);
+        jbCalculoNF.setLayout(jbCalculoNFLayout);
+        jbCalculoNFLayout.setHorizontalGroup(
+            jbCalculoNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
+            .addGroup(jbCalculoNFLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jbCalculoNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jbCalculoNFLayout.createSequentialGroup()
+                        .addGroup(jbCalculoNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(jbCalculoNFLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtForncedor, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTotalCargaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblFrete)
+                                .addGap(0, 287, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(jbCalculoNFLayout.createSequentialGroup()
+                        .addGroup(jbCalculoNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jbCalculoNFLayout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtImposto, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblImposto)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtComissao, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblComissao))
+                            .addGroup(jbCalculoNFLayout.createSequentialGroup()
+                                .addComponent(btHabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jbCalculoNF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jbCalculoNFLayout.setVerticalGroup(
+            jbCalculoNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jbCalculoNFLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jbCalculoNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btHabilitar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jbCalculoNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btExcluir)
+                        .addComponent(btGravar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(23, 23, 23)
+                .addGroup(jbCalculoNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtForncedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtTotalCargaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtFrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFrete))
+                .addGap(18, 18, 18)
+                .addGroup(jbCalculoNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtImposto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblImposto)
+                    .addComponent(jLabel6)
+                    .addComponent(txtComissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblComissao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
+
+        getContentPane().add(jbCalculoNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 460));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
+        NotaServico a = new NotaServico();
+        EmissorNotaServicoDao dao = new EmissorNotaServicoDao();
+
+        try {
+            //Digita
+            a.setClienteFornecedor(txtForncedor.getText());
+
+            //Digita
+            a.setTotalCargaFinal(Double.parseDouble(txtTotalCargaFinal.getText()));
+
+            //Digita
+            a.setFrete(Double.parseDouble(txtFrete.getText()));
+
+            // Subtração dos Pedidos: totalCarga = TotalCargaFinal - Frete
+            double totalCargaFinal = a.getTotalCargaFinal();
+            double frete = a.getFrete();
+
+            double totalFreteCarga = totalCargaFinal - frete;
+
+            //Salvar o resultado
+            a.setTotalFrete(totalFreteCarga);
+
+            // Formatar o resultado antes de exibi-lo no rótulo (label)
+            DecimalFormat decimalFormatFreteCarga = new DecimalFormat("#.##");
+            // Aqui você pode ajustar o formato conforme necessário
+
+            String resultadoFormatadoFreteCarga = String.format("%.2f", totalFreteCarga);
+
+            // Exibir o resultado no rótulo (label)
+            lblFrete.setText(String.valueOf(resultadoFormatadoFreteCarga));
+
+            //Digita
+            a.setImposto(Double.parseDouble(txtImposto.getText()));
+
+            //Somar totalFreteCarga + Imposto
+            double Imposto = a.getImposto();
+
+            double totalFreteImposto = totalFreteCarga + Imposto;
+
+            //Salvar o resultado
+            a.setTotalImposto(totalFreteImposto);
+
+            // Formatar o resultado antes de exibi-lo no rótulo (label)
+            // Você pode ajustar o formato conforme necessário
+            DecimalFormat decimalFormatImposto = new DecimalFormat("#.##");
+
+            String resultadoFormatadoImposto = String.format("%.2f", totalFreteImposto);
+
+            lblImposto.setText(String.valueOf(resultadoFormatadoImposto));
+
+            //Digita
+            a.setComissao(Double.parseDouble(txtComissao.getText()));
+
+            //Somar totalFreteImposto - Comssao
+            double Comissao = a.getComissao();
+
+            double totalFreteComissao = totalFreteImposto - Comissao;
+
+            a.setTotalComissao(totalFreteComissao);
+
+            // Formatar o resultado antes de exibi-lo no rótulo (label)
+            // Você pode ajustar o formato conforme necessário
+            DecimalFormat decimalFormatComissao = new DecimalFormat("#.##");
+
+            String resultadoFormatadoComissao = String.format("%.2f", totalFreteComissao);
+
+            lblComissao.setText(String.valueOf(resultadoFormatadoComissao));
+
+            dao.adicionarnf(a);
+          desativaCampos();
+            carregaTabela();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Por favor, digite valores numéricos válidos.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btGravarActionPerformed
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        NotaServico a = new NotaServico();
+        EmissorNotaServicoDao dao = new EmissorNotaServicoDao();
+
+        int index = tbNotaServico.getSelectedRow();
+        a = dao.listarNotaServico().get(index);
+
+        a.setClienteFornecedor(txtForncedor.getText());
+
+        a.setTotalCargaFinal(Double.parseDouble(txtTotalCargaFinal.getText()));
+
+        a.setFrete(Double.parseDouble(txtFrete.getText()));
+        a.setImposto(Double.parseDouble(txtImposto.getText()));
+        a.setComissao(Double.parseDouble(txtComissao.getText()));
+
+        switch (JOptionPane.showConfirmDialog(null, "Deseja excluir os Dados ?"
+                + "\n Fornecedor:  " + a.getClienteFornecedor()
+                + "\n Carga Total: " + a.getTotalCargaFinal()
+                + "\n Frete: " + a.getFrete()
+                + "\n Imposto:" + a.getImposto()
+                + "\n Comissao:  " + a.getComissao()
+                + "\n Frete total " + a.getTotalFrete()
+                + "\n Imposto total " + a.getTotalImposto()
+                + "\n Comissão" + a.getComissao()
+                + "\n Comissão total" + a.getTotalComissao(), "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+
+            case 0:
+                dao.remover(a);
+                carregaTabela();
+                // limparCampos();
+                // desativaBotoes();
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
+    }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void tbNotaServicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbNotaServicoMouseClicked
+        //Setando campos de texto com registros
+        NotaServico a = new NotaServico();
+        EmissorNotaServicoDao dao = new EmissorNotaServicoDao();
+
+        int index = tbNotaServico.getSelectedRow();
+        a = dao.listarNotaServico().get(index);
+
+        txtForncedor.setText(a.getClienteFornecedor());
+        txtTotalCargaFinal.setText(Double.toString(a.getTotalCargaFinal()));
+        txtFrete.setText(Double.toString(a.getFrete()));
+        txtImposto.setText(Double.toString(a.getImposto()));
+        txtComissao.setText(Double.toString(a.getComissao()));
+        
+        btExcluir.setEnabled(true);
+        btGravar.setEnabled(false);
+               
+    }//GEN-LAST:event_tbNotaServicoMouseClicked
+
+    private void btHabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHabilitarActionPerformed
+ativaBotoes();
+ btExcluir.setEnabled(false);
+ativaCampos();
+    }//GEN-LAST:event_btHabilitarActionPerformed
     private void carregaTabela() {
-        DefaultTableModel modelo = (DefaultTableModel) tbNF.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tbNotaServico.getModel();
         modelo.setNumRows(0);
+
+        // Criar um renderizador centralizado
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
+        tbNotaServico.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        tbNotaServico.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        tbNotaServico.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        tbNotaServico.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        tbNotaServico.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+        tbNotaServico.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
+        tbNotaServico.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
+
+        //Defini o tamanho da tabela
+        tbNotaServico.getColumnModel().getColumn(0).setPreferredWidth(250);
+        tbNotaServico.getColumnModel().getColumn(1).setPreferredWidth(150);
+
+        tbNotaServico.getColumnModel().getColumn(2).setPreferredWidth(130);
+        tbNotaServico.getColumnModel().getColumn(3).setPreferredWidth(150);
+
+        tbNotaServico.getColumnModel().getColumn(4).setPreferredWidth(150);
+        tbNotaServico.getColumnModel().getColumn(5).setPreferredWidth(150);
+        tbNotaServico.getColumnModel().getColumn(6).setPreferredWidth(150);
+        tbNotaServico.getColumnModel().getColumn(7).setPreferredWidth(150);
 
         try {
 
@@ -175,84 +411,80 @@ public class EmissorCalculoNF extends javax.swing.JFrame {
             PreparedStatement pstm;
             ResultSet rs;
 
-            pstm = con.prepareStatement("SELECT * FROM calculonf ;");
+            pstm = con.prepareStatement("SELECT * FROM emissornotaservico ORDER BY clientefornecedor ASC;");
             rs = pstm.executeQuery();
+            // pstm = con.prepareStatement("SELECT  clientefornecedor,totalfinalcarga,frete,imposto,comissao, totalfretecarga, totalimpostocarga, totalcomissao FROM emissornotaservico ;");
+
+            //Formatar o valor no campo jtable
+            NumberFormat currencyFinalCarga = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyFrete = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyImposto = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyTotalComissao = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyTotalImpostoCarga = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyTotalFreteCarga = NumberFormat.getCurrencyInstance();
 
             while (rs.next()) {
                 modelo.addRow(new Object[]{
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4),
-                    rs.getString(5),
-                    rs.getString(6),
-                    rs.getString(7),
-                    rs.getString(8),
-                    rs.getString(9),});
+                    // rs.getString("datanotaservico"),
+                    rs.getString("clientefornecedor"),
+                    currencyFinalCarga.format(rs.getDouble("totalfinalcarga")),
+                    currencyFrete.format(rs.getDouble("frete")),
+                    currencyImposto.format(rs.getDouble("imposto")),
+                    currencyTotalComissao.format(rs.getDouble("comissao")),
+                    currencyTotalFreteCarga.format(rs.getDouble("totalfretecarga")),
+                    currencyTotalImpostoCarga.format(rs.getDouble("totalimpostocarga")),
+                    currencyTotalComissao.format(rs.getDouble("totalcomissao")),});
+
+                /*rs.getString("imposto"),
+                 rs.getString("comissao"),
+                 rs.getString("totalfretecarga"),
+                 rs.getString("totalfretecarga"),
+                 rs.getString("totalimpostocarga"),
+                 rs.getString("totalcomissao"), */
             }
             Conexao.closeConnection(con, pstm, rs);
 
         } catch (Exception ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
-
         }
+
     }
-    private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
-        CalculoNF n = new CalculoNF();
-        CalculoNFDao dao = new CalculoNFDao();
 
-        try {
-            // Usuário digita o total da carga
-            double totalCarga = Double.parseDouble(txtTotalCarga.getText());
-            n.setTotalCarga(totalCarga);
+    private void CentralizarJTextFields() {
 
-            // Usuário digita o frete 
-            double frete = Double.parseDouble(txtFrete.getText());
-            n.setFrete(frete);
+        txtForncedor.setHorizontalAlignment(SwingConstants.CENTER);
+        txtImposto.setHorizontalAlignment(SwingConstants.CENTER);
+        txtFrete.setHorizontalAlignment(SwingConstants.CENTER);
+        txtTotalCargaFinal.setHorizontalAlignment(SwingConstants.CENTER);
+        txtComissao.setHorizontalAlignment(SwingConstants.CENTER);
 
-            // Usuário digita o Ipi
-            double ipi = Double.parseDouble(txtIPI.getText());
+    }
 
-            // Calcular CargaFrete: totalCarga - Frete.
-            double cargaFrete = totalCarga - frete;
+    private void ativaBotoes() {
+        btGravar.setEnabled(true);
 
-            // Armazenar o TotalCargaFrete 
-            DecimalFormat dfFrete = new DecimalFormat("#.00");
-            String valorFormatadoFrete = dfFrete.format(cargaFrete);
-            lblFrete.setText("T. Carga Frete : " + valorFormatadoFrete);
+    }
 
-            // Calcular CargaIpi: CargaFrete + IPI.
-            double cargaIpi = cargaFrete + ipi;
+    private void desativaBotoes() {
+        btGravar.setEnabled(false);
+        
+    }
 
-            // Armazenar o TotalCargaIpi 
-            DecimalFormat dfIpi = new DecimalFormat("#.00");
-            String valorFormatadoIpi = dfIpi.format(cargaIpi);
-            lblIpi.setText("T. Carga Ipi: " + valorFormatadoIpi);
-
-            n.setImpostoIpi(ipi);
-
-            // Usuário digita o Comissão
-            double comissao = Double.parseDouble(txtComissao.getText());
-            n.setComissao(comissao);
-
-            // Calcular TotalApagar: CargaIpi - Comissão.
-            double totalPagar = cargaIpi - comissao;
-
-            // Armazenar o TotalApagar 
-            DecimalFormat dfTotalPagar = new DecimalFormat("#.00");
-            String valorFormatadoTotalPagar = dfTotalPagar.format(totalPagar);
-            lblTotalPagar.setText("Total a Pagar: " + valorFormatadoTotalPagar);
-
-            // Salvar no banco de dados
-            n.setValorApagar(totalPagar);  // Certifique-se de ter um campo correspondente no objeto CalculoNF
-            dao.adicionar(n);
-            carregaTabela();
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Por favor, digite valores numéricos válidos.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-
-    }//GEN-LAST:event_btAdicionarActionPerformed
-
+    private void desativaCampos() {
+        txtForncedor.setEnabled(false);
+        txtImposto.setEnabled(false);
+        txtFrete.setEnabled(false);
+        txtTotalCargaFinal.setEnabled(false);
+        txtComissao.setEnabled(false);
+    }
+   
+    private void ativaCampos() {
+        txtForncedor.setEnabled(true);
+        txtImposto.setEnabled(true);
+        txtFrete.setEnabled(true);
+        txtTotalCargaFinal.setEnabled(true);
+        txtComissao.setEnabled(true);
+    }
     /**
      * @param args the command line arguments
      */
@@ -297,30 +529,28 @@ public class EmissorCalculoNF extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btAdicionar;
-    private javax.swing.JButton btEmitir;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btExcluir;
+    private javax.swing.JButton btGravar;
+    private javax.swing.JButton btHabilitar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel jbCalculoNF;
+    private javax.swing.JLabel lblComissao;
     private javax.swing.JLabel lblFrete;
-    private javax.swing.JLabel lblIpi;
-    private javax.swing.JLabel lblTotalPagar;
-    private javax.swing.JTable tbNF;
-    private javax.swing.JTextField txtCFrete;
-    private javax.swing.JTextField txtCIpi;
+    private javax.swing.JLabel lblImposto;
+    private javax.swing.JTable tbNotaServico;
     private javax.swing.JTextField txtComissao;
+    private javax.swing.JTextField txtForncedor;
     private javax.swing.JTextField txtFrete;
-    private javax.swing.JTextField txtIPI;
-    private javax.swing.JTextField txtSomaComissao;
-    private javax.swing.JTextField txtTotalCarga;
+    private javax.swing.JTextField txtImposto;
+    private javax.swing.JTextField txtTotalCargaFinal;
     // End of variables declaration//GEN-END:variables
 }

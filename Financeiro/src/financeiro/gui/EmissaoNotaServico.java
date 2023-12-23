@@ -6,9 +6,10 @@
 package financeiro.gui;
 
 import financeiro.DAO.BobinaDao;
-import financeiro.DAO.EmissorNotaServicoDao;
+import financeiro.DAO.EmissorNotaServicoClienteDao;
 import financeiro.conexao.Conexao;
 import financeiro.model.NotaServico;
+import financeiro.model.NotaServicoCliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -98,7 +99,7 @@ public class EmissaoNotaServico extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Data", "Empresa", "Quant.", "Produto", "Preço Unitário", "Peso"
+                "Data", "Empresa", "Quant.", "Produto", "Preço Unitário", "Peso", "Preço Carga "
             }
         ));
         tbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -242,11 +243,12 @@ public class EmissaoNotaServico extends javax.swing.JFrame {
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
 
         //Objetos
-        NotaServico a = new NotaServico();
-        EmissorNotaServicoDao dao = new EmissorNotaServicoDao();
+        NotaServicoCliente a = new NotaServicoCliente();
+        EmissorNotaServicoClienteDao dao = new EmissorNotaServicoClienteDao();
 
         int index = tbClientes.getSelectedRow(); // retorna o numero da linha selecionada
-        a = dao.listarNotaServico().get(index);
+
+        a = dao.listarNotaServicoCliente().get(index);
 
         a.setClienteEmpresa(txtCliente.getText());
         a.setQuantProduto(Integer.parseInt(txtQuant.getText()));
@@ -262,7 +264,7 @@ public class EmissaoNotaServico extends javax.swing.JFrame {
                 + "\n R$: " + a.getPesoUnitario(), "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
 
             case 0:
-                dao.remover(a);
+                dao.removerCliente(a);
                 carregaTabela();
                 limparCampos();
                 desativarBotao();
@@ -294,8 +296,8 @@ public class EmissaoNotaServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btAtivarClienteActionPerformed
 
     private void btGravaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravaClienteActionPerformed
-        NotaServico a = new NotaServico();
-        EmissorNotaServicoDao dao = new EmissorNotaServicoDao();
+        NotaServicoCliente a = new NotaServicoCliente();
+        EmissorNotaServicoClienteDao dao = new EmissorNotaServicoClienteDao();
 
         ativarBotao();
 
@@ -330,9 +332,9 @@ public class EmissaoNotaServico extends javax.swing.JFrame {
 
                 dao.adicionar(a);
                 carregaTabela();
-               
+
                 limparCampos();
-                 
+
 // Atualiza a soma
                 // Pergunta ao usuário se deseja adicionar mais um pedido
                 int opcao = JOptionPane.showConfirmDialog(this, "Pedido adicionado com sucesso. Deseja adicionar mais um pedido?", "Confirmação", JOptionPane.YES_NO_OPTION);
@@ -357,14 +359,13 @@ public class EmissaoNotaServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btGravaClienteActionPerformed
 
     private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
-       // TODO add your handling code here:
 
         //Setando campos de texto com registros
-        NotaServico a = new NotaServico();
-        EmissorNotaServicoDao dao = new EmissorNotaServicoDao();
+        NotaServicoCliente a = new NotaServicoCliente();
+        EmissorNotaServicoClienteDao dao = new EmissorNotaServicoClienteDao();
 
         int index = tbClientes.getSelectedRow();
-        a = dao.listarNotaServico().get(index);
+        a = dao.listarNotaServicoCliente().get(index);
 
 //        txtPesoUnitario.setText(Double.toString(a.getPesoUnitario()));
         txtCliente.setText(a.getClienteEmpresa());
@@ -430,26 +431,28 @@ public class EmissaoNotaServico extends javax.swing.JFrame {
         tbClientes.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         tbClientes.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         tbClientes.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+        tbClientes.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
 
         //Defini o tamanho da tabela
-        tbClientes.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tbClientes.getColumnModel().getColumn(0).setPreferredWidth(100);
         tbClientes.getColumnModel().getColumn(1).setPreferredWidth(100);
-        tbClientes.getColumnModel().getColumn(2).setPreferredWidth(10);
-        tbClientes.getColumnModel().getColumn(3).setPreferredWidth(100);
-        tbClientes.getColumnModel().getColumn(4).setPreferredWidth(50);
-        tbClientes.getColumnModel().getColumn(5).setPreferredWidth(10);
+        tbClientes.getColumnModel().getColumn(2).setPreferredWidth(25);
+        tbClientes.getColumnModel().getColumn(3).setPreferredWidth(150);
+        tbClientes.getColumnModel().getColumn(4).setPreferredWidth(80);
+        tbClientes.getColumnModel().getColumn(5).setPreferredWidth(60);
 
         try {
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
             ResultSet rs;
 
-            pstm = con.prepareStatement("SELECT datanotaservico, clienteempresa, quantproduto,nomeproduto,valorunitario, valorpeso FROM emissornotaservico;");
+            pstm = con.prepareStatement("SELECT datanotaservico, clienteempresa, quantproduto,nomeproduto,valorunitario, valorpeso, cargainicial FROM emissornotacliente;");
             rs = pstm.executeQuery();
 
             //Formatar o valor no campo jtable
             NumberFormat currencyValorPeso = NumberFormat.getCurrencyInstance();
             NumberFormat currencyValorUnitario = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyValorCargaInicial = NumberFormat.getCurrencyInstance();
 
             while (rs.next()) {
                 modelo.addRow(new Object[]{
@@ -461,7 +464,8 @@ public class EmissaoNotaServico extends javax.swing.JFrame {
                     currencyValorUnitario.format(rs.getDouble("valorunitario")),
                     // rs.getString("valorpeso")
 
-                    currencyValorPeso.format(rs.getDouble("valorpeso")),});
+                    currencyValorPeso.format(rs.getDouble("valorpeso")),
+                    currencyValorCargaInicial.format(rs.getDouble("cargainicial")),});
             }
             Conexao.closeConnection(con, pstm, rs);
 

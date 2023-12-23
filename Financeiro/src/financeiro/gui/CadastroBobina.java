@@ -29,7 +29,7 @@ public class CadastroBobina extends javax.swing.JFrame {
         initComponents();
         CentralizarCampos();
         carregaTabela();
-        // desativaBotoes();
+        //desativaBotoes();
         desativaCampos();
     }
 

@@ -37,7 +37,15 @@ public class NotaServico {
 
     private Double totalCargaFinal;
     
-     private Double totalFinalCarga;
+     private Double cargaGeralNs ;
+
+    public Double getCargaGeralNs() {
+        return cargaGeralNs;
+    }
+
+    public void setCargaGeralNs(Double cargaGeralNs) {
+        this.cargaGeralNs = cargaGeralNs;
+    }
      
 
     public Long getId() {
@@ -169,12 +177,6 @@ public class NotaServico {
         this.totalCargaFinal = totalCargaFinal;
     }
 
-    public Double getTotalFinalCarga() {
-        return totalFinalCarga;
-    }
-
-    public void setTotalFinalCarga(Double totalFinalCarga) {
-        this.totalFinalCarga = totalFinalCarga;
-    }
+   
 
 }
