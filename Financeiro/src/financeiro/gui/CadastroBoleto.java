@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Ledilson
  */
-public class CadastroBoleto extends javax.swing.JFrame {
+public class CadastroBoleto extends javax.swing.JInternalFrame {
 
     //Conversão de data
     private final SimpleDateFormat sdfC = new SimpleDateFormat("dd-MM-yyyy");
@@ -77,9 +77,8 @@ public class CadastroBoleto extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Boleto e Pagamento");
-        setResizable(false);
+        setClosable(true);
+        setTitle("Cadastro de Pagamentos e Recebimentos");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -152,8 +151,6 @@ public class CadastroBoleto extends javax.swing.JFrame {
         jLabel6.setText("R$.:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, 30, 30));
         jPanel1.add(txtDataClienteReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 80, -1));
-
-        txtValorEmpresaPagar.setNextFocusableComponent(btGravar);
         jPanel1.add(txtValorEmpresaPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 60, -1));
 
         txtDataEmpresaPagar.setText(" ");
@@ -185,7 +182,7 @@ public class CadastroBoleto extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +190,6 @@ public class CadastroBoleto extends javax.swing.JFrame {
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 private void CentralizarJTextFields() {
 
@@ -207,255 +203,6 @@ private void CentralizarJTextFields() {
         txtDataEmpresaPagar.setHorizontalAlignment(SwingConstants.CENTER);
 
     }
-    private void tbBoletoClienteEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbBoletoClienteEmpresaMouseClicked
-
-        //Setando campos de texto com registros
-        BoletoEmpresa e = new BoletoEmpresa();
-        BoletoEmpresaDao dao = new BoletoEmpresaDao();
-
-        int index = tbBoletoClienteEmpresa.getSelectedRow();
-        e = dao.listarBoletoEmpresa().get(index);
-
-        // Setando valores nos campos de texto
-        txtValorClienteReceber.setText(Double.toString(e.getReceberClienteValor()));
-        txtValorEmpresaPagar.setText(Double.toString(e.getPagarEmpresaValor()));
-
-        txtClienteReceber.setText(e.getBoletoClienteReceber());
-        txtEmpresaPagar.setText(e.getBoletoEmpresaPagar());
-
-        /*  FORMATANDO A DATA */
-        SimpleDateFormat sdfC = new SimpleDateFormat("dd-MM-yyyy");
-
-        SimpleDateFormat sdfE = new SimpleDateFormat("dd-MM-yyyy");
-
-        txtDataClienteReceber.setText(sdfC.format(e.getDataClienteReceber()));
-
-        txtDataEmpresaPagar.setText(sdfE.format(e.getDataEmpresaPagar()));
-
-        // Se quiser descomentar a parte de habilitar/desabilitar componentes, você pode fazer algo assim:
-        txtClienteReceber.setEnabled(true);
-        txtEmpresaPagar.setEnabled(true);
-        txtDataClienteReceber.setEnabled(true);
-        txtDataEmpresaPagar.setEnabled(true);
-        txtValorClienteReceber.setEnabled(true);
-        txtValorEmpresaPagar.setEnabled(true);
-        btGravar.setEnabled(false);
-        btAlterar.setEnabled(true);
-        btExcluir.setEnabled(true);
-    }//GEN-LAST:event_tbBoletoClienteEmpresaMouseClicked
-
-    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-
-        BoletoEmpresa e = new BoletoEmpresa();
-        BoletoEmpresaDao dao = new BoletoEmpresaDao();
-
-        int index = tbBoletoClienteEmpresa.getSelectedRow();
-        e = dao.listarBoletoEmpresa().get(index);
-
-        e.setBoletoClienteReceber(txtClienteReceber.getText());
-
-        e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
-
-        // Entrada da Data cliente
-        try {
-            java.util.Date dataFormatada = sdfC.parse(txtDataClienteReceber.getText());
-            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
-            e.setDataClienteReceber(dataSQL);
-        } catch (ParseException ex) {
-            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
-
-            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-        // Entrada da Data Empresa
-        try {
-            java.util.Date dataFormatada = sdfE.parse(txtDataEmpresaPagar.getText());
-            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
-            e.setDataEmpresaPagar(dataSQL);
-        } catch (ParseException ex) {
-            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
-
-            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-
-        //OBTENDO O VALOR DE CLIENTE 
-        String valorReceberClienteText = txtValorClienteReceber.getText();
-        // Convertendo a String para double
-        double valorReceberCliente = Double.parseDouble(valorReceberClienteText);
-        // Definindo o valor convertido na propriedade
-        e.setReceberClienteValor(valorReceberCliente);
-
-        //OBTENDO O VALOR DE EMPRESA 
-        String valorPagarEmpresaText = txtValorEmpresaPagar.getText();
-        // Convertendo a String para double
-        double valorPagarEmpresa = Double.parseDouble(valorPagarEmpresaText);
-        // Definindo o valor convertido na propriedade
-        e.setPagarEmpresaValor(valorPagarEmpresa);
-
-        switch (JOptionPane.showConfirmDialog(null, "Deseja excluir ? \n "
-                + "Cliente:  " + e.getBoletoClienteReceber()
-                + "\n Data: " + e.getDataClienteReceber()
-                + "\n R$: " + e.getReceberClienteValor()
-                + "\n Empresa: " + e.getBoletoEmpresaPagar()
-                + "\n Data: " + e.getDataEmpresaPagar()
-                + "\n R$: " + e.getPagarEmpresaValor()
-                + " ", "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
-
-            case 0:
-                dao.remover(e);
-                carregaTabela();
-                limparTexto();
-                desativaBotoes();
-                break;
-            case 1:
-                JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                break;
-        }
-
-    }//GEN-LAST:event_btExcluirActionPerformed
-
-    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-
-        BoletoEmpresa e = new BoletoEmpresa();
-        BoletoEmpresaDao dao = new BoletoEmpresaDao();
-
-        int index = tbBoletoClienteEmpresa.getSelectedRow();
-        e = dao.listarBoletoEmpresa().get(index);
-
-        switch (JOptionPane.showConfirmDialog(null,
-                " [--ALTERAÇÃO DE DADOS--] \n Dado Atual"
-                + "\n Cliente:  " + e.getBoletoClienteReceber()
-                + "\n Data à Receber: " + e.getDataClienteReceber()
-                + "\n Valor à Receber R$: " + e.getReceberClienteValor()
-                + "\n Empresa: " + e.getBoletoEmpresaPagar()
-                + "\n Data à Pagar: " + e.getDataEmpresaPagar()
-                + "\n Valor à Pagar R$: " + e.getPagarEmpresaValor()
-                + "\n Será alterado"
-                + "\n Cliente: " + txtClienteReceber.getText()
-                + "\n Data à Receber: " + txtDataEmpresaPagar.getText()
-                + "\n Valor à Pagar R$: " + txtValorClienteReceber.getText()
-                + "\n Empresa: " + txtEmpresaPagar.getText()
-                + "\n Data à Receber " + txtDataEmpresaPagar.getText()
-                + "\n Valor à Pagar R$: " + txtValorEmpresaPagar.getText()
-                + "\n Deseja realmente fazer alteração?",
-                "Alteração de dados.  ", JOptionPane.YES_NO_OPTION)) {
-
-            case 0:
-
-                e.setBoletoClienteReceber(txtClienteReceber.getText());
-                e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
-
-                e.setReceberClienteValor(Double.parseDouble(txtValorEmpresaPagar.getText()));
-                e.setPagarEmpresaValor(Double.parseDouble(txtValorEmpresaPagar.getText()));
-
-                // Entrada da Data cliente
-                try {
-                    java.util.Date dataFormatada = sdfC.parse(txtDataClienteReceber.getText());
-                    java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
-
-                    e.setDataClienteReceber(dataSQL);
-
-                } catch (ParseException ex) {
-                    // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
-
-                    JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
-                // Entrada da Data Empresa
-                try {
-                    java.util.Date dataFormatada = sdfE.parse(txtDataEmpresaPagar.getText());
-
-                    java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
-
-                    e.setDataEmpresaPagar(dataSQL);
-
-                } catch (ParseException ex) {
-
-                    // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
-
-                dao.alterar(e);// faz alteração no banco de dados
-                carregaTabela();
-                limparTexto();
-                desativaBotoes();
-                desativaCampos();
-                break;
-            case 1:
-                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.",
-                        "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                break;
-        }
-
-    }//GEN-LAST:event_btAlterarActionPerformed
-
-    private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
-
-        BoletoEmpresa e = new BoletoEmpresa();
-        BoletoEmpresaDao dao = new BoletoEmpresaDao();
-
-        // Parte do pagamento do cliente
-        e.setBoletoClienteReceber(txtClienteReceber.getText());
-
-        e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
-
-        // Entrada da Data cliente
-        try {
-            java.util.Date dataFormatada = sdfC.parse(txtDataClienteReceber.getText());
-            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
-            e.setDataClienteReceber(dataSQL);
-        } catch (ParseException ex) {
-            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
-
-            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        // Entrada da Data Empresa
-        try {
-            java.util.Date dataFormatada = sdfE.parse(txtDataEmpresaPagar.getText());
-            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
-            e.setDataEmpresaPagar(dataSQL);
-        } catch (ParseException ex) {
-            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
-
-            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        /*OBTENDO O VALOR DE CLIENTE */
-        String valorReceberClienteText = txtValorClienteReceber.getText();
-        // Convertendo a String para double
-        double valorReceberCliente = Double.parseDouble(valorReceberClienteText);
-        // Definindo o valor convertido na propriedade
-        e.setReceberClienteValor(valorReceberCliente);
-
-        /*OBTENDO O VALOR DE EMPRESA */
-        String valorPagarEmpresaText = txtValorEmpresaPagar.getText();
-        // Convertendo a String para double
-        double valorPagarEmpresa = Double.parseDouble(valorPagarEmpresaText);
-        // Definindo o valor convertido na propriedade
-        e.setPagarEmpresaValor(valorPagarEmpresa);
-
-        // Adicionando o objeto ao banco de dados
-        dao.adicionar(e);
-
-        // Carregando a tabela
-        carregaTabela();
-
-        // Limpar os campos, se necessário
-        limparTexto();
-    }//GEN-LAST:event_btGravarActionPerformed
-
-    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-
-        limparTexto();
-        ativaBotoes();
-        ativaCampos();
-        btAlterar.setEnabled(false);
-        btExcluir.setEnabled(false);
-    }//GEN-LAST:event_btNovoActionPerformed
-
-    private void txtValorClienteReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorClienteReceberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorClienteReceberActionPerformed
 
     private void carregaTabela() {
 
@@ -469,11 +216,9 @@ private void CentralizarJTextFields() {
         // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
         tbBoletoClienteEmpresa.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-       // tbBoletoClienteEmpresa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        // tbBoletoClienteEmpresa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
-       
-         
 
         //Defini o tamanho da tabela
         tbBoletoClienteEmpresa.getColumnModel().getColumn(0).setPreferredWidth(100);
@@ -581,46 +326,254 @@ private void CentralizarJTextFields() {
         txtValorClienteReceber.setEnabled(true);
         txtValorEmpresaPagar.setEnabled(true);
     }
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        limparTexto();
+        ativaBotoes();
+        ativaCampos();
+        btAlterar.setEnabled(false);
+        btExcluir.setEnabled(false);
+    }//GEN-LAST:event_btNovoActionPerformed
+
+    private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
+
+        BoletoEmpresa e = new BoletoEmpresa();
+        BoletoEmpresaDao dao = new BoletoEmpresaDao();
+
+        // Parte do pagamento do cliente
+        e.setBoletoClienteReceber(txtClienteReceber.getText());
+
+        e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
+
+        // Entrada da Data cliente
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+            java.util.Date dataFormatada = sdfC.parse(txtDataClienteReceber.getText());
+            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
+            e.setDataClienteReceber(dataSQL);
+        } catch (ParseException ex) {
+            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
 
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroBoleto.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroBoleto.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroBoleto.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroBoleto.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        //</editor-fold>
+        // Entrada da Data Empresa
+        try {
+            java.util.Date dataFormatada = sdfE.parse(txtDataEmpresaPagar.getText());
+            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
+            e.setDataEmpresaPagar(dataSQL);
+        } catch (ParseException ex) {
+            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastroBoleto().setVisible(true);
-            }
-        });
-    }
+            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        /*OBTENDO O VALOR DE CLIENTE */
+        String valorReceberClienteText = txtValorClienteReceber.getText();
+        // Convertendo a String para double
+        double valorReceberCliente = Double.parseDouble(valorReceberClienteText);
+        // Definindo o valor convertido na propriedade
+        e.setReceberClienteValor(valorReceberCliente);
+
+        /*OBTENDO O VALOR DE EMPRESA */
+        String valorPagarEmpresaText = txtValorEmpresaPagar.getText();
+        // Convertendo a String para double
+        double valorPagarEmpresa = Double.parseDouble(valorPagarEmpresaText);
+        // Definindo o valor convertido na propriedade
+        e.setPagarEmpresaValor(valorPagarEmpresa);
+
+        // Adicionando o objeto ao banco de dados
+        dao.adicionar(e);
+
+        // Carregando a tabela
+        carregaTabela();
+
+        // Limpar os campos, se necessário
+        limparTexto();
+    }//GEN-LAST:event_btGravarActionPerformed
+
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+
+        BoletoEmpresa e = new BoletoEmpresa();
+        BoletoEmpresaDao dao = new BoletoEmpresaDao();
+
+        int index = tbBoletoClienteEmpresa.getSelectedRow();
+        e = dao.listarBoletoEmpresa().get(index);
+
+        switch (JOptionPane.showConfirmDialog(null,
+                " [--ALTERAÇÃO DE DADOS--] \n Dado Atual"
+                + "\n Cliente:  " + e.getBoletoClienteReceber()
+                + "\n Data à Receber: " + e.getDataClienteReceber()
+                + "\n Valor à Receber R$: " + e.getReceberClienteValor()
+                + "\n Empresa: " + e.getBoletoEmpresaPagar()
+                + "\n Data à Pagar: " + e.getDataEmpresaPagar()
+                + "\n Valor à Pagar R$: " + e.getPagarEmpresaValor()
+                + "\n Será alterado"
+                + "\n Cliente: " + txtClienteReceber.getText()
+                + "\n Data à Receber: " + txtDataEmpresaPagar.getText()
+                + "\n Valor à Pagar R$: " + txtValorClienteReceber.getText()
+                + "\n Empresa: " + txtEmpresaPagar.getText()
+                + "\n Data à Receber " + txtDataEmpresaPagar.getText()
+                + "\n Valor à Pagar R$: " + txtValorEmpresaPagar.getText()
+                + "\n Deseja realmente fazer alteração?",
+                "Alteração de dados.  ", JOptionPane.YES_NO_OPTION)) {
+
+            case 0:
+
+                e.setBoletoClienteReceber(txtClienteReceber.getText());
+                e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
+
+                e.setReceberClienteValor(Double.parseDouble(txtValorEmpresaPagar.getText()));
+                e.setPagarEmpresaValor(Double.parseDouble(txtValorEmpresaPagar.getText()));
+
+                // Entrada da Data cliente
+                try {
+                    java.util.Date dataFormatada = sdfC.parse(txtDataClienteReceber.getText());
+                    java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
+
+                    e.setDataClienteReceber(dataSQL);
+
+                } catch (ParseException ex) {
+                    // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
+
+                    JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+                // Entrada da Data Empresa
+                try {
+                    java.util.Date dataFormatada = sdfE.parse(txtDataEmpresaPagar.getText());
+
+                    java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
+
+                    e.setDataEmpresaPagar(dataSQL);
+
+                } catch (ParseException ex) {
+
+                    // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+
+                dao.alterar(e);// faz alteração no banco de dados
+                carregaTabela();
+                limparTexto();
+                desativaBotoes();
+                desativaCampos();
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.",
+                        "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
+    }//GEN-LAST:event_btAlterarActionPerformed
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+
+        BoletoEmpresa e = new BoletoEmpresa();
+        BoletoEmpresaDao dao = new BoletoEmpresaDao();
+
+        int index = tbBoletoClienteEmpresa.getSelectedRow();
+        e = dao.listarBoletoEmpresa().get(index);
+
+        e.setBoletoClienteReceber(txtClienteReceber.getText());
+
+        e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
+
+        // Entrada da Data cliente
+        try {
+            java.util.Date dataFormatada = sdfC.parse(txtDataClienteReceber.getText());
+            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
+            e.setDataClienteReceber(dataSQL);
+        } catch (ParseException ex) {
+            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
+
+            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        // Entrada da Data Empresa
+        try {
+            java.util.Date dataFormatada = sdfE.parse(txtDataEmpresaPagar.getText());
+            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
+            e.setDataEmpresaPagar(dataSQL);
+        } catch (ParseException ex) {
+            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
+
+            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+        //OBTENDO O VALOR DE CLIENTE
+        String valorReceberClienteText = txtValorClienteReceber.getText();
+        // Convertendo a String para double
+        double valorReceberCliente = Double.parseDouble(valorReceberClienteText);
+        // Definindo o valor convertido na propriedade
+        e.setReceberClienteValor(valorReceberCliente);
+
+        //OBTENDO O VALOR DE EMPRESA
+        String valorPagarEmpresaText = txtValorEmpresaPagar.getText();
+        // Convertendo a String para double
+        double valorPagarEmpresa = Double.parseDouble(valorPagarEmpresaText);
+        // Definindo o valor convertido na propriedade
+        e.setPagarEmpresaValor(valorPagarEmpresa);
+
+        switch (JOptionPane.showConfirmDialog(null, "Deseja excluir ? \n "
+                + "Cliente:  " + e.getBoletoClienteReceber()
+                + "\n Data: " + e.getDataClienteReceber()
+                + "\n R$: " + e.getReceberClienteValor()
+                + "\n Empresa: " + e.getBoletoEmpresaPagar()
+                + "\n Data: " + e.getDataEmpresaPagar()
+                + "\n R$: " + e.getPagarEmpresaValor()
+                + " ", "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+
+            case 0:
+                dao.remover(e);
+                carregaTabela();
+                limparTexto();
+                desativaBotoes();
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
+    }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void tbBoletoClienteEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbBoletoClienteEmpresaMouseClicked
+
+        //Setando campos de texto com registros
+        BoletoEmpresa e = new BoletoEmpresa();
+        BoletoEmpresaDao dao = new BoletoEmpresaDao();
+
+        int index = tbBoletoClienteEmpresa.getSelectedRow();
+        e = dao.listarBoletoEmpresa().get(index);
+
+        // Setando valores nos campos de texto
+        txtValorClienteReceber.setText(Double.toString(e.getReceberClienteValor()));
+        txtValorEmpresaPagar.setText(Double.toString(e.getPagarEmpresaValor()));
+
+        txtClienteReceber.setText(e.getBoletoClienteReceber());
+        txtEmpresaPagar.setText(e.getBoletoEmpresaPagar());
+
+        /*  FORMATANDO A DATA */
+        SimpleDateFormat sdfC = new SimpleDateFormat("dd-MM-yyyy");
+
+        SimpleDateFormat sdfE = new SimpleDateFormat("dd-MM-yyyy");
+
+        txtDataClienteReceber.setText(sdfC.format(e.getDataClienteReceber()));
+
+        txtDataEmpresaPagar.setText(sdfE.format(e.getDataEmpresaPagar()));
+
+        // Se quiser descomentar a parte de habilitar/desabilitar componentes, você pode fazer algo assim:
+        txtClienteReceber.setEnabled(true);
+        txtEmpresaPagar.setEnabled(true);
+        txtDataClienteReceber.setEnabled(true);
+        txtDataEmpresaPagar.setEnabled(true);
+        txtValorClienteReceber.setEnabled(true);
+        txtValorEmpresaPagar.setEnabled(true);
+        btGravar.setEnabled(false);
+        btAlterar.setEnabled(true);
+        btExcluir.setEnabled(true);
+    }//GEN-LAST:event_tbBoletoClienteEmpresaMouseClicked
+
+    private void txtValorClienteReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorClienteReceberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorClienteReceberActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
@@ -647,5 +600,4 @@ private void CentralizarJTextFields() {
     private javax.swing.JTextField txtValorClienteReceber;
     private javax.swing.JTextField txtValorEmpresaPagar;
     // End of variables declaration//GEN-END:variables
-
 }

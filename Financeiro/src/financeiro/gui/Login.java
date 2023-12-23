@@ -42,11 +42,11 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtSenhas = new javax.swing.JPasswordField();
+        txtSenhaLogin = new javax.swing.JPasswordField();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtUser = new javax.swing.JTextField();
+        txtLogin = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -55,6 +55,7 @@ public class Login extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
         btAcesso = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,6 +85,13 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -97,18 +105,16 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2)
-                            .addComponent(jSeparator4))
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator7)
-                            .addComponent(jSeparator6))
-                        .addContainerGap())))
+                    .addComponent(jSeparator2)
+                    .addComponent(jSeparator4)
+                    .addComponent(jSeparator7)
+                    .addComponent(jSeparator6))
+                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,14 +122,13 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtSenhas)
-                            .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtSenhaLogin)
+                            .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(btAcesso)))
+                        .addGap(109, 109, 109)
+                        .addComponent(btAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -136,20 +141,22 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSenhas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSenhaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(11, 11, 11)
-                .addComponent(btAcesso)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btAcesso)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -181,87 +188,53 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private boolean realizarLogin() {
 
+    private void btAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAcessoActionPerformed
+        obterNivelAcesso();
+    }//GEN-LAST:event_btAcessoActionPerformed
+ private void obterNivelAcesso() {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
         ResultSet rs = null;
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM acesso WHERE nivelacesso = ? AND usuario = ? AND senha = ?");
-            pstm.setString(1, txtUser.getText());
-            pstm.setString(2, txtSenhas.getText());
-            pstm.setString(3, txtUser.getText());
+            pstm = con.prepareStatement("SELECT * FROM acesso WHERE login = ?");
+            pstm.setString(1, txtLogin.getText());
+
             rs = pstm.executeQuery();
 
             // Se houver algum resultado, o usuário foi autenticado com sucesso
             if (rs.next()) {
-                MenuPrincipal mc = new MenuPrincipal();
-                mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                mc.setVisible(true);
-                return true;
+                String senhaDoBanco = rs.getString("senha");
+
+                if (senhaDoBanco.equals(txtSenhaLogin.getText())) {
+                    // Autenticação bem-sucedida, abra o MenuPrincipal
+                    MenuPrincipal mm = new MenuPrincipal(txtLogin.getText());
+
+                    // Adicione a linha abaixo para fechar a tela de login
+                    dispose();
+
+                    mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                    mm.setVisible(true);
+                } else {
+                    // Senha incorreta
+                    JOptionPane.showMessageDialog(null, "Senha incorreta.");
+                }
             } else {
-                // JOptionPane.showMessageDialog(null, "Erro ao autenticar usuário. ");
-                return false;
+                // Nenhum resultado encontrado para o login fornecido
+                JOptionPane.showMessageDialog(null, "Login não foi encontrado na base de dados.");
             }
 
         } catch (SQLException ErroSql) {
             JOptionPane.showMessageDialog(null, ErroSql);
-            return false;
         } finally {
             Conexao.closeConnection(con, pstm, rs);
         }
     }
-
-    private void btAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAcessoActionPerformed
-        if (realizarLogin()) {
-            // Se o login for bem-sucedido, verifique o nível de acesso
-            String nivelAcesso = obterNivelAcesso(txtUser.getText());
-
-            if ("superadmin".equals(nivelAcesso)) {
-                // Usuário super admin
-                CadastroCredencial cadastroCredencial = new CadastroCredencial();
-                cadastroCredencial.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                cadastroCredencial.setVisible(true);
-            }
-
-            // Feche a tela de login
-            this.dispose();
-        } else {
-            // Se o login falhar, exiba uma mensagem de erro
-            JOptionPane.showMessageDialog(null, "Senha incorreta. Por favor, tente novamente.");
-            // Limpe o campo de senha se desejar
-            txtSenhas.setText("");
-        }
-    }//GEN-LAST:event_btAcessoActionPerformed
-    private String obterNivelAcesso(String usuario) {
-        Connection con = Conexao.getConnection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-
-        try {
-            pstm = con.prepareStatement("SELECT * FROM acesso WHERE usuario = ? AND senha = ?");
-            pstm.setString(1, usuario);
-            pstm.setString(2, senha);
-            pstm.setString(3, niveacesso);
-
-            rs = pstm.executeQuery();
-
-            if (rs.next()) {
-                return rs.getString("usuario");
-                return rs.getString("senha");
-                return rs.getString("usuario");
-
-            } else {
-                return null; // Usuário não encontrado ou senha incorreta
-            }
-        } catch (SQLException ErroSql) {
-            JOptionPane.showMessageDialog(null, ErroSql);
-            return null; // Erro de SQL
-        } finally {
-            Conexao.closeConnection(con, pstm, rs);
-        }
-    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+   
 
     /**
      * @param args the command line arguments
@@ -305,6 +278,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAcesso;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -316,7 +290,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JPasswordField txtSenhas;
-    private javax.swing.JTextField txtUser;
+    private javax.swing.JTextField txtLogin;
+    private javax.swing.JPasswordField txtSenhaLogin;
     // End of variables declaration//GEN-END:variables
 }

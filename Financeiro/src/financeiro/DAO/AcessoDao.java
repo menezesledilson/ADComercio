@@ -26,11 +26,12 @@ public class AcessoDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("INSERT INTO acesso (usuario,senha,nivelacesso) VALUES (?,?,?); ");
+            pstm = con.prepareStatement("INSERT INTO acesso (nome, login,senha,permissao) VALUES (?,?,?,?); ");
 
-            pstm.setString(1, credencial.getUsuarios());
-            pstm.setString(2, credencial.getSenhas());
-              pstm.setString(3, credencial.getNivelAcesso());
+            pstm.setString(1, credencial.getNome());
+            pstm.setString(2, credencial.getLogin());
+              pstm.setString(3, credencial.getSenha());
+              pstm.setString(4, credencial.getPermissao());
 
             pstm.execute();
 
@@ -72,7 +73,7 @@ public class AcessoDao {
         ResultSet rs = null;
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM acesso ORDER BY usuario ASC;");
+            pstm = con.prepareStatement("SELECT * FROM acesso ORDER BY nome ASC;");
             rs = pstm.executeQuery();
 
             while (rs.next()) {
@@ -80,9 +81,10 @@ public class AcessoDao {
                 Credencial credencial = new Credencial();
 
                 credencial.setId(rs.getLong("id"));
-                credencial.setUsuarios(rs.getString("usuario"));
-                credencial.setSenhas(rs.getString("senha"));
-                 credencial.setNivelAcesso(rs.getString("nivelacesso"));
+                credencial.setNome(rs.getString("nome"));
+                credencial.setLogin(rs.getString("login"));
+                 credencial.setSenha(rs.getString("senha"));
+                   credencial.setPermissao(rs.getString("permissao"));
 
                 credencials.add(credencial);
             }

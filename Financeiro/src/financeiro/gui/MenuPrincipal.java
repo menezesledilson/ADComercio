@@ -5,11 +5,29 @@
  */
 package financeiro.gui;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import financeiro.gui.Buscar.BuscarPedidoBobina;
+import financeiro.gui.Buscar.BuscarBoleto;
+import financeiro.gui.Buscar.BuscarNotaServico;
+import financeiro.gui.Buscar.BuscaLivroCaixa;
+
+import financeiro.conexao.Conexao;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JInternalFrame;
+
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.WindowConstants;
+import util.PosicaoFormulario;
 
 /**
  *
@@ -17,20 +35,25 @@ import javax.swing.WindowConstants;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Principal
-     */
-    public MenuPrincipal() {
+    PosicaoFormulario form = new PosicaoFormulario();
+
+    public MenuPrincipal(String user) {
 
         initComponents();
+        jLabel1.setText(user);
+
+        // setSize(800, 600); // Ajuste os valores conforme necessário
+        //setLocationRelativeTo(null);
+        // setResizable(false);
         //ABRIR NA TELA TODA 
-        //  setExtendedState(MAXIMIZED_BOTH);
+        setExtendedState(MAXIMIZED_BOTH);
         // Definir um tamanho específico para o JFrame
-        setSize(800, 600); // Ajuste os valores conforme necessário
         // setSize(900, 700);
         // Centralizar o JFrame na tela
-        setLocationRelativeTo(null);
-        setResizable(false);
+    }
+
+    private MenuPrincipal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
     }
 
@@ -51,6 +74,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem13 = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JSeparator();
         jMenuItem17 = new javax.swing.JMenuItem();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
@@ -89,7 +116,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCredencial = new javax.swing.JMenuItem();
         jSeparator18 = new javax.swing.JPopupMenu.Separator();
         jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
+        jMenuItem16 = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -106,6 +133,49 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem17.setText("jMenuItem17");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+
+        jLabel2.setText("Usuário:");
+
+        jLabel1.setText("0");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addContainerGap(574, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jDesktopLayout = new javax.swing.GroupLayout(jDesktop);
+        jDesktop.setLayout(jDesktopLayout);
+        jDesktopLayout.setHorizontalGroup(
+            jDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jDesktopLayout.setVerticalGroup(
+            jDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 434, Short.MAX_VALUE)
+        );
 
         jMenu1.setText("Cadastro ");
         jMenu1.add(jSeparator6);
@@ -251,8 +321,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenu4.setText("Sobre");
 
-        jMenu5.setText("Sobre");
-        jMenu4.add(jMenu5);
+        jMenuItem16.setText("jMenuItem16");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem16);
 
         jMenuBar1.add(jMenu4);
 
@@ -262,92 +337,143 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addComponent(jDesktop)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 521, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jDesktop)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        setSize(new java.awt.Dimension(916, 581));
+        setSize(new java.awt.Dimension(652, 536));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void MenuBobinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBobinaActionPerformed
         // TODO add your handling code here:
-        CadastroBobina mc = new CadastroBobina();
-        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mc.setVisible(true);
-
-
+        CadastroBobina tela;
+        form.abrirFormulario(tela = new CadastroBobina(), jDesktop);
     }//GEN-LAST:event_MenuBobinaActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        CadastroCaixa mc = new CadastroCaixa();
-        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mc.setVisible(true);
+
+        CadastroCaixa tela;
+        form.abrirFormulario(tela = new CadastroCaixa(), jDesktop);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        CadastroPedidoBobina mc = new CadastroPedidoBobina();
-        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mc.setVisible(true);
+
+        CadastroPedidoBobina tela;
+        form.abrirFormulario(tela = new CadastroPedidoBobina(), jDesktop);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        CadastroBoleto mc = new CadastroBoleto();
-        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mc.setVisible(true);
+
+        CadastroBoleto tela;
+        form.abrirFormulario(tela = new CadastroBoleto(), jDesktop);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        PostgresBackupRestore mc = new PostgresBackupRestore();
-        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mc.setVisible(true);
+
+        PostgresBackupRestore tela;
+        form.abrirFormulario(tela = new PostgresBackupRestore(), jDesktop);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        BuscarLivroCaixa mc = new BuscarLivroCaixa();
-        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mc.setVisible(true);
+
+        BuscaLivroCaixa tela;
+        form.abrirFormulario(tela = new BuscaLivroCaixa(), jDesktop);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        BuscarBoleto mc = new BuscarBoleto();
-        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mc.setVisible(true);
+        /* /   BuscarBoleto1 mc = new BuscarBoleto1();
+         mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+         mc.setVisible(true);*/
+
+        BuscarBoleto tela;
+        form.abrirFormulario(tela = new BuscarBoleto(), jDesktop);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-
-        BuscarPedidoBobina mc = new BuscarPedidoBobina();
-        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mc.setVisible(true);
+        BuscarPedidoBobina tela;
+        form.abrirFormulario(tela = new BuscarPedidoBobina(), jDesktop);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        EmissorCalculoNF mc = new EmissorCalculoNF();
-        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mc.setVisible(true);
+
+        EmissorCalculoNF tela;
+        form.abrirFormulario(tela = new EmissorCalculoNF(), jDesktop);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-        EmissaoNotaServico mc = new EmissaoNotaServico();
-        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mc.setVisible(true);
+
+        EmissaoNotaServico tela;
+        form.abrirFormulario(tela = new EmissaoNotaServico(), jDesktop);
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
-        BuscarNotaServico mc = new BuscarNotaServico();
-        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mc.setVisible(true);
+
+        BuscarNotaServico tela;
+        form.abrirFormulario(tela = new BuscarNotaServico(), jDesktop);
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     private void jMenuCredencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCredencialActionPerformed
-        CadastroCredencial mc = new CadastroCredencial();
-        mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mc.setVisible(true);
+
+        Connection con = Conexao.getConnection();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+
+        try {
+            pstm = con.prepareStatement("SELECT permissao FROM acesso WHERE login = ?");
+            pstm.setString(1, jLabel1.getText());
+
+            rs = pstm.executeQuery();
+
+            if (rs.next()) {
+                String permissao = rs.getString("permissao");
+
+                if ("Administrador".equals(permissao)) {
+                   // CadastroCredencial mm = new CadastroCredencial();
+                    //mm.setVisible(true);
+                    CadastroCredencial tela;
+                    form.abrirFormulario(tela = new CadastroCredencial(), jDesktop);
+                    
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Você não possui permissão para o acesso.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Usuário não encontrado");
+            }
+        } catch (SQLException ErroSql) {
+            ErroSql.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "Erro ao acessar o banco de dados");
+        } finally {
+            Conexao.closeConnection(con, pstm, rs);
+        }
+
+
     }//GEN-LAST:event_jMenuCredencialActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+
+        /* this.setExtendedState(MAXIMIZED_BOTH);
+         MenuPrincipal.*/
+
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+
+        /* GuiTeste tela = new GuiTeste();
+         jDesktop.add(tela);
+         tela.setVisible(true);*/
+      //  GuiTeste tela;
+        //form.abrirFormulario(tela = new GuiTeste(), jDesktop);
+
+    }//GEN-LAST:event_jMenuItem16ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -363,16 +489,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -387,11 +518,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuBobina;
+    private javax.swing.JDesktopPane jDesktop;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
@@ -405,6 +538,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem2;
@@ -415,6 +549,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
@@ -434,4 +569,5 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
     // End of variables declaration//GEN-END:variables
+
 }

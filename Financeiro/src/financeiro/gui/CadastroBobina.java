@@ -5,6 +5,7 @@
  */
 package financeiro.gui;
 
+import financeiro.model.BobinaC;
 import financeiro.DAO.BobinaDao;
 import financeiro.conexao.Conexao;
 import financeiro.model.BobinaC;
@@ -20,13 +21,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Ledilson
  */
-public class CadastroBobina extends javax.swing.JFrame {
+public class CadastroBobina extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form CadastroBobina
      */
     public CadastroBobina() {
         initComponents();
+
         CentralizarCampos();
         carregaTabela();
         //desativaBotoes();
@@ -42,8 +44,6 @@ public class CadastroBobina extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox();
-        jInternalFrame1 = new javax.swing.JInternalFrame();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -58,14 +58,8 @@ public class CadastroBobina extends javax.swing.JFrame {
         btExcluir = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jInternalFrame1.setVisible(true);
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Produtos");
-        setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setClosable(true);
+        setTitle("Cadastro de Bobinas");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
@@ -76,11 +70,7 @@ public class CadastroBobina extends javax.swing.JFrame {
 
         jLabel2.setText("Preço KG.:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 30));
-
-        txtDescricao.setNextFocusableComponent(txtValor);
         jPanel1.add(txtDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 190, 20));
-
-        txtValor.setNextFocusableComponent(txtValor);
         jPanel1.add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 50, 70, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 101, 450, 30));
 
@@ -136,11 +126,156 @@ public class CadastroBobina extends javax.swing.JFrame {
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 10, 100));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 450));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 470, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+ private void limparTexto() {
+        txtDescricao.setText("");
+        txtValor.setText("");
+    }
+
+    private void desativaBotoes() {
+        btGravar.setEnabled(false);
+        btAlterar.setEnabled(false);
+        btExcluir.setEnabled(false);
+
+    }
+
+    private void desativaCampos() {
+        txtDescricao.setEnabled(false);
+        txtValor.setEnabled(false);
+    }
+
+    private void ativaBotoes() {
+        btGravar.setEnabled(true);
+        btAlterar.setEnabled(true);
+        btExcluir.setEnabled(true);
+    }
+
+    private void ativaCampos() {
+        txtDescricao.setEnabled(true);
+        txtValor.setEnabled(true);
+    }
+
+    private void CentralizarCampos() {
+        txtDescricao.setHorizontalAlignment(SwingConstants.CENTER);
+        txtValor.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+    private void tbCadBobinasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCadBobinasMouseClicked
+        // TODO add your handling code here:
+
+        //Setando campos de texto com registros
+        BobinaC b = new BobinaC();
+        BobinaDao dao = new BobinaDao();
+
+        int index = tbCadBobinas.getSelectedRow();
+        b = dao.listarBobinaC().get(index);
+
+        txtDescricao.setText(b.getNomeBobina());
+        txtValor.setText(Double.toString(b.getValorBobina()));
+
+        btGravar.setEnabled(false);
+        btAlterar.setEnabled(true);
+        btExcluir.setEnabled(true);
+        ativaCampos();
+
+    }//GEN-LAST:event_tbCadBobinasMouseClicked
+
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        ativaBotoes();
+
+        //  ativaCampos();
+        btAlterar.setEnabled(false);
+        btExcluir.setEnabled(false);
+
+        txtDescricao.setEnabled(true);
+        txtValor.setEnabled(true);
+        limparTexto();
+    }//GEN-LAST:event_btNovoActionPerformed
+    private void carregaTabela() {
+
+        DefaultTableModel modelo = (DefaultTableModel) tbCadBobinas.getModel();
+        modelo.setNumRows(0);
+
+        //Defini o tamanho da tabela
+        tbCadBobinas.getColumnModel().getColumn(0).setPreferredWidth(350);
+        tbCadBobinas.getColumnModel().getColumn(1).setPreferredWidth(20);
+
+        try (Connection con = Conexao.getConnection();
+                PreparedStatement pstm = con.prepareStatement("SELECT nomebobina, valorbobina FROM bobina ORDER BY nomebobina ASC;");
+                ResultSet rs = pstm.executeQuery()) {
+
+            NumberFormat currencyPreco = NumberFormat.getCurrencyInstance();
+
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                    rs.getString("nomebobina"),
+                    //rs.getString(3),
+                    currencyPreco.format(rs.getDouble("valorbobina"))
+                });
+            }
+            Conexao.closeConnection(con, pstm, rs);
+
+        } catch (Exception ErroSql) {
+            JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR);
+        }
+    }
+
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+
+        //Objetos
+        BobinaC b = new BobinaC();
+        BobinaDao dao = new BobinaDao();
+
+        int index = tbCadBobinas.getSelectedRow(); // retorna o numero da linha selecionada
+        b = dao.listarBobinaC().get(index);
+
+        switch (JOptionPane.showConfirmDialog(null, " [--ALTERAÇÃO DE PRODUTO--] \n Produto Atual: "
+                + b.getNomeBobina()
+                + "\n R$: " + b.getValorBobina() + "0 "
+                + "\n Será alterado para \n Novo Produto: " + txtDescricao.getText()
+                + "\n R$: " + txtValor.getText() + "0 "
+                + "\n Deseja realmente fazer alteração? ",
+                " Alteração de dados. ", JOptionPane.YES_NO_OPTION)) {
+
+            case 0:
+
+                b.setNomeBobina(txtDescricao.getText()); // seta as novas informações para objeto selecionado
+                b.setValorBobina(Double.parseDouble(txtValor.getText()));
+
+                dao.alterar(b);// faz alteração no banco de dados
+                carregaTabela();
+                //  limparTexto();
+                desativaBotoes();
+                desativaCampos();
+                break;
+
+            case 1:
+                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.", "AVISO",
+                        JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
+    }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
 
@@ -180,70 +315,11 @@ public class CadastroBobina extends javax.swing.JFrame {
 
         // Limpar os campos de texto
         limparTexto();
-
     }//GEN-LAST:event_btGravarActionPerformed
-
-    private void tbCadBobinasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCadBobinasMouseClicked
-        // TODO add your handling code here:
-
-        //Setando campos de texto com registros
-        BobinaC b = new BobinaC();
-        BobinaDao dao = new BobinaDao();
-
-        int index = tbCadBobinas.getSelectedRow();
-        b = dao.listarBobinaC().get(index);
-
-        txtDescricao.setText(b.getNomeBobina());
-        txtValor.setText(Double.toString(b.getValorBobina()));
-
-      
-        btGravar.setEnabled(false);
-        btAlterar.setEnabled(true);
-        btExcluir.setEnabled(true);
-        ativaCampos();
-        
-
-    }//GEN-LAST:event_tbCadBobinasMouseClicked
-
-    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-
-        //Objetos 
-        BobinaC b = new BobinaC();
-        BobinaDao dao = new BobinaDao();
-
-        int index = tbCadBobinas.getSelectedRow(); // retorna o numero da linha selecionada
-        b = dao.listarBobinaC().get(index);
-
-        switch (JOptionPane.showConfirmDialog(null, " [--ALTERAÇÃO DE PRODUTO--] \n Produto Atual: "
-                + b.getNomeBobina()
-                + "\n R$: " + b.getValorBobina() + "0 "
-                + "\n Será alterado para \n Novo Produto: " + txtDescricao.getText()
-                + "\n R$: " + txtValor.getText() + "0 "
-                + "\n Deseja realmente fazer alteração? ",
-                " Alteração de dados. ", JOptionPane.YES_NO_OPTION)) {
-
-            case 0:
-
-                b.setNomeBobina(txtDescricao.getText()); // seta as novas informações para objeto selecionado
-                b.setValorBobina(Double.parseDouble(txtValor.getText()));
-
-                dao.alterar(b);// faz alteração no banco de dados
-                carregaTabela();
-                //  limparTexto();
-                desativaBotoes();
-                desativaCampos();
-                break;
-
-            case 1:
-                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.", "AVISO",
-                        JOptionPane.INFORMATION_MESSAGE);
-                break;
-        }
-    }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
 
-        //Objetos 
+        //Objetos
         BobinaC b = new BobinaC();
         BobinaDao dao = new BobinaDao();
 
@@ -268,131 +344,14 @@ public class CadastroBobina extends javax.swing.JFrame {
                 break;
         }
 
-
     }//GEN-LAST:event_btExcluirActionPerformed
 
-    private void limparTexto() {
-        txtDescricao.setText("");
-        txtValor.setText("");
-    }
-
-    private void desativaBotoes() {
-        btGravar.setEnabled(false);
-        btAlterar.setEnabled(false);
-        btExcluir.setEnabled(false);
-
-    }
-
-    private void desativaCampos() {
-        txtDescricao.setEnabled(false);
-        txtValor.setEnabled(false);
-    }
-
-    private void ativaBotoes() {
-        btGravar.setEnabled(true);
-        btAlterar.setEnabled(true);
-        btExcluir.setEnabled(true);
-    }
-
-    private void ativaCampos() {
-        txtDescricao.setEnabled(true);
-        txtValor.setEnabled(true);
-    }
-
-    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        ativaBotoes();
-
-        //  ativaCampos();
-        btAlterar.setEnabled(false);
-        btExcluir.setEnabled(false);
-
-        txtDescricao.setEnabled(true);
-        txtValor.setEnabled(true);
-        limparTexto();
-
-    }//GEN-LAST:event_btNovoActionPerformed
-
-    private void CentralizarCampos() {
-        txtDescricao.setHorizontalAlignment(SwingConstants.CENTER);
-        txtValor.setHorizontalAlignment(SwingConstants.CENTER);
-    }
-
-    private void carregaTabela() {
-
-        DefaultTableModel modelo = (DefaultTableModel) tbCadBobinas.getModel();
-        modelo.setNumRows(0);
-
-        //Defini o tamanho da tabela
-        tbCadBobinas.getColumnModel().getColumn(0).setPreferredWidth(350);
-        tbCadBobinas.getColumnModel().getColumn(1).setPreferredWidth(20);
-
-        try (Connection con = Conexao.getConnection();
-                PreparedStatement pstm = con.prepareStatement("SELECT nomebobina, valorbobina FROM bobina ORDER BY nomebobina ASC;");
-                ResultSet rs = pstm.executeQuery()) {
-
-            NumberFormat currencyPreco = NumberFormat.getCurrencyInstance();
-
-            while (rs.next()) {
-                modelo.addRow(new Object[]{
-                    rs.getString("nomebobina"),
-                    //rs.getString(3),
-                    currencyPreco.format(rs.getDouble("valorbobina"))
-                });
-            }
-            Conexao.closeConnection(con, pstm, rs);
-
-        } catch (Exception ErroSql) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR);
-        }
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroBobina.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroBobina.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroBobina.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroBobina.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastroBobina().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btGravar;
     private javax.swing.JButton btNovo;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

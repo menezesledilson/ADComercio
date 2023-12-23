@@ -5,6 +5,7 @@
  */
 package financeiro.gui;
 
+import financeiro.model.NotaServicoCliente;
 import financeiro.DAO.BobinaDao;
 import financeiro.DAO.EmissorNotaServicoClienteDao;
 import financeiro.conexao.Conexao;
@@ -28,10 +29,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Ledilson
  */
-public class EmissaoNotaServico extends javax.swing.JFrame {
-
-    //Data automatica
-    private final SimpleDateFormat sdfDataAutomatica = new SimpleDateFormat("dd-MM-yyyy");
+public class EmissaoNotaServico extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form EmissaoNotaServico
@@ -43,7 +41,6 @@ public class EmissaoNotaServico extends javax.swing.JFrame {
         desativarCampo();
         btGravaCliente.setEnabled(false);
         cbListProduto();
-
     }
 
     /**
@@ -75,8 +72,8 @@ public class EmissaoNotaServico extends javax.swing.JFrame {
         btDelete = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+        setClosable(true);
+        setTitle("Emissão Nota Serviço parte 1");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -191,7 +188,7 @@ public class EmissaoNotaServico extends javax.swing.JFrame {
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(lbCargaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 50, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -229,7 +226,7 @@ public class EmissaoNotaServico extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,153 +234,8 @@ public class EmissaoNotaServico extends javax.swing.JFrame {
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
-
-        //Objetos
-        NotaServicoCliente a = new NotaServicoCliente();
-        EmissorNotaServicoClienteDao dao = new EmissorNotaServicoClienteDao();
-
-        int index = tbClientes.getSelectedRow(); // retorna o numero da linha selecionada
-
-        a = dao.listarNotaServicoCliente().get(index);
-
-        a.setClienteEmpresa(txtCliente.getText());
-        a.setQuantProduto(Integer.parseInt(txtQuant.getText()));
-      //  a.setPesoUnitario(Double.parseDouble(txtPesoUnitario.getText()));
-
-        //seleção Produto
-        String descricaoSelecionada = cbxProduto.getSelectedItem().toString();
-        a.setNomeProduto(descricaoSelecionada);
-
-        switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Produto ? \n "
-                + "\n Produto:  " + a.getClienteEmpresa()
-                + "\n Quantidadte: " + a.getQuantProduto()
-                + "\n R$: " + a.getPesoUnitario(), "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
-
-            case 0:
-                dao.removerCliente(a);
-                carregaTabela();
-                limparCampos();
-                desativarBotao();
-                break;
-            case 1:
-                JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                break;
-        }
-
-    }//GEN-LAST:event_btDeleteActionPerformed
-
-    private void cbxProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProdutoActionPerformed
-        // Não use getStateChange() para eventos de ação, pois é específico de eventos de item
-        int selectedIndex = cbxProduto.getSelectedIndex();
-
-        if (selectedIndex >= 0 && selectedIndex < valorUnitarioBobina1.size()) {
-            double valorSelecionado = valorUnitarioBobina1.get(selectedIndex);
-            txtValorUnitario1.setText(String.valueOf(valorSelecionado));
-        }
-    }//GEN-LAST:event_cbxProdutoActionPerformed
-
-    private void btAtivarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtivarClienteActionPerformed
-        ativarCampo();
-        btGravaCliente.setEnabled(true);
-        //btAlterar.setEnabled(false);
-        btDelete.setEnabled(false);
-        carregaTabela();
-
-    }//GEN-LAST:event_btAtivarClienteActionPerformed
-
-    private void btGravaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravaClienteActionPerformed
-        NotaServicoCliente a = new NotaServicoCliente();
-        EmissorNotaServicoClienteDao dao = new EmissorNotaServicoClienteDao();
-
-        ativarBotao();
-
-        try {
-            a.setClienteEmpresa(txtCliente.getText());
-            a.setQuantProduto(Integer.parseInt(txtQuant.getText()));
-
-            //adição do produto
-            //a.setNomeProduto(txtNomeProduto.getText());
-            if (cbxProduto.getItemCount() > 0) {
-                String descricaoSelecionada = cbxProduto.getSelectedItem().toString();
-                a.setNomeProduto(descricaoSelecionada);
-                a.setPesoUnitario(Double.parseDouble(txtPesoUnitario.getText()));
-                a.setValorUnitario(Double.parseDouble(txtValorUnitario1.getText()));
-                //  a.setValorUnitario(Double.parseDouble(txtValorUnitario.getText()));
-
-                //Calculo do valor total
-                double valorPedidoPeso = a.getValorUnitario() * a.getPesoUnitario();
-                a.setCargaInicial(valorPedidoPeso);
-
-                // Acumula o valor total
-                AcumuloPesoPdido += valorPedidoPeso;
-
-                // Formata o valor para exibir apenas duas casas decimais
-                DecimalFormat df = new DecimalFormat("#.##");
-                String valorFormatado = df.format(AcumuloPesoPdido);
-
-                // Atualiza a soma
-                lbCargaInicial.setText(String.valueOf(valorFormatado));
-
-                a.setCargaInicial(valorPedidoPeso);
-
-                dao.adicionar(a);
-                carregaTabela();
-
-                limparCampos();
-
-// Atualiza a soma
-                // Pergunta ao usuário se deseja adicionar mais um pedido
-                int opcao = JOptionPane.showConfirmDialog(this, "Pedido adicionado com sucesso. Deseja adicionar mais um pedido?", "Confirmação", JOptionPane.YES_NO_OPTION);
-                if (opcao == JOptionPane.YES_OPTION) {
-                    // O usuário escolheu adicionar mais um pedido, limpe os campos ou faça outras ações necessárias
-
-                    //   limparCampos();
-                } else {
-                    // O usuário escolheu não adicionar mais um pedido, mantenha os campos preenchidos
-                    // ou faça outras ações necessárias
-                }
-            } else {
-                //JOptionPane.showMessageDialog(null, "Adicionado com sucesso!");
-                JOptionPane.showMessageDialog(this, "Nenhum item disponível na lista de produtos.", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (NumberFormatException e) {
-
-            JOptionPane.showMessageDialog(this, "Por favor, insira valores válidos para quantidade, valor e peso.", "Erro", JOptionPane.ERROR_MESSAGE);
-            // Ou logue a exceção para análise posterior
-            e.printStackTrace();
-        }   //JOptionPane.showMessageDialog(null, "Campos sem  informações: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-    }//GEN-LAST:event_btGravaClienteActionPerformed
-
-    private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
-
-        //Setando campos de texto com registros
-        NotaServicoCliente a = new NotaServicoCliente();
-        EmissorNotaServicoClienteDao dao = new EmissorNotaServicoClienteDao();
-
-        int index = tbClientes.getSelectedRow();
-        a = dao.listarNotaServicoCliente().get(index);
-
-//        txtPesoUnitario.setText(Double.toString(a.getPesoUnitario()));
-        txtCliente.setText(a.getClienteEmpresa());
-        txtQuant.setText(String.valueOf(a.getQuantProduto()));
-        txtPesoUnitario.setText(Double.toString(a.getPesoUnitario()));
-
-        txtCliente.setEnabled(true);
-        txtQuant.setEnabled(true);
-        cbxProduto.setEnabled(true);
-        txtCliente.setEnabled(true);
-        txtPesoUnitario.setEnabled(true);
-
-        //  btAlterar.setEnabled(true);
-        btDelete.setEnabled(true);
-        btGravaCliente.setEnabled(false);
-
-    }//GEN-LAST:event_tbClientesMouseClicked
-    private double AcumuloPesoPdido = 0.0;    //Comunicação com cbxBobina Adcionar
+ private double AcumuloPesoPdido = 0.0;    //Comunicação com cbxBobina Adcionar
 
     ArrayList<Integer> idCadastroBobina = new ArrayList<Integer>();
     ArrayList<Double> valorUnitarioBobina1 = new ArrayList<Double>();
@@ -509,45 +361,147 @@ public class EmissaoNotaServico extends javax.swing.JFrame {
         txtPesoUnitario.setEnabled(false);
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void btGravaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravaClienteActionPerformed
+        NotaServicoCliente a = new NotaServicoCliente();
+        EmissorNotaServicoClienteDao dao = new EmissorNotaServicoClienteDao();
+
+        ativarBotao();
+
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+            a.setClienteEmpresa(txtCliente.getText());
+            a.setQuantProduto(Integer.parseInt(txtQuant.getText()));
 
+            //adição do produto
+            //a.setNomeProduto(txtNomeProduto.getText());
+            if (cbxProduto.getItemCount() > 0) {
+                String descricaoSelecionada = cbxProduto.getSelectedItem().toString();
+                a.setNomeProduto(descricaoSelecionada);
+                a.setPesoUnitario(Double.parseDouble(txtPesoUnitario.getText()));
+                a.setValorUnitario(Double.parseDouble(txtValorUnitario1.getText()));
+                //  a.setValorUnitario(Double.parseDouble(txtValorUnitario.getText()));
+
+                //Calculo do valor total
+                double valorPedidoPeso = a.getValorUnitario() * a.getPesoUnitario();
+                a.setCargaInicial(valorPedidoPeso);
+
+                // Acumula o valor total
+                AcumuloPesoPdido += valorPedidoPeso;
+
+                // Formata o valor para exibir apenas duas casas decimais
+                DecimalFormat df = new DecimalFormat("#.##");
+                String valorFormatado = df.format(AcumuloPesoPdido);
+
+                // Atualiza a soma
+                lbCargaInicial.setText(String.valueOf(valorFormatado));
+
+                a.setCargaInicial(valorPedidoPeso);
+
+                dao.adicionar(a);
+                carregaTabela();
+
+                limparCampos();
+
+                // Atualiza a soma
+                // Pergunta ao usuário se deseja adicionar mais um pedido
+                int opcao = JOptionPane.showConfirmDialog(this, "Pedido adicionado com sucesso. Deseja adicionar mais um pedido?", "Confirmação", JOptionPane.YES_NO_OPTION);
+                if (opcao == JOptionPane.YES_OPTION) {
+                    // O usuário escolheu adicionar mais um pedido, limpe os campos ou faça outras ações necessárias
+
+                    //   limparCampos();
+                } else {
+                    // O usuário escolheu não adicionar mais um pedido, mantenha os campos preenchidos
+                    // ou faça outras ações necessárias
                 }
+            } else {
+                //JOptionPane.showMessageDialog(null, "Adicionado com sucesso!");
+                JOptionPane.showMessageDialog(this, "Nenhum item disponível na lista de produtos.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EmissaoNotaServico.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EmissaoNotaServico.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EmissaoNotaServico.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EmissaoNotaServico.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        } catch (NumberFormatException e) {
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EmissaoNotaServico().setVisible(true);
-            }
-        });
-    }
+            JOptionPane.showMessageDialog(this, "Por favor, insira valores válidos para quantidade, valor e peso.", "Erro", JOptionPane.ERROR_MESSAGE);
+            // Ou logue a exceção para análise posterior
+            e.printStackTrace();
+        }   //JOptionPane.showMessageDialog(null, "Campos sem  informações: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_btGravaClienteActionPerformed
+
+    private void btAtivarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtivarClienteActionPerformed
+        ativarCampo();
+        btGravaCliente.setEnabled(true);
+        //btAlterar.setEnabled(false);
+        btDelete.setEnabled(false);
+        carregaTabela();
+    }//GEN-LAST:event_btAtivarClienteActionPerformed
+
+    private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
+
+        //Setando campos de texto com registros
+        NotaServicoCliente a = new NotaServicoCliente();
+        EmissorNotaServicoClienteDao dao = new EmissorNotaServicoClienteDao();
+
+        int index = tbClientes.getSelectedRow();
+        a = dao.listarNotaServicoCliente().get(index);
+
+        //        txtPesoUnitario.setText(Double.toString(a.getPesoUnitario()));
+        txtCliente.setText(a.getClienteEmpresa());
+        txtQuant.setText(String.valueOf(a.getQuantProduto()));
+        txtPesoUnitario.setText(Double.toString(a.getPesoUnitario()));
+
+        txtCliente.setEnabled(true);
+        txtQuant.setEnabled(true);
+        cbxProduto.setEnabled(true);
+        txtCliente.setEnabled(true);
+        txtPesoUnitario.setEnabled(true);
+
+        //  btAlterar.setEnabled(true);
+        btDelete.setEnabled(true);
+        btGravaCliente.setEnabled(false);
+    }//GEN-LAST:event_tbClientesMouseClicked
+
+    private void cbxProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProdutoActionPerformed
+        // Não use getStateChange() para eventos de ação, pois é específico de eventos de item
+        int selectedIndex = cbxProduto.getSelectedIndex();
+
+        if (selectedIndex >= 0 && selectedIndex < valorUnitarioBobina1.size()) {
+            double valorSelecionado = valorUnitarioBobina1.get(selectedIndex);
+            txtValorUnitario1.setText(String.valueOf(valorSelecionado));
+        }
+    }//GEN-LAST:event_cbxProdutoActionPerformed
+
+    private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
+
+        //Objetos
+        NotaServicoCliente a = new NotaServicoCliente();
+        EmissorNotaServicoClienteDao dao = new EmissorNotaServicoClienteDao();
+
+        int index = tbClientes.getSelectedRow(); // retorna o numero da linha selecionada
+
+        a = dao.listarNotaServicoCliente().get(index);
+
+        a.setClienteEmpresa(txtCliente.getText());
+        a.setQuantProduto(Integer.parseInt(txtQuant.getText()));
+        //  a.setPesoUnitario(Double.parseDouble(txtPesoUnitario.getText()));
+
+        //seleção Produto
+        String descricaoSelecionada = cbxProduto.getSelectedItem().toString();
+        a.setNomeProduto(descricaoSelecionada);
+
+        switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Produto ? \n "
+                + "\n Produto:  " + a.getClienteEmpresa()
+                + "\n Quantidadte: " + a.getQuantProduto()
+                + "\n R$: " + a.getPesoUnitario(), "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+
+            case 0:
+                dao.removerCliente(a);
+                carregaTabela();
+                limparCampos();
+                desativarBotao();
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
+    }//GEN-LAST:event_btDeleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAtivarCliente;

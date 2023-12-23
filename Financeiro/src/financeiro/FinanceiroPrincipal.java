@@ -5,13 +5,7 @@
  */
 package financeiro;
 
-import financeiro.gui.PostgresBackupRestore;
-import financeiro.gui.BuscarLivroCaixa;
-import financeiro.gui.CadastroCaixa;
-import financeiro.gui.BuscarNotaServico;
-import financeiro.gui.CadastroCredencial;
-import financeiro.gui.EmissaoNotaServico;
-import financeiro.gui.EmissorCalculoNF;
+
 import financeiro.gui.Login;
 import financeiro.gui.MenuPrincipal;
 import java.awt.Color;
@@ -44,6 +38,10 @@ public class FinanceiroPrincipal {
 
         mm.setVisible(true);
 
+        /* MenuPrincipal mm  = new MenuPrincipal();
+         mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+         mm.setVisible(true);*/
     }
 
 }

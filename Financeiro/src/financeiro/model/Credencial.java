@@ -12,18 +12,10 @@ package financeiro.model;
 public class Credencial {
 
     private Long id;
-    private String usuarios;
-    private String senhas;
-    private String nivelAcesso;
-
-    public String getNivelAcesso() {
-        return nivelAcesso;
-    }
-
-    public void setNivelAcesso(String nivelAcesso) {
-        this.nivelAcesso = nivelAcesso;
-    }
-    
+    private String nome;
+     private String login;
+    private String senha;
+    private String permissao;
 
     public Long getId() {
         return id;
@@ -33,20 +25,37 @@ public class Credencial {
         this.id = id;
     }
 
-    public String getUsuarios() {
-        return usuarios;
+    public String getNome() {
+        return nome;
     }
 
-    public void setUsuarios(String usuarios) {
-        this.usuarios = usuarios;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getSenhas() {
-        return senhas;
+    public String getLogin() {
+        return login;
     }
 
-    public void setSenhas(String senhas) {
-        this.senhas = senhas;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getPermissao() {
+        return permissao;
+    }
+
+    public void setPermissao(String permissao) {
+        this.permissao = permissao;
+    }
+ 
+  
 }
