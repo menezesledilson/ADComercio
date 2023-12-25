@@ -27,6 +27,7 @@ public class BuscaLivroCaixa extends javax.swing.JInternalFrame {
      */
     public BuscaLivroCaixa() {
         initComponents();
+        desabilitarBotoes();
     }
 
     /**
@@ -76,7 +77,7 @@ public class BuscaLivroCaixa extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Data Inicial");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 710, 20));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 720, 20));
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 10, 90));

@@ -104,8 +104,8 @@ public class EmissorNotaServicoDao {
              //   notaServico.setQuantProduto(rs.getInt("quantproduto"));
              //   notaServico.setNomeProduto(rs.getString("nomeproduto"));
 
-               notaServico.setValorUnitario(rs.getDouble("valorunitario"));
-                notaServico.setPesoUnitario(rs.getDouble("valorpeso"));
+                //notaServico.setValorUnitario(rs.getDouble("valorunitario"));
+               // notaServico.setPesoUnitario(rs.getDouble("valorpeso"));
 
                 notaServico.setFrete(rs.getDouble("frete"));
                notaServico.setImposto(rs.getDouble("imposto"));

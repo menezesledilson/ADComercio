@@ -11,6 +11,9 @@ import financeiro.gui.Buscar.BuscarNotaServico;
 import financeiro.gui.Buscar.BuscaLivroCaixa;
 
 import financeiro.conexao.Conexao;
+import financeiro.gui.Buscar.BuscarEmissorCalculoNF;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,9 +25,12 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 import util.PosicaoFormulario;
@@ -42,14 +48,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         initComponents();
         jLabel1.setText(user);
 
-        // setSize(800, 600); // Ajuste os valores conforme necessário
-        //setLocationRelativeTo(null);
-        // setResizable(false);
-        //ABRIR NA TELA TODA 
-        setExtendedState(MAXIMIZED_BOTH);
-        // Definir um tamanho específico para o JFrame
-        // setSize(900, 700);
-        // Centralizar o JFrame na tela
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setSize(1024, 690);
+        setLocationRelativeTo(null); // Centraliza o JFrame na tela principal
+
+        // Outras configurações e adições podem ser feitas conforme necessário
+        setVisible(true);
+
     }
 
     private MenuPrincipal() {
@@ -74,10 +80,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem13 = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JSeparator();
         jMenuItem17 = new javax.swing.JMenuItem();
-        jPanel1 = new javax.swing.JPanel();
+        jMenuItem19 = new javax.swing.JMenuItem();
+        jBarra = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jDesktop = new javax.swing.JDesktopPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
@@ -107,6 +116,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem14 = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         jMenuItem18 = new javax.swing.JMenuItem();
+        jSeparator19 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem20 = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -132,6 +143,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuItem17.setText("jMenuItem17");
 
+        jMenuItem19.setText("jMenuItem19");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -139,43 +152,66 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jBarra.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel2.setText("Usuário:");
 
         jLabel1.setText("0");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jBarraLayout = new javax.swing.GroupLayout(jBarra);
+        jBarra.setLayout(jBarraLayout);
+        jBarraLayout.setHorizontalGroup(
+            jBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBarraLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(574, Short.MAX_VALUE))
+                .addContainerGap(757, Short.MAX_VALUE))
+        );
+        jBarraLayout.setVerticalGroup(
+            jBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel2)
+                .addComponent(jLabel1))
+        );
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(1024, 670));
+
+        jLabel3.setBackground(new java.awt.Color(51, 204, 255));
+        jLabel3.setForeground(new java.awt.Color(0, 255, 255));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Medidas.jpg"))); // NOI18N
+        jLabel3.setText(" ");
+        jLabel3.setPreferredSize(new java.awt.Dimension(1024, 670));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jDesktopLayout = new javax.swing.GroupLayout(jDesktop);
         jDesktop.setLayout(jDesktopLayout);
         jDesktopLayout.setHorizontalGroup(
             jDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jDesktopLayout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jDesktopLayout.setVerticalGroup(
             jDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 434, Short.MAX_VALUE)
+            .addGroup(jDesktopLayout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+        jDesktop.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("Cadastro ");
         jMenu1.add(jSeparator6);
@@ -288,6 +324,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu7.add(jMenuItem18);
+        jMenu7.add(jSeparator19);
+
+        jMenuItem20.setText("Localizar Nota Serviço");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem20);
         jMenu7.add(jSeparator17);
 
         jMenuBar1.add(jMenu7);
@@ -337,18 +382,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jDesktop)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jDesktop)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        setSize(new java.awt.Dimension(652, 536));
+        setSize(new java.awt.Dimension(835, 536));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -436,11 +481,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 String permissao = rs.getString("permissao");
 
                 if ("Administrador".equals(permissao)) {
-                   // CadastroCredencial mm = new CadastroCredencial();
+                    // CadastroCredencial mm = new CadastroCredencial();
                     //mm.setVisible(true);
                     CadastroCredencial tela;
                     form.abrirFormulario(tela = new CadastroCredencial(), jDesktop);
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Você não possui permissão para o acesso.");
                 }
@@ -475,6 +520,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
+    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+        BuscarEmissorCalculoNF tela;
+        form.abrirFormulario(tela = new BuscarEmissorCalculoNF(), jDesktop);
+    }//GEN-LAST:event_jMenuItem20ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -507,7 +557,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        //    SwingUtilities.invokeLater(() -> new MenuPrincipal());
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -518,9 +568,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuBobina;
+    private javax.swing.JPanel jBarra;
     private javax.swing.JDesktopPane jDesktop;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -541,7 +593,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -560,6 +614,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator17;
     private javax.swing.JPopupMenu.Separator jSeparator18;
+    private javax.swing.JPopupMenu.Separator jSeparator19;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;

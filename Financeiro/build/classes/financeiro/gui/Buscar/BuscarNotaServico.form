@@ -139,7 +139,7 @@
         <Component class="javax.swing.JSeparator" name="jSeparator1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="97" width="730" height="10"/>
+              <AbsoluteConstraints x="10" y="97" width="710" height="10"/>
             </Constraint>
           </Constraints>
         </Component>

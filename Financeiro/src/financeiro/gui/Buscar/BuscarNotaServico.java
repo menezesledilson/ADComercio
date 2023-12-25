@@ -96,7 +96,7 @@ public class BuscarNotaServico extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Data Final");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 56, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 97, 730, 10));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 97, 710, 10));
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 14, 95));
@@ -186,7 +186,7 @@ public class BuscarNotaServico extends javax.swing.JInternalFrame {
         tbBuscaClientes.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
 
         try (Connection con = Conexao.getConnection()) {
-            String sql = "SELECT * FROM emissornotaservico WHERE (datanotaservico BETWEEN ? AND ?) OR (datanotaservico BETWEEN ? AND ?)";
+            String sql = "SELECT * FROM emissornotacliente WHERE (datanotaservico BETWEEN ? AND ?) OR (datanotaservico BETWEEN ? AND ?)";
 
             //Formatar o valor no campo jtable
             NumberFormat currencyValorUnitario = NumberFormat.getCurrencyInstance();

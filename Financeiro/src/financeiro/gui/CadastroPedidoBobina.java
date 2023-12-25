@@ -160,15 +160,15 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
 
         jLabel6.setText("N.Cheque 1.:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 64, -1, 20));
-        jPanel1.add(txtChequeA, new org.netbeans.lib.awtextra.AbsoluteConstraints(399, 60, 50, -1));
+        jPanel1.add(txtChequeA, new org.netbeans.lib.awtextra.AbsoluteConstraints(399, 60, 60, -1));
 
         jLabel7.setText("N.Cheque 2.:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, -1, 20));
-        jPanel1.add(txtChequeB, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 50, -1));
+        jPanel1.add(txtChequeB, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 60, -1));
 
         jLabel8.setText("N.Cheque 3.:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, -1, 20));
-        jPanel1.add(txtChequeC, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, 50, -1));
+        jPanel1.add(txtChequeC, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, 60, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 172, 790, 10));
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);

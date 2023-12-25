@@ -105,10 +105,13 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
 
         jLabel14.setText("T.Carga.:");
 
+        lblComissao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblComissao.setText("0.00");
 
+        lblFrete.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblFrete.setText("0.00");
 
+        lblImposto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblImposto.setText("0.00");
 
         jLabel3.setText("Fornecedor.:");
@@ -148,12 +151,12 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
                             .addGroup(jbCalculoNFLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtForncedor, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtForncedor, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTotalCargaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTotalCargaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,7 +164,7 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblFrete)
-                                .addGap(0, 287, Short.MAX_VALUE)))
+                                .addGap(0, 242, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jbCalculoNFLayout.createSequentialGroup()
                         .addGroup(jbCalculoNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,28 +225,18 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 870, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jbCalculoNF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jbCalculoNF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jbCalculoNF, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jbCalculoNF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -256,8 +249,8 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
-        // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
-        tbNotaServico.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+       // Aplicar o renderizador às colunas de valorpedido(índice 1) e quantidadebobina (índice 2)
+       tbNotaServico.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         tbNotaServico.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         tbNotaServico.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         tbNotaServico.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
@@ -266,9 +259,8 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
         tbNotaServico.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
 
         //Defini o tamanho da tabela
-        tbNotaServico.getColumnModel().getColumn(0).setPreferredWidth(250);
+        tbNotaServico.getColumnModel().getColumn(0).setPreferredWidth(300);
         tbNotaServico.getColumnModel().getColumn(1).setPreferredWidth(150);
-
         tbNotaServico.getColumnModel().getColumn(2).setPreferredWidth(130);
         tbNotaServico.getColumnModel().getColumn(3).setPreferredWidth(150);
 
@@ -297,7 +289,7 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
 
             while (rs.next()) {
                 modelo.addRow(new Object[]{
-                    // rs.getString("datanotaservico"),
+                    //rs.getString("datanotaservico"),
                     rs.getString("clientefornecedor"),
                     currencyFinalCarga.format(rs.getDouble("totalfinalcarga")),
                     currencyFrete.format(rs.getDouble("frete")),
@@ -307,12 +299,6 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
                     currencyTotalImpostoCarga.format(rs.getDouble("totalimpostocarga")),
                     currencyTotalComissao.format(rs.getDouble("totalcomissao")),});
 
-                /*rs.getString("imposto"),
-                 rs.getString("comissao"),
-                 rs.getString("totalfretecarga"),
-                 rs.getString("totalfretecarga"),
-                 rs.getString("totalimpostocarga"),
-                 rs.getString("totalcomissao"), */
             }
             Conexao.closeConnection(con, pstm, rs);
 
@@ -330,6 +316,14 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
         txtTotalCargaFinal.setHorizontalAlignment(SwingConstants.CENTER);
         txtComissao.setHorizontalAlignment(SwingConstants.CENTER);
 
+    }
+
+    private void limparCampos() {
+        txtForncedor.setText("");
+        txtImposto.setText("");
+        txtFrete.setText("");
+        txtTotalCargaFinal.setText("");
+        txtComissao.setText("");
     }
 
     private void ativaBotoes() {
@@ -380,6 +374,7 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
         ativaBotoes();
         btExcluir.setEnabled(false);
         ativaCampos();
+        limparCampos();
     }//GEN-LAST:event_btHabilitarActionPerformed
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
@@ -489,7 +484,7 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
             case 0:
                 dao.remover(a);
                 carregaTabela();
-        // limparCampos();
+                // limparCampos();
                 // desativaBotoes();
                 break;
             case 1:

@@ -28,6 +28,7 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
      */
     public BuscarBoleto() {
         initComponents();
+        desabilitarBotoes();
     }
 
     /**

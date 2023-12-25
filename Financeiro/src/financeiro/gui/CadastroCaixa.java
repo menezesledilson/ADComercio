@@ -143,6 +143,7 @@ public class CadastroCaixa extends javax.swing.JInternalFrame {
         saldoLabel.setForeground(new java.awt.Color(255, 0, 153));
         jPanel2.add(saldoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 40, 20));
 
+        lblSaldoAtual.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblSaldoAtual.setForeground(new java.awt.Color(0, 0, 204));
         lblSaldoAtual.setText("0.00");
         jPanel2.add(lblSaldoAtual, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 40, 20));
@@ -150,6 +151,7 @@ public class CadastroCaixa extends javax.swing.JInternalFrame {
         jLabel3.setText("Saldo anterior R$:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, 20));
 
+        lblsaldoAnterior.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblsaldoAnterior.setForeground(new java.awt.Color(255, 0, 0));
         lblsaldoAnterior.setText("0.00");
         jPanel2.add(lblsaldoAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 50, 20));
