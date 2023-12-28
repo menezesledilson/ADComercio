@@ -235,10 +235,10 @@ private void carregaTabela() {
                 });
 
                 // Extraindo o saldoAtual e atualizando o JLabel
-                double saldoAtual = rs.getDouble("saldoAtual");
+                double saldoAtual = rs.getDouble("saldoatual");
                 lblSaldoAtual.setText("" + saldoAtual);
 
-                double saldoAnterior = rs.getDouble("saldoAnterior");
+                double saldoAnterior = rs.getDouble("saldoanterior");
                 lblsaldoAnterior.setText("" + saldoAnterior);
             }
 

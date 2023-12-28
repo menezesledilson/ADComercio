@@ -73,7 +73,7 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
 
         setClosable(true);
-        setTitle("Emissão Nota Serviço parte 1");
+        setTitle("Emissão Nota Serviço Produto");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 

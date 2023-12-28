@@ -10,12 +10,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author Ledilson
@@ -99,6 +107,11 @@ public class BuscaLivroCaixa extends javax.swing.JInternalFrame {
         jPanel1.add(btBuscarLivroCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 140, 30));
 
         jButton1.setText("Imprimir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 110, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -119,7 +132,7 @@ public class BuscaLivroCaixa extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         habilitarBotoes();
     }//GEN-LAST:event_btPesquisaActionPerformed
-private void habilitarBotoes() {
+    private void habilitarBotoes() {
 
         dateChooserInicioCaixa.setEnabled(true);
         dateChooserFimCaixa.setEnabled(true);
@@ -135,15 +148,15 @@ private void habilitarBotoes() {
         // btPesquisa.setEnabled(false);
 
     }
+    private Timestamp dataInicio;
+    private Timestamp dataFim;
+
     private void btBuscarLivroCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarLivroCaixaActionPerformed
         // Verificar se as datas inicial e final estão selecionadas
         if (dateChooserInicioCaixa.getDate() == null || dateChooserFimCaixa.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Por favor, selecione as datas inicial e final antes de realizar a pesquisa.", "Datas não Selecionadas", JOptionPane.WARNING_MESSAGE);
             return; // Abortar a operação se as datas não estiverem selecionadas
         }
-
-        // dateChooserInicioCaixa.setEnabled(false);
-        //dateChooserFimCaixa.setEnabled(false);
 
         DefaultTableModel model = (DefaultTableModel) tbBuscarLivroCaixa.getModel();
 
@@ -163,11 +176,15 @@ private void habilitarBotoes() {
         tbBuscarLivroCaixa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
 
         try (Connection con = Conexao.getConnection()) {
-            String sql = "SELECT * FROM caixa WHERE (datahora BETWEEN ? AND ?) OR (datahora BETWEEN ? AND ?)";
+            String sql = "SELECT * FROM caixa WHERE (datahora BETWEEN ? AND ?) OR (datahora BETWEEN ? AND ?) ORDER BY datahora ASC";
 
             //Formatar o valor no campo jtable
             NumberFormat currencyValorEntrada = NumberFormat.getCurrencyInstance();
             NumberFormat currencyValorSaida = NumberFormat.getCurrencyInstance();
+
+            // Armazene as datas de início e fim para uso posterior
+            dataInicio = new java.sql.Timestamp(dateChooserInicioCaixa.getDate().getTime());
+            dataFim = new java.sql.Timestamp(dateChooserFimCaixa.getDate().getTime());
 
             try (PreparedStatement pst = con.prepareStatement(sql)) {
                 pst.setObject(1, new java.sql.Timestamp(dateChooserInicioCaixa.getDate().getTime()));
@@ -193,17 +210,51 @@ private void habilitarBotoes() {
                                 currencyValorEntrada.format(rs.getDouble("entrada")),
                                 //rs.getObject("saida"),
                                 currencyValorSaida.format(rs.getDouble("saida")),});
-                    } while (rs.next());
+                        } while (rs.next());
+                    }
                 }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_btBuscarLivroCaixaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         Connection con = Conexao.getConnection();
+        //PreparedStatement pstm = null;
+        try {
+            String arq = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\Relatorio\\RelatorioLivroCaixa.jasper";
+            Map<String, Object> parametros = new HashMap<>();
+
+            // Use as datas de início e fim armazenadas como parâmetros
+            if (dataInicio != null) {
+                parametros.put("DataIn", new java.sql.Timestamp(dataInicio.getTime()));
+            }
+            if (dataFim != null) {
+                parametros.put("DataFin", new java.sql.Timestamp(dataFim.getTime()));
+            }
+
+            JasperPrint jaspertPrint = JasperFillManager.fillReport(arq, parametros, con);
+            JasperViewer view = new JasperViewer(jaspertPrint, false);
+            view.setVisible(true);
+
+        } catch (JRException ex) {
+            System.out.println("Erro:" + ex);
+        } finally {
+            // Certifique-se de fechar a conexão
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

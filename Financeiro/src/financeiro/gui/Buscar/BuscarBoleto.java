@@ -7,15 +7,26 @@ package financeiro.gui.Buscar;
 
 import financeiro.conexao.Conexao;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -28,7 +39,7 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
      */
     public BuscarBoleto() {
         initComponents();
-        desabilitarBotoes();
+        // desabilitarBotoes();
     }
 
     /**
@@ -50,8 +61,7 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        btPesquisa = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btgGerarRelatorio = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Localizar Boleto");
@@ -83,7 +93,7 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
         jPanel1.add(btBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 53, 150, 30));
 
         jLabel1.setText("Data Inicial");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 87, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 60, -1));
 
         jLabel2.setText("Data Final");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 56, -1));
@@ -92,16 +102,13 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 14, 95));
 
-        btPesquisa.setText("Nova Pesquisa");
-        btPesquisa.addActionListener(new java.awt.event.ActionListener() {
+        btgGerarRelatorio.setText("Imprimir");
+        btgGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btPesquisaActionPerformed(evt);
+                btgGerarRelatorioActionPerformed(evt);
             }
         });
-        jPanel1.add(btPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 13, 150, 30));
-
-        jButton2.setText("Imprimir");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 53, 110, 30));
+        jPanel1.add(btgGerarRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 53, 110, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,44 +133,44 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+   private Timestamp dataInicio;
+    private Timestamp dataFim;
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-        // Verificar se as datas inicial e final estão selecionadas
+
         if (dateChooserInicio.getDate() == null || dateChooserFim.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Por favor, selecione as datas inicial e final antes de realizar a pesquisa.", "Datas não Selecionadas", JOptionPane.WARNING_MESSAGE);
-            return; // Abortar a operação se as datas não estiverem selecionadas
+            return;
         }
-        //  dateChooserInicio.setEnabled(false);
-        // dateChooserFim.setEnabled(false);
-
         DefaultTableModel model = (DefaultTableModel) tbBuscar.getModel();
+        model.setRowCount(0); // Limpar a tabela antes de adicionar novas linhas
 
         TableColumnModel columnModel = tbBuscar.getColumnModel();
-
-        columnModel.getColumn(0).setPreferredWidth(100);  // Largura em pixels
+        columnModel.getColumn(0).setPreferredWidth(100);
         columnModel.getColumn(1).setPreferredWidth(20);
         columnModel.getColumn(2).setPreferredWidth(20);
         columnModel.getColumn(3).setPreferredWidth(100);
         columnModel.getColumn(4).setPreferredWidth(20);
         columnModel.getColumn(5).setPreferredWidth(20);
 
-        // Criar um renderizador centralizado
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-
-        // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
         tbBuscar.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         tbBuscar.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        //tbBuscar.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         tbBuscar.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         tbBuscar.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
 
         try (Connection con = Conexao.getConnection()) {
-            String sql = "SELECT * FROM boletoempresa WHERE (databoletoreceber BETWEEN ? AND ?) OR (databoletoapagar BETWEEN ? AND ?)";
+            String sql = "SELECT * FROM boletoempresa WHERE (databoletoreceber BETWEEN ? AND ?) OR (databoletoapagar BETWEEN ? AND ?)ORDER BY databoletoreceber ASC";
 
+            //  SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             //Formatar o valor no campo jtable
             NumberFormat currencyValorReceber = NumberFormat.getCurrencyInstance();
             NumberFormat currencyValorPagar = NumberFormat.getCurrencyInstance();
+
+            // Armazene as datas de início e fim para uso posterior
+            dataInicio = new java.sql.Timestamp(dateChooserInicio.getDate().getTime());
+            dataFim = new java.sql.Timestamp(dateChooserFim.getDate().getTime());
 
             try (PreparedStatement pst = con.prepareStatement(sql)) {
                 pst.setObject(1, new java.sql.Timestamp(dateChooserInicio.getDate().getTime()));
@@ -171,8 +178,6 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
                 pst.setObject(3, new java.sql.Timestamp(dateChooserInicio.getDate().getTime()));
                 pst.setObject(4, new java.sql.Timestamp(dateChooserFim.getDate().getTime()));
 
-                //linha para testar a consultar
-                //  System.out.println("SQL: " + pst.toString());
                 try (ResultSet rs = pst.executeQuery()) {
                     if (!rs.next()) {
                         //ResultSet está vazio, exibir mensagem
@@ -204,10 +209,41 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btBuscarActionPerformed
 
-    private void btPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisaActionPerformed
-        // TODO add your handling code here:
-        habilitarBotoes();
-    }//GEN-LAST:event_btPesquisaActionPerformed
+    private void btgGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btgGerarRelatorioActionPerformed
+
+        Connection con = Conexao.getConnection();
+        //PreparedStatement pstm = null;
+        try {
+            String arq = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\Relatorio\\RelatorioBoleto.jasper";
+            Map<String, Object> parametros = new HashMap<>();
+
+            // Use as datas de início e fim armazenadas como parâmetros
+            if (dataInicio != null) {
+                parametros.put("DataIn", new java.sql.Timestamp(dataInicio.getTime()));
+            }
+            if (dataFim != null) {
+                parametros.put("DataFin", new java.sql.Timestamp(dataFim.getTime()));
+            }
+
+            JasperPrint jaspertPrint = JasperFillManager.fillReport(arq, parametros, con);
+            JasperViewer view = new JasperViewer(jaspertPrint, false);
+            view.setVisible(true);
+
+        } catch (JRException ex) {
+            System.out.println("Erro:" + ex);
+        } finally {
+            // Certifique-se de fechar a conexão
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }//GEN-LAST:event_btgGerarRelatorioActionPerformed
+
     private void habilitarBotoes() {
 
         dateChooserInicio.setEnabled(true);
@@ -226,10 +262,9 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
-    private javax.swing.JButton btPesquisa;
+    private javax.swing.JButton btgGerarRelatorio;
     private com.toedter.calendar.JDateChooser dateChooserFim;
     private com.toedter.calendar.JDateChooser dateChooserInicio;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

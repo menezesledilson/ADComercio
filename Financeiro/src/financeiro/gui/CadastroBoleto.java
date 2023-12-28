@@ -128,7 +128,7 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cleinte a Receber", "Data a Receber", "Valor a Receber", "Empresa a Pagar", "Data a Pagar", "Valor a Pagar"
+                "Cliente a Receber", "Data a Receber", "Valor a Receber", "Empresa a Pagar", "Data a Pagar", "Valor a Pagar"
             }
         ));
         tbBoletoClienteEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {

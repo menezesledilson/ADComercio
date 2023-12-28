@@ -7,8 +7,6 @@ package financeiro.model;
 
 import java.sql.Date;
 
- 
-
 
 /**
  *
