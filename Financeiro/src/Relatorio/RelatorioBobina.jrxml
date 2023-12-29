@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="abfff668-a1eb-4cf2-a93a-ce5d7940d7ea">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from bobina ORDER BY nomebobina ASC;]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="nomebobina" class="java.lang.String"/>
+	<field name="valorbobina" class="java.math.BigDecimal"/>
+	<title>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d446fc2f-4c38-47f7-a935-ffb489bb6d5b" x="141" y="0" width="276" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Cadastro de Bobinas]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="726de47a-c8f7-4f43-bfc0-25a8819ae9aa" x="187" y="31" width="178" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="125fcb2f-0c84-4dd4-bbe6-88e2ce480a86" x="87" y="41" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="69d4ef01-2185-4c5a-80d9-cf59f95860a6" x="341" y="41" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="18b7b807-6f42-459e-9d54-4355039c2dff" x="-33" y="59" width="607" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement uuid="51c28b44-82ea-43e1-afd4-0fd4cad03c54" x="93" y="0" width="158" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomebobina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="357409e1-e3a9-40c1-8a54-0d5e8ff2ede5" x="341" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorbobina}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="46d35c3a-181e-4131-b794-de499fc687a6" x="-18" y="25" width="592" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement uuid="4371de6c-8d00-49a5-9326-f870e3648ddd" x="455" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
