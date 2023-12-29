@@ -2,20 +2,13 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b81ac89b-2b14-4529-8ad6-f861c95ff327">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="362"/>
+	<property name="ireport.y" value="415"/>
 	<subDataset name="dataset1" uuid="79eecd16-9fce-43a8-99f2-addde1164dc2"/>
-	<parameter name="nomePrestador" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$F{prestador}]]></defaultValueExpression>
-	</parameter>
-	<parameter name="nomeTomador" class="java.lang.String">
-		<parameterDescription><![CDATA[]]></parameterDescription>
-		<defaultValueExpression><![CDATA[$F{tomador}]]></defaultValueExpression>
-	</parameter>
 	<parameter name="notaId" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[$F{id}]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from notaservico WHERE (prestador = $P{nomePrestador} )AND (tomador =$P{nomeTomador})]]>
+		<![CDATA[select * from notaservico WHERE (id =$P{notaId})   ]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="datahora" class="java.sql.Timestamp"/>
@@ -192,23 +185,23 @@
 			<line>
 				<reportElement uuid="215104c0-6ee0-45b3-aa53-c5da5fc640f3" x="-17" y="130" width="589" height="1"/>
 			</line>
-			<textField>
-				<reportElement uuid="641e8d7e-51c3-4edd-8557-94bd2877fb23" x="104" y="210" width="324" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{nomeTomador}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="d49470f9-c7c1-422d-b564-2fed8d7a7100" x="105" y="173" width="323" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{nomePrestador}]]></textFieldExpression>
-			</textField>
 			<line>
 				<reportElement uuid="2c063e65-1922-47ef-b261-8646813b5ea7" x="-17" y="270" width="589" height="1"/>
 			</line>
+			<textField>
+				<reportElement uuid="654a563e-f016-4b30-9208-88b9483dfa67" x="153" y="170" width="249" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prestador}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5e626384-8f8d-4e4e-a559-d0c5d098d97a" x="153" y="206" width="248" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tomador}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -389,6 +382,15 @@
 			</line>
 		</band>
 	</columnFooter>
+	<lastPageFooter>
+		<band height="50">
+			<textField>
+				<reportElement uuid="8238d89c-230b-4e83-ae4c-19294e1338c6" x="250" y="30" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{notaId}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
 	</summary>

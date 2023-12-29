@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b81ac89b-2b14-4529-8ad6-f861c95ff327">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="150"/>
+	<property name="ireport.y" value="362"/>
 	<subDataset name="dataset1" uuid="79eecd16-9fce-43a8-99f2-addde1164dc2"/>
 	<parameter name="nomePrestador" class="java.lang.String">
 		<defaultValueExpression><![CDATA[$F{prestador}]]></defaultValueExpression>
@@ -10,6 +10,9 @@
 	<parameter name="nomeTomador" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[$F{tomador}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="notaId" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[$F{id}]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select * from notaservico WHERE (prestador = $P{nomePrestador} )AND (tomador =$P{nomeTomador})]]>

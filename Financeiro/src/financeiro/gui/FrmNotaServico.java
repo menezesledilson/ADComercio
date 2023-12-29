@@ -9,9 +9,13 @@ import financeiro.DAO.NotaServicoDao;
 import financeiro.conexao.Conexao;
 import financeiro.model.NotaServicoFinal;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import net.sf.jasperreports.engine.JRException;
@@ -30,9 +34,12 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
      */
     public FrmNotaServico() {
         initComponents();
+        CarregarId();
         CentralizarJTextFields();
-        // dasabilitarCampos();
-        //  DesativarBotao() ;
+        dasabilitarCampos();
+        DesativarBotao();
+        bgNovo.setEnabled(false);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -66,6 +73,7 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         txtMontanteDevido = new javax.swing.JTextField();
         bgNovo = new javax.swing.JButton();
+        lblId = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Emissão Nota de Serviço");
@@ -147,6 +155,9 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
             }
         });
 
+        lblId.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblId.setText("0");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -155,21 +166,18 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMontante, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtTomador))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -186,20 +194,7 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtMontanteDevido, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtTomador)
-                            .addGap(6, 6, 6))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(bgHabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(30, 30, 30)
@@ -207,8 +202,26 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
                             .addGap(31, 31, 31)
                             .addComponent(bgGravar)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(bgEmitir))))
-                .addContainerGap(58, Short.MAX_VALUE))
+                            .addComponent(bgEmitir)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel7)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtMontante, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,7 +231,8 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
                     .addComponent(bgHabilitar)
                     .addComponent(bgGravar)
                     .addComponent(bgEmitir)
-                    .addComponent(bgNovo))
+                    .addComponent(bgNovo)
+                    .addComponent(lblId))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -251,53 +265,75 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
                     .addComponent(txtComissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(txtMontanteDevido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(3, 3, 3))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bgHabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgHabilitarActionPerformed
-        //  HabilitarBotao();
-        //  habilitarCampos();
+
+        bgNovo.setEnabled(true);
+
     }//GEN-LAST:event_bgHabilitarActionPerformed
 
     private void bgGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgGravarActionPerformed
-        NotaServicoFinal h = new NotaServicoFinal();
-        NotaServicoDao dao = new NotaServicoDao();
+        //Verificar se os campos estão vazios 
+        if (txtPrestador.getText().isEmpty()
+                || txtTomador.getText().isEmpty()
+                || txtDescricao.getText().isEmpty()
+                || txtQuant.getText().isEmpty()
+                || txtPreco.getText().isEmpty()
+                || txtPeso.getText().isEmpty()
+                || txtMontante.getText().isEmpty()
+                || txtFrete.getText().isEmpty()
+                || txtImposto.getText().isEmpty()
+                || txtComissao.getText().isEmpty()
+                || txtMontanteDevido.getText().isEmpty()) {
 
-        h.setPrestador(txtPrestador.getText());
-        h.setTomador(txtTomador.getText());
-        h.setDescricao(txtDescricao.getText());
-        h.setQuantidade(Integer.parseInt(txtQuant.getText()));
-        h.setPrecoProduto(Double.parseDouble(txtPreco.getText()));
-        h.setPesoproduto(Double.parseDouble(txtPeso.getText()));
-        h.setTotalProduto(Double.parseDouble(txtMontante.getText()));
-        h.setFreteProduto(Double.parseDouble(txtFrete.getText()));
-        h.setImpostoProduto(Double.parseDouble(txtImposto.getText()));
-        h.setComissaoProduto(Double.parseDouble(txtComissao.getText()));
-        h.setApagarProduto(Double.parseDouble(txtMontanteDevido.getText()));
+            //exibir aviso para inserir todos os dados
+            JOptionPane.showMessageDialog(null, "Por favor, insira todos os dados antes de prosseguir.", "Aviso", JOptionPane.WARNING_MESSAGE);
+        } else {
+            // Se todos os campos estiverem preenchidos, continuar com a ação
 
-        // Adicionando o objeto ao banco de dados
-        dao.adicionar(h);
-        // Exibir mensagem de sucesso
-        JOptionPane.showMessageDialog(null, "Nota de serviço adicionado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            NotaServicoFinal h = new NotaServicoFinal();
+            NotaServicoDao dao = new NotaServicoDao();
 
-        //LimparCampos();
+            h.setPrestador(txtPrestador.getText());
+            h.setTomador(txtTomador.getText());
+            h.setDescricao(txtDescricao.getText());
+            h.setQuantidade(Integer.parseInt(txtQuant.getText()));
+            h.setPrecoProduto(Double.parseDouble(txtPreco.getText()));
+            h.setPesoproduto(Double.parseDouble(txtPeso.getText()));
+            h.setTotalProduto(Double.parseDouble(txtMontante.getText()));
+            h.setFreteProduto(Double.parseDouble(txtFrete.getText()));
+            h.setImpostoProduto(Double.parseDouble(txtImposto.getText()));
+            h.setComissaoProduto(Double.parseDouble(txtComissao.getText()));
+            h.setApagarProduto(Double.parseDouble(txtMontanteDevido.getText()));
 
+            // Adicionando o objeto ao banco de dados
+            dao.adicionar(h);
+            CarregarId();
+            // Exibir mensagem de sucesso
+            JOptionPane.showMessageDialog(null, "Nota de serviço adicionado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+            bgNovo.setEnabled(false);
+            bgEmitir.setEnabled(true);
+            dasabilitarCampos();
+        }
     }//GEN-LAST:event_bgGravarActionPerformed
 
     private void bgEmitirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgEmitirActionPerformed
@@ -305,18 +341,10 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         try {
             String caminhoRelatorio = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\RelatorioNotaServico\\RelatorioNotaServico.jasper";
 
-            // Adicione o nome do Prestador como um parâmetro
-            Map<String, Object> parametroPrestador = new HashMap<>();
-            parametroPrestador.put("nomePrestador", txtPrestador.getText());
-
-            // Adicione o nome do tomador como um parâmetro
-            Map<String, Object> parametroTomador = new HashMap<>();
-            parametroTomador.put("nomeTomador", txtTomador.getText());
-
-            //Combine os parâmetros em um único mapa
+            // Adicione os nomes do prestador e tomador como parâmetros
             Map<String, Object> parametros = new HashMap<>();
-            parametros.putAll(parametroPrestador);
-            parametros.putAll(parametroTomador);
+            parametros.put("nomePrestador", txtPrestador.getText());
+            parametros.put("nomeTomador", txtTomador.getText());
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(caminhoRelatorio, parametros, con);
             JasperViewer viewer = new JasperViewer(jasperPrint, false);
@@ -336,12 +364,58 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
             }
 
         }
+        dasabilitarCampos();
+        bgGravar.setEnabled(false);
+        bgHabilitar.setEnabled(true);
 
     }//GEN-LAST:event_bgEmitirActionPerformed
 
     private void bgNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgNovoActionPerformed
+        bgGravar.setEnabled(true);
+        bgHabilitar.setEnabled(false);
+        habilitarCampos();
         LimparCampos();
     }//GEN-LAST:event_bgNovoActionPerformed
+    public void CarregarId() {
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+
+        try {
+            con = Conexao.getConnection();
+
+            // Execute a consulta SQL para obter o ID mais recente
+            pstm = con.prepareStatement("SELECT MAX(id) AS max_id FROM notaservico;");
+            rs = pstm.executeQuery();
+
+            if (rs.next()) {
+                // Obtenha o ID mais recente da consulta
+                int id = rs.getInt("max_id");
+
+                // Exiba o ID no seu Label (substitua "seuLabel" pelo nome real do seu Label)
+                lblId.setText("ID: " + id);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmNotaServico.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Certifique-se de fechar os recursos (ResultSet, PreparedStatement, Connection)
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                // Lidar com erros de fechamento, se necessário
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void LimparCampos() {
         txtPrestador.setText("");
         txtComissao.setText("");
@@ -426,6 +500,7 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblId;
     private javax.swing.JTextField txtComissao;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtFrete;

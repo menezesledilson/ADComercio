@@ -7,17 +7,13 @@ package financeiro.gui.Buscar;
 
 import financeiro.conexao.Conexao;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -32,14 +28,13 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author Ledilson
  */
-public class BuscarBoleto extends javax.swing.JInternalFrame {
+public class BuscarNotaServicoFinal extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form BuscarBoleto
+     * Creates new form BuscarNotaServiço
      */
-    public BuscarBoleto() {
+    public BuscarNotaServicoFinal() {
         initComponents();
-        // desabilitarBotoes();
     }
 
     /**
@@ -53,7 +48,7 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbBuscar = new javax.swing.JTable();
+        tbBuscaSempresa = new javax.swing.JTable();
         dateChooserInicio = new com.toedter.calendar.JDateChooser();
         dateChooserFim = new com.toedter.calendar.JDateChooser();
         btBuscar = new javax.swing.JButton();
@@ -61,26 +56,28 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        btgGerarRelatorio = new javax.swing.JButton();
+        btPesquisa = new javax.swing.JButton();
+        btGerarRelatorioProduto = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Localizar Boleto");
+        setResizable(true);
+        setTitle("Localizar Nota de Serviço Empresa");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tbBuscar.setModel(new javax.swing.table.DefaultTableModel(
+        tbBuscaSempresa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cliente", "Data Boleto", "Valor", "Empresa", "Data", "Valor"
+                "Título 1", "Título 2", "Título 3", "Título 4", "Título 5", "Título 6", "Título 7", "Título 8", "Título 9", "Título 10", "Título 11"
             }
         ));
-        tbBuscar.setEnabled(false);
-        jScrollPane1.setViewportView(tbBuscar);
+        tbBuscaSempresa.setEnabled(false);
+        jScrollPane1.setViewportView(tbBuscaSempresa);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 113, 730, 360));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 710, 300));
         jPanel1.add(dateChooserInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 129, -1));
         jPanel1.add(dateChooserFim, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 129, -1));
 
@@ -93,80 +90,103 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
         jPanel1.add(btBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 53, 150, 30));
 
         jLabel1.setText("Data Inicial");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 60, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 87, -1));
 
         jLabel2.setText("Data Final");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 56, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 97, 730, 10));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 97, 710, 10));
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 14, 95));
 
-        btgGerarRelatorio.setText("Imprimir");
-        btgGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
+        btPesquisa.setText("Nova Pesquisa");
+        btPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btgGerarRelatorioActionPerformed(evt);
+                btPesquisaActionPerformed(evt);
             }
         });
-        jPanel1.add(btgGerarRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 53, 110, 30));
+        jPanel1.add(btPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 13, 150, 30));
+
+        btGerarRelatorioProduto.setText("Imprimir");
+        btGerarRelatorioProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGerarRelatorioProdutoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btGerarRelatorioProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, 110, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 99, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private Timestamp dataInicio;
+ private Timestamp dataInicio;
     private Timestamp dataFim;
-
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-
+        // Verificar se as datas inicial e final estão selecionadas
         if (dateChooserInicio.getDate() == null || dateChooserFim.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Por favor, selecione as datas inicial e final antes de realizar a pesquisa.", "Datas não Selecionadas", JOptionPane.WARNING_MESSAGE);
-            return;
+            return; // Abortar a operação se as datas não estiverem selecionadas
         }
-        DefaultTableModel model = (DefaultTableModel) tbBuscar.getModel();
-        model.setRowCount(0); // Limpar a tabela antes de adicionar novas linhas
 
-        TableColumnModel columnModel = tbBuscar.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(100);
-        columnModel.getColumn(1).setPreferredWidth(20);
+        // dateChooserInicio.setEnabled(false);
+        //dateChooserFim.setEnabled(false);
+        DefaultTableModel model = (DefaultTableModel) tbBuscaSempresa.getModel();
+
+        TableColumnModel columnModel = tbBuscaSempresa.getColumnModel();
+
+        columnModel.getColumn(0).setPreferredWidth(100);  // Largura em pixels
+        columnModel.getColumn(1).setPreferredWidth(100);
         columnModel.getColumn(2).setPreferredWidth(20);
-        columnModel.getColumn(3).setPreferredWidth(100);
-        columnModel.getColumn(4).setPreferredWidth(20);
-        columnModel.getColumn(5).setPreferredWidth(20);
+        columnModel.getColumn(3).setPreferredWidth(40);
+        columnModel.getColumn(4).setPreferredWidth(40);
+        columnModel.getColumn(5).setPreferredWidth(40);
+        columnModel.getColumn(6).setPreferredWidth(40);
+        columnModel.getColumn(7).setPreferredWidth(40);
+        columnModel.getColumn(8).setPreferredWidth(40);
+        columnModel.getColumn(9).setPreferredWidth(40);
+        columnModel.getColumn(10).setPreferredWidth(40);
+       
 
+        // Criar um renderizador centralizado
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        tbBuscar.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-        tbBuscar.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        tbBuscar.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
-        tbBuscar.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+
+        // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
+        tbBuscaSempresa.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tbBuscaSempresa.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        tbBuscaSempresa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        tbBuscaSempresa.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        tbBuscaSempresa.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+        tbBuscaSempresa.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
+        tbBuscaSempresa.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
+        tbBuscaSempresa.getColumnModel().getColumn(8).setCellRenderer(centerRenderer);
+
+        tbBuscaSempresa.getColumnModel().getColumn(9).setCellRenderer(centerRenderer);
+        tbBuscaSempresa.getColumnModel().getColumn(10).setCellRenderer(centerRenderer);
+       
 
         try (Connection con = Conexao.getConnection()) {
-            String sql = "SELECT * FROM boletoempresa WHERE (databoletoreceber BETWEEN ? AND ?) OR (databoletoapagar BETWEEN ? AND ?)ORDER BY databoletoreceber ASC";
+            String sql = "SELECT * FROM notaservico WHERE (datahora BETWEEN ? AND ?) OR (datahora BETWEEN ? AND ?) ORDER BY datahora ASC";
 
-            //  SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             //Formatar o valor no campo jtable
-            NumberFormat currencyValorReceber = NumberFormat.getCurrencyInstance();
-            NumberFormat currencyValorPagar = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyPrecoProduto = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyPesoProduto = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyTotalProduto = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyFreteProduto = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyImpostoProduto = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyComissaoProduto = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyApagarProduto = NumberFormat.getCurrencyInstance();
 
             // Armazene as datas de início e fim para uso posterior
             dataInicio = new java.sql.Timestamp(dateChooserInicio.getDate().getTime());
@@ -178,6 +198,8 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
                 pst.setObject(3, new java.sql.Timestamp(dateChooserInicio.getDate().getTime()));
                 pst.setObject(4, new java.sql.Timestamp(dateChooserFim.getDate().getTime()));
 
+                //linha para testar a consultar
+                //  System.out.println("SQL: " + pst.toString());
                 try (ResultSet rs = pst.executeQuery()) {
                     if (!rs.next()) {
                         //ResultSet está vazio, exibir mensagem
@@ -188,15 +210,18 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
                         do {
 
                             model.addRow(new Object[]{
-                                rs.getObject("nomeboletoreceber"),
-                                rs.getObject("databoletoreceber"),
-                                // rs.getObject("valorboletoreceber"),
-                                currencyValorReceber.format(rs.getDouble("valorboletoreceber")),
-                                rs.getObject("nomeboletoapagar"),
-                                rs.getObject("databoletoapagar"),
-                                //  rs.getObject("valorboletoapagar")
-                                currencyValorPagar.format(rs.getDouble("valorboletoapagar"))
-                            });
+                                rs.getObject("id"),
+                                rs.getObject("prestador"),
+                                rs.getObject("tomador"),
+                                rs.getObject("descricao"),
+                                rs.getObject("quantidade"),
+                                currencyPrecoProduto.format(rs.getDouble("precoproduto")),
+                                currencyPesoProduto.format(rs.getDouble("pesoproduto")),
+                                currencyTotalProduto.format(rs.getDouble("totalproduto")),
+                                currencyFreteProduto.format(rs.getDouble("freteproduto")),
+                                currencyImpostoProduto.format(rs.getDouble("impostoproduto")),
+                                currencyComissaoProduto.format(rs.getDouble("comissaoproduto")),
+                                currencyApagarProduto.format(rs.getDouble("apagarproduto")),});
                         } while (rs.next());
                     }
                 }
@@ -209,12 +234,31 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btBuscarActionPerformed
 
-    private void btgGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btgGerarRelatorioActionPerformed
+    private void btPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisaActionPerformed
+        // TODO add your handling code here:
+        habilitarBotoes();
+    }//GEN-LAST:event_btPesquisaActionPerformed
+    private void habilitarBotoes() {
 
+        dateChooserInicio.setEnabled(true);
+        dateChooserFim.setEnabled(true);
+        btBuscar.setEnabled(true);
+
+    }
+
+    private void desabilitarBotoes() {
+
+        dateChooserInicio.setEnabled(false);
+        dateChooserFim.setEnabled(false);
+        btBuscar.setEnabled(false);
+        // btPesquisa.setEnabled(false);
+
+    }
+    private void btGerarRelatorioProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerarRelatorioProdutoActionPerformed
         Connection con = Conexao.getConnection();
         //PreparedStatement pstm = null;
         try {
-            String arq = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\Relatorio\\RelatorioBoleto.jasper";
+            String arq = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\Relatorio\\RelatorioNotaServicoFinal.jasper";
             Map<String, Object> parametros = new HashMap<>();
 
             // Use as datas de início e fim armazenadas como parâmetros
@@ -241,28 +285,13 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
                 }
             }
         }
+    }//GEN-LAST:event_btGerarRelatorioProdutoActionPerformed
 
-    }//GEN-LAST:event_btgGerarRelatorioActionPerformed
-
-    private void habilitarBotoes() {
-
-        dateChooserInicio.setEnabled(true);
-        dateChooserFim.setEnabled(true);
-        btBuscar.setEnabled(true);
-
-    }
-
-    private void desabilitarBotoes() {
-
-        dateChooserInicio.setEnabled(false);
-        dateChooserFim.setEnabled(false);
-        btBuscar.setEnabled(false);
-        // btPesquisa.setEnabled(false);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
-    private javax.swing.JButton btgGerarRelatorio;
+    private javax.swing.JButton btGerarRelatorioProduto;
+    private javax.swing.JButton btPesquisa;
     private com.toedter.calendar.JDateChooser dateChooserFim;
     private com.toedter.calendar.JDateChooser dateChooserInicio;
     private javax.swing.JLabel jLabel1;
@@ -271,6 +300,6 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable tbBuscar;
+    private javax.swing.JTable tbBuscaSempresa;
     // End of variables declaration//GEN-END:variables
 }
