@@ -12,9 +12,11 @@ import financeiro.model.PedidoBobina;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -240,26 +242,50 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
             PreparedStatement pstm;
             ResultSet rs;
 
-            // Consulta para obter a soma total da coluna quantidadeBobina  
-            String sqlSomaTotal = "SELECT SUM (quantidadeBobina) AS totalBobinas FROM pedidobobina";
-            try (PreparedStatement statement = con.prepareStatement(sqlSomaTotal);
-                    ResultSet resultado = statement.executeQuery()) {
+            String sqlSomaTotalBobinas = "SELECT SUM(quantidadeBobina) AS totalBobinas FROM pedidobobina WHERE EXTRACT(MONTH FROM CAST(dataPedido AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(dataPedido AS DATE)) = ?";
 
-                if (resultado.next()) {
-                    int totalBobinas = resultado.getInt("totalBobinas");
-                    txtTotalBobina.setText(String.valueOf(totalBobinas));
+            // Obtém o mês e o ano atuais
+            Calendar cal = Calendar.getInstance();
+            int mesAtual = cal.get(Calendar.MONTH) + 1; // Note que os meses em Java começam do zero
+            int anoAtual = cal.get(Calendar.YEAR);
+
+            try (PreparedStatement statementBobinas = con.prepareStatement(sqlSomaTotalBobinas)) {
+                statementBobinas.setInt(1, mesAtual);
+                statementBobinas.setInt(2, anoAtual);
+
+                try (ResultSet resultadoBobinas = statementBobinas.executeQuery()) {
+                    if (resultadoBobinas.next()) {
+                        int totalBobinas = resultadoBobinas.getInt("totalBobinas");
+                        txtTotalBobina.setText(String.valueOf(totalBobinas));
+                    } else {
+                        // Se não houver resultados, define o total como zero
+                        txtTotalBobina.setText("0");
+                    }
                 }
+            } catch (SQLException e) {
+                // Trate exceções SQL conforme necessário
+                e.printStackTrace();
             }
 
-            // Consulta para obter a soma total da coluna Valor Pedido
-            String sqlSomaTotalReal = "SELECT SUM (valorpedido) AS totalValor FROM pedidobobina";
-            try (PreparedStatement statement = con.prepareCall(sqlSomaTotalReal);
-                    ResultSet resultadoValor = statement.executeQuery()) {
+            // Consulta para obter a soma total da coluna Valor Pedido para o mês atual
+            String sqlSomaTotalReal = "SELECT SUM(valorpedido) AS totalValor FROM pedidobobina WHERE EXTRACT(MONTH FROM CAST(dataPedido AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(dataPedido AS DATE)) = ?";
 
-                if (resultadoValor.next()) {
-                    Double totalValor = resultadoValor.getDouble("totalValor");
-                    txtTotalValor.setText(String.valueOf(totalValor));
+            try (PreparedStatement statementValor = con.prepareStatement(sqlSomaTotalReal)) {
+                statementValor.setInt(1, mesAtual);
+                statementValor.setInt(2, anoAtual);
+
+                try (ResultSet resultadoValor = statementValor.executeQuery()) {
+                    if (resultadoValor.next()) {
+                        Double totalValor = resultadoValor.getDouble("totalValor");
+                        txtTotalValor.setText(String.valueOf(totalValor));
+                    } else {
+                        // Se não houver resultados, define o total como zero
+                        txtTotalValor.setText("0");
+                    }
                 }
+            } catch (SQLException e) {
+                // Trate exceções SQL conforme necessário
+                e.printStackTrace();
             }
 
             pstm = con.prepareStatement("SELECT * FROM pedidobobina ORDER BY  datapedido ASC;");

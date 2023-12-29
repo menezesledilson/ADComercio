@@ -23,7 +23,6 @@ import javax.swing.JOptionPane;
  */
 public class EmissorNotaServicoDao {
 
-   
     public void adicionarnf(NotaServico notaServico) {
 
         //Criar a conexao com banco
@@ -31,11 +30,11 @@ public class EmissorNotaServicoDao {
         PreparedStatement pstm = null;
 
         try {
-            
+
             pstm = con.prepareStatement("INSERT into emissornotaservico (clientefornecedor, totalfinalcarga, frete, imposto, comissao, totalfretecarga, totalimpostocarga, totalcomissao)values (?,?,?,?,?,?,?,?);");
 
             pstm.setString(1, notaServico.getClienteFornecedor());
-            
+
             pstm.setDouble(2, notaServico.getTotalCargaFinal());
 
             pstm.setDouble(3, notaServico.getFrete());
@@ -78,8 +77,8 @@ public class EmissorNotaServicoDao {
         }
 
     }
-      
-      public List<NotaServico> listarNotaServico() {
+
+    public List<NotaServico> listarNotaServico() {
         List<NotaServico> notaServicos = new ArrayList<>();
 
         Connection con = Conexao.getConnection();
@@ -98,23 +97,20 @@ public class EmissorNotaServicoDao {
 
                 notaServico.setDataEmissaoNota(rs.getTimestamp("datanotaservico"));
 
-            //    notaServico.setClienteEmpresa(rs.getString("clienteempresa"));
+                //    notaServico.setClienteEmpresa(rs.getString("clienteempresa"));
                 notaServico.setClienteFornecedor(rs.getString("clientefornecedor"));
 
              //   notaServico.setQuantProduto(rs.getInt("quantproduto"));
-             //   notaServico.setNomeProduto(rs.getString("nomeproduto"));
-
+                //   notaServico.setNomeProduto(rs.getString("nomeproduto"));
                 //notaServico.setValorUnitario(rs.getDouble("valorunitario"));
-               // notaServico.setPesoUnitario(rs.getDouble("valorpeso"));
-
+                // notaServico.setPesoUnitario(rs.getDouble("valorpeso"));
                 notaServico.setFrete(rs.getDouble("frete"));
-               notaServico.setImposto(rs.getDouble("imposto"));
+                notaServico.setImposto(rs.getDouble("imposto"));
                 notaServico.setComissao(rs.getDouble("comissao"));
 
-              notaServico.setTotalCargaFinal(rs.getDouble("totalfinalcarga"));
+                notaServico.setTotalCargaFinal(rs.getDouble("totalfinalcarga"));
 
               //  notaServico.setCargaGeralNs(rs.getDouble("cargageral"));
-                
                 notaServico.setTotalComissao(rs.getDouble("totalcomissao"));
                 notaServico.setTotalImposto(rs.getDouble("totalimpostocarga"));
                 notaServico.setTotalFrete(rs.getDouble("totalfretecarga"));
@@ -129,10 +125,8 @@ public class EmissorNotaServicoDao {
         }
         return notaServicos;
     }
-      
-      
-      
-        public void alterar(NotaServico notaServico) {
+
+    public void alterar(NotaServico notaServico) {
         /*
          Connection con = Conexao.getConnection();
          PreparedStatement pstm = null;

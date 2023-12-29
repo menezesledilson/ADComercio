@@ -12,8 +12,10 @@ import financeiro.model.Caixa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -195,19 +197,16 @@ private void carregaTabela() {
 
         DefaultTableModel modelo = (DefaultTableModel) tbFluxoCaixa.getModel();
         modelo.setNumRows(0);
-        
-         // Criar um renderizador centralizado
-    	DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-    	centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
+        // Criar um renderizador centralizado
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
-   	// Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
+        // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
         tbFluxoCaixa.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-    	//tbFluxoCaixa.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-    	tbFluxoCaixa.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-    	tbFluxoCaixa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-    	 
-    	 
+        //tbFluxoCaixa.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        tbFluxoCaixa.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        tbFluxoCaixa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
 
         //Defini o tamanho da tabela
         tbFluxoCaixa.getColumnModel().getColumn(0).setPreferredWidth(1);
@@ -220,26 +219,48 @@ private void carregaTabela() {
             PreparedStatement pstm;
             ResultSet rs;
 
-            pstm = con.prepareStatement("SELECT datahora, descricao, entrada, saida,LAG(SUM(entrada - COALESCE(saida, 0))) OVER (ORDER BY datahora) AS saldoAnterior,SUM(entrada - COALESCE(saida, 0)) OVER (ORDER BY datahora) AS saldoAtual FROM caixa GROUP BY datahora, descricao, entrada, saida ORDER BY datahora ASC;");
+            //Otém o mês atual
+            Calendar cal = Calendar.getInstance();
+            int mesAtual = cal.get(Calendar.MONTH) + 1; // Note que os meses em Java começam do zero
+
+            //Inicializa os saldos
+            double saldoAtual = 0;
+            double saldoAnterior = 0;
+
+            pstm = con.prepareStatement("SELECT datahora, descricao, entrada, saida, LAG(SUM(entrada - COALESCE(saida, 0))) OVER (ORDER BY datahora) AS saldoAnterior, SUM(entrada - COALESCE(saida, 0)) OVER (ORDER BY datahora) AS saldoAtual FROM caixa GROUP BY datahora, descricao, entrada, saida ORDER BY datahora ASC;");
             rs = pstm.executeQuery();
 
             NumberFormat currencyEntrada = NumberFormat.getCurrencyInstance();
             NumberFormat currencySaida = NumberFormat.getCurrencyInstance();
 
             while (rs.next()) {
+
+                Timestamp dataHora = rs.getTimestamp("datahora");
+                int mesDataHora = dataHora.toLocalDateTime().getMonthValue();
+
+                // Verifica se há uma mudança de mês
+                if (mesDataHora != mesAtual) {
+                    // Zera os saldos quando há uma mudança de mês
+                    saldoAtual = 0;
+                    saldoAnterior = 0;
+                    mesAtual = mesDataHora; // Atualiza o mês atual
+                }
+
                 modelo.addRow(new Object[]{
-                    rs.getString("datahora"),
+                    dataHora,
                     rs.getString("descricao"),
                     currencyEntrada.format(rs.getDouble("entrada")),
-                    currencyEntrada.format(rs.getDouble("saida"))
+                    currencySaida.format(rs.getDouble("saida"))
                 });
 
-                // Extraindo o saldoAtual e atualizando o JLabel
-                double saldoAtual = rs.getDouble("saldoatual");
-                lblSaldoAtual.setText("" + saldoAtual);
+                // Extraindo os saldos corretos e atualizando os JLabels
+                saldoAtual = rs.getDouble("saldoAtual");
+                saldoAnterior = rs.getDouble("saldoAnterior");
 
-                double saldoAnterior = rs.getDouble("saldoanterior");
-                lblsaldoAnterior.setText("" + saldoAnterior);
+                // Atualize os rótulos dentro do loop
+                lblSaldoAtual.setText(String.valueOf(saldoAtual));
+                lblsaldoAnterior.setText(String.valueOf(saldoAnterior));
+
             }
 
             Conexao.closeConnection(con, pstm, rs);
@@ -359,7 +380,7 @@ private void carregaTabela() {
 
                 carregaTabela();
                 limparTexto();
-        // desativaBotoes();
+                // desativaBotoes();
                 //desativaCampos();
                 break;
             case 1:

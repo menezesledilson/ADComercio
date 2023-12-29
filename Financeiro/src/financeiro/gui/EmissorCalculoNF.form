@@ -170,7 +170,7 @@
                     <Column editable="true" title="Comiss&#xe3;o" type="java.lang.Object"/>
                     <Column editable="true" title="Carga Frete" type="java.lang.Object"/>
                     <Column editable="true" title="Carga Imposto" type="java.lang.Object"/>
-                    <Column editable="true" title="Valor &#xe0; pagar" type="java.lang.Object"/>
+                    <Column editable="true" title="Valor a pagar" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

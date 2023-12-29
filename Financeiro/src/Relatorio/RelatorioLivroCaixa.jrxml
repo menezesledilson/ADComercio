@@ -16,6 +16,14 @@
 	<field name="saida" class="java.math.BigDecimal"/>
 	<field name="saldoanterior" class="java.math.BigDecimal"/>
 	<field name="saldoatual" class="java.math.BigDecimal"/>
+	<variable name="somaEntrada" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{entrada}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="somaSaida" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{saida}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
 	<title>
 		<band height="99" splitType="Stretch">
 			<staticText>
@@ -110,10 +118,34 @@
 	<pageFooter>
 		<band height="54" splitType="Stretch">
 			<textField>
-				<reportElement uuid="4599263e-1794-4afd-a550-2aab48f491f6" x="443" y="34" width="100" height="20"/>
+				<reportElement uuid="4599263e-1794-4afd-a550-2aab48f491f6" x="455" y="34" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="50">
+			<textField>
+				<reportElement uuid="f327f8f2-0729-4a44-867e-f196f42a34f6" x="338" y="30" width="81" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaEntrada}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="adf45e41-3c57-43a6-8668-4e2fe2786a09" x="338" y="10" width="81" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Entrada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="adf45e41-3c57-43a6-8668-4e2fe2786a09" x="485" y="11" width="81" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Saída]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="d3f1d36b-60eb-4752-8085-0b24231316ce" x="492" y="30" width="73" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaSaida}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>

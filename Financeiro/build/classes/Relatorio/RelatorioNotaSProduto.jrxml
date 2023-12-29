@@ -17,6 +17,22 @@
 	<field name="cargainicial" class="java.lang.Double"/>
 	<field name="nomeproduto" class="java.lang.String"/>
 	<field name="clienteempresa" class="java.lang.String"/>
+	<variable name="somaQuant" class="java.lang.Integer" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{quantproduto}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="somaUnitario" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorunitario}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="somaPeso" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorpeso}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="somaCargaGeral" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{cargainicial}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
 	<title>
 		<band height="105" splitType="Stretch">
 			<staticText>
@@ -143,4 +159,48 @@
 			</textField>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="50">
+			<staticText>
+				<reportElement uuid="2a6ff057-ca57-482b-93e2-257a34378094" x="340" y="2" width="54" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Valor Unit.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8a247719-a8ba-4664-b6a6-087970b4f5b0" x="188" y="2" width="37" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Quant.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4b848462-18ac-4533-9258-1eaca724cd6c" x="489" y="2" width="66" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Garga Geral]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c0513106-e132-4582-aebc-06888257dcdd" x="422" y="2" width="33" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Peso]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="be092bdf-0774-46c0-95a4-73aa9cf1bac4" x="190" y="20" width="34" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaQuant}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="48c96869-8950-4e14-8197-024a9a481edc" x="340" y="20" width="49" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaUnitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b2e32386-6885-4d6a-8d64-d820bc4ce8b4" x="430" y="20" width="49" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaPeso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0a426e8c-477c-4331-9878-5af764da8656" x="493" y="20" width="62" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaCargaGeral}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>

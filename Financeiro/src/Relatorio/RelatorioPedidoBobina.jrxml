@@ -20,6 +20,14 @@ WHERE (datapedido BETWEEN $P{DataIn} AND $P{DataFin})
 	<field name="numerochequea" class="java.lang.Integer"/>
 	<field name="numerochequeb" class="java.lang.Integer"/>
 	<field name="numerochequec" class="java.lang.Integer"/>
+	<variable name="somaQuant" class="java.lang.Integer" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{quantidadebobina}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="somaValor" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorpedido}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
 	<title>
 		<band height="121" splitType="Stretch">
 			<textField pattern="EEEEE dd MMMMM yyyy">
@@ -161,12 +169,40 @@ WHERE (datapedido BETWEEN $P{DataIn} AND $P{DataFin})
 		<band height="50"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch">
+		<band height="74" splitType="Stretch">
 			<textField>
-				<reportElement uuid="5b041dfa-8a45-42cb-bc20-2d183900a078" x="450" y="32" width="100" height="20"/>
+				<reportElement uuid="5b041dfa-8a45-42cb-bc20-2d183900a078" x="455" y="54" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="50">
+			<textField>
+				<reportElement uuid="10042ecd-b67a-4cbd-bc5a-559b8d2d6d9e" x="172" y="30" width="54" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaQuant}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ed6cc5ad-0238-4ec9-a5a7-dc9159fff30e" x="172" y="10" width="57" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quant Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="4230e772-134a-4251-81c3-ce8f79dd0d6d" x="113" y="30" width="68" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaValor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ed6cc5ad-0238-4ec9-a5a7-dc9159fff30e" x="115" y="10" width="57" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+		</band>
+	</summary>
 </jasperReport>

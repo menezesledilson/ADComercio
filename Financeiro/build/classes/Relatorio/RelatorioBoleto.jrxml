@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e177594f-6ecf-478e-8cf2-163b8f9a00c2">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="DataIn" class="java.util.Date"/>
 	<parameter name="DataFin" class="java.util.Date"/>
 	<queryString>
@@ -15,6 +15,14 @@
 	<field name="nomeboletoapagar" class="java.lang.String"/>
 	<field name="databoletoapagar" class="java.sql.Date"/>
 	<field name="valorboletoapagar" class="java.math.BigDecimal"/>
+	<variable name="totalReceber" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorboletoreceber}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="totalPagar" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorboletoapagar}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -148,4 +156,28 @@
 			</textField>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="50">
+			<textField>
+				<reportElement uuid="574e6120-e021-473f-b696-2f34c6aa9331" x="212" y="30" width="69" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{totalReceber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="30c18b9e-a6b9-474b-ae22-c739bb7e566f" x="212" y="10" width="69" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Geral]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="30c18b9e-a6b9-474b-ae22-c739bb7e566f" x="495" y="10" width="69" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Geral]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="bbe2b21d-8deb-41b2-8d21-600734186cbf" x="495" y="30" width="69" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{totalPagar}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>

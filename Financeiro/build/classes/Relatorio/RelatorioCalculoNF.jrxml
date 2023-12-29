@@ -19,6 +19,34 @@
 	<field name="totalcomissao" class="java.lang.Double"/>
 	<field name="comissao" class="java.lang.Double"/>
 	<field name="totalfinalcarga" class="java.lang.Double"/>
+	<variable name="somaTCarga" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalfinalcarga}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="somaFrete" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{frete}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="SomaCcFrete" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalfretecarga}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="somaImposto" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalimpostocarga}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="SomaImposto" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{imposto}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="somaComissao" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{comissao}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="somaPagar" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalcomissao}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -88,22 +116,22 @@
 				<text><![CDATA[C. c/Frete]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f7dc4cb0-5489-4643-917f-b3209fa70847" x="327" y="1" width="48" height="20"/>
+				<reportElement uuid="f7dc4cb0-5489-4643-917f-b3209fa70847" x="329" y="1" width="48" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Imposto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e2f1be8e-39e1-43b1-b32a-1d25e284d7f8" x="377" y="2" width="95" height="20"/>
+				<reportElement uuid="e2f1be8e-39e1-43b1-b32a-1d25e284d7f8" x="379" y="2" width="95" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Imposto c/ Carga]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c104b539-cc68-4379-965c-8db5b5ff0895" x="452" y="3" width="62" height="20"/>
+				<reportElement uuid="c104b539-cc68-4379-965c-8db5b5ff0895" x="454" y="3" width="62" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Comissão]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="28c45e9a-c884-4d15-be3e-5f8c21fa3ec9" x="511" y="2" width="38" height="20"/>
+				<reportElement uuid="28c45e9a-c884-4d15-be3e-5f8c21fa3ec9" x="513" y="2" width="38" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[A pagar]]></text>
 			</staticText>
@@ -170,10 +198,84 @@
 	<pageFooter>
 		<band height="45" splitType="Stretch">
 			<textField>
-				<reportElement uuid="d53771ff-cbae-4772-971d-e6d60140ac96" x="437" y="25" width="100" height="20"/>
+				<reportElement uuid="d53771ff-cbae-4772-971d-e6d60140ac96" x="455" y="25" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="50">
+			<textField>
+				<reportElement uuid="7edb4f1f-6bb4-4d90-87a2-d3eab8623f95" x="165" y="30" width="68" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaTCarga}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2d202ccd-f21b-4779-ac2e-8dd96c8e5c44" x="166" y="11" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[T. da Carga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e24d8252-e55e-4d84-92af-4cbd2c8d06dc" x="225" y="11" width="51" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Frete]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="7610cfb2-fdcd-459d-afdc-c9be6e16dee0" x="230" y="30" width="45" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaFrete}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2a7a45aa-1c17-45c6-8d14-46792cd4dd07" x="273" y="11" width="58" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[C. c/Frete]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="40fceb47-ef5f-4d47-a1aa-4d6599f77382" x="279" y="30" width="41" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{SomaCcFrete}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f7dc4cb0-5489-4643-917f-b3209fa70847" x="329" y="11" width="48" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Imposto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e2f1be8e-39e1-43b1-b32a-1d25e284d7f8" x="379" y="12" width="95" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Imposto c/ Carga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="28c45e9a-c884-4d15-be3e-5f8c21fa3ec9" x="513" y="12" width="38" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[A pagar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c104b539-cc68-4379-965c-8db5b5ff0895" x="454" y="12" width="62" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Comissão]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="77a02988-6d7b-43b7-b439-3713abe7c2f9" x="399" y="30" width="37" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaImposto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="78d1ecb1-037b-4c63-b346-3d526aa0bd26" x="332" y="30" width="39" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{SomaImposto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f01bf67a-5a1e-42c5-ad8b-94b9df5254ba" x="459" y="30" width="52" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaComissao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="85773ece-7923-4c44-b499-043b0a3787d4" x="516" y="30" width="39" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaPagar}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>

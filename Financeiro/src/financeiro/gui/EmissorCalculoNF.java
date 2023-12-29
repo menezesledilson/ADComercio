@@ -83,7 +83,7 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Fornecedor", "Carga Geral", "Frete", "Imposto", "Comissão", "Carga Frete", "Carga Imposto", "Valor à pagar"
+                "Fornecedor", "Carga Geral", "Frete", "Imposto", "Comissão", "Carga Frete", "Carga Imposto", "Valor a pagar"
             }
         ));
         tbNotaServico.addMouseListener(new java.awt.event.MouseAdapter() {
