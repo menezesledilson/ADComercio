@@ -130,7 +130,7 @@ public class BuscarNotaServicoFinal extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
- private Timestamp dataInicio;
+    private Timestamp dataInicio;
     private Timestamp dataFim;
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
         // Verificar se as datas inicial e final estão selecionadas

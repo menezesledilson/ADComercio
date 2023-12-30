@@ -5,6 +5,25 @@
  */
 package financeiro.gui.Buscar;
 
+import financeiro.conexao.Conexao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author Ledilson
@@ -30,8 +49,8 @@ public class BuscarControleVenda extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbPagamentoF = new javax.swing.JTable();
-        dateChooserInicioP = new com.toedter.calendar.JDateChooser();
-        dateChooserFimP = new com.toedter.calendar.JDateChooser();
+        dateChooserInicio = new com.toedter.calendar.JDateChooser();
+        dateChooserFim = new com.toedter.calendar.JDateChooser();
         btPagamentoF = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -57,8 +76,8 @@ public class BuscarControleVenda extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tbPagamentoF);
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 113, 730, 360));
-        jPanel2.add(dateChooserInicioP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 129, -1));
-        jPanel2.add(dateChooserFimP, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 129, -1));
+        jPanel2.add(dateChooserInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 129, -1));
+        jPanel2.add(dateChooserFim, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 129, -1));
 
         btPagamentoF.setText("Procurar Registro");
         btPagamentoF.addActionListener(new java.awt.event.ActionListener() {
@@ -69,10 +88,10 @@ public class BuscarControleVenda extends javax.swing.JInternalFrame {
         jPanel2.add(btPagamentoF, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 53, 150, 30));
 
         jLabel1.setText("Data Inicial");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 60, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 80, -1));
 
         jLabel2.setText("Data Final");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 56, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 70, -1));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 97, 730, 10));
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -101,10 +120,11 @@ public class BuscarControleVenda extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private Timestamp dataInicio;
+    private Timestamp dataFim;
     private void btPagamentoFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPagamentoFActionPerformed
-/*
-        if (dateChooserInicioP.getDate() == null || dateChooserFimP.getDate() == null) {
+
+        if (dateChooserInicio.getDate() == null || dateChooserFim.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Por favor, selecione as datas inicial e final antes de realizar a pesquisa.", "Datas não Selecionadas", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -123,19 +143,20 @@ public class BuscarControleVenda extends javax.swing.JInternalFrame {
         tbPagamentoF.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
 
         try (Connection con = Conexao.getConnection()) {
-            String sql = "SELECT * FROM pagamentofabrica WHERE (datahorapagamento BETWEEN ? AND ?) OR (datahorapagamento BETWEEN ? AND ?)ORDER BY datahorapagamento ASC";
+            String sql = "SELECT * FROM controlevendedor WHERE (datahoravenda BETWEEN ? AND ?) OR (datahoravenda BETWEEN ? AND ?)ORDER BY datahoravenda ASC";
 
             // Formatando o valor no campo da jTable
-            NumberFormat currencyValorPagamento = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyValorVenda = NumberFormat.getCurrencyInstance();
+
             // Armazene as datas de início e fim para uso posterior
-            dataInicio = new java.sql.Timestamp(dateChooserInicioP.getDate().getTime());
-            dataFim = new java.sql.Timestamp(dateChooserFimP.getDate().getTime());
+            dataInicio = new java.sql.Timestamp(dateChooserInicio.getDate().getTime());
+            dataFim = new java.sql.Timestamp(dateChooserFim.getDate().getTime());
 
             try (PreparedStatement pst = con.prepareStatement(sql)) {
-                pst.setObject(1, new java.sql.Timestamp(dateChooserInicioP.getDate().getTime()));
-                pst.setObject(2, new java.sql.Timestamp(dateChooserFimP.getDate().getTime()));
-                pst.setObject(3, new java.sql.Timestamp(dateChooserInicioP.getDate().getTime()));
-                pst.setObject(4, new java.sql.Timestamp(dateChooserFimP.getDate().getTime()));
+                pst.setObject(1, new java.sql.Timestamp(dateChooserInicio.getDate().getTime()));
+                pst.setObject(2, new java.sql.Timestamp(dateChooserFim.getDate().getTime()));
+                pst.setObject(3, new java.sql.Timestamp(dateChooserInicio.getDate().getTime()));
+                pst.setObject(4, new java.sql.Timestamp(dateChooserFim.getDate().getTime()));
 
                 try (ResultSet rs = pst.executeQuery()) {
                     if (!rs.next()) {
@@ -146,31 +167,61 @@ public class BuscarControleVenda extends javax.swing.JInternalFrame {
                         model.setRowCount(0);
                         do {
                             model.addRow(new Object[]{
-                                rs.getObject("datahorapagamento"),
-                                rs.getObject("nomepagamento"),
-                                // rs.getObject("valorboletoreceber"),
-                                currencyValorPagamento.format(rs.getDouble("valorpagamento")),});
-                    } while (rs.next());
+                                rs.getObject("datahoravenda"),
+                                rs.getObject("nomevenda"),
+                                currencyValorVenda.format(rs.getDouble("valorvenda")),});
+                        } while (rs.next());
+                    }
                 }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }*/
     }//GEN-LAST:event_btPagamentoFActionPerformed
 
     private void btgGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btgGerarRelatorioActionPerformed
 
+         Connection con = Conexao.getConnection();
+        //PreparedStatement pstm = null;
+         
+         try{
+              String arq = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\Relatorio\\RelatorioControleVenda.jasper";
+            Map<String, Object> parametros = new HashMap<>();
+     
+            if (dataInicio != null) {
+                parametros.put("DataIn", new java.sql.Timestamp(dataInicio.getTime()));
+            }
+            if (dataFim != null) {
+                parametros.put("DataFin", new java.sql.Timestamp(dataFim.getTime()));
+            }
+
+            JasperPrint jaspertPrint = JasperFillManager.fillReport(arq, parametros, con);
+            JasperViewer view = new JasperViewer(jaspertPrint, false);
+            view.setVisible(true);
+
+        } catch (JRException ex) {
+            System.out.println("Erro:" + ex);
+        } finally {
+            // Certifique-se de fechar a conexão
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+       
     }//GEN-LAST:event_btgGerarRelatorioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPagamentoF;
     private javax.swing.JButton btgGerarRelatorio;
-    private com.toedter.calendar.JDateChooser dateChooserFimP;
-    private com.toedter.calendar.JDateChooser dateChooserInicioP;
+    private com.toedter.calendar.JDateChooser dateChooserFim;
+    private com.toedter.calendar.JDateChooser dateChooserInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;

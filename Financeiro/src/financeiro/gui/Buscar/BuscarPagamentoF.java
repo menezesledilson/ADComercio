@@ -85,10 +85,10 @@ public class BuscarPagamentoF extends javax.swing.JInternalFrame {
                 btPagamentoFActionPerformed(evt);
             }
         });
-        jPanel2.add(btPagamentoF, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 53, 150, 30));
+        jPanel2.add(btPagamentoF, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 150, 30));
 
         jLabel1.setText("Data Inicial");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 60, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 80, -1));
 
         jLabel2.setText("Data Final");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 56, -1));
@@ -103,7 +103,7 @@ public class BuscarPagamentoF extends javax.swing.JInternalFrame {
                 btgGerarRelatorioActionPerformed(evt);
             }
         });
-        jPanel2.add(btgGerarRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 53, 110, 30));
+        jPanel2.add(btgGerarRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 110, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,28 +182,51 @@ public class BuscarPagamentoF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btPagamentoFActionPerformed
 
     private void btgGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btgGerarRelatorioActionPerformed
+        Connection con = Conexao.getConnection();
+        //PreparedStatement pstm = null;
 
-       
+        try {
+            String arq = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\Relatorio\\RelatorioPagamentoF.jasper";
+            Map<String, Object> parametros = new HashMap<>();
+
+            if (dataInicio != null) {
+                parametros.put("DataIn", new java.sql.Timestamp(dataInicio.getTime()));
+            }
+            if (dataFim != null) {
+                parametros.put("DataFin", new java.sql.Timestamp(dataFim.getTime()));
+            }
+
+            JasperPrint jaspertPrint = JasperFillManager.fillReport(arq, parametros, con);
+            JasperViewer view = new JasperViewer(jaspertPrint, false);
+            view.setVisible(true);
+
+        } catch (JRException ex) {
+            System.out.println("Erro:" + ex);
+        } finally {
+            // Certifique-se de fechar a conexão
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }//GEN-LAST:event_btgGerarRelatorioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btBuscar;
     private javax.swing.JButton btPagamentoF;
     private javax.swing.JButton btgGerarRelatorio;
-    private com.toedter.calendar.JDateChooser dateChooserFim;
     private com.toedter.calendar.JDateChooser dateChooserFimP;
-    private com.toedter.calendar.JDateChooser dateChooserInicio;
     private com.toedter.calendar.JDateChooser dateChooserInicioP;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable tbBuscar;
     private javax.swing.JTable tbPagamentoF;
     // End of variables declaration//GEN-END:variables
 }
