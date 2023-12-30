@@ -14,6 +14,7 @@ import financeiro.conexao.Conexao;
 import financeiro.gui.Buscar.BuscarEmissorCalculoNF;
 import financeiro.gui.Buscar.BuscarNotaId;
 import financeiro.gui.Buscar.BuscarNotaServicoFinal;
+import financeiro.gui.Buscar.BuscarPagamentoF;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -102,6 +103,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem8 = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem27 = new javax.swing.JMenuItem();
+        jSeparator25 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem26 = new javax.swing.JMenuItem();
+        jSeparator23 = new javax.swing.JPopupMenu.Separator();
         jMenu2 = new javax.swing.JMenu();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -128,6 +134,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem20 = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
         jMenuItem24 = new javax.swing.JMenuItem();
+        jSeparator24 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem28 = new javax.swing.JMenuItem();
         jSeparator21 = new javax.swing.JPopupMenu.Separator();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -256,7 +264,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu6.add(jMenuItem7);
         jMenu6.add(jSeparator2);
 
-        jMenuItem8.setText("Realizar Op. Financeira");
+        jMenuItem8.setText("Op. Pagamentos e Recebimentos");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem8ActionPerformed(evt);
@@ -266,6 +274,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu6.add(jSeparator10);
 
         jMenuBar1.add(jMenu6);
+
+        jMenu5.setText("Op. Financeira");
+
+        jMenuItem27.setText("Registro de Vendas");
+        jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem27ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem27);
+        jMenu5.add(jSeparator25);
+
+        jMenuItem26.setText("Registro de  Pagamentos");
+        jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem26ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem26);
+        jMenu5.add(jSeparator23);
+
+        jMenuBar1.add(jMenu5);
 
         jMenu2.setText("Fluxo de Caixa");
         jMenu2.add(jSeparator3);
@@ -281,7 +311,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu8.setText("Controle Fiscal");
+        jMenu8.setText("Emissão Nota Serviço");
         jMenu8.add(jSeparator13);
 
         jMenuItem15.setText("Emissão NS Inicio");
@@ -376,6 +406,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu7.add(jMenuItem24);
+        jMenu7.add(jSeparator24);
+
+        jMenuItem28.setText("Localizar Pagamentos");
+        jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem28ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem28);
         jMenu7.add(jSeparator21);
 
         jMenuBar1.add(jMenu7);
@@ -583,6 +622,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         form.abrirFormulario(tela = new BuscarNotaId(), jDesktop);
     }//GEN-LAST:event_jMenuItem25ActionPerformed
 
+    private void jMenuItem26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem26ActionPerformed
+        CadastroPagamentoFabrica tela;
+        form.abrirFormulario(tela = new CadastroPagamentoFabrica(), jDesktop);
+    }//GEN-LAST:event_jMenuItem26ActionPerformed
+
+    private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
+       CadastroControleVenda tela;
+       form.abrirFormulario(tela = new CadastroControleVenda(), jDesktop);
+    }//GEN-LAST:event_jMenuItem27ActionPerformed
+
+    private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
+       BuscarPagamentoF tela;
+       form.abrirFormulario(tela = new BuscarPagamentoF(), jDesktop);
+    }//GEN-LAST:event_jMenuItem28ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -635,6 +689,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
@@ -659,6 +714,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem25;
+    private javax.swing.JMenuItem jMenuItem26;
+    private javax.swing.JMenuItem jMenuItem27;
+    private javax.swing.JMenuItem jMenuItem28;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -682,6 +740,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator20;
     private javax.swing.JPopupMenu.Separator jSeparator21;
     private javax.swing.JPopupMenu.Separator jSeparator22;
+    private javax.swing.JPopupMenu.Separator jSeparator23;
+    private javax.swing.JPopupMenu.Separator jSeparator24;
+    private javax.swing.JPopupMenu.Separator jSeparator25;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;

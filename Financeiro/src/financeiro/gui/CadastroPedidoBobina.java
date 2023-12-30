@@ -80,10 +80,12 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         txtChequeC = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        txtTotalBobina = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        txtTotalValor = new javax.swing.JTextField();
+        lbTotalBobina = new javax.swing.JLabel();
+        lblTotalValor = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Cadastro de Pedidos de Bobinas");
@@ -139,7 +141,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tbPedido);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 790, 290));
-        jPanel1.add(txtNomeEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 19, 280, -1));
+        jPanel1.add(txtNomeEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 19, 220, -1));
         jPanel1.add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 70, -1));
 
         jLabel1.setText("Empresa.:");
@@ -175,7 +177,6 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 10, 170));
-        jPanel1.add(txtTotalBobina, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 130, 60, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("<-Total Geral R$->");
@@ -184,7 +185,20 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("<-T Bobinas->");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, -1, -1));
-        jPanel1.add(txtTotalValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, 60, -1));
+
+        lbTotalBobina.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbTotalBobina.setText("0");
+        jPanel1.add(lbTotalBobina, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 130, 20, -1));
+
+        lblTotalValor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblTotalValor.setText("0.00");
+        jPanel1.add(lblTotalValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, -1, -1));
+
+        jLabel11.setText("Forma de pagamentos Pix. dinheiro");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, -1, 10));
+
+        jTextField1.setText("jTextField1");
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -256,10 +270,10 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                 try (ResultSet resultadoBobinas = statementBobinas.executeQuery()) {
                     if (resultadoBobinas.next()) {
                         int totalBobinas = resultadoBobinas.getInt("totalBobinas");
-                        txtTotalBobina.setText(String.valueOf(totalBobinas));
+                        lbTotalBobina.setText(String.valueOf(totalBobinas));
                     } else {
                         // Se não houver resultados, define o total como zero
-                        txtTotalBobina.setText("0");
+                        lbTotalBobina.setText("0");
                     }
                 }
             } catch (SQLException e) {
@@ -277,10 +291,10 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                 try (ResultSet resultadoValor = statementValor.executeQuery()) {
                     if (resultadoValor.next()) {
                         Double totalValor = resultadoValor.getDouble("totalValor");
-                        txtTotalValor.setText(String.valueOf(totalValor));
+                        lblTotalValor.setText(String.valueOf(totalValor));
                     } else {
                         // Se não houver resultados, define o total como zero
-                        txtTotalValor.setText("0");
+                        lblTotalValor.setText("0");
                     }
                 }
             } catch (SQLException e) {
@@ -317,8 +331,8 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
     private void CentralizarJTextFields() {
 
         txtNomeEmpresa.setHorizontalAlignment(SwingConstants.CENTER);
-        txtTotalBobina.setHorizontalAlignment(SwingConstants.CENTER);
-        txtTotalValor.setHorizontalAlignment(SwingConstants.CENTER);
+        lbTotalBobina.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTotalValor.setHorizontalAlignment(SwingConstants.CENTER);
         txtValor.setHorizontalAlignment(SwingConstants.CENTER);
         txtDataEntrega.setHorizontalAlignment(SwingConstants.CENTER);
         txtDataPedido.setHorizontalAlignment(SwingConstants.CENTER);
@@ -326,8 +340,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         txtChequeA.setHorizontalAlignment(SwingConstants.CENTER);
         txtChequeB.setHorizontalAlignment(SwingConstants.CENTER);
         txtChequeC.setHorizontalAlignment(SwingConstants.CENTER);
-        txtTotalBobina.setEnabled(false);
-        txtTotalValor.setEnabled(false);
+       
     }
 
     private void limparTexto() {
@@ -671,6 +684,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
     private javax.swing.JButton btNovo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -683,6 +697,9 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lbTotalBobina;
+    private javax.swing.JLabel lblTotalValor;
     private javax.swing.JTable tbPedido;
     private javax.swing.JTextField txtChequeA;
     private javax.swing.JTextField txtChequeB;
@@ -691,8 +708,6 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtDataPedido;
     private javax.swing.JTextField txtNomeEmpresa;
     private javax.swing.JTextField txtQuant;
-    private javax.swing.JTextField txtTotalBobina;
-    private javax.swing.JTextField txtTotalValor;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }
