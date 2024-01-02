@@ -284,6 +284,7 @@ public class BuscarNotaServico extends javax.swing.JInternalFrame {
                 }
             }
         }
+        desabilitarBotoes();
     }//GEN-LAST:event_btGerarRelatorioProdutoActionPerformed
 
 

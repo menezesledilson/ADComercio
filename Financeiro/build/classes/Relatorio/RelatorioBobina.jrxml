@@ -10,39 +10,39 @@
 	<field name="nomebobina" class="java.lang.String"/>
 	<field name="valorbobina" class="java.math.BigDecimal"/>
 	<title>
-		<band height="62" splitType="Stretch">
+		<band height="92" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="d446fc2f-4c38-47f7-a935-ffb489bb6d5b" x="141" y="0" width="276" height="20"/>
+				<reportElement uuid="d446fc2f-4c38-47f7-a935-ffb489bb6d5b" x="141" y="0" width="276" height="41"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Relatório de Cadastro de Bobinas]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement uuid="726de47a-c8f7-4f43-bfc0-25a8819ae9aa" x="187" y="31" width="178" height="20"/>
+				<reportElement uuid="726de47a-c8f7-4f43-bfc0-25a8819ae9aa" x="187" y="55" width="178" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="29" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="125fcb2f-0c84-4dd4-bbe6-88e2ce480a86" x="87" y="41" width="100" height="20"/>
+				<reportElement uuid="125fcb2f-0c84-4dd4-bbe6-88e2ce480a86" x="87" y="2" width="100" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[Produto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="69d4ef01-2185-4c5a-80d9-cf59f95860a6" x="341" y="41" width="100" height="20"/>
+				<reportElement uuid="69d4ef01-2185-4c5a-80d9-cf59f95860a6" x="341" y="2" width="100" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[Valor]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="18b7b807-6f42-459e-9d54-4355039c2dff" x="-33" y="59" width="607" height="1"/>
+				<reportElement uuid="18b7b807-6f42-459e-9d54-4355039c2dff" x="-33" y="25" width="607" height="1"/>
 			</line>
 		</band>
 	</columnHeader>

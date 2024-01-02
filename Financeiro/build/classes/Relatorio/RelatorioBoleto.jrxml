@@ -2,11 +2,15 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e177594f-6ecf-478e-8cf2-163b8f9a00c2">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
-	<parameter name="DataIn" class="java.util.Date"/>
-	<parameter name="DataFin" class="java.util.Date"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dataIn" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataFin" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM boletoempresa WHERE (databoletoreceber BETWEEN $P{DataIn} AND $P{DataFin}) OR (databoletoapagar BETWEEN $P{DataIn} AND $P{DataFin}) ORDER BY databoletoreceber ASC]]>
+		<![CDATA[select * from boletoempresa WHERE (databoletoreceber BETWEEN $P{dataIn} AND $P{dataFin} ) OR (databoletoapagar BETWEEN $P{dataIn} AND $P{dataFin})]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="nomeboletoreceber" class="java.lang.String"/>
@@ -27,7 +31,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="125" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="8766c7f8-baa6-471a-8fc2-1e84833f5723" x="101" y="0" width="372" height="34"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -47,29 +51,18 @@
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement uuid="cf219ef7-40a9-435f-8fd9-478d8dd421f7" x="242" y="79" width="47" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{dataIn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a53d0620-d1d8-4128-b1ce-295718f0c720" x="299" y="79" width="52" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{dataFin}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
-	<pageHeader>
-		<band height="24" splitType="Stretch">
-			<textField>
-				<reportElement uuid="71517b17-a190-4689-96e6-20b10970e2fb" x="312" y="3" width="44" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$P{DataFin}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="71c24bc3-f9ef-4c8d-9f1e-0d9e3421e185" x="245" y="3" width="39" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$P{DataIn}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="e3743d58-1a03-467d-9cb2-5862059e2812" x="246" y="-2" width="100" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[a]]></text>
-			</staticText>
-		</band>
-	</pageHeader>
 	<columnHeader>
 		<band height="40" splitType="Stretch">
 			<staticText>

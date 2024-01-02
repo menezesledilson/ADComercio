@@ -39,7 +39,7 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
      */
     public BuscarBoleto() {
         initComponents();
-        // desabilitarBotoes();
+        desabilitarBotoes();
     }
 
     /**
@@ -62,9 +62,10 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         btgGerarRelatorio = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Localizar Boleto");
+        setTitle("Localizar Pagamento e Recebimento");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -74,13 +75,13 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cliente", "Data Boleto", "Valor", "Empresa", "Data", "Valor"
+                "Cliente", "Data Boleto", "Valor a Receber", "Empresa", "Data", "Valor a Pagar"
             }
         ));
         tbBuscar.setEnabled(false);
         jScrollPane1.setViewportView(tbBuscar);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 113, 730, 360));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 113, 740, 360));
         jPanel1.add(dateChooserInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 129, -1));
         jPanel1.add(dateChooserFim, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 129, -1));
 
@@ -93,11 +94,11 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
         jPanel1.add(btBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 53, 150, 30));
 
         jLabel1.setText("Data Inicial");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 60, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 90, -1));
 
         jLabel2.setText("Data Final");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 56, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 97, 730, 10));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 97, 740, 10));
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 14, 95));
@@ -110,24 +111,30 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
         });
         jPanel1.add(btgGerarRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 53, 110, 30));
 
+        jButton1.setText("Nova Pesquisa");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 150, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 22, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
     private Timestamp dataInicio;
     private Timestamp dataFim;
-
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
 
         if (dateChooserInicio.getDate() == null || dateChooserFim.getDate() == null) {
@@ -140,7 +147,7 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
         TableColumnModel columnModel = tbBuscar.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(100);
         columnModel.getColumn(1).setPreferredWidth(20);
-        columnModel.getColumn(2).setPreferredWidth(20);
+        columnModel.getColumn(2).setPreferredWidth(30);
         columnModel.getColumn(3).setPreferredWidth(100);
         columnModel.getColumn(4).setPreferredWidth(20);
         columnModel.getColumn(5).setPreferredWidth(20);
@@ -211,10 +218,10 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
 
             // Use as datas de início e fim armazenadas como parâmetros
             if (dataInicio != null) {
-                parametros.put("DataIn", new java.sql.Timestamp(dataInicio.getTime()));
+                parametros.put("dataIn", new java.sql.Timestamp(dataInicio.getTime()));
             }
             if (dataFim != null) {
-                parametros.put("DataFin", new java.sql.Timestamp(dataFim.getTime()));
+                parametros.put("dataFin", new java.sql.Timestamp(dataFim.getTime()));
             }
 
             JasperPrint jaspertPrint = JasperFillManager.fillReport(arq, parametros, con);
@@ -233,8 +240,12 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
                 }
             }
         }
-
+        desabilitarBotoes();
     }//GEN-LAST:event_btgGerarRelatorioActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        habilitarBotoes();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void habilitarBotoes() {
 
@@ -257,6 +268,7 @@ public class BuscarBoleto extends javax.swing.JInternalFrame {
     private javax.swing.JButton btgGerarRelatorio;
     private com.toedter.calendar.JDateChooser dateChooserFim;
     private com.toedter.calendar.JDateChooser dateChooserInicio;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

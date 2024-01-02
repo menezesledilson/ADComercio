@@ -163,22 +163,30 @@
 		<band height="50">
 			<staticText>
 				<reportElement uuid="2a6ff057-ca57-482b-93e2-257a34378094" x="340" y="2" width="54" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Valor Unit.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="8a247719-a8ba-4664-b6a6-087970b4f5b0" x="188" y="2" width="37" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Quant.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="4b848462-18ac-4533-9258-1eaca724cd6c" x="489" y="2" width="66" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Garga Geral]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="c0513106-e132-4582-aebc-06888257dcdd" x="422" y="2" width="33" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Peso]]></text>
 			</staticText>
 			<textField>

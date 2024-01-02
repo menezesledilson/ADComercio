@@ -9,6 +9,7 @@ import financeiro.model.PedidoBobina;
 import financeiro.DAO.PedidoBobinaDao;
 import financeiro.conexao.Conexao;
 import financeiro.model.PedidoBobina;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -156,10 +159,10 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("<-Total Geral R$->");
+        jLabel9.setText(" T. Geral  ");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel10.setText("<-T Bobinas->");
+        jLabel10.setText(" T. Bobinas ");
 
         lbTotalBobina.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbTotalBobina.setText("0");
@@ -169,7 +172,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
 
         jLabel11.setText("Forma Pag.:");
 
-        cbxPag.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Boleto", "Cartão de Crédito", "Cartão de Débito", "Cheque 30 Dias", "Cheque 60 Dias", "Cheque 90 Dias", "Dinheiro", "Pagamento Pendente", "PIX", "Transferência Bancária" }));
+        cbxPag.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Boleto", "Ch 30d", "Ch 60d", "Ch 90d", "Dinheiro", "Pag. Pendente", "PIX", "Transf. Bancária" }));
 
         jLabel12.setText("Obs.:");
 
@@ -181,7 +184,8 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -216,87 +220,53 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel6)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtChequeA, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel7)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(txtChequeB, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel8)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtChequeC, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                .addComponent(txtChequeC, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtChequeA, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
+                        .addGap(71, 71, 71)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbTotalBobina, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel10)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(34, 34, 34)
+                                .addGap(51, 51, 51)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(56, 56, 56))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbTotalBobina, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addGap(18, 18, 18)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(jLabel9))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(57, 57, 57)
-                                        .addComponent(lblTotalValor)))
-                                .addGap(42, 42, 42))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator1)
-                            .addComponent(jScrollPane1))
-                        .addContainerGap())))
+                                        .addGap(10, 10, 10)
+                                        .addComponent(lblTotalValor))
+                                    .addComponent(jLabel9))
+                                .addGap(127, 127, 127))))
+                    .addComponent(jSeparator1))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(40, 40, 40)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(btAlterar)
-                                            .addComponent(btExcluir)))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btGravar)
-                                        .addComponent(btNovo)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbTotalBobina))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(lblTotalValor)))
-                                .addGap(29, 29, 29))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -341,7 +311,35 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtChequeC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btNovo)
+                                    .addComponent(btGravar)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(40, 40, 40)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btAlterar)
+                                            .addComponent(btExcluir))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblTotalValor))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lbTotalBobina)))
+                                .addGap(29, 29, 29)))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -354,28 +352,25 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
   private void carregaTabela() {
-
         DefaultTableModel modelo = (DefaultTableModel) tbPedido.getModel();
-
+     
         //Defini o tamanho da tabela
-        tbPedido.getColumnModel().getColumn(0).setPreferredWidth(200);
-         tbPedido.getColumnModel().getColumn(1).setPreferredWidth(30);
-         tbPedido.getColumnModel().getColumn(2).setPreferredWidth(30);
+         tbPedido.getColumnModel().getColumn(0).setPreferredWidth(130);
+         tbPedido.getColumnModel().getColumn(1).setPreferredWidth(40);
+         tbPedido.getColumnModel().getColumn(2).setPreferredWidth(5);
          tbPedido.getColumnModel().getColumn(3).setPreferredWidth(40);
          tbPedido.getColumnModel().getColumn(4).setPreferredWidth(50);
          tbPedido.getColumnModel().getColumn(5).setPreferredWidth(60);
          tbPedido.getColumnModel().getColumn(6).setPreferredWidth(50);
          tbPedido.getColumnModel().getColumn(7).setPreferredWidth(50);
          tbPedido.getColumnModel().getColumn(8).setPreferredWidth(60);
-         tbPedido.getColumnModel().getColumn(9).setPreferredWidth(60); 
+         tbPedido.getColumnModel().getColumn(9).setPreferredWidth(60);
 
         // Criar um renderizador centralizado
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -391,9 +386,8 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         tbPedido.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
         tbPedido.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
         //tbPedido.getColumnModel().getColumn(8).setCellRenderer(centerRenderer);
-      //  tbPedido.getColumnModel().getColumn(9).setCellRenderer(centerRenderer);
+        //  tbPedido.getColumnModel().getColumn(9).setCellRenderer(centerRenderer);
 //        tbPedido.getColumnModel().getColumn(10).setCellRenderer(centerRenderer);
-
         try {
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
@@ -415,9 +409,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
 
                 //atualiza o mês atual
                 mesAtual = mesAtualNovo;
-
             }
-
             try (PreparedStatement statementBobinas = con.prepareStatement(sqlSomaTotalBobinas)) {
                 statementBobinas.setInt(1, mesAtual);
                 statementBobinas.setInt(2, anoAtual);
@@ -435,7 +427,6 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                 // Trate exceções SQL conforme necessário
                 e.printStackTrace();
             }
-
             // Consulta para obter a soma total da coluna Valor Pedido para o mês atual
             String sqlSomaTotalReal = "SELECT SUM(valorpedido) AS totalValor FROM pedidobobina WHERE EXTRACT(MONTH FROM CAST(dataPedido AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(dataPedido AS DATE)) = ?";
 
@@ -456,10 +447,8 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                 // Trate exceções SQL conforme necessário
                 e.printStackTrace();
             }
-
             // Limpa a tabela antes de preencher os novos dados
             modelo.setNumRows(0);
-
             pstm = con.prepareStatement("SELECT * FROM pedidobobina ORDER BY  datapedido ASC;");
             rs = pstm.executeQuery();
             //Formatar o valor no campo jtable
@@ -480,10 +469,8 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                     rs.getString("observacao"),});
             }
             Conexao.closeConnection(con, pstm, rs);
-
         } catch (Exception ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
-
         }
     }
 
@@ -504,19 +491,15 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
     }
 
     private void limparTexto() {
-
         txtNomeEmpresa.setText("");
         txtQuant.setText("");
         txtValor.setText("");
-
         txtDataEntrega.setText("");
         txtDataPedido.setText("");
-
         txtChequeA.setText("");
         txtChequeB.setText("");
         txtChequeC.setText("");
         txtObs.setText("");
-
         btGravar.setEnabled(false);
         btAlterar.setEnabled(true);
         btExcluir.setEnabled(true);
@@ -526,55 +509,39 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         btGravar.setEnabled(false);
         btAlterar.setEnabled(false);
         btExcluir.setEnabled(false);
-
     }
 
     private void desativaCampos() {
-
         txtNomeEmpresa.setEnabled(false);
-
         txtValor.setEnabled(false);
-
         txtQuant.setEnabled(false);
-
         txtDataEntrega.setEnabled(false);
         txtDataPedido.setEnabled(false);
-
         txtChequeA.setEnabled(false);
         txtChequeB.setEnabled(false);
         txtChequeC.setEnabled(false);
-
         txtObs.setEnabled(false);
         cbxPag.setEnabled(false);
-
     }
 
     private void ativaBotoes() {
         btGravar.setEnabled(true);
         btAlterar.setEnabled(true);
         btExcluir.setEnabled(true);
-
     }
 
     private void ativaCampos() {
         txtNomeEmpresa.setEnabled(true);
-
         txtValor.setEnabled(true);
-
         txtQuant.setEnabled(true);
-
         txtDataEntrega.setEnabled(true);
         txtDataPedido.setEnabled(true);
-
         txtChequeA.setEnabled(true);
         txtChequeB.setEnabled(true);
         txtChequeC.setEnabled(true);
-
         txtObs.setEnabled(true);
         cbxPag.setEnabled(true);
-
     }
-
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
 
         PedidoBobina l = new PedidoBobina();

@@ -31,7 +31,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true" isUnderline="false" isStrikeThrough="false"/>
 				</textElement>
-				<text><![CDATA[Livro Caixa]]></text>
+				<text><![CDATA[Relatório Livro Caixa]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement uuid="e1ac37e8-bcf0-478b-ab49-a3cdd2c717cc" x="184" y="27" width="170" height="20"/>
@@ -58,11 +58,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch">
-			<line>
-				<reportElement uuid="9622fe79-8c83-4b08-b785-c00d36724788" x="-24" y="34" width="611" height="1"/>
-			</line>
-		</band>
+		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="25" splitType="Stretch">

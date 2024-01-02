@@ -67,6 +67,8 @@ public class CadastroCaixa extends javax.swing.JInternalFrame {
         btNovo = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         lblSaldoAtual = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblSaldoAnterior = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Livro Caixa");
@@ -114,7 +116,7 @@ public class CadastroCaixa extends javax.swing.JInternalFrame {
                 btExcluirActionPerformed(evt);
             }
         });
-        jPanel1.add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 80, -1));
+        jPanel1.add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 80, -1));
 
         jLabel4.setText("Saída.:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 104, -1, 20));
@@ -125,7 +127,7 @@ public class CadastroCaixa extends javax.swing.JInternalFrame {
                 btSaidaActionPerformed(evt);
             }
         });
-        jPanel1.add(btSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 80, -1));
+        jPanel1.add(btSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 80, -1));
 
         btEntrada.setText("Entrada");
         btEntrada.addActionListener(new java.awt.event.ActionListener() {
@@ -151,13 +153,21 @@ public class CadastroCaixa extends javax.swing.JInternalFrame {
         jPanel1.add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 70, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Saldo atual R$:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, -1, 20));
+        jLabel5.setText("Saldo anterior R$:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, -1, 20));
 
         lblSaldoAtual.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblSaldoAtual.setForeground(new java.awt.Color(0, 0, 204));
         lblSaldoAtual.setText("0.00");
         jPanel1.add(lblSaldoAtual, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 90, 20));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Saldo atual R$:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, -1, 20));
+
+        lblSaldoAnterior.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblSaldoAnterior.setText("0.00");
+        jPanel1.add(lblSaldoAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 80, 80, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -203,6 +213,7 @@ private void carregaTabela() {
 
             // Inicializa os saldos
             double saldoAtual = 0;
+            double saldoAnterior = 0;
 
             pstm = con.prepareStatement("SELECT datahora, descricao, entrada, saida FROM caixa ORDER BY datahora ASC;");
             rs = pstm.executeQuery();
@@ -224,16 +235,21 @@ private void carregaTabela() {
 
                     // Zera os rótulos quando há uma mudança de mês
                     lblSaldoAtual.setText("0");
+                    lblSaldoAnterior.setText("0");
 
                     // Zera os saldos quando há uma mudança de mês
                     saldoAtual = 0;
-
+                    saldoAnterior = 0;
                     // Atualiza o mês atual
                     mesAtual = mesDataHora;
                 }
                 // Calcula o saldoAtual para a linha atual
                 double entrada = rs.getDouble("entrada");
                 double saida = rs.getDouble("saida");
+
+                //exibi o saldo anterior
+                saldoAnterior = saldoAtual;
+               
                 saldoAtual += (entrada - saida);
 
                 modelo.addRow(new Object[]{
@@ -245,6 +261,7 @@ private void carregaTabela() {
                 });
                 // Atualiza os rótulos dentro do loop
                 lblSaldoAtual.setText(currencySaida.format(saldoAtual));
+                lblSaldoAnterior.setText(currencyEntrada.format(saldoAnterior));
             }
             Conexao.closeConnection(con, pstm, rs);
         } catch (Exception ErroSql) {
@@ -469,11 +486,13 @@ private void carregaTabela() {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel lblSaldoAnterior;
     private javax.swing.JLabel lblSaldoAtual;
     private javax.swing.JTable tbFluxoCaixa;
     private javax.swing.JTextField txtDescricao;

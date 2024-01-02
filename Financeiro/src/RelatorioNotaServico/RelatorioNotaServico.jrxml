@@ -15,7 +15,7 @@
 		<defaultValueExpression><![CDATA[$F{id}]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from notaservico WHERE (prestador = $P{nomePrestador} )AND (tomador =$P{nomeTomador})]]>
+		<![CDATA[select * from notaservico WHERE (prestador = $P{nomePrestador} )AND (tomador = $P{nomeTomador})]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="datahora" class="java.sql.Timestamp"/>

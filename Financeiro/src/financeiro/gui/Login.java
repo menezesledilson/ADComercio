@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -60,6 +61,12 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
+        txtSenhaLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSenhaLoginActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("Senha ");
 
         jLabel4.setText("Login ");
@@ -68,6 +75,11 @@ public class Login extends javax.swing.JFrame {
         btAcesso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAcessoActionPerformed(evt);
+            }
+        });
+        btAcesso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btAcessoKeyPressed(evt);
             }
         });
 
@@ -192,9 +204,20 @@ public class Login extends javax.swing.JFrame {
 
     private void btAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAcessoActionPerformed
         obterNivelAcesso();
+
     }//GEN-LAST:event_btAcessoActionPerformed
 
- private void obterNivelAcesso() {
+    private void txtSenhaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaLoginActionPerformed
+
+    }//GEN-LAST:event_txtSenhaLoginActionPerformed
+
+    private void btAcessoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btAcessoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+           btAcesso.doClick();
+        }
+    }//GEN-LAST:event_btAcessoKeyPressed
+
+    private void obterNivelAcesso() {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -232,7 +255,7 @@ public class Login extends javax.swing.JFrame {
         } finally {
             Conexao.closeConnection(con, pstm, rs);
         }
-    }   
+    }
 
     /**
      * @param args the command line arguments

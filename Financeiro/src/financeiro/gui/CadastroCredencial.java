@@ -29,6 +29,7 @@ public class CadastroCredencial extends javax.swing.JInternalFrame {
         initComponents();
         carregaTabela();
         CentralizarJTextFields();
+        Desativar();
     }
 
     /**
@@ -41,8 +42,6 @@ public class CadastroCredencial extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btGravar = new javax.swing.JButton();
-        btExcluir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtnome = new javax.swing.JTextField();
@@ -54,25 +53,13 @@ public class CadastroCredencial extends javax.swing.JInternalFrame {
         txtlogin = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         cbPermissao = new javax.swing.JComboBox();
+        btExcluir = new javax.swing.JButton();
+        btGravar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Cadastro de Acesso");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-
-        btGravar.setText("Gravar");
-        btGravar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btGravarActionPerformed(evt);
-            }
-        });
-
-        btExcluir.setText("Excluir");
-        btExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btExcluirActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Usuário.:");
 
@@ -83,7 +70,7 @@ public class CadastroCredencial extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Usuários", "Senha", "nivel Acesso", "Título 4"
+                "Usuários", "Login", "Senha", "nivel Acesso"
             }
         ));
         tbSenhas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -94,10 +81,29 @@ public class CadastroCredencial extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tbSenhas);
 
         jButton1.setText("Novo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Login.:");
 
         cbPermissao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Comum" }));
+
+        btExcluir.setText("Excluir");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
+
+        btGravar.setText("Gravar");
+        btGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGravarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -109,31 +115,30 @@ public class CadastroCredencial extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtsenha, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 432, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtlogin)
+                            .addComponent(txtnome, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
+                        .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtsenha, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbPermissao, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtlogin)
-                                    .addComponent(txtnome, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(26, 26, 26)
-                        .addComponent(btGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)))
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(btGravar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btExcluir)))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cbPermissao, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,18 +146,18 @@ public class CadastroCredencial extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)
                         .addComponent(txtnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(btExcluir)
+                        .addComponent(btGravar)))
+                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtlogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(9, 9, 9)
-                .addComponent(cbPermissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                    .addComponent(jLabel3)
+                    .addComponent(cbPermissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtsenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -235,6 +240,64 @@ public class CadastroCredencial extends javax.swing.JInternalFrame {
         txtlogin.setHorizontalAlignment(SwingConstants.CENTER);
         txtsenha.setHorizontalAlignment(SwingConstants.CENTER);
     }
+    private void tbSenhasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSenhasMouseClicked
+        /*
+         //Setando campos de texto com registros
+         Credencial s = new Credencial();
+         AcessoDao dao = new AcessoDao();
+
+         int index = tbSenhas.getSelectedRow();
+         s = dao.ListaCrendecial().get(index);
+
+         // txtUser.setText(s.getUsuarios());
+         //  txtSenha.setText(s.getSenhas());
+         */
+    }//GEN-LAST:event_tbSenhasMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        limparTexto();
+        habilitar();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+
+    public void Desativar() {
+        txtnome.setEnabled(false);
+        txtlogin.setEnabled(false);
+        txtsenha.setEnabled(false);
+    }
+
+    public void habilitar() {
+        txtnome.setEnabled(true);
+        txtlogin.setEnabled(true);
+        txtsenha.setEnabled(true);
+
+    }
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        Credencial s = new Credencial();
+        AcessoDao dao = new AcessoDao();
+
+        int index = tbSenhas.getSelectedRow();
+
+        s = dao.ListaCrendecial().get(index);
+        s.setNome(txtnome.getText());
+        s.setLogin(txtlogin.getText());
+        s.setSenha(txtsenha.getText());
+
+        switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Credencial ? \n "
+                + "\n Usuario: " + s.getNome()
+                + "\n Login:  " + s.getLogin()
+                + "\n Senha: " + s.getSenha(), "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+            case 0:
+                dao.remover(s);
+                carregaTabela();
+                limparTexto();
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
+    }//GEN-LAST:event_btExcluirActionPerformed
+
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
         Credencial s = new Credencial();
         AcessoDao dao = new AcessoDao();
@@ -249,50 +312,10 @@ public class CadastroCredencial extends javax.swing.JInternalFrame {
 
         // Atualizar a tabela
         carregaTabela();
-
-        // Limpar os campos de texto
+        Desativar();
+// Limpar os campos de texto
         limparTexto();
     }//GEN-LAST:event_btGravarActionPerformed
-
-    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        Credencial s = new Credencial();
-        AcessoDao dao = new AcessoDao();
-
-        int index = tbSenhas.getSelectedRow();
-
-        s = dao.ListaCrendecial().get(index);
-        s.setNome(txtnome.getText());
-        s.setLogin(txtlogin.getText());
-        s.setSenha(txtsenha.getText());
-
-        // switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Credencial ? \n "
-        //       + "\n Usuario:  " + s.getUsuarios()
-        //       + "\n Senha: " + s.getSenhas(), "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
-        //     case 0:
-        //   dao.remover(s);
-        //    carregaTabela();
-        //   limparTexto();
-        //
-        //         break;
-        //    case 1:
-        //         JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-        //     break;
-        // }
-    }//GEN-LAST:event_btExcluirActionPerformed
-
-    private void tbSenhasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSenhasMouseClicked
-        /*
-         //Setando campos de texto com registros
-         Credencial s = new Credencial();
-         AcessoDao dao = new AcessoDao();
-
-         int index = tbSenhas.getSelectedRow();
-         s = dao.ListaCrendecial().get(index);
-
-         // txtUser.setText(s.getUsuarios());
-         //  txtSenha.setText(s.getSenhas());
-         */
-    }//GEN-LAST:event_tbSenhasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

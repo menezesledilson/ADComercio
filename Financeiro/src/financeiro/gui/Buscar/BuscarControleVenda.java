@@ -35,6 +35,7 @@ public class BuscarControleVenda extends javax.swing.JInternalFrame {
      */
     public BuscarControleVenda() {
         initComponents();
+        desabilitarBotoes();
     }
 
     /**
@@ -57,6 +58,7 @@ public class BuscarControleVenda extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         btgGerarRelatorio = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Localizar Vendas");
@@ -105,6 +107,14 @@ public class BuscarControleVenda extends javax.swing.JInternalFrame {
         });
         jPanel2.add(btgGerarRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 53, 110, 30));
 
+        jButton1.setText("Nova Pesquisa");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 150, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,9 +123,7 @@ public class BuscarControleVenda extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
         );
 
         pack();
@@ -183,18 +191,18 @@ public class BuscarControleVenda extends javax.swing.JInternalFrame {
 
     private void btgGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btgGerarRelatorioActionPerformed
 
-         Connection con = Conexao.getConnection();
+        Connection con = Conexao.getConnection();
         //PreparedStatement pstm = null;
-         
-         try{
-              String arq = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\Relatorio\\RelatorioControleVenda.jasper";
+
+        try {
+            String arq = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\Relatorio\\RelatorioControleVenda.jasper";
             Map<String, Object> parametros = new HashMap<>();
-     
+
             if (dataInicio != null) {
-                parametros.put("DataIn", new java.sql.Timestamp(dataInicio.getTime()));
+                parametros.put("dataIn", new java.sql.Timestamp(dataInicio.getTime()));
             }
             if (dataFim != null) {
-                parametros.put("DataFin", new java.sql.Timestamp(dataFim.getTime()));
+                parametros.put("dataFin", new java.sql.Timestamp(dataFim.getTime()));
             }
 
             JasperPrint jaspertPrint = JasperFillManager.fillReport(arq, parametros, con);
@@ -213,15 +221,36 @@ public class BuscarControleVenda extends javax.swing.JInternalFrame {
                 }
             }
         }
-       
+        desabilitarBotoes();
     }//GEN-LAST:event_btgGerarRelatorioActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        habilitarBotoes();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    private void habilitarBotoes() {
+
+        dateChooserInicio.setEnabled(true);
+        dateChooserFim.setEnabled(true);
+        btPagamentoF.setEnabled(true);
+        btgGerarRelatorio.setEnabled(true);
+    }
+
+    private void desabilitarBotoes() {
+
+        dateChooserInicio.setEnabled(false);
+        dateChooserFim.setEnabled(false);
+        btPagamentoF.setEnabled(false);
+        btgGerarRelatorio.setEnabled(false);
+        // btPesquisa.setEnabled(false);
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPagamentoF;
     private javax.swing.JButton btgGerarRelatorio;
     private com.toedter.calendar.JDateChooser dateChooserFim;
     private com.toedter.calendar.JDateChooser dateChooserInicio;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;

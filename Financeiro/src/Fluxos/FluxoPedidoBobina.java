@@ -58,18 +58,22 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Título 5", "Título 6", "Título 7", "Título 8"
+                "Empresa", "Valor", "Qtd", "Data Pedido", "Data Entrega", "Cheque 1", "Cheque 2", "Cheque 3", "Forma Pag.", "Obs."
             }
         ));
         jScrollPane1.setViewportView(tbFluxoPedidoBobina);
 
+        lblTotalValor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblTotalValor.setText("0.00");
 
-        jLabel1.setText("TotalValor");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Total Valor");
 
+        lbTotalBobina.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbTotalBobina.setText("0");
 
-        jLabel2.setText(" TotalBobina");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText(" Total Bobina");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -77,32 +81,31 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 858, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbTotalBobina)
-                    .addComponent(lblTotalValor, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(152, 152, 152))
+                .addComponent(lblTotalValor, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lbTotalBobina)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTotalValor)
-                    .addComponent(jLabel1))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
                     .addComponent(lbTotalBobina)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -121,23 +124,28 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
  private void carregaTabela() {
 
         DefaultTableModel modelo = (DefaultTableModel) tbFluxoPedidoBobina.getModel();
+        // Limpa a tabela antes de preencher os novos dados
+        modelo.setNumRows(0);
 
         //Defini o tamanho da tabela
         tbFluxoPedidoBobina.getColumnModel().getColumn(0).setPreferredWidth(130);
-        tbFluxoPedidoBobina.getColumnModel().getColumn(1).setPreferredWidth(10);
-        tbFluxoPedidoBobina.getColumnModel().getColumn(2).setPreferredWidth(5);
-        tbFluxoPedidoBobina.getColumnModel().getColumn(3).setPreferredWidth(15);
-        tbFluxoPedidoBobina.getColumnModel().getColumn(4).setPreferredWidth(15);
-        tbFluxoPedidoBobina.getColumnModel().getColumn(5).setPreferredWidth(15);
-        tbFluxoPedidoBobina.getColumnModel().getColumn(6).setPreferredWidth(10);
-        tbFluxoPedidoBobina.getColumnModel().getColumn(7).setPreferredWidth(10);
+       
+         tbFluxoPedidoBobina.getColumnModel().getColumn(0).setPreferredWidth(130);
+         tbFluxoPedidoBobina.getColumnModel().getColumn(1).setPreferredWidth(60);
+         tbFluxoPedidoBobina.getColumnModel().getColumn(2).setPreferredWidth(5);
+         tbFluxoPedidoBobina.getColumnModel().getColumn(3).setPreferredWidth(60);
+         tbFluxoPedidoBobina.getColumnModel().getColumn(4).setPreferredWidth(60);
+         tbFluxoPedidoBobina.getColumnModel().getColumn(5).setPreferredWidth(60);
+         tbFluxoPedidoBobina.getColumnModel().getColumn(6).setPreferredWidth(50);
+         tbFluxoPedidoBobina.getColumnModel().getColumn(7).setPreferredWidth(50);
+         tbFluxoPedidoBobina.getColumnModel().getColumn(8).setPreferredWidth(60);
+         tbFluxoPedidoBobina.getColumnModel().getColumn(9).setPreferredWidth(60);
 
         // Criar um renderizador centralizado
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
         // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
-        tbFluxoPedidoBobina.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         tbFluxoPedidoBobina.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         tbFluxoPedidoBobina.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         tbFluxoPedidoBobina.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
@@ -150,66 +158,27 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
             PreparedStatement pstm;
             ResultSet rs;
 
-            String sqlSomaTotalBobinas = "SELECT SUM(quantidadeBobina) AS totalBobinas FROM pedidobobina WHERE EXTRACT(MONTH FROM CAST(dataPedido AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(dataPedido AS DATE)) = ?";
+            // Consulta para obter a soma total da coluna quantidadeBobina  
+            String sqlSomaTotal = "SELECT SUM (quantidadeBobina) AS totalBobinas FROM pedidobobina";
+            try (PreparedStatement statement = con.prepareStatement(sqlSomaTotal);
+                    ResultSet resultado = statement.executeQuery()) {
 
-            // Obtém o mês e o ano atuais
-            Calendar cal = Calendar.getInstance();
-            int mesAtual = -1;
-            int mesAtualNovo = cal.get(Calendar.MONTH) + 1; // Note que os meses em Java começam do zero
-            int anoAtual = cal.get(Calendar.YEAR);
-
-            //verificar se o mês atual
-            if (mesAtual != mesAtualNovo) {
-                lbTotalBobina.setText("0");
-                lblTotalValor.setText("0");
-                modelo.setNumRows(0);
-
-                //atualiza o mês atual
-                mesAtual = mesAtualNovo;
-
-            }
-
-            try (PreparedStatement statementBobinas = con.prepareStatement(sqlSomaTotalBobinas)) {
-                statementBobinas.setInt(1, mesAtual);
-                statementBobinas.setInt(2, anoAtual);
-
-                try (ResultSet resultadoBobinas = statementBobinas.executeQuery()) {
-                    if (resultadoBobinas.next()) {
-                        int totalBobinas = resultadoBobinas.getInt("totalBobinas");
-                        lbTotalBobina.setText(String.valueOf(totalBobinas));
-                    } else {
-                        // Se não houver resultados, define o total como zero
-                        lbTotalBobina.setText("0");
-                    }
+                if (resultado.next()) {
+                    int totalBobinas = resultado.getInt("totalBobinas");
+                    lbTotalBobina.setText(String.valueOf(totalBobinas));
                 }
-            } catch (SQLException e) {
-                // Trate exceções SQL conforme necessário
-                e.printStackTrace();
             }
 
-            // Consulta para obter a soma total da coluna Valor Pedido para o mês atual
-            String sqlSomaTotalReal = "SELECT SUM(valorpedido) AS totalValor FROM pedidobobina WHERE EXTRACT(MONTH FROM CAST(dataPedido AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(dataPedido AS DATE)) = ?";
+            // Consulta para obter a soma total da coluna Valor Pedido
+            String sqlSomaTotalReal = "SELECT SUM (valorpedido) AS totalValor FROM pedidobobina";
+            try (PreparedStatement statement = con.prepareCall(sqlSomaTotalReal);
+                    ResultSet resultadoValor = statement.executeQuery()) {
 
-            try (PreparedStatement statementValor = con.prepareStatement(sqlSomaTotalReal)) {
-                statementValor.setInt(1, mesAtual);
-                statementValor.setInt(2, anoAtual);
-
-                try (ResultSet resultadoValor = statementValor.executeQuery()) {
-                    if (resultadoValor.next()) {
-                        Double totalValor = resultadoValor.getDouble("totalValor");
-                        lblTotalValor.setText(String.valueOf(totalValor));
-                    } else {
-                        // Se não houver resultados, define o total como zero
-                        lblTotalValor.setText("0");
-                    }
+                if (resultadoValor.next()) {
+                    Double totalValor = resultadoValor.getDouble("totalValor");
+                    lblTotalValor.setText(String.valueOf(totalValor));
                 }
-            } catch (SQLException e) {
-                // Trate exceções SQL conforme necessário
-                e.printStackTrace();
             }
-
-            // Limpa a tabela antes de preencher os novos dados
-            modelo.setNumRows(0);
 
             pstm = con.prepareStatement("SELECT * FROM pedidobobina ORDER BY  datapedido ASC;");
             rs = pstm.executeQuery();
@@ -219,14 +188,16 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
 
                 modelo.addRow(new Object[]{
                     //rs.getString(1), id da tabela do banco de dados
-                    rs.getString(2),
+                    rs.getString("nomecliente"),
                     currencyValor.format(rs.getDouble("valorpedido")),
-                    rs.getString(4),
-                    rs.getString(5),
-                    rs.getString(6),
-                    rs.getString(7),
-                    rs.getString(8),
-                    rs.getString(9)
+                    rs.getString("quantidadebobina"),
+                    rs.getString("datapedido"),
+                    rs.getString("dataentrega"),
+                    rs.getString("numerochequea"),
+                    rs.getString("numerochequeb"),
+                    rs.getString("numerochequec"),
+                    rs.getString("pagpedido"),
+                    rs.getString("observacao"),
                 });
             }
             Conexao.closeConnection(con, pstm, rs);
@@ -235,6 +206,7 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
 
         }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

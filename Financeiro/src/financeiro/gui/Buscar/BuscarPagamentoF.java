@@ -35,6 +35,7 @@ public class BuscarPagamentoF extends javax.swing.JInternalFrame {
      */
     public BuscarPagamentoF() {
         initComponents();
+        desabilitarBotoes();
     }
 
     /**
@@ -57,6 +58,7 @@ public class BuscarPagamentoF extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         btgGerarRelatorio = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Localizar Pagamentos");
@@ -85,7 +87,7 @@ public class BuscarPagamentoF extends javax.swing.JInternalFrame {
                 btPagamentoFActionPerformed(evt);
             }
         });
-        jPanel2.add(btPagamentoF, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 150, 30));
+        jPanel2.add(btPagamentoF, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 150, 30));
 
         jLabel1.setText("Data Inicial");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 80, -1));
@@ -103,7 +105,15 @@ public class BuscarPagamentoF extends javax.swing.JInternalFrame {
                 btgGerarRelatorioActionPerformed(evt);
             }
         });
-        jPanel2.add(btgGerarRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 110, 30));
+        jPanel2.add(btgGerarRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, 110, 30));
+
+        jButton1.setText("Nova Pesquisa");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 150, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,9 +123,7 @@ public class BuscarPagamentoF extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
         );
 
         pack();
@@ -212,15 +220,36 @@ public class BuscarPagamentoF extends javax.swing.JInternalFrame {
                 }
             }
         }
-
+        desabilitarBotoes();
     }//GEN-LAST:event_btgGerarRelatorioActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        habilitarBotoes();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    private void habilitarBotoes() {
+
+        dateChooserInicioP.setEnabled(true);
+        dateChooserFimP.setEnabled(true);
+        btPagamentoF.setEnabled(true);
+        btgGerarRelatorio.setEnabled(true);
+    }
+
+    private void desabilitarBotoes() {
+
+        dateChooserInicioP.setEnabled(false);
+        dateChooserFimP.setEnabled(false);
+        btPagamentoF.setEnabled(false);
+        btgGerarRelatorio.setEnabled(false);
+        // btPesquisa.setEnabled(false);
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPagamentoF;
     private javax.swing.JButton btgGerarRelatorio;
     private com.toedter.calendar.JDateChooser dateChooserFimP;
     private com.toedter.calendar.JDateChooser dateChooserInicioP;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;

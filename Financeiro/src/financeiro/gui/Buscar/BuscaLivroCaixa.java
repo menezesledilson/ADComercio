@@ -223,7 +223,7 @@ public class BuscaLivroCaixa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btBuscarLivroCaixaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         Connection con = Conexao.getConnection();
+        Connection con = Conexao.getConnection();
         //PreparedStatement pstm = null;
         try {
             String arq = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\Relatorio\\RelatorioLivroCaixa.jasper";
@@ -253,7 +253,7 @@ public class BuscaLivroCaixa extends javax.swing.JInternalFrame {
                 }
             }
         }
-
+        desabilitarBotoes();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
