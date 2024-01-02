@@ -8,7 +8,7 @@
 		<defaultValueExpression><![CDATA[$F{id}]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from notaservico WHERE (id =$P{notaId})   ]]>
+		<![CDATA[select * from notaservico WHERE (id =$P{notaId})]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="datahora" class="java.sql.Timestamp"/>
@@ -308,11 +308,11 @@
 				<textFieldExpression><![CDATA[$F{totalproduto}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="c739b066-50cd-4f0f-b4c9-dcb5ce897f65" x="0" y="17" width="57" height="20"/>
+				<reportElement uuid="c739b066-50cd-4f0f-b4c9-dcb5ce897f65" x="0" y="17" width="87" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Montante]]></text>
+				<text><![CDATA[Valor a pagar]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="37f65279-5a3c-4ec3-a6ee-b990cf83bf2e" x="449" y="45" width="100" height="20"/>
@@ -336,7 +336,7 @@
 				<textFieldExpression><![CDATA[$F{totalproduto}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="3d3cf0cb-ae21-4e78-a363-499d57d9d047" x="62" y="31" width="417" height="1"/>
+				<reportElement uuid="3d3cf0cb-ae21-4e78-a363-499d57d9d047" x="87" y="31" width="392" height="1"/>
 				<graphicElement>
 					<pen lineWidth="1.0" lineStyle="Dashed"/>
 				</graphicElement>
