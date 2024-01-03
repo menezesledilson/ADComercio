@@ -54,7 +54,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         initComponents();
         jLabel1.setText(user);
-/*
+        /*
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setSize(1366, 768);
@@ -64,7 +64,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-       //setSize(1024, 768);
+        //setSize(800, 600);
         setSize(1366, 768);
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null); // Centraliza o JFrame na tela principal
@@ -197,6 +197,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem32.setText("jMenuItem32");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("AD Comércio Papéis LTDA");
         setExtendedState(6);
         setMaximumSize(new java.awt.Dimension(1366, 768));
         setMinimumSize(new java.awt.Dimension(800, 600));
