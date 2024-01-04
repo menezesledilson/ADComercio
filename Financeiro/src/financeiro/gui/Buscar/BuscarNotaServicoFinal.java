@@ -35,6 +35,7 @@ public class BuscarNotaServicoFinal extends javax.swing.JInternalFrame {
      */
     public BuscarNotaServicoFinal() {
         initComponents();
+        desabilitarBotoes();
     }
 
     /**
@@ -60,7 +61,6 @@ public class BuscarNotaServicoFinal extends javax.swing.JInternalFrame {
         btGerarRelatorioProduto = new javax.swing.JButton();
 
         setClosable(true);
-        setResizable(true);
         setTitle("Localizar Nota de Serviço Empresa");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -71,13 +71,13 @@ public class BuscarNotaServicoFinal extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Título 1", "Título 2", "Título 3", "Título 4", "Título 5", "Título 6", "Título 7", "Título 8", "Título 9", "Título 10", "Título 11"
+                "Empresa", "Empresa", "Descrição", "Qtd", "Preço", "Peso Kg", "Total", "Frete", "Imposto", "Comissão", "A pagar"
             }
         ));
         tbBuscaSempresa.setEnabled(false);
         jScrollPane1.setViewportView(tbBuscaSempresa);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 710, 300));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 1020, 400));
         jPanel1.add(dateChooserInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 129, -1));
         jPanel1.add(dateChooserFim, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 129, -1));
 
@@ -87,17 +87,17 @@ public class BuscarNotaServicoFinal extends javax.swing.JInternalFrame {
                 btBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(btBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 53, 150, 30));
+        jPanel1.add(btBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 150, 30));
 
         jLabel1.setText("Data Inicial");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 87, -1));
 
         jLabel2.setText("Data Final");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 56, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 97, 710, 10));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 97, 1020, 10));
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 14, 95));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 14, 95));
 
         btPesquisa.setText("Nova Pesquisa");
         btPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -105,7 +105,7 @@ public class BuscarNotaServicoFinal extends javax.swing.JInternalFrame {
                 btPesquisaActionPerformed(evt);
             }
         });
-        jPanel1.add(btPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 13, 150, 30));
+        jPanel1.add(btPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 150, 30));
 
         btGerarRelatorioProduto.setText("Imprimir");
         btGerarRelatorioProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -113,19 +113,17 @@ public class BuscarNotaServicoFinal extends javax.swing.JInternalFrame {
                 btGerarRelatorioProdutoActionPerformed(evt);
             }
         });
-        jPanel1.add(btGerarRelatorioProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, 110, 30));
+        jPanel1.add(btGerarRelatorioProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 30, 110, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 99, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
         );
 
         pack();
@@ -145,17 +143,17 @@ public class BuscarNotaServicoFinal extends javax.swing.JInternalFrame {
 
         TableColumnModel columnModel = tbBuscaSempresa.getColumnModel();
 
-        columnModel.getColumn(0).setPreferredWidth(100);  // Largura em pixels
-        columnModel.getColumn(1).setPreferredWidth(100);
-        columnModel.getColumn(2).setPreferredWidth(20);
-        columnModel.getColumn(3).setPreferredWidth(40);
-        columnModel.getColumn(4).setPreferredWidth(40);
-        columnModel.getColumn(5).setPreferredWidth(40);
-        columnModel.getColumn(6).setPreferredWidth(40);
-        columnModel.getColumn(7).setPreferredWidth(40);
-        columnModel.getColumn(8).setPreferredWidth(40);
-        columnModel.getColumn(9).setPreferredWidth(40);
-        columnModel.getColumn(10).setPreferredWidth(40);
+        columnModel.getColumn(0).setPreferredWidth(130);
+        columnModel.getColumn(1).setPreferredWidth(130);
+        columnModel.getColumn(2).setPreferredWidth(100);
+        columnModel.getColumn(3).setPreferredWidth(50);
+        columnModel.getColumn(4).setPreferredWidth(50);
+        columnModel.getColumn(5).setPreferredWidth(60);
+        columnModel.getColumn(6).setPreferredWidth(60);
+        columnModel.getColumn(7).setPreferredWidth(60);
+        columnModel.getColumn(8).setPreferredWidth(60);
+        columnModel.getColumn(9).setPreferredWidth(60);
+       // columnModel.getColumn(10).setPreferredWidth(40);
        
 
         // Criar um renderizador centralizado
@@ -163,7 +161,7 @@ public class BuscarNotaServicoFinal extends javax.swing.JInternalFrame {
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
         // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
-        tbBuscaSempresa.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tbBuscaSempresa.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         tbBuscaSempresa.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         tbBuscaSempresa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         tbBuscaSempresa.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
@@ -210,7 +208,7 @@ public class BuscarNotaServicoFinal extends javax.swing.JInternalFrame {
                         do {
 
                             model.addRow(new Object[]{
-                                rs.getObject("id"),
+                                //rs.getObject("id"),
                                 rs.getObject("prestador"),
                                 rs.getObject("tomador"),
                                 rs.getObject("descricao"),
@@ -243,6 +241,7 @@ public class BuscarNotaServicoFinal extends javax.swing.JInternalFrame {
         dateChooserInicio.setEnabled(true);
         dateChooserFim.setEnabled(true);
         btBuscar.setEnabled(true);
+         btGerarRelatorioProduto.setEnabled(true);
 
     }
 
@@ -251,7 +250,7 @@ public class BuscarNotaServicoFinal extends javax.swing.JInternalFrame {
         dateChooserInicio.setEnabled(false);
         dateChooserFim.setEnabled(false);
         btBuscar.setEnabled(false);
-        // btPesquisa.setEnabled(false);
+        btGerarRelatorioProduto.setEnabled(false);
 
     }
     private void btGerarRelatorioProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerarRelatorioProdutoActionPerformed
@@ -285,6 +284,7 @@ public class BuscarNotaServicoFinal extends javax.swing.JInternalFrame {
                 }
             }
         }
+        desabilitarBotoes();
     }//GEN-LAST:event_btGerarRelatorioProdutoActionPerformed
 
 

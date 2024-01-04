@@ -72,7 +72,7 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
         btExcluir = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Nota de Serviço");
+        setTitle("Emissão Nota Serviço Calculo");
 
         jbCalculoNF.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -114,7 +114,7 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
         lblImposto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblImposto.setText("0.00");
 
-        jLabel3.setText("Fornecedor.:");
+        jLabel3.setText("Cliente.:");
 
         btHabilitar.setText("Habilitar");
         btHabilitar.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +164,7 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblFrete)
-                                .addGap(0, 242, Short.MAX_VALUE)))
+                                .addGap(0, 264, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jbCalculoNFLayout.createSequentialGroup()
                         .addGroup(jbCalculoNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +232,7 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jbCalculoNF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jbCalculoNF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

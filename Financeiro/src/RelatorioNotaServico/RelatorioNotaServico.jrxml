@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b81ac89b-2b14-4529-8ad6-f861c95ff327">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="368"/>
+	<property name="ireport.y" value="177"/>
 	<subDataset name="dataset1" uuid="79eecd16-9fce-43a8-99f2-addde1164dc2"/>
 	<parameter name="nomePrestador" class="java.lang.String">
 		<defaultValueExpression><![CDATA[$F{prestador}]]></defaultValueExpression>
@@ -183,11 +183,11 @@
 				<text><![CDATA[(32) 99194-1769 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b827bba8-4a54-4694-806e-c3f2c5474e85" x="152" y="143" width="249" height="20"/>
-				<textElement textAlignment="Center">
+				<reportElement uuid="b827bba8-4a54-4694-806e-c3f2c5474e85" x="227" y="143" width="73" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TOMADOR DE SERVIÇOS]]></text>
+				<text><![CDATA[EMPRESA]]></text>
 			</staticText>
 			<line>
 				<reportElement uuid="215104c0-6ee0-45b3-aa53-c5da5fc640f3" x="-17" y="130" width="589" height="1"/>

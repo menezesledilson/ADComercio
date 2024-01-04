@@ -43,6 +43,7 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
         tbFluxoBoleto = new javax.swing.JTable();
 
         setClosable(true);
+        setTitle("Fluxo Livro Boletos");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 

@@ -172,7 +172,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
 
         jLabel11.setText("Forma Pag.:");
 
-        cbxPag.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Boleto", "Ch 30d", "Ch 60d", "Ch 90d", "Dinheiro", "Pag. Pendente", "PIX", "Transf. Bancária" }));
+        cbxPag.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Boleto", "Cart.Débito", "Cart.Crédito", "Conta Salário", "Ch à vista", "Ch 30d", "Ch 60d", "Ch 90d", "Dinheiro", "Pag. Pendente", "PIX", "Transf. Bancária" }));
 
         jLabel12.setText("Obs.:");
 

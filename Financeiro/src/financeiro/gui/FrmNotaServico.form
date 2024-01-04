@@ -202,7 +202,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Prestador de Servi&#xe7;os.:"/>
+            <Property name="text" type="java.lang.String" value="Empresa.:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPrestador">
@@ -214,7 +214,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Tomador de Servi&#xe7;os.:"/>
+            <Property name="text" type="java.lang.String" value="Cliente.:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTomador">

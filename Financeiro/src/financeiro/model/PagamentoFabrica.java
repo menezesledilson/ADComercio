@@ -17,6 +17,17 @@ public class PagamentoFabrica {
     private String nomePagamento;
     private Double valorPagamento;
     private Timestamp datahora;
+    private String observacaoPagamento;
+
+    public String getObservacaoPagamento() {
+        return observacaoPagamento;
+    }
+
+    public void setObservacaoPagamento(String observacaoPagamento) {
+        this.observacaoPagamento = observacaoPagamento;
+    }
+    
+    
 
     public Long getId() {
         return id;

@@ -59,6 +59,8 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
         bgGravar = new javax.swing.JButton();
         bgExcluir = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtObs = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Controle de vendas");
@@ -69,7 +71,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
 
         txtCliente.setText(" ");
 
-        jLabel3.setText("Venda.:");
+        jLabel3.setText("Valor.:");
 
         txtValor.setText(" ");
 
@@ -81,7 +83,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Data", "Nome", "Valor"
+                "Data", "Nome", "Valor", "Obs."
             }
         ));
         tbControleVendedor.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -114,6 +116,8 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Total.:");
 
+        jLabel2.setText("Obs.:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -126,7 +130,11 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(bgGravar)
                         .addGap(18, 18, 18)
-                        .addComponent(bgExcluir))
+                        .addComponent(bgExcluir)
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtObs))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -150,8 +158,10 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btNovo)
                     .addComponent(bgGravar)
-                    .addComponent(bgExcluir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                    .addComponent(bgExcluir)
+                    .addComponent(jLabel2)
+                    .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -186,7 +196,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
         limparCampo();
     }//GEN-LAST:event_btNovoActionPerformed
     public void habilitarBotao() {
-       // bgGravar.setEnabled(true);
+        // bgGravar.setEnabled(true);
         bgExcluir.setEnabled(true);
     }
 
@@ -198,21 +208,25 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
     public void desativarCampos() {
         txtCliente.setEnabled(false);
         txtValor.setEnabled(false);
+        txtObs.setEnabled(false);
     }
 
     public void ativaCampos() {
         txtCliente.setEnabled(true);
         txtValor.setEnabled(true);
+        txtObs.setEnabled(true);
     }
 
     public void limparCampo() {
         txtCliente.setText("");
         txtValor.setText("");
+        txtObs.setText("");
     }
 
     private void CentralizarCampos() {
         txtCliente.setHorizontalAlignment(SwingConstants.CENTER);
         txtValor.setHorizontalAlignment(SwingConstants.CENTER);
+        txtObs.setHorizontalAlignment(SwingConstants.CENTER);
     }
     private void bgGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgGravarActionPerformed
         // Verificar se os campos estão vazios
@@ -227,6 +241,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
 
         // Atualizar os dados da nova bobina
         b.setNomeVenda(txtCliente.getText());
+        b.setObservacaoVenda(txtObs.getText());
 
         b.setValorVenda(Double.parseDouble(txtValor.getText()));
 
@@ -236,7 +251,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
         // Atualizar a tabela
         carregaTabela();
         desativarCampos();
-       
+
 
     }//GEN-LAST:event_bgGravarActionPerformed
 
@@ -250,7 +265,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
 
         txtCliente.setText(b.getNomeVenda());
         txtValor.setText(Double.toString(b.getValorVenda()));
-
+        txtObs.setText(b.getObservacaoVenda());
         ativaCampos();
         bgExcluir.setEnabled(true);
     }//GEN-LAST:event_tbControleVendedorMouseClicked
@@ -296,6 +311,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
         tbControleVendedor.getColumnModel().getColumn(0).setPreferredWidth(50);
         tbControleVendedor.getColumnModel().getColumn(1).setPreferredWidth(50);
         tbControleVendedor.getColumnModel().getColumn(2).setPreferredWidth(20);
+        tbControleVendedor.getColumnModel().getColumn(3).setPreferredWidth(50);
 
         // Criar um renderizador centralizado
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -345,7 +361,8 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
                 modelo.addRow(new Object[]{
                     rs.getString("datahoravenda"),
                     rs.getString("nomevenda"),
-                    currencyValor.format(rs.getDouble("valorvenda"))
+                    currencyValor.format(rs.getDouble("valorvenda")),
+                    rs.getString("observacao")
                 });
             }
             Conexao.closeConnection(con, pstm, rs);
@@ -360,6 +377,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
     private javax.swing.JButton bgGravar;
     private javax.swing.JButton btNovo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
@@ -368,6 +386,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblSoma;
     private javax.swing.JTable tbControleVendedor;
     private javax.swing.JTextField txtCliente;
+    private javax.swing.JTextField txtObs;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

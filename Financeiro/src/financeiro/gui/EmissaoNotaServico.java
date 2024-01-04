@@ -84,7 +84,7 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
             }
         });
 
-        btAtivarCliente.setText("Habilitar Gravar");
+        btAtivarCliente.setText("Novo");
         btAtivarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAtivarClienteActionPerformed(evt);

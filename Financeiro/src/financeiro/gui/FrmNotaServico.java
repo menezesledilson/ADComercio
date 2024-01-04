@@ -103,11 +103,11 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("Prestador de Serviços.:");
+        jLabel1.setText("Empresa.:");
 
         txtPrestador.setNextFocusableComponent(txtTomador);
 
-        jLabel2.setText("Tomador de Serviços.:");
+        jLabel2.setText("Cliente.:");
 
         txtTomador.setNextFocusableComponent(txtDescricao);
 

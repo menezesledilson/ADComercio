@@ -214,7 +214,7 @@ public class BuscarNotaId extends javax.swing.JInternalFrame {
             }
         }
 
-        bgHabilitar.setEnabled(false);
+        bgHabilitar.setEnabled(true);
         bgReimprimir.setEnabled(true);
         txtId.setEnabled(false);
     }//GEN-LAST:event_bgLocalizarActionPerformed

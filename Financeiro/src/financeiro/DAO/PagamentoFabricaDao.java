@@ -26,10 +26,11 @@ public class PagamentoFabricaDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("insert into pagamentofabrica (nomepagamento,valorpagamento) values (?, ?);");
+            pstm = con.prepareStatement("insert into pagamentofabrica (nomepagamento,valorpagamento, observacao) values (?, ?, ?);");
 
             pstm.setString(1, pagamentoFabrica.getNomePagamento());
             pstm.setDouble(2, pagamentoFabrica.getValorPagamento());
+            pstm.setString(3, pagamentoFabrica.getObservacaoPagamento());
 
             pstm.execute();
 
@@ -83,6 +84,7 @@ public class PagamentoFabricaDao {
                 pagamentoFabrica.setDatahora(rs.getTimestamp("datahorapagamento"));
                 pagamentoFabrica.setNomePagamento(rs.getString("nomepagamento"));
                 pagamentoFabrica.setValorPagamento(rs.getDouble("valorpagamento"));
+                pagamentoFabrica.setNomePagamento(rs.getString("observacao"));
 
                 PagamentoFabricas.add(pagamentoFabrica);
             }

@@ -17,6 +17,15 @@ public class ControleVendedor {
     private String nomeVenda;
     private Double valorVenda;
     private Timestamp datahoraVenda;
+    private String observacaoVenda;
+
+    public String getObservacaoVenda() {
+        return observacaoVenda;
+    }
+
+    public void setObservacaoVenda(String observacaoVenda) {
+        this.observacaoVenda = observacaoVenda;
+    }
 
     public Long getId() {
         return id;

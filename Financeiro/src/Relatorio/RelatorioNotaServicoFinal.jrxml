@@ -3,15 +3,8 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="DataIn" class="java.sql.Timestamp">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="DataFin" class="java.sql.Timestamp">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
 	<queryString>
 		<![CDATA[SELECT * FROM notaservico
-WHERE datahora BETWEEN $P{DataIn} AND $P{DataFin};
 ]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer"/>
@@ -27,8 +20,20 @@ WHERE datahora BETWEEN $P{DataIn} AND $P{DataFin};
 	<field name="impostoproduto" class="java.lang.Double"/>
 	<field name="comissaoproduto" class="java.lang.Double"/>
 	<field name="apagarproduto" class="java.lang.Double"/>
-	<variable name="somaQuant" class="java.lang.Integer" resetType="Column" calculation="Sum">
-		<variableExpression><![CDATA[ $V{somaQuant}]]></variableExpression>
+	<variable name="sQtd" class="java.lang.Integer" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{quantidade}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="speso" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{pesoproduto}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="sprod" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalproduto}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="sApagar" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{apagarproduto}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<background>
@@ -48,16 +53,6 @@ WHERE datahora BETWEEN $P{DataIn} AND $P{DataFin};
 				</textElement>
 				<text><![CDATA[Relatório Nota Serviço Empresa]]></text>
 			</staticText>
-			<textField>
-				<reportElement uuid="503c8ac0-e530-46b2-96cd-dc11817a6eb4" x="196" y="59" width="52" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$P{DataIn}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="397ceead-45fa-4541-9c54-d56841376cc6" x="283" y="58" width="51" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$P{DataFin}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement uuid="633eee89-d0b4-4198-8091-3e31ede9ec41" x="239" y="40" width="41" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -216,9 +211,32 @@ WHERE datahora BETWEEN $P{DataIn} AND $P{DataFin};
 				<text><![CDATA[T. Apagar]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="62d30db5-fb90-4207-963a-8477b1a72eff" x="96" y="22" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$V{somaQuant}]]></textFieldExpression>
+				<reportElement uuid="53895224-5875-42ba-a4be-5ff8d978f0e0" x="104" y="22" width="48" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sQtd}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ad1b9964-8eeb-4aa1-a910-a83b18a622e6" x="398" y="22" width="38" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{speso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="70811165-0c8d-4ef4-b58f-e3c431ff230f" x="450" y="22" width="48" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sprod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="723d420f-ea97-4ffc-b633-7a05be1d91c7" x="509" y="22" width="42" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sApagar}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

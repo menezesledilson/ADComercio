@@ -26,10 +26,11 @@ public class ControleVendedorDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("insert into controlevendedor (nomevenda,valorvenda) values (?, ?);");
+            pstm = con.prepareStatement("insert into controlevendedor (nomevenda,valorvenda,observacao) values (?, ?, ?);");
 
             pstm.setString(1, controleVendedor.getNomeVenda());
             pstm.setDouble(2, controleVendedor.getValorVenda());
+            pstm.setString(3, controleVendedor.getObservacaoVenda());
 
             pstm.execute();
 
@@ -81,6 +82,7 @@ public class ControleVendedorDao {
                 controleVendedor.setDatahoraVenda(rs.getTimestamp("datahoravenda"));
                 controleVendedor.setNomeVenda(rs.getString("nomevenda"));
                 controleVendedor.setValorVenda(rs.getDouble("valorvenda"));
+                controleVendedor.setObservacaoVenda(rs.getString("observacao"));
 
                 listarControleVendedors.add(controleVendedor);
             }
