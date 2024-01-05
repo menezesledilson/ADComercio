@@ -17,11 +17,11 @@ WHERE (datapedido BETWEEN $P{DataIn} AND $P{DataFin})
 	<field name="quantidadebobina" class="java.lang.Integer"/>
 	<field name="datapedido" class="java.sql.Date"/>
 	<field name="dataentrega" class="java.sql.Date"/>
-	<field name="numerochequea" class="java.lang.Integer"/>
-	<field name="numerochequeb" class="java.lang.Integer"/>
-	<field name="numerochequec" class="java.lang.Integer"/>
 	<field name="observacao" class="java.lang.String"/>
 	<field name="pagpedido" class="java.lang.String"/>
+	<field name="numerochequea" class="java.lang.String"/>
+	<field name="numerochequeb" class="java.lang.String"/>
+	<field name="numerochequec" class="java.lang.String"/>
 	<variable name="somaQuant" class="java.lang.Integer" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{quantidadebobina}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>

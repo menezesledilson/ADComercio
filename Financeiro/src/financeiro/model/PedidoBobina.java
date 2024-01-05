@@ -21,9 +21,9 @@ public class PedidoBobina {
     private String pagPedido;
     private Date dataPedido;
     private Date dataEntrega;
-    private int numeroChequeA;
-    private int numeroChequeB;
-    private int numeroChequeC;
+    private String numeroChequeA;
+    private String numeroChequeB;
+    private String numeroChequeC;
 
     public String getObservacaoPagamento() {
         return observacaoPagamento;
@@ -81,29 +81,31 @@ public class PedidoBobina {
         this.dataEntrega = dataEntrega;
     }
 
-    public int getNumeroChequeA() {
+    public String getNumeroChequeA() {
         return numeroChequeA;
     }
 
-    public void setNumeroChequeA(int numeroChequeA) {
+    public void setNumeroChequeA(String numeroChequeA) {
         this.numeroChequeA = numeroChequeA;
     }
 
-    public int getNumeroChequeB() {
+    public String getNumeroChequeB() {
         return numeroChequeB;
     }
 
-    public void setNumeroChequeB(int numeroChequeB) {
+    public void setNumeroChequeB(String numeroChequeB) {
         this.numeroChequeB = numeroChequeB;
     }
 
-    public int getNumeroChequeC() {
+    public String getNumeroChequeC() {
         return numeroChequeC;
     }
 
-    public void setNumeroChequeC(int numeroChequeC) {
+    public void setNumeroChequeC(String numeroChequeC) {
         this.numeroChequeC = numeroChequeC;
     }
+
+   
 
     public String getPagPedido() {
         return pagPedido;

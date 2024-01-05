@@ -34,9 +34,9 @@ public class PedidoBobinaDao {
             pstm.setInt(3, pedidobobina.getQuantidadeBobina());
             pstm.setDate(4, pedidobobina.getDataPedido());
             pstm.setDate(5, pedidobobina.getDataEntrega());
-            pstm.setInt(6, pedidobobina.getNumeroChequeA());
-            pstm.setInt(7, pedidobobina.getNumeroChequeB());
-            pstm.setInt(8, pedidobobina.getNumeroChequeC());
+            pstm.setString(6, pedidobobina.getNumeroChequeA());
+            pstm.setString(7, pedidobobina.getNumeroChequeB());
+            pstm.setString(8, pedidobobina.getNumeroChequeC());
 
             pstm.setString(9, pedidobobina.getPagPedido());
             pstm.setString(10, pedidobobina.getObservacaoPagamento());
@@ -66,9 +66,9 @@ public class PedidoBobinaDao {
             pstm.setDate(4, pedidobobina.getDataPedido());
             pstm.setDate(5, pedidobobina.getDataEntrega());
 
-            pstm.setInt(6, pedidobobina.getNumeroChequeA());
-            pstm.setInt(7, pedidobobina.getNumeroChequeB());
-            pstm.setInt(8, pedidobobina.getNumeroChequeC());
+            pstm.setString(6, pedidobobina.getNumeroChequeA());
+            pstm.setString(7, pedidobobina.getNumeroChequeB());
+            pstm.setString(8, pedidobobina.getNumeroChequeC());
 
             pstm.setString(9, pedidobobina.getPagPedido());
             pstm.setString(10, pedidobobina.getObservacaoPagamento());
@@ -136,9 +136,9 @@ public class PedidoBobinaDao {
                 pedidoBobina.setDataPedido(rs.getDate("datapedido"));
                 pedidoBobina.setDataEntrega(rs.getDate("dataentrega"));
 
-                pedidoBobina.setNumeroChequeA(rs.getInt("numerochequeA"));
-                pedidoBobina.setNumeroChequeB(rs.getInt("numerochequeB"));
-                pedidoBobina.setNumeroChequeC(rs.getInt("numerochequeC"));
+                pedidoBobina.setNumeroChequeA(rs.getString("numerochequeA"));
+                pedidoBobina.setNumeroChequeB(rs.getString("numerochequeB"));
+                pedidoBobina.setNumeroChequeC(rs.getString("numerochequeC"));
 
                 pedidoBobina.setPagPedido(rs.getString("pagpedido"));
 

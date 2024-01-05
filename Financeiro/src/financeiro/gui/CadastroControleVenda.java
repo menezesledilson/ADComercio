@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
@@ -341,10 +342,15 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
                 try (ResultSet resultadoValor = statementValor.executeQuery()) {
                     if (resultadoValor.next()) {
                         Double totalValor = resultadoValor.getDouble("totalValor");
+                        // Formatar o número para exibir duas casas decimais e arredondar
+                        DecimalFormat df = new DecimalFormat("#,##0.00");
+                        df.setMaximumFractionDigits(2);
+                        df.setMinimumFractionDigits(2);
+                        String formattedTotal = df.format(totalValor);
                         lblSoma.setText(String.valueOf(totalValor));
                     } else {
                         // Se não houver resultados, define o total como zero
-                        lblSoma.setText("0");
+                        lblSoma.setText("0.00");
                     }
                 }
             } catch (SQLException e) {

@@ -140,21 +140,37 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tbPedido);
 
+        txtNomeEmpresa.setNextFocusableComponent(txtValor);
+
+        txtValor.setNextFocusableComponent(txtDataPedido);
+
         jLabel1.setText("Empresa.:");
 
         jLabel2.setText("Quant.:");
 
         jLabel3.setText("Valor.:");
 
+        txtQuant.setNextFocusableComponent(txtDataEntrega);
+
+        txtDataPedido.setNextFocusableComponent(txtChequeA);
+
         jLabel4.setText("Data Pedido.:");
 
         jLabel5.setText("Data Entrega.:");
 
+        txtDataEntrega.setNextFocusableComponent(txtObs);
+
         jLabel6.setText("N.Cheque 1.:");
+
+        txtChequeA.setNextFocusableComponent(txtChequeB);
 
         jLabel7.setText("N.Cheque 2.:");
 
+        txtChequeB.setNextFocusableComponent(txtChequeC);
+
         jLabel8.setText("N.Cheque 3.:");
+
+        txtChequeC.setNextFocusableComponent(txtQuant);
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -177,6 +193,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         jLabel12.setText("Obs.:");
 
         txtObs.setText(" ");
+        txtObs.setNextFocusableComponent(btGravar);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -359,18 +376,18 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
   private void carregaTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tbPedido.getModel();
-     
+
         //Defini o tamanho da tabela
-         tbPedido.getColumnModel().getColumn(0).setPreferredWidth(130);
-         tbPedido.getColumnModel().getColumn(1).setPreferredWidth(40);
-         tbPedido.getColumnModel().getColumn(2).setPreferredWidth(5);
-         tbPedido.getColumnModel().getColumn(3).setPreferredWidth(40);
-         tbPedido.getColumnModel().getColumn(4).setPreferredWidth(50);
-         tbPedido.getColumnModel().getColumn(5).setPreferredWidth(60);
-         tbPedido.getColumnModel().getColumn(6).setPreferredWidth(50);
-         tbPedido.getColumnModel().getColumn(7).setPreferredWidth(50);
-         tbPedido.getColumnModel().getColumn(8).setPreferredWidth(60);
-         tbPedido.getColumnModel().getColumn(9).setPreferredWidth(60);
+        tbPedido.getColumnModel().getColumn(0).setPreferredWidth(130);
+        tbPedido.getColumnModel().getColumn(1).setPreferredWidth(40);
+        tbPedido.getColumnModel().getColumn(2).setPreferredWidth(5);
+        tbPedido.getColumnModel().getColumn(3).setPreferredWidth(40);
+        tbPedido.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tbPedido.getColumnModel().getColumn(5).setPreferredWidth(60);
+        tbPedido.getColumnModel().getColumn(6).setPreferredWidth(50);
+        tbPedido.getColumnModel().getColumn(7).setPreferredWidth(50);
+        tbPedido.getColumnModel().getColumn(8).setPreferredWidth(60);
+        tbPedido.getColumnModel().getColumn(9).setPreferredWidth(60);
 
         // Criar um renderizador centralizado
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -449,7 +466,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
             }
             // Limpa a tabela antes de preencher os novos dados
             modelo.setNumRows(0);
-            pstm = con.prepareStatement("SELECT * FROM pedidobobina ORDER BY  datapedido ASC;");
+            pstm = con.prepareStatement("SELECT * FROM pedidobobina ORDER BY  nomecliente ASC;");
             rs = pstm.executeQuery();
             //Formatar o valor no campo jtable
             NumberFormat currencyValor = NumberFormat.getCurrencyInstance();
@@ -500,6 +517,10 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         txtChequeB.setText("");
         txtChequeC.setText("");
         txtObs.setText("");
+
+        // Limpar JComboBox (usando setSelectedItem(null))
+        cbxPag.setSelectedItem(null);
+
         btGravar.setEnabled(false);
         btAlterar.setEnabled(true);
         btExcluir.setEnabled(true);
@@ -582,9 +603,9 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                 l.setValorPedido(Double.parseDouble(txtValor.getText()));
                 l.setQuantidadeBobina(Integer.parseInt(txtQuant.getText()));
 
-                l.setNumeroChequeA(Integer.parseInt(txtChequeA.getText()));
-                l.setNumeroChequeB(Integer.parseInt(txtChequeB.getText()));
-                l.setNumeroChequeC(Integer.parseInt(txtChequeC.getText()));
+                l.setNumeroChequeA(txtChequeA.getText());
+                l.setNumeroChequeB(txtChequeB.getText());
+                l.setNumeroChequeC(txtChequeC.getText());
 
                 l.setPagPedido((String) cbxPag.getSelectedItem());
                 l.setObservacaoPagamento(txtObs.getText());
@@ -646,9 +667,9 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         //Converter integer para int
         l.setQuantidadeBobina(Integer.parseInt(txtQuant.getText()));
 
-        l.setNumeroChequeA(Integer.parseInt(txtChequeA.getText()));
-        l.setNumeroChequeB(Integer.parseInt(txtChequeA.getText()));
-        l.setNumeroChequeC(Integer.parseInt(txtChequeA.getText()));
+        l.setNumeroChequeA(txtChequeA.getText());
+        l.setNumeroChequeB(txtChequeB.getText());
+        l.setNumeroChequeC(txtChequeC.getText());
 
         l.setPagPedido((String) cbxPag.getSelectedItem());
         l.setObservacaoPagamento(txtObs.getText());
@@ -716,9 +737,9 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         //Converter integer para int
         l.setQuantidadeBobina(Integer.parseInt(txtQuant.getText()));
 
-        l.setNumeroChequeA(Integer.parseInt(txtChequeA.getText()));
-        l.setNumeroChequeB(Integer.parseInt(txtChequeA.getText()));
-        l.setNumeroChequeC(Integer.parseInt(txtChequeA.getText()));
+        l.setNumeroChequeA(txtChequeA.getText());
+        l.setNumeroChequeB(txtChequeB.getText());
+        l.setNumeroChequeC(txtChequeC.getText());
 
         l.setPagPedido((String) cbxPag.getSelectedItem());
         l.setObservacaoPagamento(txtObs.getText());
@@ -794,9 +815,9 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
 
         txtQuant.setText(String.valueOf(g.getQuantidadeBobina()));
 
-        txtChequeA.setText(String.valueOf(g.getNumeroChequeA()));
-        txtChequeB.setText(String.valueOf(g.getNumeroChequeB()));
-        txtChequeC.setText(String.valueOf(g.getNumeroChequeC()));
+        txtChequeA.setText(g.getNumeroChequeA());
+        txtChequeB.setText(g.getNumeroChequeB());
+        txtChequeC.setText(g.getNumeroChequeC());
 
         cbxPag.setSelectedItem(g.getPagPedido());
         txtObs.setText(g.getObservacaoPagamento());
