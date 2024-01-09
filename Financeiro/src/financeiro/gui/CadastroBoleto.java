@@ -221,7 +221,7 @@ private void CentralizarJTextFields() {
         tbBoletoClienteEmpresa.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
 
         //Defini o tamanho da tabela
-        tbBoletoClienteEmpresa.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(0).setPreferredWidth(170);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(1).setPreferredWidth(10);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(2).setPreferredWidth(20);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(3).setPreferredWidth(100);

@@ -466,7 +466,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
             }
             // Limpa a tabela antes de preencher os novos dados
             modelo.setNumRows(0);
-            pstm = con.prepareStatement("SELECT * FROM pedidobobina ORDER BY  nomecliente ASC;");
+            pstm = con.prepareStatement("SELECT * FROM pedidobobina ORDER BY  datapedido ASC;");
             rs = pstm.executeQuery();
             //Formatar o valor no campo jtable
             NumberFormat currencyValor = NumberFormat.getCurrencyInstance();

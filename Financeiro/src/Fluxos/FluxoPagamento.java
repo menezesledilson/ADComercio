@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
@@ -73,7 +74,7 @@ public class FluxoPagamento extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
@@ -139,10 +140,15 @@ public class FluxoPagamento extends javax.swing.JInternalFrame {
                 try (ResultSet resultadoValor = statementValor.executeQuery()) {
                     if (resultadoValor.next()) {
                         Double totalAcumulado = resultadoValor.getDouble("totalValor");
-                        lblSoma.setText(String.valueOf(totalAcumulado));
+                        
+                        // Formata o valor para duas casas decimais
+                        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+                        String formattedTotal = decimalFormat.format(totalAcumulado);
+                        
+                        lblSoma.setText(String.valueOf(formattedTotal));
                     } else {
                         // Se não houver resultados, define o total como zero
-                        lblSoma.setText("0");
+                        lblSoma.setText("0.00");
                     }
                 }
             } catch (SQLException e) {

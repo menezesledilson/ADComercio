@@ -92,7 +92,11 @@ public class CadastroCaixa extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tbFluxoCaixa);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 680, 320));
+
+        txtDescricao.setNextFocusableComponent(txtEntrada);
         jPanel1.add(txtDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 20, 130, -1));
+
+        txtEntrada.setNextFocusableComponent(txtSaida);
         jPanel1.add(txtEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 80, -1));
         jPanel1.add(txtSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 90, -1));
 
@@ -249,7 +253,7 @@ private void carregaTabela() {
 
                 //exibi o saldo anterior
                 saldoAnterior = saldoAtual;
-               
+
                 saldoAtual += (entrada - saida);
 
                 modelo.addRow(new Object[]{
@@ -272,7 +276,7 @@ private void carregaTabela() {
     private void CentralizarCampos() {
         txtEntrada.setHorizontalAlignment(SwingConstants.CENTER);
         txtSaida.setHorizontalAlignment(SwingConstants.CENTER);
-
+        txtDescricao.setHorizontalAlignment(SwingConstants.CENTER);
         lblSaldoAtual.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
@@ -443,8 +447,9 @@ private void carregaTabela() {
 
         txtEntrada.setEnabled(false);
         btEntrada.setEnabled(false);
-
-        dao.entrada(l);
+        txtDescricao.setEnabled(false);
+        txtSaida.setEnabled(false);
+        
         limparTexto();
     }//GEN-LAST:event_btSaidaActionPerformed
 
@@ -463,6 +468,8 @@ private void carregaTabela() {
         l.setEntrada(Double.parseDouble(txtEntrada.getText()));
         l.setSaida(0.0); // Definindo a saída como zero para entrada
         txtSaida.setEnabled(false);
+        txtEntrada.setEnabled(false);
+        txtDescricao.setEnabled(false);
         btSaida.setEnabled(false);
         dao.entrada(l);
         limparTexto();
@@ -473,6 +480,7 @@ private void carregaTabela() {
         AtivarCampos();
         btEntrada.setEnabled(true);
         btSaida.setEnabled(true);
+
     }//GEN-LAST:event_btNovoActionPerformed
 
 

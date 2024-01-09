@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
@@ -79,7 +80,7 @@ public class FluxoVenda extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -139,10 +140,15 @@ private void carregaTabela() {
                 try (ResultSet resultadoValor = statementValor.executeQuery()) {
                     if (resultadoValor.next()) {
                         Double totalAcumulado = resultadoValor.getDouble("totalValor");
-                        lblSoma.setText(String.valueOf(totalAcumulado));
+
+                        // Formata o valor para duas casas decimais
+                        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+                        String formattedTotal = decimalFormat.format(totalAcumulado);
+
+                        lblSoma.setText(String.valueOf(formattedTotal));
                     } else {
                         // Se não houver resultados, define o total como zero
-                        lblSoma.setText("0");
+                        lblSoma.setText("0.00");
                     }
                 }
             } catch (SQLException e) {

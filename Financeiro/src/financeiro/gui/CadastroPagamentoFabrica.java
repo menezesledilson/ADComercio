@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
@@ -124,7 +125,7 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -174,7 +175,7 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -230,17 +231,17 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
         //Objetos
         PagamentoFabrica b = new PagamentoFabrica();
         PagamentoFabricaDao dao = new PagamentoFabricaDao();
-        
+
         int index = tbPagFabrica.getSelectedRow(); // retorna o numero da linha selecionada
         b = dao.listarPagFabrica().get(index);
-        
+
         b.setNomePagamento(txtNome.getText());
         b.setValorPagamento(Double.parseDouble(txtValor.getText()));
-        
+
         switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Pagamento ? \n "
                 + "\n Nome:  " + b.getNomePagamento()
                 + "\n R$: " + b.getValorPagamento(), "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
-            
+
             case 0:
                 dao.remover(b);
                 carregaTabela();
@@ -253,9 +254,9 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
             case 1:
                 JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
                 break;
-            
+
         }
-        
+
 
     }//GEN-LAST:event_bgExcluirActionPerformed
 
@@ -264,14 +265,14 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
         //Setando campos de texto com registros
         PagamentoFabrica b = new PagamentoFabrica();
         PagamentoFabricaDao dao = new PagamentoFabricaDao();
-        
+
         int index = tbPagFabrica.getSelectedRow();
         b = dao.listarPagFabrica().get(index);
-        
+
         txtNome.setText(b.getNomePagamento());
         txtObs.setText(b.getObservacaoPagamento());
         txtValor.setText(Double.toString(b.getValorPagamento()));
-        
+
         ativaCampos();
         bgExcluir.setEnabled(true);
 
@@ -280,39 +281,39 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
         bgGravar.setEnabled(true);
         bgExcluir.setEnabled(true);
     }
-    
+
     public void desativarBotao() {
         bgGravar.setEnabled(false);
         bgExcluir.setEnabled(false);
     }
-    
+
     public void desativarCampos() {
         txtNome.setEnabled(false);
         txtValor.setEnabled(false);
         txtObs.setEnabled(false);
     }
-    
+
     public void ativaCampos() {
         txtNome.setEnabled(true);
         txtValor.setEnabled(true);
         txtObs.setEnabled(true);
     }
-    
+
     public void limparCampo() {
         txtNome.setText("");
         txtValor.setText("");
         txtObs.setText("");
-        
+
     }
-    
+
     private void CentralizarCampos() {
         txtNome.setHorizontalAlignment(SwingConstants.CENTER);
         txtValor.setHorizontalAlignment(SwingConstants.CENTER);
         txtObs.setHorizontalAlignment(SwingConstants.CENTER);
     }
-    
+
     private void carregaTabela() {
-        
+
         DefaultTableModel modelo = (DefaultTableModel) tbPagFabrica.getModel();
         modelo.setNumRows(0);
 
@@ -325,11 +326,11 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
         // Criar um renderizador centralizado
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         tbPagFabrica.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         tbPagFabrica.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         tbPagFabrica.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        
+
         try {
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
@@ -342,30 +343,35 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
             Calendar cal = Calendar.getInstance();
             int mesAtual = cal.get(Calendar.MONTH) + 1; // Note que os meses em Java começam do zero
             int anoAtual = cal.get(Calendar.YEAR);
-            
+
             try (PreparedStatement statementValor = con.prepareStatement(sqlSomaTotalReal)) {
                 statementValor.setInt(1, mesAtual);
                 statementValor.setInt(2, anoAtual);
-                
+
                 try (ResultSet resultadoValor = statementValor.executeQuery()) {
                     if (resultadoValor.next()) {
                         Double totalValor = resultadoValor.getDouble("totalValor");
-                        lblSoma.setText(String.valueOf(totalValor));
+
+                        // Formata o valor para duas casas decimais
+                        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+                        String formattedTotal = decimalFormat.format(totalValor);
+                        
+                        lblSoma.setText(String.valueOf(formattedTotal));
                     } else {
                         // Se não houver resultados, define o total como zero
-                        lblSoma.setText("0");
+                        lblSoma.setText("0.00");
                     }
                 }
             } catch (SQLException e) {
                 // Trate exceções SQL conforme necessário
                 e.printStackTrace();
             }
-            
+
             pstm = con.prepareStatement("SELECT * FROM pagamentofabrica ORDER BY datahorapagamento ASC;");
             rs = pstm.executeQuery();
-            
+
             NumberFormat currencyValor = NumberFormat.getCurrencyInstance();
-            
+
             while (rs.next()) {
                 modelo.addRow(new Object[]{
                     rs.getString("datahorapagamento"),
@@ -375,7 +381,7 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
                 });
             }
             Conexao.closeConnection(con, pstm, rs);
-            
+
         } catch (Exception ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
         }

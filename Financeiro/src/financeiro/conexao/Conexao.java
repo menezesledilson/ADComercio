@@ -15,9 +15,9 @@ import java.sql.DriverManager; // driver de conexão SQL para Java
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException; // classe para tratamento de exceções
+import java.util.TimeZone;
  
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+ 
 
  public class Conexao {
 
@@ -29,14 +29,14 @@ import java.time.ZonedDateTime;
     public static Connection getConnection() {
         try {
             Class.forName(Drive);
-            return DriverManager.getConnection(URL, USUARIO_POSTGRES, PASSWORD);
+           
             
+            return DriverManager.getConnection(URL, USUARIO_POSTGRES, PASSWORD); 
             
         } catch (ClassNotFoundException | SQLException ErroSql) {
             throw new RuntimeException("ERRO! Não foi possivel conectar. " + ErroSql);
         }
 
-       
     } 
  
 

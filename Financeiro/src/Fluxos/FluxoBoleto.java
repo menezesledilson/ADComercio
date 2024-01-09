@@ -63,7 +63,7 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -104,7 +104,7 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
        
 
         //Defini o tamanho da tabela
-        tbFluxoBoleto.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tbFluxoBoleto.getColumnModel().getColumn(0).setPreferredWidth(170);
         tbFluxoBoleto.getColumnModel().getColumn(1).setPreferredWidth(60);
         tbFluxoBoleto.getColumnModel().getColumn(2).setPreferredWidth(60);
         tbFluxoBoleto.getColumnModel().getColumn(3).setPreferredWidth(100);

@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
@@ -81,7 +82,7 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 858, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
@@ -129,17 +130,17 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
 
         //Defini o tamanho da tabela
         tbFluxoPedidoBobina.getColumnModel().getColumn(0).setPreferredWidth(130);
-       
-         tbFluxoPedidoBobina.getColumnModel().getColumn(0).setPreferredWidth(130);
-         tbFluxoPedidoBobina.getColumnModel().getColumn(1).setPreferredWidth(60);
-         tbFluxoPedidoBobina.getColumnModel().getColumn(2).setPreferredWidth(5);
-         tbFluxoPedidoBobina.getColumnModel().getColumn(3).setPreferredWidth(60);
-         tbFluxoPedidoBobina.getColumnModel().getColumn(4).setPreferredWidth(60);
-         tbFluxoPedidoBobina.getColumnModel().getColumn(5).setPreferredWidth(60);
-         tbFluxoPedidoBobina.getColumnModel().getColumn(6).setPreferredWidth(50);
-         tbFluxoPedidoBobina.getColumnModel().getColumn(7).setPreferredWidth(50);
-         tbFluxoPedidoBobina.getColumnModel().getColumn(8).setPreferredWidth(60);
-         tbFluxoPedidoBobina.getColumnModel().getColumn(9).setPreferredWidth(60);
+
+        tbFluxoPedidoBobina.getColumnModel().getColumn(0).setPreferredWidth(130);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(1).setPreferredWidth(60);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(2).setPreferredWidth(5);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(3).setPreferredWidth(60);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(4).setPreferredWidth(60);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(5).setPreferredWidth(60);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(6).setPreferredWidth(50);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(7).setPreferredWidth(50);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(8).setPreferredWidth(60);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(9).setPreferredWidth(60);
 
         // Criar um renderizador centralizado
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -176,7 +177,11 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
 
                 if (resultadoValor.next()) {
                     Double totalValor = resultadoValor.getDouble("totalValor");
-                    lblTotalValor.setText(String.valueOf(totalValor));
+                    // Formata o valor para duas casas decimais
+                    DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+                    String formattedTotal = decimalFormat.format(totalValor);
+                    
+                    lblTotalValor.setText(String.valueOf(formattedTotal));
                 }
             }
 
@@ -197,8 +202,7 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
                     rs.getString("numerochequeb"),
                     rs.getString("numerochequec"),
                     rs.getString("pagpedido"),
-                    rs.getString("observacao"),
-                });
+                    rs.getString("observacao"),});
             }
             Conexao.closeConnection(con, pstm, rs);
 
