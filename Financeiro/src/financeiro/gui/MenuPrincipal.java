@@ -52,15 +52,25 @@ import util.PosicaoFormulario;
  * @author Ledilson
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-    
+
     PosicaoFormulario form = new PosicaoFormulario();
-    
+
     public MenuPrincipal(String user) {
-        
+
         initComponents();
         setIcon();
-        
+
         jLabel1.setText(user);
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(true);
+
+        setSize(1366, 768);
+        setExtendedState(MAXIMIZED_BOTH);
+        // Centraliza o JFrame na tela principal
+        setLocationRelativeTo(null);
+        setVisible(true);
+        jLabel3.setSize(1366, 768);
 
         /*
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,17 +79,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         setExtendedState(MAXIMIZED_BOTH);*/
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
         //setSize(800, 600);
-        setSize(1366, 768);
-        setExtendedState(MAXIMIZED_BOTH);
-        setLocationRelativeTo(null); // Centraliza o JFrame na tela principal
         // Outras configurações e adições podem ser feitas conforme necessário
-        setVisible(true);
-        jLabel3.setSize(1366, 768);
-
         // Configurar um Timer para verificar o horário a cada minuto
+        
         Timer timer = new Timer(60000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -107,11 +110,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void verificarHoraAviso() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         String horaAtual = sdf.format(new Date());
-        
+
         if (horaAtual.equals("16:00")) {
             SwingUtilities.invokeLater(() -> {
                 int escolha = exibirAviso(this, "Aviso", "Hora de fazer backup!");
-                
+
                 if (escolha == JOptionPane.YES_OPTION) {
                     // Código a ser executado se o usuário escolher "Sim"
                     // PostgresBackupRestore formMensagem = new PostgresBackupRestore();
@@ -122,18 +125,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     // Código a ser executado se o usuário escolher "Não" ou fechar a caixa de diálogo
                     JOptionPane.showMessageDialog(this, "Não se esqueça de fazer o backup após concluir a tarefa. ");
                 }
-                
+
             });
         }
     }
-    
+
     private void abrirFormMensagem() {
         /*  PostgresBackupRestore formMensagem = new PostgresBackupRestore();
         jDesktop.add(formMensagem);
         formMensagem.setSize(400, 300);
         formMensagem.setLocation(50, 50);
         formMensagem.setVisible(true);*/
-        
+
         PostgresBackupRestore formMensagem = new PostgresBackupRestore();
 
         // Obtém o tamanho da tela principal
@@ -147,27 +150,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // Calcula a posição central em relação à tela principal
         int x = (telaPrincipalWidth - formWidth) / 2;
         int y = (telaPrincipalHeight - formHeight) / 2;
-        
+
         jDesktop.add(formMensagem);
         formMensagem.setLocation(x, y);
         formMensagem.setVisible(true);
-        
+
     }
-    
+
     private static int exibirAviso(JFrame frame, String titulo, String mensagem) {
         return JOptionPane.showConfirmDialog(frame, mensagem, titulo, JOptionPane.YES_NO_OPTION);
-        
+
     }
-    
+
     private MenuPrincipal() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
     }
-    
+
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/banco.png")));
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -689,31 +692,31 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuBobinaActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        
+
         CadastroCaixa tela;
         form.abrirFormulario(tela = new CadastroCaixa(), jDesktop);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        
+
         CadastroPedidoBobina tela;
         form.abrirFormulario(tela = new CadastroPedidoBobina(), jDesktop);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        
+
         CadastroBoleto tela;
         form.abrirFormulario(tela = new CadastroBoleto(), jDesktop);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        
+
         PostgresBackupRestore tela;
         form.abrirFormulario(tela = new PostgresBackupRestore(), jDesktop);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        
+
         BuscaLivroCaixa tela;
         form.abrirFormulario(tela = new BuscaLivroCaixa(), jDesktop);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
@@ -722,7 +725,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         /* /   BuscarBoleto1 mc = new BuscarBoleto1();
          mc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
          mc.setVisible(true);*/
-        
+
         BuscarBoleto tela;
         form.abrirFormulario(tela = new BuscarBoleto(), jDesktop);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
@@ -733,44 +736,44 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        
+
         EmissorCalculoNF tela;
         form.abrirFormulario(tela = new EmissorCalculoNF(), jDesktop);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-        
+
         EmissaoNotaServico tela;
         form.abrirFormulario(tela = new EmissaoNotaServico(), jDesktop);
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
-        
+
         BuscarNotaServico tela;
         form.abrirFormulario(tela = new BuscarNotaServico(), jDesktop);
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     private void jMenuCredencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCredencialActionPerformed
-        
+
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        
+
         try {
             pstm = con.prepareStatement("SELECT permissao FROM acesso WHERE login = ?");
             pstm.setString(1, jLabel1.getText());
-            
+
             rs = pstm.executeQuery();
-            
+
             if (rs.next()) {
                 String permissao = rs.getString("permissao");
-                
+
                 if ("Administrador".equals(permissao)) {
                     // CadastroCredencial mm = new CadastroCredencial();
                     //mm.setVisible(true);
                     CadastroCredencial tela;
                     form.abrirFormulario(tela = new CadastroCredencial(), jDesktop);
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Você não possui permissão para o acesso.");
                 }
@@ -783,16 +786,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         } finally {
             Conexao.closeConnection(con, pstm, rs);
         }
-        
+
 
     }//GEN-LAST:event_jMenuCredencialActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // Configura o fuso horário para Brasília
         TimeZone timeZone = TimeZone.getTimeZone("America/Sao_Paulo");
-        
+
         TimeZone.setDefault(timeZone);
-        
+
         Timer timer = new Timer(1000, new hora());
         timer.start();
 
@@ -800,7 +803,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Date dataSistema = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         lblData.setText(formato.format(dataSistema));
-        
+
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -898,21 +901,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -1026,13 +1029,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     class hora implements ActionListener {
-        
+
         @Override
-        
+
         public void actionPerformed(ActionEvent e) {
             Calendar now = Calendar.getInstance();
             lblhora.setText(String.format("%1$tH:%1$tM:%1$tS", now)); //O Horário vai ter horas, minutos e segundos
         }
     }
-    
+
 }
