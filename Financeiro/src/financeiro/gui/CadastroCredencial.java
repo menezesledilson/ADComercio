@@ -258,19 +258,18 @@ public class CadastroCredencial extends javax.swing.JInternalFrame {
         limparTexto();
         habilitar();
     }//GEN-LAST:event_jButton1ActionPerformed
-    
-
     public void Desativar() {
         txtnome.setEnabled(false);
         txtlogin.setEnabled(false);
         txtsenha.setEnabled(false);
+        cbPermissao.setEnabled(false);
     }
 
     public void habilitar() {
         txtnome.setEnabled(true);
         txtlogin.setEnabled(true);
         txtsenha.setEnabled(true);
-
+        cbPermissao.setEnabled(true);
     }
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         Credencial s = new Credencial();
@@ -278,23 +277,29 @@ public class CadastroCredencial extends javax.swing.JInternalFrame {
 
         int index = tbSenhas.getSelectedRow();
 
-        s = dao.ListaCrendecial().get(index);
-        s.setNome(txtnome.getText());
-        s.setLogin(txtlogin.getText());
-        s.setSenha(txtsenha.getText());
+        if (index != -1) {
+            s = dao.ListaCrendecial().get(index);
 
-        switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Credencial ? \n "
-                + "\n Usuario: " + s.getNome()
-                + "\n Login:  " + s.getLogin()
-                + "\n Senha: " + s.getSenha(), "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
-            case 0:
-                dao.remover(s);
-                carregaTabela();
-                limparTexto();
-                break;
-            case 1:
-                JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                break;
+            // Atualiza os campos com os valores da credencial
+            txtnome.setText(s.getNome());
+            txtlogin.setText(s.getLogin());
+            txtsenha.setText(s.getSenha());
+            cbPermissao.setSelectedItem(s.getPermissao());
+
+            switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Credencial ? \n "
+                    + "\n Usuario: " + s.getNome()
+                    + "\n Login:  " + s.getLogin()
+                    + "\n Senha: " + s.getSenha()
+                    + "\n Permissão: " + s.getPermissao(), "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+                case 0:
+                    dao.remover(s);
+                    carregaTabela();
+                    limparTexto();
+                    break;
+                case 1:
+                    JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+            }
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 

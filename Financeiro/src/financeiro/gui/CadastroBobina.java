@@ -64,6 +64,7 @@ public class CadastroBobina extends javax.swing.JInternalFrame {
         btExcluir = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
+        btAlterar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Cadastro de Bobinas");
@@ -120,6 +121,13 @@ public class CadastroBobina extends javax.swing.JInternalFrame {
             }
         });
 
+        btAlterar.setText("Alterar");
+        btAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -140,15 +148,19 @@ public class CadastroBobina extends javax.swing.JInternalFrame {
                                     .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(10, 10, 10)
                                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btAlterar)))
+                                .addGap(7, 7, 7)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(btGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton1)))
-                                .addGap(0, 7, Short.MAX_VALUE))))
+                                .addGap(0, 10, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jSeparator1)))
@@ -176,7 +188,9 @@ public class CadastroBobina extends javax.swing.JInternalFrame {
                                     .addComponent(btGravar)
                                     .addComponent(jButton1))
                                 .addGap(17, 17, 17)
-                                .addComponent(btExcluir)))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btExcluir)
+                                    .addComponent(btAlterar))))))
                 .addGap(1, 1, 1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,7 +220,7 @@ public class CadastroBobina extends javax.swing.JInternalFrame {
 
     private void desativaBotoes() {
         btGravar.setEnabled(false);
-      //  btAlterar.setEnabled(false);
+        //  btAlterar.setEnabled(false);
         btExcluir.setEnabled(false);
 
     }
@@ -245,7 +259,7 @@ public class CadastroBobina extends javax.swing.JInternalFrame {
         txtValor.setText(Double.toString(b.getValorBobina()));
 
         btGravar.setEnabled(false);
-       // btAlterar.setEnabled(true);
+        // btAlterar.setEnabled(true);
         btExcluir.setEnabled(true);
         ativaCampos();
 
@@ -255,7 +269,7 @@ public class CadastroBobina extends javax.swing.JInternalFrame {
         ativaBotoes();
 
         //  ativaCampos();
-       // btAlterar.setEnabled(false);
+        // btAlterar.setEnabled(false);
         btExcluir.setEnabled(false);
 
         txtDescricao.setEnabled(true);
@@ -356,17 +370,18 @@ public class CadastroBobina extends javax.swing.JInternalFrame {
             case 1:
                 JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
                 break;
+
         }
 
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       Connection con = Conexao.getConnection();
+        Connection con = Conexao.getConnection();
         //PreparedStatement pstm = null;
         try {
-            String arq = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\Relatorio\\RelatorioBobina.jasper";
+            String arq = "C:\\ADComercio\\Financeiro\\src\\Relatorio\\RelatorioBobina.jasper";
             Map<String, Object> parametros = new HashMap<>();
-     
+
             JasperPrint jaspertPrint = JasperFillManager.fillReport(arq, parametros, con);
             JasperViewer view = new JasperViewer(jaspertPrint, false);
             view.setVisible(true);
@@ -386,8 +401,47 @@ public class CadastroBobina extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        BobinaC b = new BobinaC();
+        BobinaDao dao = new BobinaDao();
+
+        int index = tbCadBobinas.getSelectedRow(); // retorna o numero da linha selecionada
+        b = dao.listarBobinaC().get(index);
+
+        switch (JOptionPane.showConfirmDialog(null,
+                " [--ALTERAÇÃO DE DADOS--] \n Dado Atual"
+                + "\n Produto:  " + b.getNomeBobina()
+                + "\n R$: " + b.getValorBobina()
+               
+                        + "\n Será alterado \n Produto: "
+                
+                        + txtDescricao.getText()
+                + "\n R$: "
+                + txtValor.getText()
+                + "\n Deseja realmente fazer alteração?",
+                "Alteração de dados.  ", JOptionPane.YES_NO_OPTION)) {
+
+            case 0:
+
+                b.setNomeBobina(txtDescricao.getText());
+                b.setValorBobina(Double.parseDouble(txtValor.getText()));
+
+                dao.alterar(b);// faz alteração no banco de dados
+                carregaTabela();
+                limparTexto();
+                desativaBotoes();
+                desativaCampos();
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.",
+                        "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
+    }//GEN-LAST:event_btAlterarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAlterar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btGravar;
     private javax.swing.JButton btNovo;

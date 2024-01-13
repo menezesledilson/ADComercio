@@ -367,13 +367,15 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
                 e.printStackTrace();
             }
 
-            pstm = con.prepareStatement("SELECT * FROM pagamentofabrica ORDER BY datahorapagamento ASC;");
+            pstm = con.prepareStatement("SELECT id,datahorapagamento, nomepagamento,valorpagamento,observacao FROM  pagamentofabrica ORDER BY id DESC;");
             rs = pstm.executeQuery();
+            
 
             NumberFormat currencyValor = NumberFormat.getCurrencyInstance();
 
             while (rs.next()) {
                 modelo.addRow(new Object[]{
+                    
                     rs.getString("datahorapagamento"),
                     rs.getString("nomepagamento"),
                     currencyValor.format(rs.getDouble("valorpagamento")),

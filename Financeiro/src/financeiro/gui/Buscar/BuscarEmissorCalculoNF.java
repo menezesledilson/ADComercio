@@ -246,7 +246,7 @@ public class BuscarEmissorCalculoNF extends javax.swing.JInternalFrame {
     private void btGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerarRelatorioActionPerformed
         Connection con = Conexao.getConnection();
         try {
-            String arq = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\Relatorio\\RelatorioCalculoNF.jasper";
+            String arq = "C:\\ADComercio\\Financeiro\\src\\Relatorio\\RelatorioCalculoNF.jasper";
             Map<String, Object> parametros = new HashMap<>();
 
             // Use as datas de início e fim armazenadas como parâmetros

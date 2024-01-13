@@ -222,7 +222,7 @@ public class BuscarNotaId extends javax.swing.JInternalFrame {
     private void bgReimprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgReimprimirActionPerformed
         Connection con = Conexao.getConnection();
         try {
-            String caminhoRelatorio = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\RelatorioNotaServico\\RelatorioNotaServicoId.jasper";
+            String caminhoRelatorio = "C:\\ADComercio\\Financeiro\\src\\RelatorioNotaServico\\RelatorioNotaServicoId.jasper";
 
             // Adicione o ID da nota como um parâmetro
             Map<String, Object> parametros = new HashMap<>();

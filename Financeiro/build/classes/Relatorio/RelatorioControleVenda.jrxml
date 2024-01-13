@@ -100,7 +100,7 @@
 	<summary>
 		<band height="42" splitType="Stretch">
 			<textField>
-				<reportElement uuid="a65e2273-ad8b-42bb-b2f2-6d96fbad09cf" x="475" y="22" width="80" height="20"/>
+				<reportElement uuid="a65e2273-ad8b-42bb-b2f2-6d96fbad09cf" x="475" y="22" width="38" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{somaV}]]></textFieldExpression>
 			</textField>

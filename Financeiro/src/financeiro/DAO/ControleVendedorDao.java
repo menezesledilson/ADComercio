@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 public class ControleVendedorDao {
 
     public void adicionar(ControleVendedor controleVendedor) {
+        
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
 
@@ -71,7 +72,9 @@ public class ControleVendedorDao {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         try {
-            pstm = con.prepareStatement("SELECT * FROM  controlevendedor ORDER BY datahoravenda ASC;");
+          pstm = con.prepareStatement("SELECT id, datahoravenda,nomevenda, valorvenda, observacao FROM controlevendedor ORDER BY id DESC");
+
+
             rs = pstm.executeQuery();
 
             while (rs.next()) {

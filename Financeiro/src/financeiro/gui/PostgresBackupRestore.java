@@ -140,7 +140,7 @@ public class PostgresBackupRestore extends javax.swing.JInternalFrame {
         String password = "admin";
 
         // Caminho do diretório de restauração
-        String restoreDirectory = "C:\\BkpADComercio";
+        String restoreDirectory = "C:\\ADComercio\\BkpAD";
 
         // Crie um diálogo de seleção de arquivo
         JFileChooser fileChooser = new JFileChooser(restoreDirectory);
@@ -192,7 +192,7 @@ public class PostgresBackupRestore extends javax.swing.JInternalFrame {
         String user = "postgres";
         String password = "admin";
 
-        File directory = new File("C:\\BkpADComercio");
+        File directory = new File("C:\\ADComercio\\BkpAD");
         if (!directory.exists()) {
             directory.mkdirs(); // Cria o diretório se não existir
         }
@@ -203,8 +203,8 @@ public class PostgresBackupRestore extends javax.swing.JInternalFrame {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HHmmss");
         String dateTimeString = now.format(formatter);
 
-        String backupFileName = "backup_" + database + "_" + dateTimeString + ".adcomercio";
-        String backupPath = "C:\\BkpADComercio\\" + backupFileName;
+        String backupFileName = "bkp_" + database + "_" + dateTimeString + ".adcomercio";
+        String backupPath = "C:\\ADComercio\\BkpAD\\" + backupFileName;
 
         try {
             String[] command = {

@@ -73,7 +73,7 @@ public class PagamentoFabricaDao {
         ResultSet rs = null;
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM  pagamentofabrica ORDER BY datahorapagamento ASC;");
+            pstm = con.prepareStatement("SELECT id,datahorapagamento, nomepagamento,valorpagamento,observacao FROM  pagamentofabrica ORDER BY id DESC;");
             rs = pstm.executeQuery();
 
             while (rs.next()) {

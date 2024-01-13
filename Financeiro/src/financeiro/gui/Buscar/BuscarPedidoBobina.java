@@ -236,7 +236,7 @@ public class BuscarPedidoBobina extends javax.swing.JInternalFrame {
         //PreparedStatement pstm = null;
         try {
 
-            String arq = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\Relatorio\\RelatorioPedidoBobina.jasper";
+            String arq = "C:\\ADComercio\\Financeiro\\src\\Relatorio\\RelatorioPedidoBobina.jasper";
             Map<String, Object> parametros = new HashMap<>();
 
             // Use as datas de início e fim armazenadas como parâmetros

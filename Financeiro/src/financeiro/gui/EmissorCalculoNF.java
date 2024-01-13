@@ -249,8 +249,8 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
-       // Aplicar o renderizador às colunas de valorpedido(índice 1) e quantidadebobina (índice 2)
-       tbNotaServico.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        // Aplicar o renderizador às colunas de valorpedido(índice 1) e quantidadebobina (índice 2)
+        tbNotaServico.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         tbNotaServico.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         tbNotaServico.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         tbNotaServico.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
@@ -378,6 +378,13 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btHabilitarActionPerformed
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
+        if (txtForncedor.getText().isEmpty() || txtTotalCargaFinal.getText().isEmpty()
+                || txtFrete.getText().isEmpty() || txtImposto.getText().isEmpty()
+                || txtComissao.getText().isEmpty())  {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         NotaServico a = new NotaServico();
         EmissorNotaServicoDao dao = new EmissorNotaServicoDao();
 

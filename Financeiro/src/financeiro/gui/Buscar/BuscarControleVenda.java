@@ -195,7 +195,7 @@ public class BuscarControleVenda extends javax.swing.JInternalFrame {
         //PreparedStatement pstm = null;
 
         try {
-            String arq = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\Relatorio\\RelatorioControleVenda.jasper";
+            String arq = "C:\\ADComercio\\Financeiro\\src\\Relatorio\\RelatorioControleVenda.jasper";
             Map<String, Object> parametros = new HashMap<>();
 
             if (dataInicio != null) {

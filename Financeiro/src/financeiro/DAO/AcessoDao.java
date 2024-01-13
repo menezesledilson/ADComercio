@@ -30,8 +30,8 @@ public class AcessoDao {
 
             pstm.setString(1, credencial.getNome());
             pstm.setString(2, credencial.getLogin());
-              pstm.setString(3, credencial.getSenha());
-              pstm.setString(4, credencial.getPermissao());
+            pstm.setString(3, credencial.getSenha());
+            pstm.setString(4, credencial.getPermissao());
 
             pstm.execute();
 
@@ -83,8 +83,8 @@ public class AcessoDao {
                 credencial.setId(rs.getLong("id"));
                 credencial.setNome(rs.getString("nome"));
                 credencial.setLogin(rs.getString("login"));
-                 credencial.setSenha(rs.getString("senha"));
-                   credencial.setPermissao(rs.getString("permissao"));
+                credencial.setSenha(rs.getString("senha"));
+                credencial.setPermissao(rs.getString("permissao"));
 
                 credencials.add(credencial);
             }
@@ -95,6 +95,5 @@ public class AcessoDao {
         }
         return credencials;
     }
-  
-}
 
+}

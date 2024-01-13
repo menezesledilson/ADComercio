@@ -18,6 +18,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -25,6 +26,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.DefaultFormatterFactory;
 
 /**
  *
@@ -71,10 +74,8 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtQuant = new javax.swing.JTextField();
-        txtDataPedido = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtDataEntrega = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtChequeA = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -91,6 +92,8 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         txtObs = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
+        txtDataPedido = new javax.swing.JFormattedTextField();
+        txtDataEntrega = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setTitle("Cadastro de Pedidos de Bobinas");
@@ -152,13 +155,9 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
 
         txtQuant.setNextFocusableComponent(txtDataEntrega);
 
-        txtDataPedido.setNextFocusableComponent(txtChequeA);
-
         jLabel4.setText("Data Pedido.:");
 
         jLabel5.setText("Data Entrega.:");
-
-        txtDataEntrega.setNextFocusableComponent(txtObs);
 
         jLabel6.setText("N.Cheque 1.:");
 
@@ -195,6 +194,18 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         txtObs.setText(" ");
         txtObs.setNextFocusableComponent(btGravar);
 
+        try {
+            txtDataPedido.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txtDataEntrega.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -207,26 +218,29 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addGap(11, 11, 11)
                                         .addComponent(txtNomeEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(12, 12, 12)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jLabel4)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(txtDataPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(12, 12, 12)
+                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtDataEntrega))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtDataPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(65, 65, 65)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
@@ -252,7 +266,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(71, 71, 71)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -270,7 +284,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                                     .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(10, 10, 10)
@@ -302,11 +316,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel12)
-                                    .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -328,12 +338,16 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtChequeC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -380,9 +394,9 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         //Defini o tamanho da tabela
         tbPedido.getColumnModel().getColumn(0).setPreferredWidth(130);
         tbPedido.getColumnModel().getColumn(1).setPreferredWidth(40);
-        tbPedido.getColumnModel().getColumn(2).setPreferredWidth(5);
-        tbPedido.getColumnModel().getColumn(3).setPreferredWidth(40);
-        tbPedido.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tbPedido.getColumnModel().getColumn(2).setPreferredWidth(30);
+        tbPedido.getColumnModel().getColumn(3).setPreferredWidth(80);
+        tbPedido.getColumnModel().getColumn(4).setPreferredWidth(80);
         tbPedido.getColumnModel().getColumn(5).setPreferredWidth(60);
         tbPedido.getColumnModel().getColumn(6).setPreferredWidth(50);
         tbPedido.getColumnModel().getColumn(7).setPreferredWidth(50);
@@ -466,7 +480,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
             }
             // Limpa a tabela antes de preencher os novos dados
             modelo.setNumRows(0);
-            pstm = con.prepareStatement("SELECT * FROM pedidobobina ORDER BY  datapedido ASC;");
+            pstm = con.prepareStatement("SELECT id,nomecliente,valorpedido,quantidadebobina,datapedido,dataentrega,numerochequea,numerochequeb,numerochequec,pagpedido,observacao FROM pedidobobina ORDER BY  id DESC;");
             rs = pstm.executeQuery();
             //Formatar o valor no campo jtable
             NumberFormat currencyValor = NumberFormat.getCurrencyInstance();
@@ -659,10 +673,21 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
+        if (txtNomeEmpresa.getText().isEmpty() || txtQuant.getText().isEmpty()
+                || txtChequeA.getText().isEmpty() || txtChequeB.getText().isEmpty()
+                || txtChequeC.getText().isEmpty() || cbxPag.getSelectedItem() == null
+                || txtValor.getText().isEmpty()
+                || txtDataPedido.getText().isEmpty() || txtDataEntrega.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         PedidoBobina l = new PedidoBobina();
         PedidoBobinaDao dao = new PedidoBobinaDao();
 
         l.setNomeClientePedido(txtNomeEmpresa.getText());
+
+        l.setValorPedido(Double.parseDouble(txtValor.getText()));
 
         //Converter integer para int
         l.setQuantidadeBobina(Integer.parseInt(txtQuant.getText()));
@@ -673,13 +698,6 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
 
         l.setPagPedido((String) cbxPag.getSelectedItem());
         l.setObservacaoPagamento(txtObs.getText());
-
-        //Converte o valor
-        String txtValorPedido = txtValor.getText();
-        // Convertendo a String para double
-        double valorPedido = Double.parseDouble(txtValorPedido);
-        // Definindo o valor convertido na propriedade
-        l.setValorPedido(valorPedido);
 
         // Entrada da Data cliente
         try {
@@ -707,12 +725,10 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
             return; // Impede a continuação do método se a data estiver incorreta
 
         }
-        // Adicionando o objeto ao banco de dados
-        dao.adicionar(l);
-
         // Exibir mensagem de sucesso
-        JOptionPane.showMessageDialog(null, "Pedido adicionado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+         
 
+        dao.adicionar(l);
         // Carregando a tabela
         carregaTabela();
         //desativar campos 
@@ -751,28 +767,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         // Definindo o valor convertido na propriedade
         l.setValorPedido(valorPedido);
 
-        // Entrada da Data cliente
-        try {
-            java.util.Date dataFormatada = sdfPedido.parse(txtDataPedido.getText());
-            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
-            l.setDataPedido(dataSQL);
-        } catch (ParseException ex) {
-            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
-
-            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-        // Entrada da Data Empresa
-        try {
-            java.util.Date dataFormatada = sdfEntrega.parse(txtDataEntrega.getText());
-
-            java.sql.Date dataSQL = new java.sql.Date(dataFormatada.getTime());
-
-            l.setDataEntrega(dataSQL);
-        } catch (ParseException ex) {
-
-            // Logger.getLogger(CadastroBoleto.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+      
 
         switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Produto ? \n "
                 + "\n Empresa:  " + l.getNomeClientePedido()
@@ -823,13 +818,16 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         txtObs.setText(g.getObservacaoPagamento());
 
         //  FORMATANDO A DATA
-        SimpleDateFormat sdfPedido = new SimpleDateFormat("dd-MM-yyyy");
+        //SimpleDateFormat sdfPedido = new SimpleDateFormat("dd-MM-yyyy");
+        //txtDataPedido.setText(sdfPedido.format(g.getDataPedido()));
+        JFormattedTextField txtDataPedido = new JFormattedTextField(new DefaultFormatterFactory(new DateFormatter(sdfPedido)));
+        txtDataPedido.setValue(g.getDataPedido());
 
+        //SimpleDateFormat sdfEntrega = new SimpleDateFormat("dd-MM-yyyy");
+        // txtDataEntrega.setText(sdfEntrega.format(g.getDataEntrega()));
         SimpleDateFormat sdfEntrega = new SimpleDateFormat("dd-MM-yyyy");
-
-        txtDataPedido.setText(sdfPedido.format(g.getDataPedido()));
-
-        txtDataEntrega.setText(sdfEntrega.format(g.getDataEntrega()));
+        JFormattedTextField txtDataEntrega = new JFormattedTextField(new DefaultFormatterFactory(new DateFormatter(sdfEntrega)));
+        txtDataEntrega.setValue(g.getDataEntrega());
 
         txtNomeEmpresa.setEnabled(true);
 
@@ -881,8 +879,8 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtChequeA;
     private javax.swing.JTextField txtChequeB;
     private javax.swing.JTextField txtChequeC;
-    private javax.swing.JTextField txtDataEntrega;
-    private javax.swing.JTextField txtDataPedido;
+    private javax.swing.JFormattedTextField txtDataEntrega;
+    private javax.swing.JFormattedTextField txtDataPedido;
     private javax.swing.JTextField txtNomeEmpresa;
     private javax.swing.JTextField txtObs;
     private javax.swing.JTextField txtQuant;

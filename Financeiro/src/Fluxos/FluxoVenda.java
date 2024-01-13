@@ -6,6 +6,7 @@
 package Fluxos;
 
 import financeiro.conexao.Conexao;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,10 +14,16 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -46,6 +53,7 @@ public class FluxoVenda extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbFluxoVenda = new javax.swing.JTable();
+        btImprimir = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Fluxo de vendas");
@@ -68,6 +76,13 @@ public class FluxoVenda extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tbFluxoVenda);
 
+        btImprimir.setText("Imprimir");
+        btImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btImprimirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -77,6 +92,8 @@ public class FluxoVenda extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(lblSoma)
+                .addGap(36, 36, 36)
+                .addComponent(btImprimir)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -86,10 +103,15 @@ public class FluxoVenda extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSoma)
-                    .addComponent(jLabel4))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSoma)
+                            .addComponent(jLabel4)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btImprimir)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -108,7 +130,32 @@ public class FluxoVenda extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void carregaTabela() {
+
+    private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
+        Connection con = Conexao.getConnection();
+        //PreparedStatement pstm = null;
+        try {
+            String arq = "C:\\ADComercio\\Financeiro\\src\\RelatorioFluxo\\RelatorioVenda.jasper";
+            Map<String, Object> parametros = new HashMap<>();
+
+            JasperPrint jaspertPrint = JasperFillManager.fillReport(arq, parametros, con);
+            JasperViewer view = new JasperViewer(jaspertPrint, false);
+            view.setVisible(true);
+
+        } catch (JRException ex) {
+            System.out.println("Erro:" + ex);
+        } finally {
+            // Certifique-se de fechar a conexão
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }//GEN-LAST:event_btImprimirActionPerformed
+    private void carregaTabela() {
 
         DefaultTableModel modelo = (DefaultTableModel) tbFluxoVenda.getModel();
         modelo.setNumRows(0);
@@ -133,19 +180,20 @@ private void carregaTabela() {
             ResultSet rs;
 
             // Consulta para obter a soma total da coluna Valor Pedido até a data atual
-            String sqlSomaTotalReal = "SELECT SUM(valorvenda) AS totalValor FROM controlevendedor WHERE CAST(datahoravenda AS DATE) <= CURRENT_DATE";
+            String sqlSomaTotalReal = "SELECT SUM(valorvenda) AS soma_valorvenda FROM controlevendedor;";
 
             try (PreparedStatement statementValor = con.prepareStatement(sqlSomaTotalReal)) {
 
                 try (ResultSet resultadoValor = statementValor.executeQuery()) {
                     if (resultadoValor.next()) {
-                        Double totalAcumulado = resultadoValor.getDouble("totalValor");
+
+                        BigDecimal totalAcumulado = resultadoValor.getBigDecimal("soma_valorvenda");
 
                         // Formata o valor para duas casas decimais
                         DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
                         String formattedTotal = decimalFormat.format(totalAcumulado);
 
-                        lblSoma.setText(String.valueOf(formattedTotal));
+                        lblSoma.setText(formattedTotal);
                     } else {
                         // Se não houver resultados, define o total como zero
                         lblSoma.setText("0.00");
@@ -178,6 +226,7 @@ private void carregaTabela() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btImprimir;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

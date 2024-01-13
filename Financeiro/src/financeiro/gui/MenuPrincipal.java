@@ -5,6 +5,9 @@
  */
 package financeiro.gui;
 
+import CadPedido.CadastroEmpresas;
+import CadPedido.PedidoNotaBaixa;
+import CadPedido.PedidoNotaCheia;
 import Fluxos.FluxoBoleto;
 import Fluxos.FluxoCaixa;
 import Fluxos.FluxoCliente;
@@ -61,7 +64,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setIcon();
 
         jLabel1.setText(user);
-        
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(true);
 
@@ -82,7 +85,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         //setSize(800, 600);
         // Outras configurações e adições podem ser feitas conforme necessário
         // Configurar um Timer para verificar o horário a cada minuto
-        
         Timer timer = new Timer(60000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -201,22 +203,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         MenuBobina = new javax.swing.JMenuItem();
+        jSeparator14 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem16 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenu2 = new javax.swing.JMenu();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem27 = new javax.swing.JMenuItem();
+        jSeparator25 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem26 = new javax.swing.JMenuItem();
+        jSeparator23 = new javax.swing.JPopupMenu.Separator();
         jMenu6 = new javax.swing.JMenu();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jMenuItem7 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem8 = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem27 = new javax.swing.JMenuItem();
-        jSeparator25 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem26 = new javax.swing.JMenuItem();
-        jSeparator23 = new javax.swing.JPopupMenu.Separator();
-        jMenu2 = new javax.swing.JMenu();
-        jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenu10 = new javax.swing.JMenu();
         jSeparator30 = new javax.swing.JPopupMenu.Separator();
         jMenuItem31 = new javax.swing.JMenuItem();
@@ -229,6 +233,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jSeparator28 = new javax.swing.JPopupMenu.Separator();
         jMenuItem35 = new javax.swing.JMenuItem();
         jSeparator33 = new javax.swing.JPopupMenu.Separator();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem37 = new javax.swing.JMenuItem();
+        jSeparator37 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem38 = new javax.swing.JMenuItem();
+        jSeparator38 = new javax.swing.JPopupMenu.Separator();
         jMenu8 = new javax.swing.JMenu();
         jSeparator13 = new javax.swing.JPopupMenu.Separator();
         jMenuItem15 = new javax.swing.JMenuItem();
@@ -267,8 +276,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jSeparator16 = new javax.swing.JPopupMenu.Separator();
         jMenuCredencial = new javax.swing.JMenuItem();
         jSeparator18 = new javax.swing.JPopupMenu.Separator();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem16 = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -381,32 +388,32 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(MenuBobina);
+        jMenu1.add(jSeparator14);
+
+        jMenuItem16.setText("Clientes");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem16);
         jMenu1.add(jSeparator1);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu6.setText("Empresarial");
-        jMenu6.add(jSeparator5);
+        jMenu2.setText("Fiscal");
+        jMenu2.add(jSeparator3);
 
-        jMenuItem7.setText("Pedido de Bobinas");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem6.setText("Livro Caixa");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                jMenuItem6ActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem7);
-        jMenu6.add(jSeparator2);
+        jMenu2.add(jMenuItem6);
+        jMenu2.add(jSeparator4);
 
-        jMenuItem8.setText("Operação de Pag. e Receb.");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
-            }
-        });
-        jMenu6.add(jMenuItem8);
-        jMenu6.add(jSeparator10);
-
-        jMenuBar1.add(jMenu6);
+        jMenuBar1.add(jMenu2);
 
         jMenu5.setText("Op. Financeira");
 
@@ -430,19 +437,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
-        jMenu2.setText("Fiscal");
-        jMenu2.add(jSeparator3);
+        jMenu6.setText("Empresarial");
+        jMenu6.add(jSeparator5);
 
-        jMenuItem6.setText("Livro Caixa");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem7.setText("Pedido de Bobinas");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jMenuItem7ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem6);
-        jMenu2.add(jSeparator4);
+        jMenu6.add(jMenuItem7);
+        jMenu6.add(jSeparator2);
 
-        jMenuBar1.add(jMenu2);
+        jMenuItem8.setText("Operação de Pag. e Receb.");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem8);
+        jMenu6.add(jSeparator10);
+
+        jMenuBar1.add(jMenu6);
 
         jMenu10.setText("Livros");
         jMenu10.add(jSeparator30);
@@ -493,6 +509,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu10.add(jSeparator33);
 
         jMenuBar1.add(jMenu10);
+
+        jMenu4.setText("EmissãoNota Cliente");
+
+        jMenuItem37.setText("Nota Cheia");
+        jMenuItem37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem37ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem37);
+        jMenu4.add(jSeparator37);
+
+        jMenuItem38.setText("Nota Baixa");
+        jMenuItem38.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem38ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem38);
+        jMenu4.add(jSeparator38);
+
+        jMenuBar1.add(jMenu4);
 
         jMenu8.setText("Emissão Nota Serviço");
         jMenu8.add(jSeparator13);
@@ -549,7 +587,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu12);
 
-        jMenu7.setText("Localizar Registro");
+        jMenu7.setText("Localizar Mês Registro");
         jMenu7.add(jSeparator8);
 
         jMenuItem14.setText("Localizar Pedidos de Bobinas");
@@ -651,18 +689,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu9.add(jSeparator18);
 
         jMenuBar1.add(jMenu9);
-
-        jMenu4.setText("Sobre");
-
-        jMenuItem16.setText("jMenuItem16");
-        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem16ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem16);
-
-        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -807,16 +833,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formWindowOpened
 
-    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
-
-        /* GuiTeste tela = new GuiTeste();
-         jDesktop.add(tela);
-         tela.setVisible(true);*/
-        //  GuiTeste tela;
-        //form.abrirFormulario(tela = new GuiTeste(), jDesktop);
-
-    }//GEN-LAST:event_jMenuItem16ActionPerformed
-
     private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
         BuscarEmissorCalculoNF tela;
         form.abrirFormulario(tela = new BuscarEmissorCalculoNF(), jDesktop);
@@ -886,6 +902,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         FluxoCliente tela;
         form.abrirFormulario(tela = new FluxoCliente(), jDesktop);
     }//GEN-LAST:event_jMenuItem36ActionPerformed
+
+    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+        CadastroEmpresas tela;
+        form.abrirFormulario(tela = new CadastroEmpresas(), jDesktop);
+    }//GEN-LAST:event_jMenuItem16ActionPerformed
+
+    private void jMenuItem37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem37ActionPerformed
+        PedidoNotaCheia tela;
+        form.abrirFormulario(tela = new PedidoNotaCheia(), jDesktop);
+    }//GEN-LAST:event_jMenuItem37ActionPerformed
+
+    private void jMenuItem38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem38ActionPerformed
+        PedidoNotaBaixa tela;
+        form.abrirFormulario(tela = new PedidoNotaBaixa(), jDesktop);
+    }//GEN-LAST:event_jMenuItem38ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -982,6 +1013,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem34;
     private javax.swing.JMenuItem jMenuItem35;
     private javax.swing.JMenuItem jMenuItem36;
+    private javax.swing.JMenuItem jMenuItem37;
+    private javax.swing.JMenuItem jMenuItem38;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
@@ -994,6 +1027,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
+    private javax.swing.JPopupMenu.Separator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator17;
@@ -1018,6 +1052,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator34;
     private javax.swing.JPopupMenu.Separator jSeparator35;
     private javax.swing.JPopupMenu.Separator jSeparator36;
+    private javax.swing.JPopupMenu.Separator jSeparator37;
+    private javax.swing.JPopupMenu.Separator jSeparator38;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;

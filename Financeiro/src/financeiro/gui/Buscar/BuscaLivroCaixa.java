@@ -226,7 +226,7 @@ public class BuscaLivroCaixa extends javax.swing.JInternalFrame {
         Connection con = Conexao.getConnection();
         //PreparedStatement pstm = null;
         try {
-            String arq = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\Relatorio\\RelatorioLivroCaixa.jasper";
+            String arq = "C:\\ADComercio\\Financeiro\\src\\Relatorio\\RelatorioLivroCaixa.jasper";
             Map<String, Object> parametros = new HashMap<>();
 
             // Use as datas de início e fim armazenadas como parâmetros

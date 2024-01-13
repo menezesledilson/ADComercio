@@ -150,7 +150,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblSoma)))
-                        .addGap(0, 60, Short.MAX_VALUE))
+                        .addGap(0, 166, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,7 +308,97 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_bgExcluirActionPerformed
+    private int mesAnterior = -1;
+    private int anoAnterior = -1;
+
     private void carregaTabela() {
+
+        // Verifica se o mês atual é diferente do mês anteriormente carregado na tabela
+        DefaultTableModel modelo = (DefaultTableModel) tbControleVendedor.getModel();
+        modelo.setNumRows(0);
+
+        //Defini o tamanho da tabela
+        tbControleVendedor.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbControleVendedor.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tbControleVendedor.getColumnModel().getColumn(2).setPreferredWidth(20);
+        tbControleVendedor.getColumnModel().getColumn(3).setPreferredWidth(50);
+       
+        // Criar um renderizador centralizado
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        tbControleVendedor.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tbControleVendedor.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        tbControleVendedor.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+
+        tbControleVendedor.revalidate();
+        tbControleVendedor.repaint();
+        try {
+            Connection con = Conexao.getConnection();
+            PreparedStatement pstm;
+            ResultSet rs;
+
+// Consulta para obter a soma total da coluna Valor Pedido para o mês atual
+            String sqlSomaTotalReal = "SELECT SUM(valorvenda) AS totalValor FROM controlevendedor WHERE EXTRACT(MONTH FROM CAST(datahoravenda AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(datahoravenda AS DATE)) = ?";
+
+            // Obtém o mês e o ano atuais
+            Calendar cal = Calendar.getInstance();
+            int mesAtual = cal.get(Calendar.MONTH) + 1; // Note que os meses em Java começam do zero
+            int anoAtual = cal.get(Calendar.YEAR);
+
+            if (mesAtual != mesAnterior || anoAtual != anoAnterior) {
+                modelo.setNumRows(0); // Limpa a tabela se o mês ou o ano mudaram
+                mesAnterior = mesAtual; // Atualiza o mês anterior
+                anoAnterior = anoAtual; // Atualiza o ano anterior
+            }
+            try (PreparedStatement statementValor = con.prepareStatement(sqlSomaTotalReal)) {
+                statementValor.setInt(1, mesAtual);
+                statementValor.setInt(2, anoAtual);
+
+                try (ResultSet resultadoValor = statementValor.executeQuery()) {
+                    if (resultadoValor.next()) {
+                        Double totalValor = resultadoValor.getDouble("totalValor");
+                        // Formatar o número para exibir duas casas decimais e arredondar
+                        DecimalFormat df = new DecimalFormat("#,##0.00");
+
+                        df.setMaximumFractionDigits(2);
+                        df.setMinimumFractionDigits(2);
+                        String formattedTotal = df.format(totalValor);
+                        lblSoma.setText(String.valueOf(formattedTotal));
+                    } else {
+                        // Se não houver resultados, define o total como zero
+                        lblSoma.setText("0.00");
+                    }
+                }
+            } catch (SQLException e) {
+                // Trate exceções SQL conforme necessário
+                e.printStackTrace();
+            }
+
+            pstm = con.prepareStatement("SELECT id,datahoravenda, nomevenda, valorvenda, observacao FROM controlevendedor ORDER BY id DESC");
+
+            rs = pstm.executeQuery();
+
+            NumberFormat currencyValor = NumberFormat.getCurrencyInstance();
+
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                  
+                    rs.getString("datahoravenda"),
+                    rs.getString("nomevenda"),
+                    currencyValor.format(rs.getDouble("valorvenda")),
+                    rs.getString("observacao")
+                });
+            }
+            Conexao.closeConnection(con, pstm, rs);
+
+        } catch (Exception ErroSql) {
+            JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+    /* private void carregaTabela() {
+       
 
         DefaultTableModel modelo = (DefaultTableModel) tbControleVendedor.getModel();
         modelo.setNumRows(0);
@@ -327,10 +417,15 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
         tbControleVendedor.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         tbControleVendedor.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
 
+        tbControleVendedor.revalidate();
+        tbControleVendedor.repaint();
         try {
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
             ResultSet rs;
+            
+            
+            
 
             // Consulta para obter a soma total da coluna Valor Pedido para o mês atual
             String sqlSomaTotalReal = "SELECT SUM(valorvenda) AS totalValor FROM controlevendedor WHERE EXTRACT(MONTH FROM CAST(datahoravenda AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(datahoravenda AS DATE)) = ?";
@@ -349,7 +444,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
                         Double totalValor = resultadoValor.getDouble("totalValor");
                         // Formatar o número para exibir duas casas decimais e arredondar
                         DecimalFormat df = new DecimalFormat("#,##0.00");
-                        
+
                         df.setMaximumFractionDigits(2);
                         df.setMinimumFractionDigits(2);
                         String formattedTotal = df.format(totalValor);
@@ -364,7 +459,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
                 e.printStackTrace();
             }
 
-            pstm = con.prepareStatement("SELECT * FROM controlevendedor ORDER BY datahoravenda ASC;");
+            pstm = con.prepareStatement("SELECT * FROM controlevendedor;");
             rs = pstm.executeQuery();
 
             NumberFormat currencyValor = NumberFormat.getCurrencyInstance();
@@ -383,7 +478,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
 
-    }
+    }*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bgExcluir;
     private javax.swing.JButton bgGravar;

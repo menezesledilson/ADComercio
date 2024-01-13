@@ -336,6 +336,12 @@ private void CentralizarJTextFields() {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
+        if (txtClienteReceber.getText().isEmpty() || txtEmpresaPagar.getText().isEmpty()
+                || txtDataClienteReceber.getText().isEmpty() || txtDataEmpresaPagar.getText().isEmpty()
+                || txtValorClienteReceber.getText().isEmpty() || txtValorEmpresaPagar.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         BoletoEmpresa e = new BoletoEmpresa();
         BoletoEmpresaDao dao = new BoletoEmpresaDao();
