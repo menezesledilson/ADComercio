@@ -237,10 +237,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem37 = new javax.swing.JMenuItem();
         jSeparator37 = new javax.swing.JPopupMenu.Separator();
         jMenuItem38 = new javax.swing.JMenuItem();
+        jSeparator39 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        jSeparator40 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem39 = new javax.swing.JMenuItem();
         jSeparator38 = new javax.swing.JPopupMenu.Separator();
         jMenu8 = new javax.swing.JMenu();
         jSeparator13 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem15 = new javax.swing.JMenuItem();
         jSeparator15 = new javax.swing.JPopupMenu.Separator();
         jMenuItem4 = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
@@ -528,20 +531,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu4.add(jMenuItem38);
+        jMenu4.add(jSeparator39);
+
+        jMenuItem15.setText("Pagamento Harolpel");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem15);
+        jMenu4.add(jSeparator40);
+
+        jMenuItem39.setText("Comissão");
+        jMenu4.add(jMenuItem39);
         jMenu4.add(jSeparator38);
 
         jMenuBar1.add(jMenu4);
 
         jMenu8.setText("Emissão Nota Serviço");
         jMenu8.add(jSeparator13);
-
-        jMenuItem15.setText("Emissão NS Produto");
-        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem15ActionPerformed(evt);
-            }
-        });
-        jMenu8.add(jMenuItem15);
         jMenu8.add(jSeparator15);
 
         jMenuItem4.setText("Emissão NS Calculo");
@@ -1015,6 +1023,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem36;
     private javax.swing.JMenuItem jMenuItem37;
     private javax.swing.JMenuItem jMenuItem38;
+    private javax.swing.JMenuItem jMenuItem39;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
@@ -1054,7 +1063,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator36;
     private javax.swing.JPopupMenu.Separator jSeparator37;
     private javax.swing.JPopupMenu.Separator jSeparator38;
+    private javax.swing.JPopupMenu.Separator jSeparator39;
     private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator40;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;

@@ -26,12 +26,13 @@ public class EmpresaDao {
     PreparedStatement pstm = null;
 
     try {
-        pstm = con.prepareStatement("INSERT INTO empresa(nome, uf, cnpj, celular) VALUES (?, ?, ?, ?);");
+        pstm = con.prepareStatement("INSERT INTO empresa(nome, uf, cnpj, celular,observacao) VALUES (?,?, ?, ?, ?);");
 
         pstm.setString(1, empresa.getNome());
         pstm.setString(2, empresa.getUF());
         pstm.setString(3, empresa.getCNPJ());
         pstm.setString(4, empresa.getCelular());
+         pstm.setString(5, empresa.getObservacao());
 
         pstm.execute();
 
@@ -53,14 +54,15 @@ public class EmpresaDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("update empresa set nome = ?, cnpj=?, uf = ?, celular = ? where id =?;");
+            pstm = con.prepareStatement("update empresa set nome = ?, cnpj=?, uf = ?, celular = ?, observacao = ?  where id =?;");
 
             pstm.setString(1, empresa.getNome());
             pstm.setString(2, empresa.getCNPJ());
             pstm.setString(3, empresa.getUF());
             pstm.setString(4, empresa.getCelular());
+             pstm.setString(5, empresa.getObservacao()); 
 
-            pstm.setLong(5, empresa.getId());
+            pstm.setLong(6, empresa.getId());
 
             pstm.executeUpdate();
 
@@ -81,7 +83,7 @@ public class EmpresaDao {
         ResultSet rs = null;
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM bobina ORDER BY nomebobina ASC;");
+            pstm = con.prepareStatement("SELECT * FROM empresa ORDER BY nome ASC;");
             rs = pstm.executeQuery();
 
             while (rs.next()) {
@@ -93,6 +95,7 @@ public class EmpresaDao {
                 empresa.setCNPJ(rs.getString("uf"));
                 empresa.setCNPJ(rs.getString("cnpj"));
                 empresa.setCelular(rs.getString("celular"));
+                 empresa.setObservacao(rs.getString("observacao"));
 
                 empresas.add(empresa);
             }

@@ -76,6 +76,10 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
         btExcluir = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbNotaCheia = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        txtDataPedido = new javax.swing.JFormattedTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtDataEntrega = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setTitle("Pedido Nota Cheia");
@@ -178,6 +182,22 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tbNotaCheia);
 
+        jLabel10.setText("Data Pedido");
+
+        try {
+            txtDataPedido.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel12.setText("Data Entrega");
+
+        try {
+            txtDataEntrega.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -217,20 +237,22 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(lbPesoTotalIpi))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel11)
+                                                .addComponent(jLabel3)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lbDiferencaIpi))
+                                                .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(43, 43, 43)
+                                                .addComponent(jLabel10)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtDataPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel8)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jLabel4)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(txtIpi, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))))
@@ -241,8 +263,16 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btAlterar)
                                 .addGap(18, 18, 18)
-                                .addComponent(btExcluir)))
-                        .addGap(0, 280, Short.MAX_VALUE)))
+                                .addComponent(btExcluir)
+                                .addGap(250, 250, 250)
+                                .addComponent(jLabel12)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel11)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbDiferencaIpi)))
+                        .addGap(0, 131, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -254,8 +284,13 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                     .addComponent(btExcluir)
                     .addComponent(btNovo)
                     .addComponent(btAlterar)
-                    .addComponent(jLabel11)
-                    .addComponent(lbDiferencaIpi))
+                    .addComponent(jLabel10)
+                    .addComponent(txtDataPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12)
+                        .addComponent(txtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11)
+                        .addComponent(lbDiferencaIpi)))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -278,7 +313,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                     .addComponent(lbPesoTotal)
                     .addComponent(jLabel9)
                     .addComponent(lbPesoTotalIpi))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -747,7 +782,9 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbxCliente;
     private javax.swing.JComboBox<String> cbxProduto;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -763,6 +800,8 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbPesoTotalIpi;
     private javax.swing.JLabel lblValorUnitarioIpi;
     private javax.swing.JTable tbNotaCheia;
+    private javax.swing.JFormattedTextField txtDataEntrega;
+    private javax.swing.JFormattedTextField txtDataPedido;
     private javax.swing.JTextField txtIpi;
     private javax.swing.JTextField txtPeso;
     private javax.swing.JTextField txtQuant;

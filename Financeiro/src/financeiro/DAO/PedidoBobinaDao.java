@@ -29,7 +29,6 @@ public class PedidoBobinaDao {
 
         try {
 
-           
             pstm = con.prepareStatement("INSERT into pedidobobina (nomecliente,valorpedido,quantidadebobina,datapedido,dataentrega,numerochequea,numerochequeb,numerochequec,pagpedido,observacao)values (?,?,?,?,?,?,?,?,?,? );");
             pstm.setString(1, pedidobobina.getNomeClientePedido());
             pstm.setDouble(2, pedidobobina.getValorPedido());
@@ -41,7 +40,7 @@ public class PedidoBobinaDao {
             pstm.setString(8, pedidobobina.getNumeroChequeC());
 
             pstm.setString(9, pedidobobina.getPagPedido());
-            pstm.setString(10, pedidobobina.getObservacaoPagamento());;
+            pstm.setString(10, pedidobobina.getObservacaoPagamento());
 
             pstm.execute();
 
@@ -132,7 +131,7 @@ public class PedidoBobinaDao {
                 PedidoBobina pedidoBobina = new PedidoBobina();
 
                 pedidoBobina.setId(rs.getLong("id"));
-
+                
                 pedidoBobina.setNomeClientePedido(rs.getString("nomecliente"));
                 pedidoBobina.setValorPedido(rs.getDouble("valorpedido"));
 

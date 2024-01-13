@@ -8,6 +8,7 @@ package financeiro.gui;
 import financeiro.model.NotaServicoCliente;
 import financeiro.DAO.BobinaDao;
 import financeiro.DAO.EmissorNotaServicoClienteDao;
+import financeiro.DAO.EmpresaDao;
 import financeiro.conexao.Conexao;
 import financeiro.model.NotaServico;
 import financeiro.model.NotaServicoCliente;
@@ -41,9 +42,9 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
         desativarCampo();
         btGravaCliente.setEnabled(false);
         cbListProduto();
+        cbListCliente();
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -56,7 +57,6 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         txtQuant = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtCliente = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -67,9 +67,10 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         btDelete = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        cbxCliente = new javax.swing.JComboBox<>();
 
         setClosable(true);
-        setTitle("Emissão Nota Serviço Produto");
+        setTitle("Pagamento Harolpel");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -134,6 +135,13 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
             }
         });
 
+        cbxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -153,9 +161,11 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel1)
-                                                .addGap(9, 9, 9)
-                                                .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(btAtivarCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(5, 5, 5)
+                                                .addComponent(cbxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addGap(88, 88, 88)
+                                                .addComponent(btAtivarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel4)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,10 +207,10 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
                     .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel4)
-                    .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,7 +224,7 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -324,9 +334,8 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
     }
 
     public void limparCampos() {
-        txtCliente.setText("");
         txtQuant.setText("");
-        txtCliente.setText("");
+        
         txtPesoUnitario.setText("");
         txtValorUnitario1.setText("");
     }
@@ -342,29 +351,37 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
     }
 
     public void ativarCampo() {
-        txtCliente.setEnabled(true);
+
         txtQuant.setEnabled(true);
         cbxProduto.setEnabled(true);
-        txtCliente.setEnabled(true);
+        cbxCliente.setEnabled(true);
         txtPesoUnitario.setEnabled(true);
     }
 
     public void desativarCampo() {
-        txtCliente.setEnabled(false);
+
         txtQuant.setEnabled(false);
         cbxProduto.setEnabled(false);
-        txtCliente.setEnabled(false);
+        cbxCliente.setEnabled(false);
         txtPesoUnitario.setEnabled(false);
     }
 
     private void btGravaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravaClienteActionPerformed
+       if (txtQuant.getText().isEmpty() || txtPesoUnitario.getText().isEmpty() || 
+               cbxCliente.getSelectedItem() == null || cbxProduto.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         NotaServicoCliente a = new NotaServicoCliente();
         EmissorNotaServicoClienteDao dao = new EmissorNotaServicoClienteDao();
 
         ativarBotao();
 
         try {
-            a.setClienteEmpresa(txtCliente.getText());
+            String descricacaoCliente = cbxCliente.getSelectedItem().toString();
+
+            a.setClienteEmpresa(descricacaoCliente);
+
             a.setQuantProduto(Integer.parseInt(txtQuant.getText()));
 
             //adição do produto
@@ -397,7 +414,6 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
 
                 limparCampos();
 
-                // Atualiza a soma
                 // Pergunta ao usuário se deseja adicionar mais um pedido
                 int opcao = JOptionPane.showConfirmDialog(this, "Pedido adicionado com sucesso. Deseja adicionar mais um pedido?", "Confirmação", JOptionPane.YES_NO_OPTION);
                 if (opcao == JOptionPane.YES_OPTION) {
@@ -437,15 +453,16 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
         int index = tbClientes.getSelectedRow();
         a = dao.listarNotaServicoCliente().get(index);
 
-        //        txtPesoUnitario.setText(Double.toString(a.getPesoUnitario()));
-        txtCliente.setText(a.getClienteEmpresa());
+        cbxCliente.setSelectedItem(a.getClienteEmpresa());
+        cbxCliente.addItem(a.getClienteEmpresa());
+
         txtQuant.setText(String.valueOf(a.getQuantProduto()));
         txtPesoUnitario.setText(Double.toString(a.getPesoUnitario()));
 
-        txtCliente.setEnabled(true);
+        cbxCliente.setEnabled(true);
         txtQuant.setEnabled(true);
         cbxProduto.setEnabled(true);
-        txtCliente.setEnabled(true);
+
         txtPesoUnitario.setEnabled(true);
 
         //  btAlterar.setEnabled(true);
@@ -473,7 +490,9 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
 
         a = dao.listarNotaServicoCliente().get(index);
 
-        a.setClienteEmpresa(txtCliente.getText());
+        String descricaoCliente = cbxCliente.getSelectedItem().toString();
+        a.setNomeProduto(descricaoCliente);
+
         a.setQuantProduto(Integer.parseInt(txtQuant.getText()));
         //  a.setPesoUnitario(Double.parseDouble(txtPesoUnitario.getText()));
 
@@ -498,11 +517,44 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btDeleteActionPerformed
 
+    private void cbxClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxClienteActionPerformed
+
+    }//GEN-LAST:event_cbxClienteActionPerformed
+
+    ArrayList<Integer> idCadastroEmpresa = new ArrayList<Integer>();
+    ArrayList<String> nomeClienteEmpresa = new ArrayList<String>();
+
+    public void cbListCliente() {
+        // Limpar os dados antigos
+        nomeClienteEmpresa.clear();
+        cbxCliente.removeAllItems();
+
+        try {
+
+            EmpresaDao dao = new EmpresaDao();
+            Connection con = Conexao.getConnection();
+            PreparedStatement pstm;
+            ResultSet rs;
+
+            pstm = con.prepareStatement("SELECT * FROM empresa ORDER BY nome ASC;");
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                idCadastroBobina.add(rs.getInt(1));
+                cbxCliente.addItem(rs.getString(2));
+            }
+
+        } catch (SQLException ErroSql) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAtivarCliente;
     private javax.swing.JButton btDelete;
     private javax.swing.JButton btGravaCliente;
+    private javax.swing.JComboBox<String> cbxCliente;
     private javax.swing.JComboBox cbxProduto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -515,7 +567,6 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbCargaInicial;
     private javax.swing.JTable tbClientes;
-    private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtPesoUnitario;
     private javax.swing.JTextField txtQuant;
     private javax.swing.JLabel txtValorUnitario1;

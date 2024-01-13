@@ -50,6 +50,8 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         txtCel = new javax.swing.JFormattedTextField();
         txtCnpj = new javax.swing.JFormattedTextField();
+        txtObs = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Cadastro Empresa");
@@ -71,6 +73,11 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         });
 
         btAlterar.setText("Alterar");
+        btAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAlterarActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Excluir");
 
@@ -85,7 +92,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nome", "UF", "CNPJ", "Celular"
+                "Nome", "UF", "CNPJ", "Celular", "Obs"
             }
         ));
         jScrollPane1.setViewportView(tbCadEmpresa);
@@ -108,6 +115,10 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
+        txtObs.setText(" ");
+
+        jLabel5.setText("Obs.:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -129,11 +140,17 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtCel)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxUf, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbxUf, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 29, Short.MAX_VALUE)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,7 +196,9 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(txtCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,7 +234,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         e.setNome(txtCliente.getText());
         e.setCNPJ(txtCnpj.getText());
         e.setCelular(txtCel.getText());
-
+        e.setObservacao (txtObs.getText());
         String UFSelecionada = cbxUf.getSelectedItem().toString();
         e.setUF(UFSelecionada);
 
@@ -232,6 +251,10 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btNovoActionPerformed
+
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAlterarActionPerformed
 
     public void maskCelular() {
 
@@ -279,6 +302,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -287,5 +311,6 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField txtCel;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JFormattedTextField txtCnpj;
+    private javax.swing.JTextField txtObs;
     // End of variables declaration//GEN-END:variables
 }

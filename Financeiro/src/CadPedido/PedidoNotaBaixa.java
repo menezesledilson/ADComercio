@@ -75,6 +75,10 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         btExcluir = new javax.swing.JButton();
         btNovo = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txtDataPedido = new javax.swing.JFormattedTextField();
+        txtDataEntrega = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setTitle("Pedido Nota Baixa");
@@ -177,87 +181,115 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel10.setText("Data Pedido");
+
+        jLabel12.setText("Data Entrega");
+
+        try {
+            txtDataPedido.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txtDataEntrega.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(btNovo)
-                .addGap(18, 18, 18)
-                .addComponent(btGravar)
-                .addGap(18, 18, 18)
-                .addComponent(btAlterar)
-                .addGap(18, 18, 18)
-                .addComponent(btExcluir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbxCliente, 0, 201, Short.MAX_VALUE)
-                            .addComponent(cbxProduto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtValorUnitario)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblValorUnitarioIpi)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbPesoTotal)
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbPesoTotalIpi))
+                                .addGap(12, 12, 12)
+                                .addComponent(btNovo)
+                                .addGap(18, 18, 18)
+                                .addComponent(btGravar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btAlterar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btExcluir)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbxCliente, 0, 201, Short.MAX_VALUE)
+                                    .addComponent(cbxProduto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(10, 10, 10)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbDiferencaIpi))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtValorUnitario)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(lblValorUnitarioIpi)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(lbPesoTotal)
+                                                .addGap(14, 14, 14)
+                                                .addComponent(jLabel9)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(lbPesoTotalIpi))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel8)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel4)
+                                                .addGap(12, 12, 12)
+                                                .addComponent(txtIpi, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(12, 12, 12)
-                                        .addComponent(txtIpi, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 320, Short.MAX_VALUE)))
-                .addContainerGap())
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel10)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtDataPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel12)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(35, 35, 35)))))
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbDiferencaIpi)
+                        .addGap(164, 164, 164))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btGravar)
-                            .addComponent(btExcluir)
-                            .addComponent(btNovo)
-                            .addComponent(btAlterar)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(lbDiferencaIpi))))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btGravar)
+                    .addComponent(btExcluir)
+                    .addComponent(btNovo)
+                    .addComponent(btAlterar)
+                    .addComponent(jLabel11)
+                    .addComponent(lbDiferencaIpi)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel12)
+                    .addComponent(txtDataPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -270,7 +302,7 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(cbxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
@@ -308,7 +340,7 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
     private void cbxProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProdutoActionPerformed
         // Não use getStateChange() para eventos de ação, pois é específico de eventos de item
         int selectedIndex = cbxProduto.getSelectedIndex();
-        
+
         if (selectedIndex >= 0 && selectedIndex < valorUnitarioBobina1.size()) {
             double valorSelecionado = valorUnitarioBobina1.get(selectedIndex);
             txtValorUnitario.setText(String.valueOf(valorSelecionado));
@@ -316,65 +348,64 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxProdutoActionPerformed
     private double AcumuloPesoPdido = 0.0;    //Comunicação com cbxBobina Adcionar
     private double AcumuloPesoImposto = 0.0;
-    
+
     ArrayList<Integer> idCadastroBobina = new ArrayList<Integer>();
     ArrayList<Double> valorUnitarioBobina1 = new ArrayList<Double>();
-    
+
     public void cbListProduto() {
 
         // Limpar os dados antigos
         idCadastroBobina.clear();
         valorUnitarioBobina1.clear();
-        
+
         cbxProduto.removeAllItems();
         try {
-            
+
             BobinaDao dao = new BobinaDao();
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
             ResultSet rs;
-            
+
             pstm = con.prepareStatement("SELECT * FROM bobina ORDER BY nomeBobina ASC;");
             rs = pstm.executeQuery();
-            
+
             while (rs.next()) {
                 idCadastroBobina.add(rs.getInt(1));
                 cbxProduto.addItem(rs.getString(2));
                 valorUnitarioBobina1.add(rs.getDouble(3));
             }
-            
+
         } catch (SQLException ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao listar dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     ArrayList<Integer> idCadastroEmpresa = new ArrayList<Integer>();
     ArrayList<String> nomeClienteEmpresa = new ArrayList<String>();
-    
+
     public void cbListCliente() {
         // Limpar os dados antigos
         nomeClienteEmpresa.clear();
-        
+
         cbxCliente.removeAllItems();
         try {
-            
+
             EmpresaDao dao = new EmpresaDao();
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
             ResultSet rs;
-            
+
             pstm = con.prepareStatement("SELECT * FROM empresa ORDER BY nome ASC;");
             rs = pstm.executeQuery();
-            
+
             while (rs.next()) {
                 idCadastroBobina.add(rs.getInt(1));
                 cbxCliente.addItem(rs.getString(2));
             }
-            
+
         } catch (SQLException ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao listar dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-        
     }
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
         if (txtValorUnitario.getText().isEmpty() || txtPeso.getText().isEmpty() || cbxCliente.getSelectedItem() == null || cbxProduto.getSelectedItem() == null
@@ -382,15 +413,16 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         NotaBaixa a = new NotaBaixa();
         NotaBaixaDao dao = new NotaBaixaDao();
-        
+
         try {
-            
+
             String descricacaoCliente = cbxCliente.getSelectedItem().toString();
+          
             a.setNomeEmpresa(descricacaoCliente);
-            
+
             String quantidadeTexto = txtQuant.getText().trim(); // Remova espaços em branco
             if (!quantidadeTexto.isEmpty()) {
                 int quantidade = Integer.parseInt(quantidadeTexto);
@@ -399,12 +431,12 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
                 //adição do produto
                 //a.setNomeProduto(txtNomeProduto.getText());
                 if (cbxProduto.getItemCount() > 0) {
-                    
+
                     String descricaoSelecionada = cbxProduto.getSelectedItem().toString();
                     a.setNomeProduto(descricaoSelecionada);
-                    
+
                     a.setValorUnitario(Double.parseDouble(txtValorUnitario.getText()));
-                    
+
                     a.setPesoPapel(Double.parseDouble(txtPeso.getText()));
 
                     //Calculo do valor total
@@ -439,11 +471,11 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
 
                     // Salva no banco de dados
                     a.setValorIpi(Double.parseDouble(valorFormatadoImposto));
-                    
+
                     double valorPesoCIpi = a.getValorIpi() * a.getPesoPapel();
-                    
+
                     a.setTotalCipi(valorPesoCIpi);
-                    
+
                     AcumuloPesoImposto += valorPesoCIpi;
 
                     //Formata o valor para exibir apenas duas casas decimais
@@ -456,7 +488,7 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
                     //Diferença
                     //  double ipiDiferenca = a.getTotalCipi() - a.getTotalSipi();
                     double ipiDiferenca = AcumuloPesoImposto - AcumuloPesoPdido;
-                    
+
                     a.setDiferencialIpi(ipiDiferenca);
 
                     //Formata o valor para exibir apenas duas casas decimais
@@ -464,10 +496,10 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
                     String valorDiferenca = dj.format(ipiDiferenca);
                     // Atualiza a soma
                     lbDiferencaIpi.setText(String.valueOf(valorDiferenca));
-                    
+
                     dao.adicionar(a);
                     carregaTabela();
-                    
+
                     limparCampos();
                     // Atualiza a soma
                     // Pergunta ao usuário se deseja adicionar mais um pedido
@@ -486,7 +518,7 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
                 }
             }
         } catch (NumberFormatException e) {
-            
+
             JOptionPane.showMessageDialog(this, "Por favor, insira valores válidos para quantidade, valor e peso.", "Erro", JOptionPane.ERROR_MESSAGE);
             // Ou logue a exceção para análise posterior
             e.printStackTrace();
@@ -506,21 +538,21 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         //Setando campos de texto com registros
         NotaBaixa a = new NotaBaixa();
         NotaBaixaDao dao = new NotaBaixaDao();
-        
+
         int index = tbNotaBaixa.getSelectedRow();
         a = dao.listarBaixa().get(index);
-        
+
         txtQuant.setText(Integer.toString(a.getQuantidade()));
         txtPeso.setText(Double.toString(a.getPesoPapel()));
         txtIpi.setText(Double.toString(a.getIpi()));
         txtValorUnitario.setText(Double.toString(a.getValorUnitario()));
-        
+
         cbxCliente.setSelectedItem(a.getNomeEmpresa());
         cbxCliente.addItem(a.getNomeEmpresa());
-        
+
         cbxProduto.setSelectedItem(a.getNomeProduto());
         cbxProduto.addItem(a.getNomeProduto());
-        
+
         btGravar.setEnabled(false);
         btAlterar.setEnabled(true);
         btExcluir.setEnabled(true);
@@ -530,10 +562,10 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         NotaBaixa a = new NotaBaixa();
         NotaBaixaDao dao = new NotaBaixaDao();
-        
+
         int index = tbNotaBaixa.getSelectedRow();
         a = dao.listarBaixa().get(index);
-        
+
         switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Produto ? \n "
                 + "\n Empresa:  " + a.getNomeEmpresa()
                 + "\n Produto: " + a.getNomeProduto()
@@ -545,7 +577,7 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
                 + "\n  Total c/Ipi: " + a.getTotalCipi()
                 + "\n Ipi: " + a.getIpi(),
                 "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
-            
+
             case 0:
                 dao.remover(a);
                 carregaTabela();
@@ -555,7 +587,7 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
             case 1:
                 JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
                 break;
-            
+
         }
 
     }//GEN-LAST:event_btExcluirActionPerformed
@@ -563,10 +595,10 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
         NotaBaixa a = new NotaBaixa();
         NotaBaixaDao dao = new NotaBaixaDao();
-        
+
         int index = tbNotaBaixa.getSelectedRow();
         a = dao.listarBaixa().get(index);
-        
+
         switch (JOptionPane.showConfirmDialog(null,
                 " [--ALTERAÇÃO DE DADOS--] \n Dado Atual"
                 + "\n Empresa:  " + a.getNomeEmpresa()
@@ -590,26 +622,25 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
                 + "\n Ipi: " + txtIpi.getText()
                 + "\n Deseja realmente fazer alteração?",
                 "Alteração de dados.  ", JOptionPane.YES_NO_OPTION)) {
-            
+
             case 0:
                 String descricacaoCliente = cbxCliente.getSelectedItem().toString();
                 a.setNomeEmpresa(descricacaoCliente);
-                
+
                 String descricaoSelecionada = cbxProduto.getSelectedItem().toString();
                 a.setNomeProduto(descricaoSelecionada);
-                
+
                 a.setQuantidade(Integer.parseInt(txtQuant.getText()));
                 a.setPesoPapel(Double.parseDouble(txtPeso.getText()));
-                
+
                 a.setValorUnitario(Double.parseDouble(txtValorUnitario.getText()));
-              //  a.setValorIpi(Double.parseDouble(lblValorUnitarioIpi.getText()));
-                
-              //  a.setTotalSipi(Double.parseDouble(lbPesoTotal.getText()));
-            //    a.setTotalCipi(Double.parseDouble(lbPesoTotalIpi.getText()));
-                
+                //  a.setValorIpi(Double.parseDouble(lblValorUnitarioIpi.getText()));
+
+                //  a.setTotalSipi(Double.parseDouble(lbPesoTotal.getText()));
+                //    a.setTotalCipi(Double.parseDouble(lbPesoTotalIpi.getText()));
                 a.setPesoPapel(Double.parseDouble(txtPeso.getText()));
                 a.setIpi(Double.parseDouble(txtIpi.getText()));
-                
+
                 dao.alterar(a);// faz alteração no banco de dados
                 carregaTabela();
                 limparCampos();
@@ -633,14 +664,14 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         lbPesoTotal.setText("");
         lbPesoTotalIpi.setText("");
     }
-    
+
     private void desativaBotoes() {
         btGravar.setEnabled(false);
         //  btAlterar.setEnabled(false);
         btExcluir.setEnabled(false);
-        
+
     }
-    
+
     private void desativaCampos() {
         cbxCliente.setEnabled(false);
         cbxProduto.setEnabled(false);
@@ -652,7 +683,7 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         lbPesoTotal.setEnabled(false);
         lbPesoTotalIpi.setEnabled(false);
     }
-    
+
     private void ativaCampos() {
         cbxCliente.setEnabled(true);
         cbxProduto.setEnabled(true);
@@ -664,19 +695,19 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         lbPesoTotal.setEnabled(true);
         lbPesoTotalIpi.setEnabled(true);
     }
-    
+
     private void ativaBotoes() {
         btGravar.setEnabled(true);
         //btAlterar.setEnabled(true);
         btExcluir.setEnabled(true);
     }
-    
+
     private void CentralizarCampos() {
         txtQuant.setHorizontalAlignment(SwingConstants.CENTER);
         txtPeso.setHorizontalAlignment(SwingConstants.CENTER);
         txtIpi.setHorizontalAlignment(SwingConstants.CENTER);
     }
-    
+
     private void carregaTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tbNotaBaixa.getModel();
         modelo.setNumRows(0);
@@ -687,7 +718,7 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
 
         // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
         tbNotaBaixa.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        
+
         tbNotaBaixa.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         tbNotaBaixa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         //tbNotaBaixa.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
@@ -709,27 +740,27 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         tbNotaBaixa.getColumnModel().getColumn(7).setPreferredWidth(150);
         tbNotaBaixa.getColumnModel().getColumn(8).setPreferredWidth(80);
         tbNotaBaixa.getColumnModel().getColumn(9).setPreferredWidth(60);**/
-        
+
         try {
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
             ResultSet rs;
-            
+
             pstm = con.prepareStatement("SELECT * from notabaixa order by nomeempresa ASC ;");
-            
+
             rs = pstm.executeQuery();
 
             //Formatar o valor no campo jtable
             NumberFormat currencyPesoPapel = NumberFormat.getCurrencyInstance();
             NumberFormat currencyValorUnitario = NumberFormat.getCurrencyInstance();
-            
+
             NumberFormat currencyTotalSIpi = NumberFormat.getCurrencyInstance();
             NumberFormat currencyTotalCIpi = NumberFormat.getCurrencyInstance();
-            
+
             NumberFormat currencyValorIpi = NumberFormat.getCurrencyInstance();
             NumberFormat currencyIpi = NumberFormat.getCurrencyInstance();
             NumberFormat currencyDiferencial = NumberFormat.getCurrencyInstance();
-            
+
             while (rs.next()) {
                 modelo.addRow(new Object[]{
                     rs.getString("nomeempresa"),
@@ -744,10 +775,10 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
                     currencyDiferencial.format(rs.getDouble("diferencial"))});
             }
             Conexao.closeConnection(con, pstm, rs);
-            
+
         } catch (Exception ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
-            
+
         }
     }
 
@@ -759,7 +790,9 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbxCliente;
     private javax.swing.JComboBox<String> cbxProduto;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -775,6 +808,8 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbPesoTotalIpi;
     private javax.swing.JLabel lblValorUnitarioIpi;
     private javax.swing.JTable tbNotaBaixa;
+    private javax.swing.JFormattedTextField txtDataEntrega;
+    private javax.swing.JFormattedTextField txtDataPedido;
     private javax.swing.JTextField txtIpi;
     private javax.swing.JTextField txtPeso;
     private javax.swing.JTextField txtQuant;

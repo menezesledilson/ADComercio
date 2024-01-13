@@ -6,6 +6,7 @@
 package financeiro.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -24,6 +25,17 @@ public class PedidoBobina {
     private String numeroChequeA;
     private String numeroChequeB;
     private String numeroChequeC;
+    
+     private Timestamp dataHora;
+
+    public Timestamp getDataHora() {
+        return dataHora;
+    }
+
+    public void setDataHora(Timestamp dataHora) {
+        this.dataHora = dataHora;
+    }
+    
 
     public String getObservacaoPagamento() {
         return observacaoPagamento;

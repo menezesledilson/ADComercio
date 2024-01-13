@@ -259,6 +259,23 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem38ActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator39">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem15">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Pagamento Harolpel"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem15ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator40">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem39">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Comiss&#xe3;o"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator38">
             </MenuItem>
           </SubComponents>
@@ -269,14 +286,6 @@
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator13">
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem15">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Emiss&#xe3;o NS Produto"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem15ActionPerformed"/>
-              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator15">
             </MenuItem>

@@ -216,17 +216,17 @@ private void CentralizarJTextFields() {
         // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
         tbBoletoClienteEmpresa.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        // tbBoletoClienteEmpresa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
 
         //Defini o tamanho da tabela
         tbBoletoClienteEmpresa.getColumnModel().getColumn(0).setPreferredWidth(170);
-        tbBoletoClienteEmpresa.getColumnModel().getColumn(1).setPreferredWidth(10);
-        tbBoletoClienteEmpresa.getColumnModel().getColumn(2).setPreferredWidth(20);
-        tbBoletoClienteEmpresa.getColumnModel().getColumn(3).setPreferredWidth(100);
-        tbBoletoClienteEmpresa.getColumnModel().getColumn(4).setPreferredWidth(20);
-        tbBoletoClienteEmpresa.getColumnModel().getColumn(5).setPreferredWidth(10);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(2).setPreferredWidth(50);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(3).setPreferredWidth(90);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(5).setPreferredWidth(50);
 
 
         /*Outra forma de usar  
