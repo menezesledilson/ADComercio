@@ -26,7 +26,7 @@ public class NotaCheiaDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("insert into notacheia(nomeempresa,nomeproduto,quantidade,valorunitario,pesopapel,ipi,totalsipi,valoripi,totalcipi,diferencial) values (?,?,?,?,?,?,?,?,?,?);");
+            pstm = con.prepareStatement("insert into notacheia(nomeempresa,nomeproduto,quantidade,valorunitario,pesopapel,ipi,totalsipi,valoripi,totalcipi,diferencial,datapedido,dataentrega) values (?,?,?,?,?,?,?,?,?,?,?,?);");
 
             pstm.setString(1, notaCheia.getNomeEmpresa());
             pstm.setString(2, notaCheia.getNomeProduto());
@@ -38,7 +38,9 @@ public class NotaCheiaDao {
             pstm.setDouble(8, notaCheia.getValorIpi());
             pstm.setDouble(9, notaCheia.getTotalCipi());
             pstm.setDouble(10, notaCheia.getDiferencialIpi());
-            // pstm.setDouble(9, notaCheia.getIpi());
+            pstm.setDate(11, notaCheia.getDataPedido());
+            pstm.setDate(12, notaCheia.getDataEntrega());
+            
             pstm.execute();
 
             JOptionPane.showMessageDialog(null, "Adicionado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -55,7 +57,7 @@ public class NotaCheiaDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("update notacheia set  nomeempresa = ?,nomeproduto = ?,quantidade = ?,valorunitario = ?,pesopapel = ?,ipi = ?,totalsipi = ?,valoripi = ?,totalcipi = ?,diferencial = ? where id =?;");
+            pstm = con.prepareStatement("update notacheia set  nomeempresa = ?,nomeproduto = ?,quantidade = ?,valorunitario = ?,pesopapel = ?,ipi = ?,totalsipi = ?,valoripi = ?,totalcipi = ?,diferencial = ?, datapedido = ?, dataentrega = ? where id =?;");
 
             pstm.setString(1, notaCheia.getNomeEmpresa());
             pstm.setString(2, notaCheia.getNomeProduto());
@@ -67,8 +69,10 @@ public class NotaCheiaDao {
             pstm.setDouble(8, notaCheia.getValorIpi());
             pstm.setDouble(9, notaCheia.getTotalCipi());
             pstm.setDouble(10, notaCheia.getDiferencialIpi());
+            pstm.setDate(11, notaCheia.getDataPedido());
+             pstm.setDate(12, notaCheia.getDataEntrega());
 
-            pstm.setLong(11, notaCheia.getId());
+            pstm.setLong(13, notaCheia.getId());
 
             pstm.executeUpdate();
 
@@ -134,6 +138,9 @@ public class NotaCheiaDao {
                 notaCheia.setValorUnitario(rs.getDouble("valorunitario"));
 
                 notaCheia.setDiferencialIpi(rs.getDouble("diferencial"));
+                
+                notaCheia.setDataPedido(rs.getDate("datapedido"));
+                notaCheia.setDataEntrega(rs.getDate("dataentrega"));
 
                 notaCheias.add(notaCheia);
             }

@@ -126,6 +126,8 @@
             <Property name="text" type="java.lang.String" value="Op. Financeira"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator41">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem27">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Controle de  Vendas"/>
@@ -241,6 +243,8 @@
             <Property name="text" type="java.lang.String" value="Emiss&#xe3;oNota Cliente"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator42">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem37">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nota Cheia"/>
@@ -275,6 +279,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Comiss&#xe3;o"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem39ActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator38">
             </MenuItem>
@@ -285,8 +292,6 @@
             <Property name="text" type="java.lang.String" value="Emiss&#xe3;o Nota Servi&#xe7;o"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator13">
-            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator15">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
@@ -372,8 +377,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem29ActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator7">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem28">
               <Properties>

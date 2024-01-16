@@ -26,7 +26,7 @@ public class NotaBaixaDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("insert into notabaixa(nomeempresa,nomeproduto,quantidade,valorunitario,pesopapel,ipi,totalsipi,valoripi,totalcipi,diferencial) values (?,?,?,?,?,?,?,?,?,?);");
+            pstm = con.prepareStatement("insert into notabaixa(nomeempresa,nomeproduto,quantidade,valorunitario,pesopapel,ipi,totalsipi,valoripi,totalcipi,diferencial,datapedido,dataentrega) values (?,?,?,?,?,?,?,?,?,?,?,?);");
 
             pstm.setString(1, notaBaixa.getNomeEmpresa());
             pstm.setString(2, notaBaixa.getNomeProduto());
@@ -38,6 +38,8 @@ public class NotaBaixaDao {
             pstm.setDouble(8, notaBaixa.getValorIpi());
             pstm.setDouble(9, notaBaixa.getTotalCipi());
             pstm.setDouble(10, notaBaixa.getDiferencialIpi());
+            pstm.setDate(11, notaBaixa.getDataPedido());
+            pstm.setDate(12, notaBaixa.getDataEntrega());
 
             pstm.execute();
 
@@ -55,7 +57,7 @@ public class NotaBaixaDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("update notabaixa set  nomeempresa = ?,nomeproduto = ?,quantidade = ?,valorunitario = ?,pesopapel = ?,ipi = ?,totalsipi = ?,valoripi = ?,totalcipi = ?,diferencial = ? where id =?;");
+            pstm = con.prepareStatement("update notabaixa set  nomeempresa = ?,nomeproduto = ?,quantidade = ?,valorunitario = ?,pesopapel = ?,ipi = ?,totalsipi = ?,valoripi = ?,totalcipi = ?,diferencial = ?,datapedido = ?, dataentrega = ? where id =?;");
 
             pstm.setString(1, notaBaixa.getNomeEmpresa());
             pstm.setString(2, notaBaixa.getNomeProduto());
@@ -67,8 +69,10 @@ public class NotaBaixaDao {
             pstm.setDouble(8, notaBaixa.getValorIpi());
             pstm.setDouble(9, notaBaixa.getTotalCipi());
             pstm.setDouble(10, notaBaixa.getDiferencialIpi());
+            pstm.setDate(11, notaBaixa.getDataPedido());
+            pstm.setDate(12, notaBaixa.getDataEntrega());
 
-            pstm.setLong(11, notaBaixa.getId());
+            pstm.setLong(13, notaBaixa.getId());
 
             pstm.executeUpdate();
 
@@ -134,6 +138,9 @@ public class NotaBaixaDao {
                 notaBaixa.setValorUnitario(rs.getDouble("valorunitario"));
 
                 notaBaixa.setDiferencialIpi(rs.getDouble("diferencial"));
+
+                notaBaixa.setDataPedido(rs.getDate("datapedido"));
+                notaBaixa.setDataEntrega(rs.getDate("dataentrega"));
 
                 notaBaixas.add(notaBaixa);
             }

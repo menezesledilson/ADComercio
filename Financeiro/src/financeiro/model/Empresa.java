@@ -11,12 +11,12 @@ package financeiro.model;
  */
 public class Empresa {
 
-    public Long id;
-    public String Nome;
-    public String CNPJ;
-    public String Celular;
-    public String UF;
-    public String Observacao;
+    private Long id;
+    private String Nome;
+    private String CNPJ;
+    private String Celular;
+    private String UF;
+    private String Observacao;
 
     public Long getId() {
         return id;
@@ -28,14 +28,6 @@ public class Empresa {
 
     public String getNome() {
         return Nome;
-    }
-
-    public String getUF() {
-        return UF;
-    }
-
-    public void setUF(String UF) {
-        this.UF = UF;
     }
 
     public void setNome(String Nome) {
@@ -58,6 +50,14 @@ public class Empresa {
         this.Celular = Celular;
     }
 
+    public String getUF() {
+        return UF;
+    }
+
+    public void setUF(String UF) {
+        this.UF = UF;
+    }
+
     public String getObservacao() {
         return Observacao;
     }
@@ -65,7 +65,8 @@ public class Empresa {
     public void setObservacao(String Observacao) {
         this.Observacao = Observacao;
     }
-    
+
+   
     
 
 }

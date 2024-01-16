@@ -6,13 +6,16 @@
 package CadPedido;
 
 import financeiro.DAO.EmpresaDao;
+import financeiro.DAO.NotaCheiaDao;
 import financeiro.conexao.Conexao;
 import financeiro.model.Empresa;
+import financeiro.model.NotaCheia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.NumberFormat;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,6 +30,8 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
     public CadastroEmpresas() {
         initComponents();
         carregaTabela();
+        desativaCampos();
+        CentralizarCampos();
     }
 
     @SuppressWarnings("unchecked")
@@ -37,7 +42,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         btNovo = new javax.swing.JButton();
         btGravar = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btExcluir = new javax.swing.JButton();
         txtCliente = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -79,7 +84,12 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton4.setText("Excluir");
+        btExcluir.setText("Excluir");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Nome.:");
 
@@ -95,11 +105,16 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
                 "Nome", "UF", "CNPJ", "Celular", "Obs"
             }
         ));
+        tbCadEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbCadEmpresaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbCadEmpresa);
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        cbxUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO", " " }));
+        cbxUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UF", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO", " " }));
 
         jLabel4.setText("UF.:");
 
@@ -161,7 +176,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btAlterar)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton4)))
+                                .addComponent(btExcluir)))
                         .addGap(73, 73, 73))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -181,7 +196,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btAlterar)
-                            .addComponent(jButton4)))
+                            .addComponent(btExcluir)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -223,10 +238,11 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
         // Verificar se os campos estão vazios
- if( txtCliente.getText().isEmpty() || txtCnpj.getText().isEmpty()|| cbxUf.getSelectedItem() == null ||
-         txtCel.getText().isEmpty()){JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        if (txtCliente.getText().isEmpty() || txtCnpj.getText().isEmpty() || cbxUf.getSelectedItem() == null
+                || txtCel.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         // Criar uma nova instância de BobinaC
         Empresa e = new Empresa();
         EmpresaDao dao = new EmpresaDao();
@@ -234,7 +250,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         e.setNome(txtCliente.getText());
         e.setCNPJ(txtCnpj.getText());
         e.setCelular(txtCel.getText());
-        e.setObservacao (txtObs.getText());
+        e.setObservacao(txtObs.getText());
         String UFSelecionada = cbxUf.getSelectedItem().toString();
         e.setUF(UFSelecionada);
 
@@ -249,16 +265,114 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btGravarActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        // TODO add your handling code here:
+        ativaBotoes();
+        ativaCampos();
+        // btAlterar.setEnabled(false);
+        limparCampos();
+        btExcluir.setEnabled(false);
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-        // TODO add your handling code here:
+        Empresa a = new Empresa();
+        EmpresaDao dao = new EmpresaDao();
+
+        int index = tbCadEmpresa.getSelectedRow();
+        a = dao.listarEmpresa().get(index);
+
+        switch (JOptionPane.showConfirmDialog(null,
+                " [--ALTERAÇÃO DE DADOS--] \n Dado Atual"
+                + "\n Empresa:  " + a.getNome()
+                + "\n UF: " + a.getUF()
+                + "\n CNPJ: " + a.getCNPJ()
+                + "\n Cel: " + a.getCelular()
+                + "\n Obs: " + a.getObservacao()
+                + "\n Será alterado "
+                + "\n Empresa:  " + txtCliente.getText()
+                + "\n UF" + cbxUf.getSelectedItem()
+                + "\n CNPJ: " + txtCnpj.getText()
+                + "\n Cel: " + txtCel.getText()
+                + "\n Obs: " + txtObs.getText()
+                + "\n Deseja realmente fazer alteração?",
+                "Alteração de dados.  ", JOptionPane.YES_NO_OPTION)) {
+
+            case 0:
+                String descricacaoUf = cbxUf.getSelectedItem().toString();
+                a.setUF(descricacaoUf);
+
+                a.setNome(txtCliente.getText());
+
+                String descricaoUf = cbxUf.getSelectedItem().toString();
+                a.setUF(descricaoUf);
+
+                a.setCNPJ(txtCnpj.getText());
+                a.setCelular(txtCel.getText());
+                a.setObservacao(txtObs.getText());
+
+                dao.alterar(a);// faz alteração no banco de dados
+                carregaTabela();
+                limparCampos();
+                desativaBotoes();
+                desativaCampos();
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita.",
+                        "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
+
     }//GEN-LAST:event_btAlterarActionPerformed
 
-    public void maskCelular() {
+    private void tbCadEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCadEmpresaMouseClicked
+        Empresa a = new Empresa();
+        EmpresaDao dao = new EmpresaDao();
 
-    }
+        int index = tbCadEmpresa.getSelectedRow();
+        a = dao.listarEmpresa().get(index);
+
+        txtCliente.setText(a.getNome());
+
+        String descricaoUf = cbxUf.getSelectedItem().toString();
+        a.setUF(descricaoUf);
+
+        txtCnpj.setText(a.getCNPJ());
+        txtCel.setText(a.getCelular());
+        txtObs.setText(a.getObservacao());
+
+        btGravar.setEnabled(false);
+        // btAlterar.setEnabled(true);
+        btExcluir.setEnabled(true);
+        ativaCampos();
+    }//GEN-LAST:event_tbCadEmpresaMouseClicked
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        // Criar uma nova instância de BobinaC
+        Empresa a = new Empresa();
+        EmpresaDao dao = new EmpresaDao();
+
+        int index = tbCadEmpresa.getSelectedRow();
+        a = dao.listarEmpresa().get(index);
+
+        switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Produto ? \n "
+                + "\n Empresa:  " + a.getNome()
+                + "\n UF: " + a.getUF()
+                + "\n CNPJ: " + a.getCNPJ()
+                + "\n Cel: " + a.getCelular()
+                + "\n Obs: " + a.getObservacao(),
+                "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+
+            case 0:
+                dao.remover(a);
+                carregaTabela();
+                limparCampos();
+                desativaBotoes();
+                desativaCampos();
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                break;
+
+        }
+    }//GEN-LAST:event_btExcluirActionPerformed
 
     public void carregaTabela() {
 
@@ -279,7 +393,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
             while (rs.next()) {
                 modelo.addRow(new Object[]{
                     rs.getString("nome"),
-                     rs.getString("uf"),
+                    rs.getString("uf"),
                     rs.getString("cnpj"),
                     rs.getString("Celular")
 
@@ -292,12 +406,57 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         }
     }
 
+    public void limparCampos() {
+
+        txtCliente.setText("");
+        txtCnpj.setText("");
+        txtCel.setText("");
+        txtObs.setText("");
+
+    }
+
+    private void desativaBotoes() {
+        btGravar.setEnabled(false);
+        //  btAlterar.setEnabled(false);
+        btExcluir.setEnabled(false);
+
+    }
+
+    private void desativaCampos() {
+        txtCliente.setEnabled(false);
+        txtCnpj.setEnabled(false);
+        txtCel.setEnabled(false);
+        txtObs.setEnabled(false);
+        cbxUf.setEnabled(false);
+    }
+
+    private void ativaCampos() {
+        txtCliente.setEnabled(true);
+        txtCnpj.setEnabled(true);
+        txtCel.setEnabled(true);
+        txtObs.setEnabled(true);
+         cbxUf.setEnabled(true);
+    }
+
+    private void ativaBotoes() {
+        btGravar.setEnabled(true);
+        //btAlterar.setEnabled(true);
+        btExcluir.setEnabled(true);
+    }
+
+    private void CentralizarCampos() {
+        txtCliente.setHorizontalAlignment(SwingConstants.CENTER);
+        txtCnpj.setHorizontalAlignment(SwingConstants.CENTER);
+        txtCel.setHorizontalAlignment(SwingConstants.CENTER);
+        txtObs.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
+    private javax.swing.JButton btExcluir;
     private javax.swing.JButton btGravar;
     private javax.swing.JButton btNovo;
     private javax.swing.JComboBox<String> cbxUf;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

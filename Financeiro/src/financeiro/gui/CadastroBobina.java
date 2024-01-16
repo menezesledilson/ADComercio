@@ -246,8 +246,7 @@ public class CadastroBobina extends javax.swing.JInternalFrame {
         txtValor.setHorizontalAlignment(SwingConstants.CENTER);
     }
     private void tbCadBobinasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCadBobinasMouseClicked
-        // TODO add your handling code here:
-
+       
         //Setando campos de texto com registros
         BobinaC b = new BobinaC();
         BobinaDao dao = new BobinaDao();

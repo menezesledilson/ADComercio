@@ -67,15 +67,15 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
         txtEmpresaPagar = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtDataClienteReceber = new javax.swing.JTextField();
         txtValorEmpresaPagar = new javax.swing.JTextField();
-        txtDataEmpresaPagar = new javax.swing.JTextField();
         txtValorClienteReceber = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        txtDataClienteReceber = new javax.swing.JFormattedTextField();
+        txtDataEmpresaPagar = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setTitle("Cadastro de Pagamentos e Recebimentos");
@@ -97,7 +97,7 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
                 btNovoActionPerformed(evt);
             }
         });
-        jPanel1.add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 80, -1));
+        jPanel1.add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 80, -1));
 
         btGravar.setText("Gravar");
         btGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,7 +105,7 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
                 btGravarActionPerformed(evt);
             }
         });
-        jPanel1.add(btGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 80, -1));
+        jPanel1.add(btGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 80, -1));
 
         btAlterar.setText("Alterar");
         btAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -113,7 +113,7 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
                 btAlterarActionPerformed(evt);
             }
         });
-        jPanel1.add(btAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, 80, -1));
+        jPanel1.add(btAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, 80, -1));
 
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +121,7 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
                 btExcluirActionPerformed(evt);
             }
         });
-        jPanel1.add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 40, 80, -1));
+        jPanel1.add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 70, 80, -1));
 
         tbBoletoClienteEmpresa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -150,11 +150,7 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
 
         jLabel6.setText("R$.:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, 30, 30));
-        jPanel1.add(txtDataClienteReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 80, -1));
         jPanel1.add(txtValorEmpresaPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 60, -1));
-
-        txtDataEmpresaPagar.setText(" ");
-        jPanel1.add(txtDataEmpresaPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 82, -1));
 
         txtValorClienteReceber.setText(" ");
         txtValorClienteReceber.addActionListener(new java.awt.event.ActionListener() {
@@ -177,6 +173,20 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, 10, 140));
+
+        try {
+            txtDataClienteReceber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel1.add(txtDataClienteReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 80, -1));
+
+        try {
+            txtDataEmpresaPagar.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel1.add(txtDataEmpresaPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 80, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -601,8 +611,8 @@ private void CentralizarJTextFields() {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable tbBoletoClienteEmpresa;
     private javax.swing.JTextField txtClienteReceber;
-    private javax.swing.JTextField txtDataClienteReceber;
-    private javax.swing.JTextField txtDataEmpresaPagar;
+    private javax.swing.JFormattedTextField txtDataClienteReceber;
+    private javax.swing.JFormattedTextField txtDataEmpresaPagar;
     private javax.swing.JTextField txtEmpresaPagar;
     private javax.swing.JTextField txtValorClienteReceber;
     private javax.swing.JTextField txtValorEmpresaPagar;

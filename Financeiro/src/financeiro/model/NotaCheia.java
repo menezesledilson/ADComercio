@@ -5,25 +5,30 @@
  */
 package financeiro.model;
 
+import java.sql.Date;
+
 /**
  *
  * @author Ledilson
  */
 public class NotaCheia {
 
-    public Long id;
-    public String nomeEmpresa;
-    public String nomeProduto;
-    public int quantidade;
+    private Long id;
+    private String nomeEmpresa;
+    private String nomeProduto;
+    private int quantidade;
 
-    public Double pesoPapel;
-    public Double valorUnitario;
-    public Double totalSipi;
-    public Double totalCipi;
-    public Double ValorIpi;
-    public Double diferencialIpi;
+    private Double pesoPapel;
+    private Double valorUnitario;
+    private Double totalSipi;
+    private Double totalCipi;
+    private Double ValorIpi;
+    private Double diferencialIpi;
+    
+    private Date DataPedido;
+    private Date DataEntrega;
 
-    public Double Ipi;
+    private Double Ipi;
 
     public Long getId() {
         return id;
@@ -113,4 +118,21 @@ public class NotaCheia {
         this.diferencialIpi = diferencialIpi;
     }
 
+    public Date getDataPedido() {
+        return DataPedido;
+    }
+
+    public void setDataPedido(Date DataPedido) {
+        this.DataPedido = DataPedido;
+    }
+
+    public Date getDataEntrega() {
+        return DataEntrega;
+    }
+
+    public void setDataEntrega(Date DataEntrega) {
+        this.DataEntrega = DataEntrega;
+    }
+
+   
 }

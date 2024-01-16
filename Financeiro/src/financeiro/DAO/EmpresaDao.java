@@ -21,33 +21,32 @@ import javax.swing.JOptionPane;
  */
 public class EmpresaDao {
 
-   public void adicionar(Empresa empresa) {
-    Connection con = Conexao.getConnection();
-    PreparedStatement pstm = null;
+    public void adicionar(Empresa empresa) {
+        Connection con = Conexao.getConnection();
+        PreparedStatement pstm = null;
 
-    try {
-        pstm = con.prepareStatement("INSERT INTO empresa(nome, uf, cnpj, celular,observacao) VALUES (?,?, ?, ?, ?);");
+        try {
+            pstm = con.prepareStatement("INSERT INTO empresa(nome, uf, cnpj, celular,observacao) VALUES (?,?, ?, ?, ?);");
 
-        pstm.setString(1, empresa.getNome());
-        pstm.setString(2, empresa.getUF());
-        pstm.setString(3, empresa.getCNPJ());
-        pstm.setString(4, empresa.getCelular());
-         pstm.setString(5, empresa.getObservacao());
+            pstm.setString(1, empresa.getNome());
+            pstm.setString(2, empresa.getUF());
+            pstm.setString(3, empresa.getCNPJ());
+            pstm.setString(4, empresa.getCelular());
+            pstm.setString(5, empresa.getObservacao());
 
-        pstm.execute();
+            pstm.execute();
 
-        JOptionPane.showMessageDialog(null, "Adicionado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Adicionado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
-    } catch (SQLException sqlException) {
-        // Logar a exceção
-        sqlException.printStackTrace();
-        // Mostrar uma mensagem mais específica para o usuário
-        JOptionPane.showMessageDialog(null, "Erro SQL ao adicionar no banco: " + sqlException.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        Conexao.closeConnection(con, pstm);
+        } catch (SQLException sqlException) {
+            // Logar a exceção
+            sqlException.printStackTrace();
+            // Mostrar uma mensagem mais específica para o usuário
+            JOptionPane.showMessageDialog(null, "Erro SQL ao adicionar no banco: " + sqlException.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            Conexao.closeConnection(con, pstm);
+        }
     }
-}
-
 
     public void alterar(Empresa empresa) {
         Connection con = Conexao.getConnection();
@@ -60,7 +59,7 @@ public class EmpresaDao {
             pstm.setString(2, empresa.getCNPJ());
             pstm.setString(3, empresa.getUF());
             pstm.setString(4, empresa.getCelular());
-             pstm.setString(5, empresa.getObservacao()); 
+            pstm.setString(5, empresa.getObservacao());
 
             pstm.setLong(6, empresa.getId());
 
@@ -70,6 +69,27 @@ public class EmpresaDao {
 
         } catch (SQLException ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao Alterar:" + ErroSql, "Erro", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            Conexao.closeConnection(con, pstm);
+        }
+    }
+
+    public void remover(Empresa empresa) {
+
+        Connection con = Conexao.getConnection();
+        PreparedStatement pstm = null;
+
+        try {
+            pstm = con.prepareCall("delete from empresa where id = ? ; ");
+
+            pstm.setLong(1, empresa.getId());
+
+            pstm.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Removido com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException ErroSql) {
+            JOptionPane.showMessageDialog(null, "Erro ao Remover:" + ErroSql, "Erro", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexao.closeConnection(con, pstm);
         }
@@ -95,7 +115,7 @@ public class EmpresaDao {
                 empresa.setCNPJ(rs.getString("uf"));
                 empresa.setCNPJ(rs.getString("cnpj"));
                 empresa.setCelular(rs.getString("celular"));
-                 empresa.setObservacao(rs.getString("observacao"));
+                empresa.setObservacao(rs.getString("observacao"));
 
                 empresas.add(empresa);
             }
