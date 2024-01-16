@@ -335,7 +335,7 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
 
     public void limparCampos() {
         txtQuant.setText("");
-        
+
         txtPesoUnitario.setText("");
         txtValorUnitario1.setText("");
     }
@@ -358,7 +358,7 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
         txtPesoUnitario.setEnabled(true);
     }
 
-    public void desativarCampo() {
+    public void desativarCampo(){
 
         txtQuant.setEnabled(false);
         cbxProduto.setEnabled(false);
@@ -367,8 +367,8 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
     }
 
     private void btGravaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravaClienteActionPerformed
-       if (txtQuant.getText().isEmpty() || txtPesoUnitario.getText().isEmpty() || 
-               cbxCliente.getSelectedItem() == null || cbxProduto.getSelectedItem() == null) {
+        if (txtQuant.getText().isEmpty() || txtPesoUnitario.getText().isEmpty()
+                || cbxCliente.getSelectedItem() == null || cbxProduto.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -494,7 +494,6 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
         a.setNomeProduto(descricaoCliente);
 
         a.setQuantProduto(Integer.parseInt(txtQuant.getText()));
-        //  a.setPesoUnitario(Double.parseDouble(txtPesoUnitario.getText()));
 
         //seleção Produto
         String descricaoSelecionada = cbxProduto.getSelectedItem().toString();
@@ -510,6 +509,7 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
                 carregaTabela();
                 limparCampos();
                 desativarBotao();
+                desativarCampo();
                 break;
             case 1:
                 JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);

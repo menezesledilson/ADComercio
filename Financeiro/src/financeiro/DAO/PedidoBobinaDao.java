@@ -122,7 +122,7 @@ public class PedidoBobinaDao {
         ResultSet rs = null;
 
         try {
-            pstm = con.prepareStatement("SELECT id,nomecliente,valorpedido,quantidadebobina,datapedido,dataentrega,numerochequea,numerochequeb,numerochequec,pagpedido,observacao FROM pedidobobina ORDER BY  id DESC;");
+            pstm = con.prepareStatement("SELECT id,nomecliente,valorpedido,quantidadebobina,datapedido,dataentrega,numerochequea,numerochequeb,numerochequec,pagpedido,observacao FROM pedidobobina ORDER BY  id ASC;");
 
             rs = pstm.executeQuery();
 

@@ -543,6 +543,7 @@ private void CentralizarJTextFields() {
                 carregaTabela();
                 limparTexto();
                 desativaBotoes();
+                desativaCampos();
                 break;
             case 1:
                 JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);

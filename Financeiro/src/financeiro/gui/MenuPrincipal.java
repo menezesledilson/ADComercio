@@ -515,7 +515,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu10);
 
-        jMenu4.setText("EmissãoNota Cliente");
+        jMenu4.setText("Pedidos");
         jMenu4.add(jSeparator42);
 
         jMenuItem37.setText("Nota Cheia");

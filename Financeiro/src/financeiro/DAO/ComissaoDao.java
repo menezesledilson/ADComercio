@@ -46,24 +46,24 @@ public class ComissaoDao {
     }
 
     public void alterar(ComissaoPagamento comissaoPagamento) {
-        /*  Connection con = Conexao.getConnection();
+         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
 
         try {
             pstm = con.prepareStatement("update comissao set nome = ?, empresa = ?, datapedido = ?, dataentrega = ?, precocheia = ?, precofabrica = ?, valorcomissao = ?  WHERE id = ?");
 
-            pstm.setString(1, comissao.getNome());
-            pstm.setString(2, comissao.getEmpresa());
+            pstm.setString(1, comissaoPagamento.getNome());
+            pstm.setString(2, comissaoPagamento.getEmpresa());
 
-            pstm.setDate(3, comissao.getDataPedido());
-            pstm.setDate(4, comissao.getDataEntrega());
+            pstm.setDate(3, comissaoPagamento.getDataPedido());
+            pstm.setDate(4, comissaoPagamento.getDataEntrega());
 
-            pstm.setDouble(5, comissao.getPrecoCheia());
-            pstm.setDouble(6, comissao.getPrecoFabrica());
+            pstm.setDouble(5, comissaoPagamento.getPrecoCheia());
+            pstm.setDouble(6, comissaoPagamento.getPrecoFabrica());
 
-            pstm.setDouble(7, comissao.getValorComissao());
+            pstm.setDouble(7, comissaoPagamento.getValorComissao());
 
-            pstm.setLong(8, comissao.getId());
+            pstm.setLong(8, comissaoPagamento.getId());
 
             pstm.executeUpdate();
 
@@ -73,7 +73,7 @@ public class ComissaoDao {
             JOptionPane.showMessageDialog(null, "Erro ao Alterar:" + ErroSql, "Erro", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexao.closeConnection(con, pstm);
-        }*/
+        }
     }
 
     public void remover(ComissaoPagamento comissaoPagamento) {
@@ -110,7 +110,7 @@ public class ComissaoDao {
         ResultSet rs = null;
 
         try {
-            pstm = con.prepareStatement("SELECT id,nome, empresa, datapedido, dataentrega, precocheia,precofabrica,valorcomissao FROM comissao;");
+            pstm = con.prepareStatement("SELECT id,nome, empresa, datapedido, dataentrega, precocheia,precofabrica,valorcomissao FROM comissao ORDER BY  id ASC;");
             rs = pstm.executeQuery();
 
             while (rs.next()) {
@@ -118,6 +118,7 @@ public class ComissaoDao {
                 ComissaoPagamento comissaoPagamento = new ComissaoPagamento();
 
                 comissaoPagamento.setId(rs.getLong("id"));
+                
                 comissaoPagamento.setNome(rs.getString("nome"));
                 comissaoPagamento.setEmpresa(rs.getString("empresa"));
 

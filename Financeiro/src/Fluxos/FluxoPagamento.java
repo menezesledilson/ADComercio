@@ -13,10 +13,16 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -70,6 +76,11 @@ public class FluxoPagamento extends javax.swing.JInternalFrame {
         jLabel1.setText("Total");
 
         jButton1.setText("Imprimir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,6 +125,31 @@ public class FluxoPagamento extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      Connection con = Conexao.getConnection();
+        //PreparedStatement pstm = null;
+        try {
+            String arq = "C:\\ADComercio\\Financeiro\\src\\RelatorioFluxo\\RelatorioPagamento.jasper";
+            Map<String, Object> parametros = new HashMap<>();
+
+            JasperPrint jaspertPrint = JasperFillManager.fillReport(arq, parametros, con);
+            JasperViewer view = new JasperViewer(jaspertPrint, false);
+            view.setVisible(true);
+
+        } catch (JRException ex) {
+            System.out.println("Erro:" + ex);
+        } finally {
+            // Certifique-se de fechar a conexão
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
  private void carregaTabela() {
 
         DefaultTableModel modelo = (DefaultTableModel) tbFluxoPagamento.getModel();

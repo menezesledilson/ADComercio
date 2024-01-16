@@ -1,29 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-    <background>
-        <band/>
-    </background>
-    <title>
-        <band height="79"/>
-    </title>
-    <pageHeader>
-        <band height="35"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="61"/>
-    </columnHeader>
-    <detail>
-        <band height="125"/>
-    </detail>
-    <columnFooter>
-        <band height="45"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54"/>
-    </pageFooter>
-    <summary>
-        <band height="42"/>
-    </summary>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="250b1eea-348a-44ea-8ea5-20a299e0587d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT * FROM boletoEmpresa]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="nomeboletoreceber" class="java.lang.String"/>
+	<field name="databoletoreceber" class="java.sql.Date"/>
+	<field name="valorboletoreceber" class="java.math.BigDecimal"/>
+	<field name="nomeboletoapagar" class="java.lang.String"/>
+	<field name="databoletoapagar" class="java.sql.Date"/>
+	<field name="valorboletoapagar" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="634590ba-0269-4582-95b2-9dff2edb147c" x="179" y="39" width="198" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2d435265-a5fe-48bc-84df-e6477d867383" x="209" y="19" width="140" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório Boleto]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="39" splitType="Stretch">
+			<line>
+				<reportElement uuid="442afccb-77f3-49d9-959d-ad80be1c93e2" x="-30" y="38" width="612" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="3ec83216-afca-46c6-b4d6-8b707818b3d5" x="2" y="19" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aee3e287-1f00-46c4-a538-d6bcb2f7d582" x="73" y="19" width="70" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[D/ Receber]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5688913-c4fe-4bfc-af02-fd4bdb148e29" x="169" y="19" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Valor ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4dabb39b-8124-49cb-abb6-429dca76076e" x="268" y="19" width="38" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="215b91d6-2d5b-4aca-b156-089e0716c640" x="355" y="18" width="72" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[D/ Apagar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="603facd8-c662-408e-be96-704ed596ba51" x="490" y="18" width="43" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement uuid="c8ae577a-e4c1-4c2c-a642-e55b20f6916d" x="0" y="0" width="67" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nomeboletoreceber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="00b4a63f-0218-4af9-9caa-ef7199affb80" x="83" y="0" width="52" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{databoletoreceber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f78cfbe1-53d5-40c0-8a2a-139d42c93cd2" x="147" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorboletoreceber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4bb2fab2-247c-42c8-9755-00e9876c1c5b" x="256" y="0" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nomeboletoapagar}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="f7367c88-f86e-4e88-bf51-c564f675a541" x="-40" y="21" width="622" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="762a66d3-68a1-40a8-9138-625683365862" x="466" y="2" width="89" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorboletoapagar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="96bcf91d-191f-49f0-afda-8c4dce75ffd1" x="364" y="2" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{databoletoapagar}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement uuid="04eb8a22-6fe2-43a4-acba-e09da5651ab9" x="455" y="34" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
 </jasperReport>

@@ -108,6 +108,7 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         jLabel1.setText("Cliente.:");
 
         cbxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxCliente.setNextFocusableComponent(cbxProduto);
         cbxCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxClienteActionPerformed(evt);
@@ -115,6 +116,7 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         });
 
         cbxProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxProduto.setNextFocusableComponent(txtQuant);
         cbxProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxProdutoActionPerformed(evt);
@@ -124,10 +126,13 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         jLabel2.setText("Produto.:");
 
         txtQuant.setText(" ");
+        txtQuant.setNextFocusableComponent(txtPeso);
 
         jLabel3.setText("Quantidade.:");
 
         jLabel4.setText("Imposto R$.:");
+
+        txtIpi.setNextFocusableComponent(btGravar);
 
         jLabel5.setText("Preço Unitário.:");
 
@@ -144,6 +149,7 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         jLabel8.setText("Peso.:");
 
         txtPeso.setText(" ");
+        txtPeso.setNextFocusableComponent(txtIpi);
 
         lbPesoTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbPesoTotal.setText("0.00");
@@ -195,12 +201,14 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtDataPedido.setNextFocusableComponent(txtDataEntrega);
 
         try {
             txtDataEntrega.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtDataEntrega.setNextFocusableComponent(cbxCliente);
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -395,8 +403,8 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
     public void cbListCliente() {
         // Limpar os dados antigos
         nomeClienteEmpresa.clear();
-
         cbxCliente.removeAllItems();
+        
         try {
 
             EmpresaDao dao = new EmpresaDao();

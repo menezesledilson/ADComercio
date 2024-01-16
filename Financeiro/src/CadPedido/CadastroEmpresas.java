@@ -91,6 +91,8 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
             }
         });
 
+        txtCliente.setNextFocusableComponent(cbxUf);
+
         jLabel1.setText("Nome.:");
 
         jLabel2.setText("CNPJ.:");
@@ -115,6 +117,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         cbxUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UF", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO", " " }));
+        cbxUf.setNextFocusableComponent(txtCnpj);
 
         jLabel4.setText("UF.:");
 
@@ -123,14 +126,17 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCel.setNextFocusableComponent(txtObs);
 
         try {
             txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCnpj.setNextFocusableComponent(txtCel);
 
         txtObs.setText(" ");
+        txtObs.setNextFocusableComponent(btGravar);
 
         jLabel5.setText("Obs.:");
 

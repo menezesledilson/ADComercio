@@ -380,7 +380,7 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
         if (txtForncedor.getText().isEmpty() || txtTotalCargaFinal.getText().isEmpty()
                 || txtFrete.getText().isEmpty() || txtImposto.getText().isEmpty()
-                || txtComissao.getText().isEmpty())  {
+                || txtComissao.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -491,6 +491,7 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
             case 0:
                 dao.remover(a);
                 carregaTabela();
+                desativaCampos();
                 // limparCampos();
                 // desativaBotoes();
                 break;

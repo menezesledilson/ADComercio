@@ -269,7 +269,7 @@ public class CalcComissao extends javax.swing.JInternalFrame {
     ArrayList<Integer> idCadastroEmpresa = new ArrayList<Integer>();
     ArrayList<String> nomeClienteEmpresa = new ArrayList<String>();
 
-    public void cbListCliente() {
+    /*   public void cbListCliente() {
         // Limpar os dados antigos
         nomeClienteEmpresa.clear();
         cbxCliente.removeAllItems();
@@ -281,7 +281,7 @@ public class CalcComissao extends javax.swing.JInternalFrame {
             PreparedStatement pstm;
             ResultSet rs;
 
-            pstm = con.prepareStatement("SELECT * FROM empresa ORDER BY nome ASC;");
+            pstm = con.prepareStatement("SELECT * FROM empresa nome ASC;");
             rs = pstm.executeQuery();
 
             while (rs.next()) {
@@ -293,7 +293,34 @@ public class CalcComissao extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Erro ao listar dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
 
+    }*/
+    public void cbListCliente() {
+        // Limpar os dados antigos
+        nomeClienteEmpresa.clear();
+        cbxCliente.removeAllItems();
+
+        try {
+            EmpresaDao dao = new EmpresaDao();
+            Connection con = Conexao.getConnection();
+            PreparedStatement pstm;
+            ResultSet rs;
+
+            pstm = con.prepareStatement("SELECT * FROM empresa ORDER BY nome ASC;");
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                String nomeEmpresa = rs.getString(2);
+                if (!nomeClienteEmpresa.contains(nomeEmpresa)) {
+                    nomeClienteEmpresa.add(nomeEmpresa);
+                    cbxCliente.addItem(nomeEmpresa);
+                }
+            }
+
+        } catch (SQLException ErroSql) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
     }
+
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         ativaBotoes();
         ativaCampos();
@@ -437,7 +464,7 @@ public class CalcComissao extends javax.swing.JInternalFrame {
         a = dao.listaComissao().get(index);
 
         switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Produto ? \n "
-                + "\n Cliente:  " + a.getNome()
+                //  + "\n Cliente:  " + a.getNome()
                 + "\n Empresa: " + a.getEmpresa()
                 + "\n Data Pedido: " + a.getDataPedido()
                 + "\n Data Entrega: " + a.getDataEntrega()
@@ -451,6 +478,7 @@ public class CalcComissao extends javax.swing.JInternalFrame {
                 carregaTabela();
                 limparCampos();
                 desativaBotoes();
+                desativaCampos();
                 break;
             case 1:
                 JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
@@ -584,14 +612,14 @@ public class CalcComissao extends javax.swing.JInternalFrame {
         tbComissao.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         tbComissao.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         tbComissao.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
-        
+
         tamanhoTabela();
         try {
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
             ResultSet rs;
 
-            pstm = con.prepareStatement("SELECT * from comissao order by nome ASC ;");
+            pstm = con.prepareStatement("SELECT id, nome, empresa, datapedido, dataentrega, precocheia, precofabrica, valorcomissao from comissao ORDER BY  id DESC;");
 
             rs = pstm.executeQuery();
 

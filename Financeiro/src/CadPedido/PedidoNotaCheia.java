@@ -94,6 +94,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
         jLabel1.setText("Cliente.:");
 
         cbxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxCliente.setNextFocusableComponent(cbxProduto);
         cbxCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxClienteActionPerformed(evt);
@@ -101,6 +102,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
         });
 
         cbxProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxProduto.setNextFocusableComponent(txtQuant);
         cbxProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxProdutoActionPerformed(evt);
@@ -110,10 +112,13 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
         jLabel2.setText("Produto.:");
 
         txtQuant.setText(" ");
+        txtQuant.setNextFocusableComponent(txtPeso);
 
         jLabel3.setText("Quantidade.:");
 
         jLabel4.setText("Imposto R$.:");
+
+        txtIpi.setNextFocusableComponent(btGravar);
 
         jLabel5.setText("Preço Unitário.:");
 
@@ -130,6 +135,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
         jLabel8.setText("Peso.:");
 
         txtPeso.setText(" ");
+        txtPeso.setNextFocusableComponent(txtIpi);
 
         lbPesoTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbPesoTotal.setText("0.00");
@@ -194,6 +200,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtDataPedido.setNextFocusableComponent(txtDataEntrega);
 
         jLabel12.setText("Data Entrega");
 
@@ -202,6 +209,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtDataEntrega.setNextFocusableComponent(cbxCliente);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -430,7 +438,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
         if (txtValorUnitario.getText().isEmpty() || txtPeso.getText().isEmpty() || cbxCliente.getSelectedItem() == null || cbxProduto.getSelectedItem() == null
                 || txtIpi.getText().isEmpty() || txtDataEntrega.getText().isEmpty() || txtDataPedido.getText().isEmpty()) {
-           
+
             JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -562,7 +570,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                     }
                 } else {
                     //JOptionPane.showMessageDialog(null, "Adicionado com sucesso!");
-                   // JOptionPane.showMessageDialog(this, "Nenhum item disponível na lista de produtos.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    // JOptionPane.showMessageDialog(this, "Nenhum item disponível na lista de produtos.", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } catch (NumberFormatException e) {
@@ -753,6 +761,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                 carregaTabela();
                 limparCampos();
                 desativaBotoes();
+                desativaCampos();
                 break;
             case 1:
                 JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);

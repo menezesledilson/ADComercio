@@ -48,7 +48,7 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbFluxoBoleto = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btImprimir = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Fluxo Livro Boletos");
@@ -65,10 +65,10 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tbFluxoBoleto);
 
-        jButton1.setText("Imprimir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btImprimir.setText("Imprimir");
+        btImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btImprimirActionPerformed(evt);
             }
         });
 
@@ -81,7 +81,7 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btImprimir)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -89,7 +89,7 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(13, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btImprimir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -109,7 +109,7 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
        Connection con = Conexao.getConnection();
         //PreparedStatement pstm = null;
         try {
@@ -132,7 +132,7 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
                 }
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btImprimirActionPerformed
   private void carregaTabela() {
 
         DefaultTableModel modelo = (DefaultTableModel) tbFluxoBoleto.getModel();
@@ -145,15 +145,16 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
         // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
         tbFluxoBoleto.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         tbFluxoBoleto.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        // tbBoletoClienteEmpresa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        tbFluxoBoleto.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         tbFluxoBoleto.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        tbFluxoBoleto.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
        
 
         //Defini o tamanho da tabela
         tbFluxoBoleto.getColumnModel().getColumn(0).setPreferredWidth(170);
         tbFluxoBoleto.getColumnModel().getColumn(1).setPreferredWidth(60);
         tbFluxoBoleto.getColumnModel().getColumn(2).setPreferredWidth(60);
-        tbFluxoBoleto.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tbFluxoBoleto.getColumnModel().getColumn(3).setPreferredWidth(20);
         tbFluxoBoleto.getColumnModel().getColumn(4).setPreferredWidth(60);
         tbFluxoBoleto.getColumnModel().getColumn(5).setPreferredWidth(60);
         
@@ -208,7 +209,7 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btImprimir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbFluxoBoleto;

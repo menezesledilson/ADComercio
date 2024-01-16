@@ -240,7 +240,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Emiss&#xe3;oNota Cliente"/>
+            <Property name="text" type="java.lang.String" value="Pedidos"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator42">
