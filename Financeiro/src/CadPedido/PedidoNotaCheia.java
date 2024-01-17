@@ -273,14 +273,14 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel11)
                                         .addGap(18, 18, 18)
                                         .addComponent(lbDiferencaIpi)))
-                                .addGap(0, 87, Short.MAX_VALUE)))
+                                .addGap(0, 178, Short.MAX_VALUE)))
                         .addGap(32, 32, 32)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btNovo)
                             .addComponent(btAlterar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btGravar)
                             .addComponent(btExcluir))
@@ -456,7 +456,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                 a.setQuantidade(quantidade);
 
                 //adição do produto
-                //a.setNomeProduto(txtNomeProduto.getText());
+              
                 if (cbxProduto.getItemCount() > 0) {
 
                     String descricaoSelecionada = cbxProduto.getSelectedItem().toString();

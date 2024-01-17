@@ -40,13 +40,14 @@ public class NotaCheiaDao {
             pstm.setDouble(10, notaCheia.getDiferencialIpi());
             pstm.setDate(11, notaCheia.getDataPedido());
             pstm.setDate(12, notaCheia.getDataEntrega());
-            
+
             pstm.execute();
 
             JOptionPane.showMessageDialog(null, "Adicionado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (SQLException ErroSql) {
-            JOptionPane.showMessageDialog(null, "Erro ao adicionar no banco.", "Erro", JOptionPane.ERROR_MESSAGE);
+            ErroSql.printStackTrace(); // Isso imprimirá a stack trace no console
+            JOptionPane.showMessageDialog(null, "Erro ao adicionar no banco: " + ErroSql.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexao.closeConnection(con, pstm);
         }
@@ -70,7 +71,7 @@ public class NotaCheiaDao {
             pstm.setDouble(9, notaCheia.getTotalCipi());
             pstm.setDouble(10, notaCheia.getDiferencialIpi());
             pstm.setDate(11, notaCheia.getDataPedido());
-             pstm.setDate(12, notaCheia.getDataEntrega());
+            pstm.setDate(12, notaCheia.getDataEntrega());
 
             pstm.setLong(13, notaCheia.getId());
 
@@ -138,7 +139,7 @@ public class NotaCheiaDao {
                 notaCheia.setValorUnitario(rs.getDouble("valorunitario"));
 
                 notaCheia.setDiferencialIpi(rs.getDouble("diferencial"));
-                
+
                 notaCheia.setDataPedido(rs.getDate("datapedido"));
                 notaCheia.setDataEntrega(rs.getDate("dataentrega"));
 

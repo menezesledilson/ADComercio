@@ -103,7 +103,7 @@
                                           <Component id="lbDiferencaIpi" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="87" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="178" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -113,7 +113,7 @@
                               <Component id="btNovo" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="btAlterar" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="67" max="32767" attributes="0"/>
+                          <EmptySpace pref="158" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="btGravar" min="-2" max="-2" attributes="0"/>
                               <Component id="btExcluir" min="-2" max="-2" attributes="0"/>

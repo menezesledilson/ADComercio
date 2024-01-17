@@ -57,7 +57,7 @@ public class EmissorNotaServicoClienteDao {
             pstm.execute();
 
         } catch (SQLException ErroSql) {
-            JOptionPane.showMessageDialog(null, "Erro ao adicionar no banco.", "Erro", JOptionPane.ERROR_MESSAGE);
+             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexao.closeConnection(con, pstm);
 

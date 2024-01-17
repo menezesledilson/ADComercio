@@ -16,6 +16,7 @@ public class Empresa {
     private String CNPJ;
     private String Celular;
     private String UF;
+    private String Cidade;
     private String Observacao;
 
     public Long getId() {
@@ -64,6 +65,14 @@ public class Empresa {
 
     public void setObservacao(String Observacao) {
         this.Observacao = Observacao;
+    }
+
+    public String getCidade() {
+        return Cidade;
+    }
+
+    public void setCidade(String Cidade) {
+        this.Cidade = Cidade;
     }
 
    

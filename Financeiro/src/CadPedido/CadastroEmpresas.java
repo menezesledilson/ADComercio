@@ -57,6 +57,8 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         txtCnpj = new javax.swing.JFormattedTextField();
         txtObs = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtCidade = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Cadastro Empresa");
@@ -104,7 +106,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nome", "UF", "CNPJ", "Celular", "Obs"
+                "Nome", "Cidade", "UF", "CNPJ", "Celular", "Obs"
             }
         ));
         tbCadEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -140,6 +142,8 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Obs.:");
 
+        jLabel6.setText("Cidade.:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -162,7 +166,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtCel)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -170,8 +174,12 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbxUf, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 29, Short.MAX_VALUE)
+                                .addComponent(cbxUf, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCidade)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,17 +218,24 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
                             .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbxUf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                    .addComponent(jSeparator2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -244,7 +259,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
         // Verificar se os campos estão vazios
-        if (txtCliente.getText().isEmpty() || txtCnpj.getText().isEmpty() || cbxUf.getSelectedItem() == null
+        if (txtCliente.getText().isEmpty() || txtCidade.getText().isEmpty() || txtCnpj.getText().isEmpty() || cbxUf.getSelectedItem() == null
                 || txtCel.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
@@ -254,6 +269,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         EmpresaDao dao = new EmpresaDao();
 
         e.setNome(txtCliente.getText());
+        e.setCidade(txtCidade.getText());
         e.setCNPJ(txtCnpj.getText());
         e.setCelular(txtCel.getText());
         e.setObservacao(txtObs.getText());
@@ -266,7 +282,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         // Atualizar a tabela
         carregaTabela();
         // Limpar os campos de texto
-        // limparTexto();
+       limparCampos();
 
     }//GEN-LAST:event_btGravarActionPerformed
 
@@ -288,12 +304,14 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         switch (JOptionPane.showConfirmDialog(null,
                 " [--ALTERAÇÃO DE DADOS--] \n Dado Atual"
                 + "\n Empresa:  " + a.getNome()
+                + "\n Cidade: " + a.getCidade()
                 + "\n UF: " + a.getUF()
                 + "\n CNPJ: " + a.getCNPJ()
                 + "\n Cel: " + a.getCelular()
                 + "\n Obs: " + a.getObservacao()
                 + "\n Será alterado "
                 + "\n Empresa:  " + txtCliente.getText()
+                + "\n Cidade:  " + txtCidade.getText()
                 + "\n UF" + cbxUf.getSelectedItem()
                 + "\n CNPJ: " + txtCnpj.getText()
                 + "\n Cel: " + txtCel.getText()
@@ -307,6 +325,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
 
                 a.setNome(txtCliente.getText());
 
+                a.setCidade(txtCidade.getText());
                 String descricaoUf = cbxUf.getSelectedItem().toString();
                 a.setUF(descricaoUf);
 
@@ -340,6 +359,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         String descricaoUf = cbxUf.getSelectedItem().toString();
         a.setUF(descricaoUf);
 
+        txtCidade.setText(a.getCidade());
         txtCnpj.setText(a.getCNPJ());
         txtCel.setText(a.getCelular());
         txtObs.setText(a.getObservacao());
@@ -360,6 +380,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
 
         switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Produto ? \n "
                 + "\n Empresa:  " + a.getNome()
+                + "\n Cidade: " + a.getCidade()
                 + "\n UF: " + a.getUF()
                 + "\n CNPJ: " + a.getCNPJ()
                 + "\n Cel: " + a.getCelular()
@@ -388,17 +409,19 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
 
         //Defini o tamanho da tabela
         tbCadEmpresa.getColumnModel().getColumn(0).setPreferredWidth(100);
-        tbCadEmpresa.getColumnModel().getColumn(1).setPreferredWidth(50);
-        tbCadEmpresa.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tbCadEmpresa.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tbCadEmpresa.getColumnModel().getColumn(2).setPreferredWidth(50);
         tbCadEmpresa.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tbCadEmpresa.getColumnModel().getColumn(4).setPreferredWidth(100);
 
         try (Connection con = Conexao.getConnection();
-                PreparedStatement pstm = con.prepareStatement("SELECT nome,cnpj,uf,celular FROM empresa ORDER BY nome ASC;");
+                PreparedStatement pstm = con.prepareStatement("SELECT nome,cnpj,cidade,uf,celular FROM empresa ORDER BY nome ASC;");
                 ResultSet rs = pstm.executeQuery()) {
 
             while (rs.next()) {
                 modelo.addRow(new Object[]{
                     rs.getString("nome"),
+                    rs.getString("cidade"),
                     rs.getString("uf"),
                     rs.getString("cnpj"),
                     rs.getString("Celular")
@@ -408,7 +431,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
             Conexao.closeConnection(con, pstm, rs);
 
         } catch (Exception ErroSql) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR);
+            JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -418,6 +441,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         txtCnpj.setText("");
         txtCel.setText("");
         txtObs.setText("");
+        txtCidade.setText("");
 
     }
 
@@ -434,6 +458,7 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         txtCel.setEnabled(false);
         txtObs.setEnabled(false);
         cbxUf.setEnabled(false);
+        txtCidade.setEnabled(false);
     }
 
     private void ativaCampos() {
@@ -441,7 +466,8 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         txtCnpj.setEnabled(true);
         txtCel.setEnabled(true);
         txtObs.setEnabled(true);
-         cbxUf.setEnabled(true);
+        cbxUf.setEnabled(true);
+        txtCidade.setEnabled(true);
     }
 
     private void ativaBotoes() {
@@ -453,8 +479,10 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
     private void CentralizarCampos() {
         txtCliente.setHorizontalAlignment(SwingConstants.CENTER);
         txtCnpj.setHorizontalAlignment(SwingConstants.CENTER);
+        txtCidade.setHorizontalAlignment(SwingConstants.CENTER);
         txtCel.setHorizontalAlignment(SwingConstants.CENTER);
         txtObs.setHorizontalAlignment(SwingConstants.CENTER);
+        txtCidade.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -468,12 +496,14 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable tbCadEmpresa;
     private javax.swing.JFormattedTextField txtCel;
+    private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JFormattedTextField txtCnpj;
     private javax.swing.JTextField txtObs;

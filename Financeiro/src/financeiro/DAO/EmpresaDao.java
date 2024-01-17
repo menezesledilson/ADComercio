@@ -26,13 +26,14 @@ public class EmpresaDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("INSERT INTO empresa(nome, uf, cnpj, celular,observacao) VALUES (?,?, ?, ?, ?);");
+            pstm = con.prepareStatement("INSERT INTO empresa(nome, cidade, uf, cnpj, celular,observacao) VALUES (?,?,?, ?, ?, ?);");
 
             pstm.setString(1, empresa.getNome());
-            pstm.setString(2, empresa.getUF());
-            pstm.setString(3, empresa.getCNPJ());
-            pstm.setString(4, empresa.getCelular());
-            pstm.setString(5, empresa.getObservacao());
+            pstm.setString(2, empresa.getCidade());
+            pstm.setString(3, empresa.getUF());
+            pstm.setString(4, empresa.getCNPJ());
+            pstm.setString(5, empresa.getCelular());
+            pstm.setString(6, empresa.getObservacao());
 
             pstm.execute();
 
@@ -53,13 +54,14 @@ public class EmpresaDao {
         PreparedStatement pstm = null;
 
         try {
-            pstm = con.prepareStatement("update empresa set nome = ?, cnpj=?, uf = ?, celular = ?, observacao = ?  where id =?;");
+            pstm = con.prepareStatement("update empresa set nome = ?, cnpj=?, cidade = ?, uf = ?, celular = ?, observacao = ?  where id =?;");
 
             pstm.setString(1, empresa.getNome());
             pstm.setString(2, empresa.getCNPJ());
-            pstm.setString(3, empresa.getUF());
-            pstm.setString(4, empresa.getCelular());
-            pstm.setString(5, empresa.getObservacao());
+             pstm.setString(3, empresa.getCidade());
+            pstm.setString(4, empresa.getUF());
+            pstm.setString(5, empresa.getCelular());
+            pstm.setString(6, empresa.getObservacao());
 
             pstm.setLong(6, empresa.getId());
 
@@ -112,6 +114,7 @@ public class EmpresaDao {
 
                 empresa.setId(rs.getLong("id"));
                 empresa.setNome(rs.getString("nome"));
+                empresa.setCidade(rs.getString("cidade"));
                 empresa.setCNPJ(rs.getString("uf"));
                 empresa.setCNPJ(rs.getString("cnpj"));
                 empresa.setCelular(rs.getString("celular"));

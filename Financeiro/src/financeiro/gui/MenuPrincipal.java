@@ -918,7 +918,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem36ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
-        CadastroEmpresas tela;
+       CadastroEmpresas tela;
         form.abrirFormulario(tela = new CadastroEmpresas(), jDesktop);
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
