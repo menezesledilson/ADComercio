@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package financeiro.gui;
 
 import java.io.File;
@@ -23,27 +19,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/**
- *
- * @author Ledilson
- */
 public class PostgresBackupRestore extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form PostgresBackupRestore
-     */
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
     public PostgresBackupRestore() {
         initComponents();
-
-         
-
-         
-    }
-
+   }
     @SuppressWarnings("unchecked")
-
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -128,31 +109,22 @@ public class PostgresBackupRestore extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-
-    
-
     private void btRestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRestoreActionPerformed
         String host = "localhost";
         String port = "5432";
         String database = "financeiro";
         String user = "postgres";
         String password = "admin";
-
         // Caminho do diretório de restauração
         String restoreDirectory = "C:\\ADComercio\\BkpAD";
-
         // Crie um diálogo de seleção de arquivo
         JFileChooser fileChooser = new JFileChooser(restoreDirectory);
         fileChooser.setDialogTitle("Selecione o arquivo de backup");
         fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivos de backup", "adcomercio"));
-
         int userSelection = fileChooser.showOpenDialog(this);
-
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             // Se o usuário selecionou um arquivo
             File backupFile = fileChooser.getSelectedFile();
-
             try {
                 String[] command = {
                     "C:\\Program Files\\PostgreSQL\\13\\bin\\pg_restore.exe",
@@ -163,15 +135,11 @@ public class PostgresBackupRestore extends javax.swing.JInternalFrame {
                     "-c", // Limpa o banco de dados antes de restaurar
                     backupFile.getAbsolutePath()
                 };
-
                 ProcessBuilder processBuilder = new ProcessBuilder(command);
                 processBuilder.environment().put("PGPASSWORD", password);
                 processBuilder.redirectErrorStream(true); // Redireciona saída de erro para a saída de entrada
-
                 Process process = processBuilder.start();
-
                 int exitCode = process.waitFor();
-
                 if (exitCode == 0) {
                     JOptionPane.showMessageDialog(null, "Restauração realizada com sucesso.");
                 } else {

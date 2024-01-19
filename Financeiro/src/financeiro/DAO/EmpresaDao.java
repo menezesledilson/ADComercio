@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package financeiro.DAO;
 
 import financeiro.conexao.Conexao;
@@ -15,30 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Ledilson
- */
 public class EmpresaDao {
 
     public void adicionar(Empresa empresa) {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
-
         try {
             pstm = con.prepareStatement("INSERT INTO empresa(nome, cidade, uf, cnpj, celular,observacao) VALUES (?,?,?, ?, ?, ?);");
-
             pstm.setString(1, empresa.getNome());
             pstm.setString(2, empresa.getCidade());
             pstm.setString(3, empresa.getUF());
             pstm.setString(4, empresa.getCNPJ());
             pstm.setString(5, empresa.getCelular());
             pstm.setString(6, empresa.getObservacao());
-
             pstm.execute();
-
             JOptionPane.showMessageDialog(null, "Adicionado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
         } catch (SQLException sqlException) {
             // Logar a exceção
             sqlException.printStackTrace();
@@ -52,66 +38,47 @@ public class EmpresaDao {
     public void alterar(Empresa empresa) {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
-
         try {
             pstm = con.prepareStatement("update empresa set nome = ?, cnpj=?, cidade = ?, uf = ?, celular = ?, observacao = ?  where id =?;");
-
             pstm.setString(1, empresa.getNome());
             pstm.setString(2, empresa.getCNPJ());
-             pstm.setString(3, empresa.getCidade());
+            pstm.setString(3, empresa.getCidade());
             pstm.setString(4, empresa.getUF());
             pstm.setString(5, empresa.getCelular());
             pstm.setString(6, empresa.getObservacao());
-
             pstm.setLong(6, empresa.getId());
-
             pstm.executeUpdate();
-
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
         } catch (SQLException ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao Alterar:" + ErroSql, "Erro", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexao.closeConnection(con, pstm);
         }
     }
-
     public void remover(Empresa empresa) {
-
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
-
         try {
             pstm = con.prepareCall("delete from empresa where id = ? ; ");
-
             pstm.setLong(1, empresa.getId());
-
             pstm.executeUpdate();
-
             JOptionPane.showMessageDialog(null, "Removido com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
         } catch (SQLException ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao Remover:" + ErroSql, "Erro", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexao.closeConnection(con, pstm);
         }
     }
-
     public List<Empresa> listarEmpresa() {
         List<Empresa> empresas = new ArrayList<>();
-
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
         ResultSet rs = null;
-
         try {
             pstm = con.prepareStatement("SELECT * FROM empresa ORDER BY nome ASC;");
             rs = pstm.executeQuery();
-
             while (rs.next()) {
-
                 Empresa empresa = new Empresa();
-
                 empresa.setId(rs.getLong("id"));
                 empresa.setNome(rs.getString("nome"));
                 empresa.setCidade(rs.getString("cidade"));
@@ -119,17 +86,13 @@ public class EmpresaDao {
                 empresa.setCNPJ(rs.getString("cnpj"));
                 empresa.setCelular(rs.getString("celular"));
                 empresa.setObservacao(rs.getString("observacao"));
-
                 empresas.add(empresa);
             }
-
         } catch (SQLException ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao listar dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexao.closeConnection(con, pstm, rs);
         }
-
         return empresas;
     }
-
 }

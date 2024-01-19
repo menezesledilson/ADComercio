@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package financeiro.DAO;
 
 import financeiro.conexao.Conexao;
@@ -14,20 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-
-/**
- *
- * @author Ledilson
- */
 public class CompraBDao {
-
-    
 
     public void adcionar(CompraBobina compraBobina) {
         //Criar a conexao com banco
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
-
         try {
             pstm = con.prepareStatement("INSERT INTO pedidocomprabobina (quantidade,descricao,valorunitario,pesopapel,totalpedido) VALUES (?,?,?,?,?);");
             pstm.setInt(1, compraBobina.getQuantPedido()); // Substitua 'getQuantidade()' pelo método correto que retorna a quantidade desejada.
@@ -35,18 +22,14 @@ public class CompraBDao {
             pstm.setDouble(3, compraBobina.getValorUnitarioPedido());
             pstm.setDouble(4, compraBobina.getPesoPapelPedido());
             pstm.setDouble(5, compraBobina.getTotalGeralPedido());
-            //pstm.setDouble(6, compraBobina.getTotalFinalBo());
             pstm.execute();
-
             JOptionPane.showMessageDialog(null, "Adicionado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao adicionar no banco.", "Erro", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexao.closeConnection(con, pstm);
         }
-
     }
-
     public void alterar(CompraBobina compraBobina) {
         //Criar a conexao com banco
        /* Connection con = Conexao.getConnection();
@@ -76,12 +59,10 @@ public class CompraBDao {
          Conexao.closeConnection(con, pstm);
          }*/
     }
-
     public void remover(CompraBobina compraBobina) {
         //Criar a conexao com banco
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
-
         /*   try {
          pstm = con.prepareStatement("DELETE FROM pedidocomprabobina WHERE id = ?;");
 
