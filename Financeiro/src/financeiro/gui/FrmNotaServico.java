@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package financeiro.gui;
-
 import financeiro.DAO.NotaServicoDao;
 import financeiro.conexao.Conexao;
 import financeiro.model.NotaServicoFinal;
@@ -23,15 +17,8 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
-/**
- *
- * @author Ledilson
- */
 public class FrmNotaServico extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form FrmNotaServico
-     */
     public FrmNotaServico() {
         initComponents();
         CarregarId();
@@ -39,9 +26,7 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         dasabilitarCampos();
         DesativarBotao();
         bgNovo.setEnabled(false);
-
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -285,11 +270,8 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bgHabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgHabilitarActionPerformed
-
         bgNovo.setEnabled(true);
-
     }//GEN-LAST:event_bgHabilitarActionPerformed
-
     private void bgGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgGravarActionPerformed
         //Verificar se os campos estão vazios 
         if (txtPrestador.getText().isEmpty()
@@ -303,15 +285,11 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
                 || txtImposto.getText().isEmpty()
                 || txtComissao.getText().isEmpty()
                 || txtMontanteDevido.getText().isEmpty()) {
-
             //exibir aviso para inserir todos os dados
             JOptionPane.showMessageDialog(null, "Por favor, insira todos os dados antes de prosseguir.", "Aviso", JOptionPane.WARNING_MESSAGE);
         } else {
-            // Se todos os campos estiverem preenchidos, continuar com a ação
-
             NotaServicoFinal h = new NotaServicoFinal();
             NotaServicoDao dao = new NotaServicoDao();
-
             h.setPrestador(txtPrestador.getText());
             h.setTomador(txtTomador.getText());
             h.setDescricao(txtDescricao.getText());
@@ -323,36 +301,27 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
             h.setImpostoProduto(Double.parseDouble(txtImposto.getText()));
             h.setComissaoProduto(Double.parseDouble(txtComissao.getText()));
             h.setApagarProduto(Double.parseDouble(txtMontanteDevido.getText()));
-
-            // Adicionando o objeto ao banco de dados
             dao.adicionar(h);
             CarregarId();
             // Exibir mensagem de sucesso
             JOptionPane.showMessageDialog(null, "Nota de serviço adicionado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
             bgNovo.setEnabled(false);
             bgEmitir.setEnabled(true);
             dasabilitarCampos();
         }
     }//GEN-LAST:event_bgGravarActionPerformed
-
     private void bgEmitirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgEmitirActionPerformed
         Connection con = Conexao.getConnection();
         try {
-            String caminhoRelatorio = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\RelatorioNotaServico\\RelatorioNotaServico.jasper";
-
-            // Adicione os nomes do prestador e tomador como parâmetros
+           String caminhoRelatorio = "C:\\Users\\Ledilson\\Documents\\NetBeansProjects\\Financeiro\\src\\RelatorioNotaServico\\RelatorioNotaServico.jasper";
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("nomePrestador", txtPrestador.getText());
             parametros.put("nomeTomador", txtTomador.getText());
-
             JasperPrint jasperPrint = JasperFillManager.fillReport(caminhoRelatorio, parametros, con);
             JasperViewer viewer = new JasperViewer(jasperPrint, false);
             viewer.setVisible(true);
-
         } catch (JRException ex) {
-            // Exiba a mensagem de erro usando JOptionPane
-            JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         } finally {
             // Certifique-se de fechar a conexão
             if (con != null) {
@@ -362,14 +331,11 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
                     e.printStackTrace();
                 }
             }
-
         }
         dasabilitarCampos();
         bgGravar.setEnabled(false);
         bgHabilitar.setEnabled(true);
-
     }//GEN-LAST:event_bgEmitirActionPerformed
-
     private void bgNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgNovoActionPerformed
         bgGravar.setEnabled(true);
         bgHabilitar.setEnabled(false);
@@ -380,26 +346,21 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
-
         try {
             con = Conexao.getConnection();
-
             // Execute a consulta SQL para obter o ID mais recente
             pstm = con.prepareStatement("SELECT MAX(id) AS max_id FROM notaservico;");
             rs = pstm.executeQuery();
-
             if (rs.next()) {
                 // Obtenha o ID mais recente da consulta
                 int id = rs.getInt("max_id");
-
                 // Exiba o ID no seu Label (substitua "seuLabel" pelo nome real do seu Label)
                 lblId.setText("ID: " + id);
             }
         } catch (SQLException ex) {
             Logger.getLogger(FrmNotaServico.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            // Certifique-se de fechar os recursos (ResultSet, PreparedStatement, Connection)
-            try {
+           try {
                 if (rs != null) {
                     rs.close();
                 }
@@ -410,12 +371,10 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
                     con.close();
                 }
             } catch (SQLException e) {
-                // Lidar com erros de fechamento, se necessário
                 e.printStackTrace();
             }
         }
     }
-
     public void LimparCampos() {
         txtPrestador.setText("");
         txtComissao.setText("");
@@ -429,7 +388,6 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         txtPreco.setText("");
         txtQuant.setText("");
     }
-
     public void habilitarCampos() {
         txtPrestador.setEnabled(true);
         txtComissao.setEnabled(true);
@@ -443,8 +401,7 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         txtPreco.setEnabled(true);
         txtQuant.setEnabled(true);
     }
-
-    public void dasabilitarCampos() {
+    private void dasabilitarCampos() {
         txtPrestador.setEnabled(false);
         txtComissao.setEnabled(false);
         txtDescricao.setEnabled(false);
@@ -457,7 +414,6 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         txtPreco.setEnabled(false);
         txtQuant.setEnabled(false);
     }
-
     private void CentralizarJTextFields() {
         txtPrestador.setHorizontalAlignment(SwingConstants.CENTER);
         txtComissao.setHorizontalAlignment(SwingConstants.CENTER);
@@ -471,18 +427,14 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         txtPreco.setHorizontalAlignment(SwingConstants.CENTER);
         txtQuant.setHorizontalAlignment(SwingConstants.CENTER);
     }
-
     public void HabilitarBotao() {
         bgEmitir.setEnabled(true);
         bgGravar.setEnabled(true);
     }
-
     public void DesativarBotao() {
         bgEmitir.setEnabled(false);
         bgGravar.setEnabled(false);
     }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bgEmitir;
     private javax.swing.JButton bgGravar;

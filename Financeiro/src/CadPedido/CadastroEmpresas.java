@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+ 
 package CadPedido;
 
 import financeiro.DAO.EmpresaDao;
@@ -23,17 +19,13 @@ import javax.swing.table.DefaultTableModel;
  * @author Ledilson
  */
 public class CadastroEmpresas extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form CadastroEmpresas
-     */
+  
     public CadastroEmpresas() {
         initComponents();
         carregaTabela();
         desativaCampos();
         CentralizarCampos();
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -278,11 +270,10 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
 
         // Adicionar a nova bobina no banco de dados
         dao.adicionar(e);
-
         // Atualizar a tabela
         carregaTabela();
         // Limpar os campos de texto
-       limparCampos();
+        limparCampos();
 
     }//GEN-LAST:event_btGravarActionPerformed
 
@@ -322,13 +313,8 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
             case 0:
                 String descricacaoUf = cbxUf.getSelectedItem().toString();
                 a.setUF(descricacaoUf);
-
                 a.setNome(txtCliente.getText());
-
                 a.setCidade(txtCidade.getText());
-                String descricaoUf = cbxUf.getSelectedItem().toString();
-                a.setUF(descricaoUf);
-
                 a.setCNPJ(txtCnpj.getText());
                 a.setCelular(txtCel.getText());
                 a.setObservacao(txtObs.getText());
@@ -344,7 +330,6 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
                         "AVISO", JOptionPane.INFORMATION_MESSAGE);
                 break;
         }
-
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void tbCadEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCadEmpresaMouseClicked
@@ -355,15 +340,12 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         a = dao.listarEmpresa().get(index);
 
         txtCliente.setText(a.getNome());
-
         String descricaoUf = cbxUf.getSelectedItem().toString();
         a.setUF(descricaoUf);
-
         txtCidade.setText(a.getCidade());
         txtCnpj.setText(a.getCNPJ());
         txtCel.setText(a.getCelular());
         txtObs.setText(a.getObservacao());
-
         btGravar.setEnabled(false);
         // btAlterar.setEnabled(true);
         btExcluir.setEnabled(true);
@@ -377,7 +359,6 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
 
         int index = tbCadEmpresa.getSelectedRow();
         a = dao.listarEmpresa().get(index);
-
         switch (JOptionPane.showConfirmDialog(null, "Deseja excluir o Produto ? \n "
                 + "\n Empresa:  " + a.getNome()
                 + "\n Cidade: " + a.getCidade()
@@ -386,7 +367,6 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
                 + "\n Cel: " + a.getCelular()
                 + "\n Obs: " + a.getObservacao(),
                 "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
-
             case 0:
                 dao.remover(a);
                 carregaTabela();
@@ -397,16 +377,12 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
             case 1:
                 JOptionPane.showMessageDialog(null, "Nehuma exclusão foi feita.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
                 break;
-
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
     public void carregaTabela() {
-
         DefaultTableModel modelo = (DefaultTableModel) tbCadEmpresa.getModel();
-
         modelo.setNumRows(0);
-
         //Defini o tamanho da tabela
         tbCadEmpresa.getColumnModel().getColumn(0).setPreferredWidth(100);
         tbCadEmpresa.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -425,33 +401,31 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
                     rs.getString("uf"),
                     rs.getString("cnpj"),
                     rs.getString("Celular")
-
                 });
             }
             Conexao.closeConnection(con, pstm, rs);
-
         } catch (Exception ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void limparCampos() {
-
         txtCliente.setText("");
         txtCnpj.setText("");
         txtCel.setText("");
         txtObs.setText("");
         txtCidade.setText("");
-
     }
-
+    private void ativaBotoes() {
+        btGravar.setEnabled(true);
+        //btAlterar.setEnabled(true);
+        btExcluir.setEnabled(true);
+    }
     private void desativaBotoes() {
         btGravar.setEnabled(false);
         //  btAlterar.setEnabled(false);
         btExcluir.setEnabled(false);
-
     }
-
     private void desativaCampos() {
         txtCliente.setEnabled(false);
         txtCnpj.setEnabled(false);
@@ -460,7 +434,6 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         cbxUf.setEnabled(false);
         txtCidade.setEnabled(false);
     }
-
     private void ativaCampos() {
         txtCliente.setEnabled(true);
         txtCnpj.setEnabled(true);
@@ -469,13 +442,6 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         cbxUf.setEnabled(true);
         txtCidade.setEnabled(true);
     }
-
-    private void ativaBotoes() {
-        btGravar.setEnabled(true);
-        //btAlterar.setEnabled(true);
-        btExcluir.setEnabled(true);
-    }
-
     private void CentralizarCampos() {
         txtCliente.setHorizontalAlignment(SwingConstants.CENTER);
         txtCnpj.setHorizontalAlignment(SwingConstants.CENTER);
@@ -484,7 +450,6 @@ public class CadastroEmpresas extends javax.swing.JInternalFrame {
         txtObs.setHorizontalAlignment(SwingConstants.CENTER);
         txtCidade.setHorizontalAlignment(SwingConstants.CENTER);
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btExcluir;
