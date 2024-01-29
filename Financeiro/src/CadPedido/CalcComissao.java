@@ -14,24 +14,18 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Ledilson
- */
 public class CalcComissao extends javax.swing.JInternalFrame {
 
     //Conversão de data
     private final SimpleDateFormat sdfPedido = new SimpleDateFormat("dd-MM-yyyy");
     private final SimpleDateFormat sdfEntrega = new SimpleDateFormat("dd-MM-yyyy");
 
-    /**
-     * Creates new form CalcComissao
-     */
     public CalcComissao() {
         initComponents();
         cbListCliente();
@@ -64,6 +58,7 @@ public class CalcComissao extends javax.swing.JInternalFrame {
         btExcluir = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         lbTotalComissao = new javax.swing.JLabel();
+        lbTotalComiss = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Comissão");
@@ -82,12 +77,18 @@ public class CalcComissao extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Cliente.:");
 
+        txtFabrica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFabricaActionPerformed(evt);
+            }
+        });
+
         tbComissao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cliente", "Empresa", "Data Pedido", "Data Entrega", "Preço Nota Cheia", "Preço Pag", "Comissão"
+                "Data Hora", "Cliente", "Empresa", "Data Pedido", "Data Entrega", "Preço Nota", "Preço Pag", "Comissão"
             }
         ));
         tbComissao.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -148,6 +149,9 @@ public class CalcComissao extends javax.swing.JInternalFrame {
         lbTotalComissao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbTotalComissao.setText("0.00");
 
+        lbTotalComiss.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbTotalComiss.setText("0.00");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -157,38 +161,34 @@ public class CalcComissao extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 982, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtPedido))
+                                        .addComponent(txtPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtCheia, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtCheia, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel5)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtEntrega))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel2)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtFabrica, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(19, 19, 19)
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtFabrica, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
                                         .addComponent(jLabel7)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lbTotalComissao))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(76, 76, 76)
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(lbTotalComissao)
+                                        .addGap(36, 36, 36)
+                                        .addComponent(lbTotalComiss)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -196,15 +196,19 @@ public class CalcComissao extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(btNovo)
                                 .addGap(18, 18, 18)
                                 .addComponent(btGravar)
                                 .addGap(18, 18, 18)
-                                .addComponent(btAlterar)))
+                                .addComponent(btAlterar)
+                                .addGap(31, 31, 31)
+                                .addComponent(btExcluir)))
                         .addGap(18, 18, 18)
-                        .addComponent(btExcluir)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -235,9 +239,10 @@ public class CalcComissao extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtFabrica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(lbTotalComissao))
+                    .addComponent(lbTotalComissao)
+                    .addComponent(lbTotalComiss))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -462,6 +467,10 @@ public class CalcComissao extends javax.swing.JInternalFrame {
         btExcluir.setEnabled(true);
         ativaCampos();
     }//GEN-LAST:event_tbComissaoMouseClicked
+
+    private void txtFabricaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFabricaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFabricaActionPerformed
     public void limparCampos() {
         txtEmpresa.setText("");
         txtPedido.setText("");
@@ -498,6 +507,7 @@ public class CalcComissao extends javax.swing.JInternalFrame {
         btGravar.setEnabled(true);
         btExcluir.setEnabled(true);
     }
+
     private void CentralizarCampos() {
         txtEmpresa.setHorizontalAlignment(SwingConstants.CENTER);
         txtPedido.setHorizontalAlignment(SwingConstants.CENTER);
@@ -505,16 +515,22 @@ public class CalcComissao extends javax.swing.JInternalFrame {
         txtEntrega.setHorizontalAlignment(SwingConstants.CENTER);
         txtFabrica.setHorizontalAlignment(SwingConstants.CENTER);
     }
+
     private void tamanhoTabela() {
         //Defini o tamanho da tabela
-        tbComissao.getColumnModel().getColumn(0).setPreferredWidth(150);
-        tbComissao.getColumnModel().getColumn(1).setPreferredWidth(100);
-        tbComissao.getColumnModel().getColumn(2).setPreferredWidth(90);
+        tbComissao.getColumnModel().getColumn(0).setPreferredWidth(130);
+        tbComissao.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tbComissao.getColumnModel().getColumn(2).setPreferredWidth(100);
         tbComissao.getColumnModel().getColumn(3).setPreferredWidth(90);
         tbComissao.getColumnModel().getColumn(4).setPreferredWidth(90);
         tbComissao.getColumnModel().getColumn(5).setPreferredWidth(90);
+        tbComissao.getColumnModel().getColumn(6).setPreferredWidth(90);
 
     }
+
+    private int mesAnterior = -1;
+    private int anoAnterior = -1;
+
     private void carregaTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tbComissao.getModel();
         modelo.setNumRows(0);
@@ -525,18 +541,55 @@ public class CalcComissao extends javax.swing.JInternalFrame {
 
         // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
         tbComissao.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        tbComissao.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        // tbComissao.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         tbComissao.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         tbComissao.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         tbComissao.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         tbComissao.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+        tbComissao.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
 
         tamanhoTabela();
+
         try {
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
             ResultSet rs;
-            pstm = con.prepareStatement("SELECT id, nome, empresa, datapedido, dataentrega, precocheia, precofabrica, valorcomissao from comissao ORDER BY  id DESC;");
+            String sqlSomaTotalComissao = "SELECT SUM(valorcomissao) AS totalComissao FROM comissao WHERE EXTRACT(MONTH FROM CAST(datahora AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(datahora AS DATE)) = ?";
+
+            Calendar cal = Calendar.getInstance();
+            int mesAtual = cal.get(Calendar.MONTH) + 1;
+            int anoAtual = cal.get(Calendar.YEAR);
+
+            if (mesAtual != mesAnterior || anoAtual != anoAnterior) {
+                modelo.setNumRows(0);
+                mesAnterior = mesAtual;
+                anoAnterior = anoAtual;
+            }
+            try (PreparedStatement statementValor = con.prepareStatement(sqlSomaTotalComissao)) {
+                statementValor.setInt(1, mesAtual);
+                statementValor.setInt(2, anoAtual);
+
+                try (ResultSet resultadoValor = statementValor.executeQuery()) {
+                    if (resultadoValor.next()) {
+                        Double totalComissao = resultadoValor.getDouble("totalComissao");
+
+                        DecimalFormat df = new DecimalFormat("Soma Total de Comissão R$: #,##0.00");
+
+                        df.setMaximumFractionDigits(2);
+                        df.setMinimumFractionDigits(2);
+                        String formattedTotal = df.format(totalComissao);
+
+                        // lbTotalComiss.setText("Soma Total de Comissão R$:   " + NumberFormat.getCurrencyInstance().format(totalComissao));
+                        lbTotalComiss.setText(String.valueOf(formattedTotal));
+                    } else {
+                        lbTotalComiss.setText("0.00");
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            pstm = con.prepareStatement("SELECT * from comissao ORDER BY  nome ASC;");
+
             rs = pstm.executeQuery();
 
             //Formatar o valor no campo jtable
@@ -546,6 +599,7 @@ public class CalcComissao extends javax.swing.JInternalFrame {
 
             while (rs.next()) {
                 modelo.addRow(new Object[]{
+                    rs.getString("datahora"),
                     rs.getString("nome"),
                     rs.getString("empresa"),
                     rs.getDate("datapedido"),
@@ -556,10 +610,10 @@ public class CalcComissao extends javax.swing.JInternalFrame {
             }
             Conexao.closeConnection(con, pstm, rs);
         } catch (Exception ErroSql) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btExcluir;
@@ -575,6 +629,7 @@ public class CalcComissao extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbTotalComiss;
     private javax.swing.JLabel lbTotalComissao;
     private javax.swing.JTable tbComissao;
     private javax.swing.JTextField txtCheia;

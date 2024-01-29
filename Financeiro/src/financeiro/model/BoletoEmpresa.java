@@ -5,7 +5,6 @@
  */
 package financeiro.model;
 
-
 import java.math.BigDecimal;
 import java.sql.Date;
 import static org.postgresql.util.ByteConverter.numeric;
@@ -20,11 +19,28 @@ public class BoletoEmpresa {
     private Long id;
     private String boletoClienteReceber;
     private Date dataClienteReceber;
-    private Double  receberClienteValor;
-
+    private Double receberClienteValor;
     private String boletoEmpresaPagar;
     private Date dataEmpresaPagar;
-    private Double  PagarEmpresaValor;
+    private Double PagarEmpresaValor;
+    private String Observacao;
+    private String Status;
+
+    public String getObservacao() {
+        return Observacao;
+    }
+
+    public void setObservacao(String Observacao) {
+        this.Observacao = Observacao;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String Status) {
+        this.Status = Status;
+    }
 
     public Long getId() {
         return id;
@@ -82,6 +98,4 @@ public class BoletoEmpresa {
         this.PagarEmpresaValor = PagarEmpresaValor;
     }
 
-   
-  
 }

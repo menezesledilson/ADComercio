@@ -65,20 +65,20 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
         jSeparator2 = new javax.swing.JSeparator();
         txtDataClienteReceber = new javax.swing.JFormattedTextField();
         txtDataEmpresaPagar = new javax.swing.JFormattedTextField();
+        jLabel9 = new javax.swing.JLabel();
+        cbxStatus = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        txtObs = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Cadastro de Pagamentos e Recebimentos");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Data.: ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(254, 44, 40, 20));
 
         jLabel4.setText("Cliente.:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 44, -1, 20));
-        jPanel1.add(txtClienteReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 190, -1));
 
         btNovo.setText("Novo");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +86,6 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
                 btNovoActionPerformed(evt);
             }
         });
-        jPanel1.add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 80, -1));
 
         btGravar.setText("Gravar");
         btGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +93,6 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
                 btGravarActionPerformed(evt);
             }
         });
-        jPanel1.add(btGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 80, -1));
 
         btAlterar.setText("Alterar");
         btAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -102,7 +100,6 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
                 btAlterarActionPerformed(evt);
             }
         });
-        jPanel1.add(btAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, 80, -1));
 
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -110,14 +107,13 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
                 btExcluirActionPerformed(evt);
             }
         });
-        jPanel1.add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 70, 80, -1));
 
         tbBoletoClienteEmpresa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cliente a Receber", "Data a Receber", "Valor a Receber", "Empresa a Pagar", "Data a Pagar", "Valor a Pagar"
+                "Cliente a Receber", "Data a Receber", "Valor a Receber", "Empresa a Pagar", "Data a Pagar", "Valor a Pagar", "Status", "Obs."
             }
         ));
         tbBoletoClienteEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -127,19 +123,12 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tbBoletoClienteEmpresa);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 154, 750, 330));
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("## Pagamento a Receber ##");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
-        jPanel1.add(txtEmpresaPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 110, 170, -1));
 
         jLabel5.setText("Data.: ");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 114, 40, 20));
 
         jLabel6.setText("R$.:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, 30, 30));
-        jPanel1.add(txtValorEmpresaPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 60, -1));
 
         txtValorClienteReceber.setText(" ");
         txtValorClienteReceber.addActionListener(new java.awt.event.ActionListener() {
@@ -147,45 +136,164 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
                 txtValorClienteReceberActionPerformed(evt);
             }
         });
-        jPanel1.add(txtValorClienteReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 60, -1));
 
         jLabel7.setText("Empresa .:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 114, 70, 20));
 
         jLabel8.setText("R$.:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 114, 30, 20));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("## Pagamento a Pagar ##");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 750, 10));
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, 10, 140));
 
         try {
             txtDataClienteReceber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jPanel1.add(txtDataClienteReceber, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 80, -1));
 
         try {
             txtDataEmpresaPagar.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jPanel1.add(txtDataEmpresaPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 80, -1));
+
+        jLabel9.setText("Status.:");
+
+        cbxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Aguardando Pagamento", "Atrasado", "Cancelado", "Concluído", "Devolvido", "Em Andamento", "Em Análise", "Em Espera", "Em Processo", "Pendente", "Recusado" }));
+
+        jLabel10.setText("Obs.:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtEmpresaPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                                .addComponent(jLabel5)
+                                .addGap(2, 2, 2)
+                                .addComponent(txtDataEmpresaPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtDataClienteReceber, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel3))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtClienteReceber, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtValorEmpresaPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtValorClienteReceber, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btNovo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btExcluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btGravar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1))))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel1)
+                        .addGap(5, 5, 5)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtClienteReceber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDataClienteReceber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValorClienteReceber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtEmpresaPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtDataEmpresaPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtValorEmpresaPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)
+                            .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(btNovo))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(btGravar)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btExcluir)
+                            .addComponent(btAlterar))))
+                .addGap(0, 0, 0)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -207,6 +315,9 @@ private void CentralizarJTextFields() {
         tbBoletoClienteEmpresa.getColumnModel().getColumn(3).setPreferredWidth(90);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(4).setPreferredWidth(50);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(5).setPreferredWidth(50);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(6).setPreferredWidth(50);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(7).setPreferredWidth(50);
+
     }
 
     private void carregaTabela() {
@@ -223,6 +334,9 @@ private void CentralizarJTextFields() {
         tbBoletoClienteEmpresa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         tbBoletoClienteEmpresa.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
+        tbBoletoClienteEmpresa.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
+
         try {
 
             Connection con = Conexao.getConnection();
@@ -240,7 +354,9 @@ private void CentralizarJTextFields() {
                     currencyReceber.format(rs.getDouble("valorboletoreceber")),
                     rs.getString("nomeboletoapagar"),
                     rs.getString("databoletoapagar"),
-                    currencyApagar.format(rs.getDouble("valorboletoapagar")),});
+                    currencyApagar.format(rs.getDouble("valorboletoapagar")),
+                    rs.getString("statuspago"),
+                    rs.getString("observacao"),});
             }
             Conexao.closeConnection(con, pstm, rs);
         } catch (Exception ErroSql) {
@@ -255,6 +371,7 @@ private void CentralizarJTextFields() {
         txtDataEmpresaPagar.setText("");
         txtValorClienteReceber.setText("");
         txtValorEmpresaPagar.setText("");
+        txtObs.setText("");
         btGravar.setEnabled(false);
         btAlterar.setEnabled(true);
         btExcluir.setEnabled(true);
@@ -273,6 +390,8 @@ private void CentralizarJTextFields() {
         txtDataEmpresaPagar.setEnabled(false);
         txtValorClienteReceber.setEnabled(false);
         txtValorEmpresaPagar.setEnabled(false);
+        txtObs.setEnabled(false);
+        cbxStatus.setEnabled(false);
     }
 
     private void ativaBotoes() {
@@ -288,6 +407,8 @@ private void CentralizarJTextFields() {
         txtDataEmpresaPagar.setEnabled(true);
         txtValorClienteReceber.setEnabled(true);
         txtValorEmpresaPagar.setEnabled(true);
+        txtObs.setEnabled(true);
+        cbxStatus.setEnabled(true);
     }
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         limparTexto();
@@ -299,16 +420,22 @@ private void CentralizarJTextFields() {
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
         if (txtClienteReceber.getText().isEmpty() || txtEmpresaPagar.getText().isEmpty()
-                || txtDataClienteReceber.getText().isEmpty() || txtDataEmpresaPagar.getText().isEmpty()
+                || txtDataClienteReceber.getText().isEmpty() || cbxStatus.getSelectedItem() == null || txtDataEmpresaPagar.getText().isEmpty()
                 || txtValorClienteReceber.getText().isEmpty() || txtValorEmpresaPagar.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
         BoletoEmpresa e = new BoletoEmpresa();
         BoletoEmpresaDao dao = new BoletoEmpresaDao();
+
         // Parte do pagamento do cliente
         e.setBoletoClienteReceber(txtClienteReceber.getText());
         e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
+        e.setObservacao(txtObs.getText());
+
+        String statusSelecionada = cbxStatus.getSelectedItem().toString();
+        e.setStatus(statusSelecionada);
+
         // Entrada da Data cliente
         try {
             java.util.Date dataFormatada = sdfC.parse(txtDataClienteReceber.getText());
@@ -363,6 +490,8 @@ private void CentralizarJTextFields() {
                 + "\n Empresa: " + e.getBoletoEmpresaPagar()
                 + "\n Data à Pagar: " + e.getDataEmpresaPagar()
                 + "\n Valor à Pagar R$: " + e.getPagarEmpresaValor()
+                + "\n Status: " + e.getStatus()
+                + "\n Obs: " + e.getObservacao()
                 + "\n Será alterado"
                 + "\n Cliente: " + txtClienteReceber.getText()
                 + "\n Data à Receber: " + txtDataEmpresaPagar.getText()
@@ -370,13 +499,21 @@ private void CentralizarJTextFields() {
                 + "\n Empresa: " + txtEmpresaPagar.getText()
                 + "\n Data à Receber " + txtDataEmpresaPagar.getText()
                 + "\n Valor à Pagar R$: " + txtValorEmpresaPagar.getText()
+                + "\n Status" + cbxStatus.getSelectedItem()
+                + "\n Obs: " + txtObs.getText()
                 + "\n Deseja realmente fazer alteração?",
                 "Alteração de dados.  ", JOptionPane.YES_NO_OPTION)) {
             case 0:
                 e.setBoletoClienteReceber(txtClienteReceber.getText());
                 e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
-                e.setReceberClienteValor(Double.parseDouble(txtValorEmpresaPagar.getText()));
+
+                e.setReceberClienteValor(Double.parseDouble(txtValorClienteReceber.getText()));
                 e.setPagarEmpresaValor(Double.parseDouble(txtValorEmpresaPagar.getText()));
+
+                String descricacaoStatus = cbxStatus.getSelectedItem().toString();
+                e.setStatus(descricacaoStatus);
+
+                e.setObservacao(txtObs.getText());
                 // Entrada da Data cliente
                 try {
                     java.util.Date dataFormatada = sdfC.parse(txtDataClienteReceber.getText());
@@ -412,6 +549,9 @@ private void CentralizarJTextFields() {
         e = dao.listarBoletoEmpresa().get(index);
         e.setBoletoClienteReceber(txtClienteReceber.getText());
         e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
+        String descricaoStatus = cbxStatus.getSelectedItem().toString();
+        e.setStatus(descricaoStatus);
+        e.setObservacao(txtObs.getText());
         // Entrada da Data cliente
         try {
             java.util.Date dataFormatada = sdfC.parse(txtDataClienteReceber.getText());
@@ -447,6 +587,8 @@ private void CentralizarJTextFields() {
                 + "\n Empresa: " + e.getBoletoEmpresaPagar()
                 + "\n Data: " + e.getDataEmpresaPagar()
                 + "\n R$: " + e.getPagarEmpresaValor()
+                + "\n Status: " + e.getStatus()
+                + "\n Obs: " + e.getObservacao()
                 + " ", "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
             case 0:
                 dao.remover(e);
@@ -471,17 +613,25 @@ private void CentralizarJTextFields() {
         txtValorEmpresaPagar.setText(Double.toString(e.getPagarEmpresaValor()));
         txtClienteReceber.setText(e.getBoletoClienteReceber());
         txtEmpresaPagar.setText(e.getBoletoEmpresaPagar());
+        String descricaoStatus = cbxStatus.getSelectedItem().toString();
+        e.setStatus(descricaoStatus);
+        txtObs.setText(e.getObservacao());
+
         /*  FORMATANDO A DATA */
         SimpleDateFormat sdfC = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat sdfE = new SimpleDateFormat("dd-MM-yyyy");
         txtDataClienteReceber.setText(sdfC.format(e.getDataClienteReceber()));
         txtDataEmpresaPagar.setText(sdfE.format(e.getDataEmpresaPagar()));
+
         txtClienteReceber.setEnabled(true);
         txtEmpresaPagar.setEnabled(true);
         txtDataClienteReceber.setEnabled(true);
         txtDataEmpresaPagar.setEnabled(true);
         txtValorClienteReceber.setEnabled(true);
         txtValorEmpresaPagar.setEnabled(true);
+        cbxStatus.setEnabled(true);
+        txtObs.setEnabled(true);
+
         btGravar.setEnabled(false);
         btAlterar.setEnabled(true);
         btExcluir.setEnabled(true);
@@ -497,7 +647,9 @@ private void CentralizarJTextFields() {
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btGravar;
     private javax.swing.JButton btNovo;
+    private javax.swing.JComboBox<String> cbxStatus;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -505,6 +657,7 @@ private void CentralizarJTextFields() {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -514,6 +667,7 @@ private void CentralizarJTextFields() {
     private javax.swing.JFormattedTextField txtDataClienteReceber;
     private javax.swing.JFormattedTextField txtDataEmpresaPagar;
     private javax.swing.JTextField txtEmpresaPagar;
+    private javax.swing.JTextField txtObs;
     private javax.swing.JTextField txtValorClienteReceber;
     private javax.swing.JTextField txtValorEmpresaPagar;
     // End of variables declaration//GEN-END:variables

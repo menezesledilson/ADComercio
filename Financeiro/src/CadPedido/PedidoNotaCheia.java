@@ -425,6 +425,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
         try {
             String descricacaoCliente = cbxCliente.getSelectedItem().toString();
             a.setNomeEmpresa(descricacaoCliente);
+            
             String quantidadeTexto = txtQuant.getText().trim(); // Remova espaços em branco
             if (!quantidadeTexto.isEmpty()) {
                 int quantidade = Integer.parseInt(quantidadeTexto);
@@ -458,8 +459,10 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                     lblValorUnitarioIpi.setText(valorFormatadoImposto);
                     // Salva no banco de dados
                     a.setValorIpi(Double.parseDouble(valorFormatadoImposto));
+                    
                     double valorPesoCIpi = a.getValorIpi() * a.getPesoPapel();
                     a.setTotalCipi(valorPesoCIpi);
+                    
                     AcumuloPesoImposto += valorPesoCIpi;
                     //Formata o valor para exibir apenas duas casas decimais
                     DecimalFormat dh = new DecimalFormat("#.##");

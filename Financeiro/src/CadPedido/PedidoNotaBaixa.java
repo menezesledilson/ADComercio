@@ -405,14 +405,17 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         }
         NotaBaixa a = new NotaBaixa();
         NotaBaixaDao dao = new NotaBaixaDao();
-       
+
         try {
             String descricacaoCliente = cbxCliente.getSelectedItem().toString();
             a.setNomeEmpresa(descricacaoCliente);
+           
             String quantidadeTexto = txtQuant.getText().trim(); // Remova espaços em branco
+            
             if (!quantidadeTexto.isEmpty()) {
                 int quantidade = Integer.parseInt(quantidadeTexto);
                 a.setQuantidade(quantidade);
+                
                 if (cbxProduto.getItemCount() > 0) {
                     String descricaoSelecionada = cbxProduto.getSelectedItem().toString();
                     a.setNomeProduto(descricaoSelecionada);
@@ -500,7 +503,7 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Por favor, insira valores válidos.", "Erro", JOptionPane.ERROR_MESSAGE);
-            
+
             e.printStackTrace();
         }
 
@@ -706,10 +709,6 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         txtPeso.setEnabled(false);
         txtIpi.setEnabled(false);
         txtValorUnitario.setEnabled(false);
-        lblValorUnitarioIpi.setEnabled(false);
-        lbPesoTotal.setEnabled(false);
-        lbPesoTotalIpi.setEnabled(false);
-
         txtDataPedido.setEnabled(false);
         txtDataEntrega.setEnabled(false);
     }
@@ -721,14 +720,12 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         txtPeso.setEnabled(true);
         txtIpi.setEnabled(true);
         txtValorUnitario.setEnabled(true);
-
         txtDataPedido.setEnabled(true);
         txtDataEntrega.setEnabled(true);
     }
 
     private void ativaBotoes() {
         btGravar.setEnabled(true);
-        //btAlterar.setEnabled(true);
         btExcluir.setEnabled(true);
     }
 
@@ -738,59 +735,46 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
         txtIpi.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
-    private void carregaTabela() {
-        DefaultTableModel modelo = (DefaultTableModel) tbNotaBaixa.getModel();
-        modelo.setNumRows(0);
-
-        // Criar um renderizador centralizado
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-
-        // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
-        tbNotaBaixa.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-
-        tbNotaBaixa.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        tbNotaBaixa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-        //tbNotaBaixa.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
-        tbNotaBaixa.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
-        // tbNotaBaixa.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
-
-        tbNotaBaixa.getColumnModel().getColumn(8).setCellRenderer(centerRenderer);
-        tbNotaBaixa.getColumnModel().getColumn(9).setCellRenderer(centerRenderer);
-
+    private void tamanhoTabela() {
         //Defini o tamanho da tabela
         tbNotaBaixa.getColumnModel().getColumn(0).setPreferredWidth(130);
         tbNotaBaixa.getColumnModel().getColumn(1).setPreferredWidth(150);
-        /* tbNotaBaixa.getColumnModel().getColumn(2).setPreferredWidth(70);
         tbNotaBaixa.getColumnModel().getColumn(3).setPreferredWidth(70);
-        
         tbNotaBaixa.getColumnModel().getColumn(4).setPreferredWidth(80);
         tbNotaBaixa.getColumnModel().getColumn(5).setPreferredWidth(60);
         tbNotaBaixa.getColumnModel().getColumn(6).setPreferredWidth(25);
         tbNotaBaixa.getColumnModel().getColumn(7).setPreferredWidth(150);
         tbNotaBaixa.getColumnModel().getColumn(8).setPreferredWidth(80);
-        tbNotaBaixa.getColumnModel().getColumn(9).setPreferredWidth(60);**/
-
+        tbNotaBaixa.getColumnModel().getColumn(9).setPreferredWidth(60);
+    }
+    private void carregaTabela() {
+        DefaultTableModel modelo = (DefaultTableModel) tbNotaBaixa.getModel();
+        modelo.setNumRows(0);
+        // Criar um renderizador centralizado
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        tamanhoTabela();
+        // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
+        tbNotaBaixa.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tbNotaBaixa.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        tbNotaBaixa.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        tbNotaBaixa.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+        tbNotaBaixa.getColumnModel().getColumn(8).setCellRenderer(centerRenderer);
+        tbNotaBaixa.getColumnModel().getColumn(9).setCellRenderer(centerRenderer);
         try {
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
             ResultSet rs;
-
             pstm = con.prepareStatement("SELECT * from notabaixa order by nomeempresa ASC ;");
-
-            rs = pstm.executeQuery();
-
+           rs = pstm.executeQuery();
             //Formatar o valor no campo jtable
             NumberFormat currencyPesoPapel = NumberFormat.getCurrencyInstance();
             NumberFormat currencyValorUnitario = NumberFormat.getCurrencyInstance();
-
             NumberFormat currencyTotalSIpi = NumberFormat.getCurrencyInstance();
             NumberFormat currencyTotalCIpi = NumberFormat.getCurrencyInstance();
-
             NumberFormat currencyValorIpi = NumberFormat.getCurrencyInstance();
             NumberFormat currencyIpi = NumberFormat.getCurrencyInstance();
             NumberFormat currencyDiferencial = NumberFormat.getCurrencyInstance();
-
             while (rs.next()) {
                 modelo.addRow(new Object[]{
                     rs.getString("nomeempresa"),
@@ -808,13 +792,10 @@ public class PedidoNotaBaixa extends javax.swing.JInternalFrame {
                 });
             }
             Conexao.closeConnection(con, pstm, rs);
-
         } catch (Exception ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
-
         }
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btExcluir;

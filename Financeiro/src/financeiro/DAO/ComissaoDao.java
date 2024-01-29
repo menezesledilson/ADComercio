@@ -46,7 +46,7 @@ public class ComissaoDao {
     }
 
     public void alterar(ComissaoPagamento comissaoPagamento) {
-         Connection con = Conexao.getConnection();
+        Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
 
         try {
@@ -84,11 +84,10 @@ public class ComissaoDao {
 
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
-
         try {
             pstm = con.prepareCall("delete from comissao where id = ? ; ");
 
-           pstm.setLong(1, comissaoPagamento.getId());
+            pstm.setLong(1, comissaoPagamento.getId());
 
             pstm.executeUpdate();
 
@@ -100,9 +99,7 @@ public class ComissaoDao {
             Conexao.closeConnection(con, pstm);
         }
     }
-
     public List<ComissaoPagamento> listaComissao() {
-
         List<ComissaoPagamento> comissaos = new ArrayList<>();
 
         Connection con = Conexao.getConnection();
@@ -110,18 +107,16 @@ public class ComissaoDao {
         ResultSet rs = null;
 
         try {
-            pstm = con.prepareStatement("SELECT id,nome, empresa, datapedido, dataentrega, precocheia,precofabrica,valorcomissao FROM comissao ORDER BY  id ASC;");
+            //pstm = con.prepareStatement("SELECT id,nome, empresa, datapedido, dataentrega, precocheia,precofabrica,valorcomissao FROM comissao ORDER BY  id ASC;");
+            pstm = con.prepareStatement("SELECT * FROM comissao ORDER BY  nome ASC;");
             rs = pstm.executeQuery();
-
             while (rs.next()) {
 
                 ComissaoPagamento comissaoPagamento = new ComissaoPagamento();
 
                 comissaoPagamento.setId(rs.getLong("id"));
-                
-                comissaoPagamento.setNome(rs.getString("nome"));
+                comissaoPagamento.setNome(rs.getString("datahora"));
                 comissaoPagamento.setEmpresa(rs.getString("empresa"));
-
                 comissaoPagamento.setDataPedido(rs.getDate("datapedido"));
                 comissaoPagamento.setDataEntrega(rs.getDate("dataentrega"));
                 comissaoPagamento.setPrecoCheia(rs.getDouble("precocheia"));

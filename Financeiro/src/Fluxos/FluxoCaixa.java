@@ -1,11 +1,13 @@
 package Fluxos;
 
 import financeiro.conexao.Conexao;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -14,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import static mondrian.test.loader.DBLoader.decimalFormat;
+import static mondrian.test.loader.DBLoader.decimalFormat;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -175,42 +179,53 @@ public class FluxoCaixa extends javax.swing.JInternalFrame {
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
             ResultSet rs;
+
             // Obtém o mês atual
             Calendar cal = Calendar.getInstance();
             int mesAtual = cal.get(Calendar.MONTH) + 1; // Note que os meses em Java começam do zero
+
             // Inicializa os saldos
-            double saldoAtual = 0;
-            double saldoAnterior = 0;
+            BigDecimal saldoAtual = BigDecimal.ZERO;
+            BigDecimal saldoAnterior = BigDecimal.ZERO;
+
+            // Utiliza DecimalFormat para formatar os valores com duas casas decimais
+            DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+
             pstm = con.prepareStatement("SELECT datahora, descricao, entrada, saida, LAG(SUM(entrada - COALESCE(saida, 0))) OVER (ORDER BY datahora) AS saldoAnterior, SUM(entrada - COALESCE(saida, 0)) OVER (ORDER BY datahora) AS saldoAtual FROM caixa GROUP BY datahora, descricao, entrada, saida ORDER BY datahora ASC;");
             rs = pstm.executeQuery();
-            NumberFormat currencyEntrada = NumberFormat.getCurrencyInstance();
-            NumberFormat currencySaida = NumberFormat.getCurrencyInstance();
+
             while (rs.next()) {
                 Timestamp dataHora = rs.getTimestamp("datahora");
                 int mesDataHora = dataHora.toLocalDateTime().getMonthValue();
+
                 // Verifica se há uma mudança de mês
                 if (mesDataHora != mesAtual) {
                     // Zera os rótulos quando há uma mudança de mês
-                    lblSaldoAtual.setText("0");
-                    lblsaldoAnterior.setText("0");
+                    lblSaldoAtual.setText("0.00");
+                    lblsaldoAnterior.setText("0.00");
+
                     // Zera os saldos quando há uma mudança de mês
-                    saldoAtual = 0;
-                    saldoAnterior = 0;
+                    saldoAtual = BigDecimal.ZERO;
+                    saldoAnterior = BigDecimal.ZERO;
                     mesAtual = mesDataHora; // Atualiza o mês atual
                 }
+
                 modelo.addRow(new Object[]{
                     dataHora,
                     rs.getString("descricao"),
-                    currencyEntrada.format(rs.getDouble("entrada")),
-                    currencySaida.format(rs.getDouble("saida"))
+                    decimalFormat.format(rs.getBigDecimal("entrada")),
+                    decimalFormat.format(rs.getBigDecimal("saida"))
                 });
+
                 // Atualiza os saldos dentro do loop
-                saldoAtual = rs.getDouble("saldoAtual");
-                saldoAnterior = rs.getDouble("saldoAnterior");
+                saldoAtual = rs.getBigDecimal("saldoAtual");
+                saldoAnterior = rs.getBigDecimal("saldoAnterior");
             }
+
             // Atualize os rótulos fora do loop, após o processamento de todas as linhas do mês
-            lblSaldoAtual.setText(String.valueOf(saldoAtual));
-            lblsaldoAnterior.setText(String.valueOf(saldoAnterior));
+            lblSaldoAtual.setText(decimalFormat.format(saldoAtual));
+            lblsaldoAnterior.setText(decimalFormat.format(saldoAnterior));
+
             Conexao.closeConnection(con, pstm, rs);
         } catch (Exception ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);

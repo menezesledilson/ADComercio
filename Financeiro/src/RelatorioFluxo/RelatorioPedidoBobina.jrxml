@@ -18,7 +18,7 @@
 	<field name="numerochequeb" class="java.lang.String"/>
 	<field name="numerochequec" class="java.lang.String"/>
 	<field name="datahora" class="java.sql.Timestamp"/>
-	<variable name="Soma" class="java.lang.Double" resetType="Column" calculation="Sum">
+	<variable name="Soma" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{valorpedido}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>

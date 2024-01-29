@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package financeiro.gui;
 
 import CadPedido.CadastroEmpresas;
@@ -11,7 +7,7 @@ import CadPedido.PedidoNotaBaixa;
 import CadPedido.PedidoNotaCheia;
 import Fluxos.FluxoBoleto;
 import Fluxos.FluxoCaixa;
-import Fluxos.FluxoCliente;
+import Fluxos.FluxoComissao;
 import Fluxos.FluxoPagamento;
 import Fluxos.FluxoPedidoBobina;
 import Fluxos.FluxoVenda;
@@ -21,6 +17,7 @@ import financeiro.gui.Buscar.BuscarNotaServico;
 import financeiro.gui.Buscar.BuscaLivroCaixa;
 
 import financeiro.conexao.Conexao;
+import financeiro.gui.Buscar.BuscarComissao;
 import financeiro.gui.Buscar.BuscarControleVenda;
 import financeiro.gui.Buscar.BuscarEmissorCalculoNF;
 import financeiro.gui.Buscar.BuscarNotaId;
@@ -95,21 +92,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         timer.start();
     }
 
-    /*
-     if (horaAtual.equals("14:05")) {
-            SwingUtilities.invokeLater(() -> {
-                exibirAviso("Aviso", "Hora de fazer backup 21:00!");
-            });
-        }
-    
-    
-     */
-    // private static int exibirAviso(String titulo, String mensagem) {
-    //     return JOptionPane.showConfirmDialog(null, mensagem, titulo, JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-    // }
-    //  private static void exibirAviso(String titulo, String mensagem) {
-    //   JOptionPane.showMessageDialog(null, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
-    //}
+   
     private void verificarHoraAviso() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         String horaAtual = sdf.format(new Date());
@@ -234,6 +217,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem34 = new javax.swing.JMenuItem();
         jSeparator28 = new javax.swing.JPopupMenu.Separator();
         jMenuItem35 = new javax.swing.JMenuItem();
+        jSeparator13 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem41 = new javax.swing.JMenuItem();
         jSeparator33 = new javax.swing.JPopupMenu.Separator();
         jMenu4 = new javax.swing.JMenu();
         jSeparator42 = new javax.swing.JPopupMenu.Separator();
@@ -253,8 +238,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jSeparator22 = new javax.swing.JPopupMenu.Separator();
         jMenu12 = new javax.swing.JMenu();
         jSeparator34 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem36 = new javax.swing.JMenuItem();
-        jSeparator36 = new javax.swing.JPopupMenu.Separator();
         jMenuItem25 = new javax.swing.JMenuItem();
         jSeparator35 = new javax.swing.JPopupMenu.Separator();
         jMenu7 = new javax.swing.JMenu();
@@ -272,6 +255,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem20 = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
         jMenuItem24 = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem40 = new javax.swing.JMenuItem();
         jSeparator21 = new javax.swing.JPopupMenu.Separator();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -511,6 +496,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu10.add(jMenuItem35);
+        jMenu10.add(jSeparator13);
+
+        jMenuItem41.setText("Livro Comissão");
+        jMenuItem41.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem41ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem41);
         jMenu10.add(jSeparator33);
 
         jMenuBar1.add(jMenu10);
@@ -581,15 +575,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenu12.setText("Nota Serviço ID");
         jMenu12.add(jSeparator34);
-
-        jMenuItem36.setText("Lista de Clientes");
-        jMenuItem36.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem36ActionPerformed(evt);
-            }
-        });
-        jMenu12.add(jMenuItem36);
-        jMenu12.add(jSeparator36);
 
         jMenuItem25.setText("Localizar NS ID");
         jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
@@ -673,6 +658,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu7.add(jMenuItem24);
+        jMenu7.add(jSeparator7);
+
+        jMenuItem40.setText("Localizar Comissão");
+        jMenuItem40.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem40ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem40);
         jMenu7.add(jSeparator21);
 
         jMenuBar1.add(jMenu7);
@@ -912,11 +906,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         form.abrirFormulario(tela = new FluxoPagamento(), jDesktop);
     }//GEN-LAST:event_jMenuItem35ActionPerformed
 
-    private void jMenuItem36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem36ActionPerformed
-        FluxoCliente tela;
-        form.abrirFormulario(tela = new FluxoCliente(), jDesktop);
-    }//GEN-LAST:event_jMenuItem36ActionPerformed
-
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
        CadastroEmpresas tela;
         form.abrirFormulario(tela = new CadastroEmpresas(), jDesktop);
@@ -936,6 +925,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
       CalcComissao tela;
       form.abrirFormulario(tela = new CalcComissao(), jDesktop);
     }//GEN-LAST:event_jMenuItem39ActionPerformed
+
+    private void jMenuItem40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem40ActionPerformed
+       BuscarComissao tela;
+       form.abrirFormulario(tela = new BuscarComissao(), jDesktop);
+    }//GEN-LAST:event_jMenuItem40ActionPerformed
+
+    private void jMenuItem41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem41ActionPerformed
+        FluxoComissao tela;
+        form.abrirFormulario(tela = new FluxoComissao(), jDesktop);
+    }//GEN-LAST:event_jMenuItem41ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1031,11 +1030,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem33;
     private javax.swing.JMenuItem jMenuItem34;
     private javax.swing.JMenuItem jMenuItem35;
-    private javax.swing.JMenuItem jMenuItem36;
     private javax.swing.JMenuItem jMenuItem37;
     private javax.swing.JMenuItem jMenuItem38;
     private javax.swing.JMenuItem jMenuItem39;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem40;
+    private javax.swing.JMenuItem jMenuItem41;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
@@ -1046,6 +1046,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
+    private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JPopupMenu.Separator jSeparator16;
@@ -1070,7 +1071,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator33;
     private javax.swing.JPopupMenu.Separator jSeparator34;
     private javax.swing.JPopupMenu.Separator jSeparator35;
-    private javax.swing.JPopupMenu.Separator jSeparator36;
     private javax.swing.JPopupMenu.Separator jSeparator37;
     private javax.swing.JPopupMenu.Separator jSeparator38;
     private javax.swing.JPopupMenu.Separator jSeparator39;
@@ -1080,6 +1080,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator42;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
     private javax.swing.JLabel lblData;

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b81ac89b-2b14-4529-8ad6-f861c95ff327">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="411"/>
+	<property name="ireport.y" value="123"/>
 	<subDataset name="dataset1" uuid="79eecd16-9fce-43a8-99f2-addde1164dc2"/>
 	<parameter name="notaId" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[$F{id}]]></defaultValueExpression>
@@ -80,10 +80,6 @@
 	</title>
 	<pageHeader>
 		<band height="273" splitType="Stretch">
-			<image>
-				<reportElement uuid="4420076a-444e-432c-a5e5-74a248ea6860" x="5" y="44" width="87" height="88"/>
-				<imageExpression><![CDATA["C:\\Users\\Ledilson\\Desktop\\Blco de nots Sistema\\Logo.jpg"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement uuid="6469cc65-24ed-48a5-b9be-7d96feba0678" x="133" y="42" width="107" height="15"/>
 				<textElement>
@@ -202,6 +198,10 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tomador}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement uuid="17550f6d-1aec-4d41-8a5f-14b2785bdd7b" x="18" y="63" width="74" height="56"/>
+				<imageExpression><![CDATA["C:\\ADComercio\\Financeiro\\src\\img\\Logo.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</pageHeader>
 	<columnHeader>

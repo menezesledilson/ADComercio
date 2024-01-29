@@ -58,6 +58,11 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
                 "Cliente", "Data Receber", "Valor Receber", "Empresa", "Data a Pagar", "Valor a Pagar"
             }
         ));
+        tbFluxoBoleto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbFluxoBoletoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbFluxoBoleto);
 
         btImprimir.setText("Imprimir");
@@ -128,6 +133,10 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btImprimirActionPerformed
+
+    private void tbFluxoBoletoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFluxoBoletoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbFluxoBoletoMouseClicked
 
     private void tamanhoTabela() {
         //Defini o tamanho da tabela

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04be9b6f-e21c-4392-849e-7f010f1cf1ee">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dataIn" class="java.util.Date"/>
+	<parameter name="dataFin" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[select * from comissao]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="idempresa" class="java.lang.Integer"/>
+	<field name="precocheia" class="java.lang.Double"/>
+	<field name="precofabrica" class="java.lang.Double"/>
+	<field name="valorcomissao" class="java.lang.Double"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="empresa" class="java.lang.String"/>
+	<field name="datapedido" class="java.sql.Date"/>
+	<field name="dataentrega" class="java.sql.Date"/>
+	<field name="datahora" class="java.sql.Timestamp"/>
+	<variable name="Soma" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorcomissao}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="52ce56d2-9513-40f0-bd16-b4d656d532e5" x="185" y="10" width="198" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório Comissão]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="79c2ba69-f86d-4d1d-a476-91872bfdb7e8" x="185" y="30" width="198" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d09c25d7-1b65-4c8b-9b90-ca01bc77438b" x="6" y="7" width="46" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Data hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7910e258-66a1-4a01-810c-12426c4a7380" x="66" y="7" width="45" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Empresa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a50bfacd-78ac-45e1-9c93-b9f8564d3f02" x="155" y="7" width="30" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="834c74e4-afc6-42cb-9880-174848a9f2fb" x="218" y="7" width="59" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Data pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="240a23e5-0d4a-439e-b4ad-23c04275343d" x="287" y="7" width="62" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Data entrega]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="825f0ebd-2bef-4261-8f1e-704c8feb650a" x="357" y="7" width="59" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Preço Cheia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="781d5395-a95f-4216-bb46-d794a3b5c668" x="424" y="7" width="71" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Preço fabrica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0a0ab9d6-0b58-4987-b5ea-5fe8825c20a0" x="502" y="7" width="53" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Comissão]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement uuid="7558a475-a5b1-4da4-8a1b-bb13adeb555e" x="2" y="0" width="50" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{datahora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9313cdeb-2e3a-4119-b744-c7e01dbef979" x="58" y="0" width="64" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e9dfa4ea-d435-4568-b184-efcd6112ccdf" x="132" y="0" width="83" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7b2e9473-1387-4518-a3bf-39338499cd71" x="226" y="0" width="40" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{datapedido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c48c74af-4c87-4293-8480-63f7472059b4" x="295" y="0" width="49" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{dataentrega}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9ec24bdf-2aeb-4dd0-be05-747ddfc6025a" x="357" y="0" width="59" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{precocheia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8f627d50-4f55-466e-aea6-94d3d7aa1d78" x="424" y="0" width="71" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{precofabrica}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="dd002fd3-1230-416c-98ea-7ad6ec17d6ed" x="502" y="0" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{valorcomissao}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="33037f57-e8fa-43e5-a764-225a660a8d23" x="-47" y="0" width="626" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement uuid="fa2da134-d618-4e58-966d-b15d8fd27587" x="455" y="7" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement uuid="c2ed9e3e-ca50-4851-8780-a28e44a66c99" x="514" y="22" width="41" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{Soma}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
