@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2da520fb-988c-46d0-8360-8a2bab342a10">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="DataIn" class="java.util.Date"/>
+	<parameter name="DataFin" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT * FROM emissornotaservico WHERE(datanotaservico BETWEEN $P{DataIn} AND $P{DataFin}) OR (datanotaservico BETWEEN $P{DataIn} AND $P{DataFin})]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="datanotaservico" class="java.sql.Timestamp"/>
+	<field name="clientefornecedor" class="java.lang.String"/>
+	<field name="cargainicial" class="java.lang.Double"/>
+	<field name="frete" class="java.lang.Double"/>
+	<field name="totalfretecarga" class="java.lang.Double"/>
+	<field name="imposto" class="java.lang.Double"/>
+	<field name="totalimpostocarga" class="java.lang.Double"/>
+	<field name="totalcomissao" class="java.lang.Double"/>
+	<field name="comissao" class="java.lang.Double"/>
+	<field name="totalfinalcarga" class="java.lang.Double"/>
+	<variable name="somaTCarga" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalfinalcarga}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="somaFrete" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{frete}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="SomaCcFrete" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalfretecarga}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="somaImposto" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalimpostocarga}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="SomaImposto" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{imposto}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="somaComissao" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{comissao}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="somaPagar" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalcomissao}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="103" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="abefa44f-50a8-47b7-b2e8-dbe717142b63" x="188" y="27" width="191" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3d3a4718-4281-4567-b4b6-5b824f821b37" x="132" y="4" width="303" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Calculo Nota de Serviço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="af3769d5-f97a-475f-b800-07f290368d9f" x="224" y="47" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Período]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="406c3b80-0249-409c-a828-58a99ea712a7" x="221" y="72" width="44" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{DataIn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2192c463-79db-4496-b4fb-9e0fc9c21b24" x="283" y="72" width="48" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{DataFin}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="70fe35bb-7518-4f87-a8d2-bf07745889b7" x="12" y="3" width="30" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="72d36b86-87ca-4de1-8644-282c4cbbe183" x="99" y="2" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d202ccd-f21b-4779-ac2e-8dd96c8e5c44" x="168" y="1" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[T. da Carga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e24d8252-e55e-4d84-92af-4cbd2c8d06dc" x="224" y="1" width="51" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Frete]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2a7a45aa-1c17-45c6-8d14-46792cd4dd07" x="273" y="1" width="58" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[C. c/Frete]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f7dc4cb0-5489-4643-917f-b3209fa70847" x="329" y="1" width="48" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Imposto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e2f1be8e-39e1-43b1-b32a-1d25e284d7f8" x="379" y="2" width="95" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Imposto c/ Carga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c104b539-cc68-4379-965c-8db5b5ff0895" x="454" y="3" width="62" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Comissão]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="28c45e9a-c884-4d15-be3e-5f8c21fa3ec9" x="513" y="2" width="38" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[A pagar]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="467b5ab7-aa9e-436b-80b1-6f56e560171e" x="-22" y="24" width="603" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement uuid="4c7f1a7d-b892-41c5-8493-5e62b4b5df19" x="-26" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{datanotaservico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e52beb7c-d714-4152-9801-9c61064962f8" x="78" y="0" width="96" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{clientefornecedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9c6f4b2a-9cf5-4598-83d3-fe143a646038" x="177" y="0" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalfinalcarga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4a5197f7-3a15-4e7d-a6e7-2262ebe9e83a" x="224" y="0" width="51" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{frete}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5dd47373-9fe6-4f4b-a65f-f99caf741457" x="278" y="0" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalfretecarga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2da75a2e-fabe-40b7-8be8-4d5467932811" x="327" y="1" width="48" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{imposto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="42d1716b-a201-4f76-9bdc-d85506974a2e" x="399" y="0" width="37" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalimpostocarga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="56669c4c-72ef-4c46-a253-b71a18d93d89" x="457" y="1" width="49" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{comissao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6e29b5ab-4154-4fa5-8ff1-8b7414dddff0" x="513" y="1" width="40" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalcomissao}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="486762ee-8f43-4662-b1b0-74f5bc877669" x="-24" y="19" width="605" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="26" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement uuid="d53771ff-cbae-4772-971d-e6d60140ac96" x="455" y="25" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="50">
+			<textField>
+				<reportElement uuid="7edb4f1f-6bb4-4d90-87a2-d3eab8623f95" x="165" y="30" width="68" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaTCarga}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2d202ccd-f21b-4779-ac2e-8dd96c8e5c44" x="166" y="11" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[T. da Carga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e24d8252-e55e-4d84-92af-4cbd2c8d06dc" x="225" y="11" width="51" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Frete]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="7610cfb2-fdcd-459d-afdc-c9be6e16dee0" x="230" y="30" width="45" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaFrete}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2a7a45aa-1c17-45c6-8d14-46792cd4dd07" x="273" y="11" width="58" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[C. c/Frete]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="40fceb47-ef5f-4d47-a1aa-4d6599f77382" x="279" y="30" width="41" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{SomaCcFrete}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f7dc4cb0-5489-4643-917f-b3209fa70847" x="329" y="11" width="48" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Imposto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e2f1be8e-39e1-43b1-b32a-1d25e284d7f8" x="379" y="12" width="95" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Imposto c/ Carga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="28c45e9a-c884-4d15-be3e-5f8c21fa3ec9" x="513" y="12" width="38" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[A pagar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c104b539-cc68-4379-965c-8db5b5ff0895" x="454" y="12" width="62" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Comissão]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="77a02988-6d7b-43b7-b439-3713abe7c2f9" x="399" y="30" width="37" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaImposto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="78d1ecb1-037b-4c63-b346-3d526aa0bd26" x="332" y="30" width="39" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{SomaImposto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f01bf67a-5a1e-42c5-ad8b-94b9df5254ba" x="459" y="30" width="52" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaComissao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="85773ece-7923-4c44-b499-043b0a3787d4" x="516" y="30" width="39" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaPagar}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

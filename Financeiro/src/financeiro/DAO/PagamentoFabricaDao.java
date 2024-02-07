@@ -1,4 +1,5 @@
 package financeiro.DAO;
+
 import financeiro.conexao.Conexao;
 import financeiro.model.PagamentoFabrica;
 import java.sql.Connection;
@@ -8,7 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+
 public class PagamentoFabricaDao {
+
     public void adicionar(PagamentoFabrica pagamentoFabrica) {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
@@ -16,7 +19,7 @@ public class PagamentoFabricaDao {
             pstm = con.prepareStatement("insert into pagamentofabrica (nomepagamento,valorpagamento, observacao) values (?, ?, ?);");
             pstm.setString(1, pagamentoFabrica.getNomePagamento());
             pstm.setDouble(2, pagamentoFabrica.getValorPagamento());
-            pstm.setString(3, pagamentoFabrica.getObservacaoPagamento());
+            pstm.setString(3, pagamentoFabrica.getObservacaoVenda());
             pstm.execute();
             JOptionPane.showMessageDialog(null, "Adicionado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ErroSql) {
@@ -25,6 +28,7 @@ public class PagamentoFabricaDao {
             Conexao.closeConnection(con, pstm);
         }
     }
+
     public void remover(PagamentoFabrica pagamentoFabrica) {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
@@ -39,6 +43,7 @@ public class PagamentoFabricaDao {
             Conexao.closeConnection(con, pstm);
         }
     }
+
     public List<PagamentoFabrica> listarPagFabrica() {
         List<PagamentoFabrica> PagamentoFabricas = new ArrayList<>();
         Connection con = Conexao.getConnection();
@@ -53,7 +58,7 @@ public class PagamentoFabricaDao {
                 pagamentoFabrica.setDatahora(rs.getTimestamp("datahorapagamento"));
                 pagamentoFabrica.setNomePagamento(rs.getString("nomepagamento"));
                 pagamentoFabrica.setValorPagamento(rs.getDouble("valorpagamento"));
-                pagamentoFabrica.setNomePagamento(rs.getString("observacao"));
+                pagamentoFabrica.setObservacaoVenda(rs.getString("observacao"));
                 PagamentoFabricas.add(pagamentoFabrica);
             }
         } catch (SQLException ErroSql) {

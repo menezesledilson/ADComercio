@@ -25,9 +25,6 @@ public class ComissaoPagamento {
     private Double precoFabrica;
     
     private Double valorComissao;
-    
-    private Timestamp datahora;
-    
 
     public Long getId() {
         return id;

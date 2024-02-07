@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package financeiro.model;
 
 import java.sql.Timestamp;
@@ -14,20 +9,10 @@ import java.sql.Timestamp;
 public class PagamentoFabrica {
 
     private Long id;
-    private String nomePagamento;
-    private Double valorPagamento;
     private Timestamp datahora;
-    private String observacaoPagamento;
-
-    public String getObservacaoPagamento() {
-        return observacaoPagamento;
-    }
-
-    public void setObservacaoPagamento(String observacaoPagamento) {
-        this.observacaoPagamento = observacaoPagamento;
-    }
-    
-    
+    private String NomePagamento;
+    private Double ValorPagamento;
+    private String ObservacaoVenda;
 
     public Long getId() {
         return id;
@@ -37,28 +22,36 @@ public class PagamentoFabrica {
         this.id = id;
     }
 
-    public String getNomePagamento() {
-        return nomePagamento;
-    }
-
-    public void setNomePagamento(String nomePagamento) {
-        this.nomePagamento = nomePagamento;
-    }
-
-    public Double getValorPagamento() {
-        return valorPagamento;
-    }
-
-    public void setValorPagamento(Double valorPagamento) {
-        this.valorPagamento = valorPagamento;
-    }
-
     public Timestamp getDatahora() {
         return datahora;
     }
 
     public void setDatahora(Timestamp datahora) {
         this.datahora = datahora;
+    }
+
+    public String getNomePagamento() {
+        return NomePagamento;
+    }
+
+    public void setNomePagamento(String NomePagamento) {
+        this.NomePagamento = NomePagamento;
+    }
+
+    public Double getValorPagamento() {
+        return ValorPagamento;
+    }
+
+    public void setValorPagamento(Double ValorPagamento) {
+        this.ValorPagamento = ValorPagamento;
+    }
+
+    public String getObservacaoVenda() {
+        return ObservacaoVenda;
+    }
+
+    public void setObservacaoVenda(String ObservacaoVenda) {
+        this.ObservacaoVenda = ObservacaoVenda;
     }
 
 }

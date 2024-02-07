@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f369d02-7427-4542-a998-0daa6f4a68db">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dataFin" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataIn" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from controlevendedor WHERE (datahoravenda BETWEEN $P{dataIn} AND $P{dataFin})]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="nomevenda" class="java.lang.String"/>
+	<field name="valorvenda" class="java.lang.Double"/>
+	<field name="datahoravenda" class="java.sql.Timestamp"/>
+	<variable name="somaV" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorvenda}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="84" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="68e8b122-6fcb-4133-9d01-48d6560c37ac" x="160" y="0" width="235" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório Controle de venda]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="679f86d3-5477-4c75-b9cd-4da062cce94c" x="160" y="38" width="235" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="25" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="84101924-965a-4fe9-953e-adbeb66f8488" x="260" y="6" width="33" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e2c519c3-ef66-4721-83c7-4c9cdcf50f2d" x="34" y="6" width="28" height="20"/>
+				<textElement/>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d9fc5456-f353-4bce-ad53-a3e61d860949" x="474" y="6" width="39" height="20"/>
+				<textElement/>
+				<text><![CDATA[Venda]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="de97d19e-e93b-4ed1-bc17-87a8b21b185d" x="227" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{nomevenda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9951fddf-bbed-4e49-9808-9d4f0108a121" x="10" y="0" width="76" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{datahoravenda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="55371f95-2ba5-4428-8496-a24f40e3f9b7" x="475" y="0" width="38" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{valorvenda}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="8b9e5e5e-2ba1-4449-abce-c9ee31aed639" x="-17" y="2" width="590" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="26" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement uuid="ae9714dc-53f8-40d0-ab94-2a74bc807131" x="455" y="34" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement uuid="a65e2273-ad8b-42bb-b2f2-6d96fbad09cf" x="475" y="22" width="38" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{somaV}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="805b1611-66db-402e-bf1c-f398d3587f13" x="443" y="22" width="32" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

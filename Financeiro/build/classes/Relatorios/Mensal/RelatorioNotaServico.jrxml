@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b81ac89b-2b14-4529-8ad6-f861c95ff327">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset1" uuid="79eecd16-9fce-43a8-99f2-addde1164dc2"/>
+	<queryString>
+		<![CDATA[select * from emissornotacliente
+
+
+ ]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="idbobina" class="java.lang.Integer"/>
+	<field name="datanotaservico" class="java.sql.Timestamp"/>
+	<field name="quantproduto" class="java.lang.Integer"/>
+	<field name="valorunitario" class="java.lang.Double"/>
+	<field name="valorpeso" class="java.lang.Double"/>
+	<field name="cargainicial" class="java.lang.Double"/>
+	<field name="nomeproduto" class="java.lang.String"/>
+	<field name="clienteempresa" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="99" splitType="Stretch">
+			<line>
+				<reportElement uuid="427e2dde-270c-4201-92e7-8731d27dbace" x="-32" y="97" width="614" height="2"/>
+			</line>
+			<rectangle radius="10">
+				<reportElement uuid="00068adf-58c5-4651-b183-b4b38aad4336" x="392" y="7" width="157" height="83"/>
+			</rectangle>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="7a090650-87ea-4ea9-aaed-294b9b8f875f" x="403" y="64" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm">
+				<reportElement uuid="e8f7d983-0ae3-42f3-aa88-b2e714b06a5c" x="446" y="64" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a87b894a-2a3b-4c64-8fd2-f785259fa8bb" x="412" y="48" width="115" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Data e Hora de Emissão]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c6a45d0f-6e09-47d5-ad7e-3126b9f5eff4" x="412" y="33" width="34" height="13"/>
+				<textElement/>
+				<text><![CDATA[Nº NF:________________]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="24f55f45-9ebe-452b-b2c7-d95dc0ca6685" x="447" y="42" width="80" height="1"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="237" splitType="Stretch">
+			<image>
+				<reportElement uuid="4420076a-444e-432c-a5e5-74a248ea6860" x="5" y="44" width="87" height="88"/>
+				<imageExpression><![CDATA["C:\\Users\\Ledilson\\Desktop\\Blco de nots Sistema\\Logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="6469cc65-24ed-48a5-b9be-7d96feba0678" x="133" y="42" width="107" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ 52.217.605/0001-32]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1c31d4e4-57f1-4ccf-b319-3fcc448cd648" x="152" y="83" width="246" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RUA JÚPITER, 121 - COLINA DO SOL - 36730-000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1c31d4e4-57f1-4ccf-b319-3fcc448cd648" x="198" y="62" width="98" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[AD PAPEIS - LTDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="faeb6777-871f-4c56-bd55-52b1abc18153" x="104" y="42" width="38" height="15"/>
+				<textElement/>
+				<text><![CDATA[CNPJ:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="faeb6777-871f-4c56-bd55-52b1abc18153" x="104" y="62" width="104" height="15"/>
+				<textElement/>
+				<text><![CDATA[Nome/Razão Social:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="faeb6777-871f-4c56-bd55-52b1abc18153" x="104" y="83" width="61" height="15"/>
+				<textElement/>
+				<text><![CDATA[Endereço:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="faeb6777-871f-4c56-bd55-52b1abc18153" x="105" y="104" width="60" height="15"/>
+				<textElement/>
+				<text><![CDATA[Município:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1c31d4e4-57f1-4ccf-b319-3fcc448cd648" x="153" y="104" width="69" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PIRAPETINGA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="faeb6777-871f-4c56-bd55-52b1abc18153" x="241" y="104" width="26" height="15"/>
+				<textElement/>
+				<text><![CDATA[UF:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1c31d4e4-57f1-4ccf-b319-3fcc448cd648" x="260" y="104" width="32" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[MG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b827bba8-4a54-4694-806e-c3f2c5474e85" x="139" y="0" width="249" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRESTADOR DE SERVIÇOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="faeb6777-871f-4c56-bd55-52b1abc18153" x="317" y="42" width="20" height="15"/>
+				<textElement/>
+				<text><![CDATA[Cel:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="faeb6777-871f-4c56-bd55-52b1abc18153" x="305" y="104" width="45" height="15"/>
+				<textElement/>
+				<text><![CDATA[E-mail:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1c31d4e4-57f1-4ccf-b319-3fcc448cd648" x="339" y="104" width="176" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[papeisondulados2021@gmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1c31d4e4-57f1-4ccf-b319-3fcc448cd648" x="337" y="42" width="91" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[(32) 99194-1769 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b827bba8-4a54-4694-806e-c3f2c5474e85" x="153" y="132" width="249" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOMADOR DE SERVIÇOS]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="215104c0-6ee0-45b3-aa53-c5da5fc640f3" x="-32" y="123" width="614" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="174" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="7f2a12cf-74c3-490a-8f3b-1f09a74b5f0f" x="5" y="154" width="36" height="20"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Quant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c4af57ca-6570-4814-8955-57be98792575" x="126" y="154" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Valor unitário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f1429294-e467-47fb-8434-074068c57bb2" x="250" y="154" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b827bba8-4a54-4694-806e-c3f2c5474e85" x="143" y="0" width="249" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIMINAÇÃO DE SERVIÇOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e06b39f3-d1c6-4247-9290-736ce9656818" x="430" y="154" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Peso]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement uuid="a4f3d10f-9091-4db1-ab77-1ac700847c7e" x="12" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{quantproduto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a92380ba-2800-4000-8e75-7df1474be17d" x="126" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{valorunitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d095eda2-41c6-4f95-8746-4e66562d4fc6" x="252" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nomeproduto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d52709c7-773f-49f1-84a1-e0a5d21bdf33" x="430" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{valorpeso}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

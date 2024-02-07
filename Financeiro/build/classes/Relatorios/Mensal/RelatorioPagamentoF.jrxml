@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9efecb58-4c7e-4db9-abef-26d329f38b12">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="DataIn" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DataFin" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from pagamentofabrica WHERE (datahorapagamento BETWEEN $P{DataIn} AND $P{DataFin})]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="nomepagamento" class="java.lang.String"/>
+	<field name="valorpagamento" class="java.lang.Double"/>
+	<field name="datahorapagamento" class="java.sql.Timestamp"/>
+	<variable name="somaValor" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorpagamento}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="162454ff-0449-4aa3-aee6-29ccd9d14a6b" x="182" y="40" width="190" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="52ab7827-347f-47cb-b854-49b99d41a945" x="158" y="10" width="245" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Pagamentos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e76dac82-bcef-48d1-bf49-3b4348d41c3b" x="241" y="3" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e176db0f-1b9e-4146-9cb4-2a73b50d2bac" x="0" y="3" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="78933c25-83f7-402d-b53c-56687e8446c0" x="445" y="3" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="dcd6cb79-fe57-4937-91dc-4f91592f341e" x="-47" y="25" width="631" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="fd06d1fa-730c-45af-bef8-9231143a8f73" x="241" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nomepagamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3865b38f-539f-47fe-9dc1-5e5e57879d62" x="0" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{datahorapagamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6f64f81f-7b19-409d-9518-bc455b685768" x="445" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorpagamento}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="6a5612be-9487-4bba-8d74-d734d7a41794" x="-23" y="20" width="607" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement uuid="99152f09-b3ad-4165-905f-c9733111e288" x="455" y="30" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement uuid="39e7bc29-6fdf-440a-95aa-843b1718d785" x="446" y="21" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{somaValor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="02def177-2d41-4902-882c-04e02238ac95" x="444" y="11" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
