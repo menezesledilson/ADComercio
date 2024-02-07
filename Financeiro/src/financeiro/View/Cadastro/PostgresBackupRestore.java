@@ -111,11 +111,11 @@ public class PostgresBackupRestore extends javax.swing.JInternalFrame {
         String user = "postgres";
         String password = "admin";
         // Caminho do diretório de restauração
-        String restoreDirectory = "C:\\ADComercio\\BkpAD";
+        String restoreDirectory = "C:\\ADComercio\\backup";
         // Crie um diálogo de seleção de arquivo
         JFileChooser fileChooser = new JFileChooser(restoreDirectory);
         fileChooser.setDialogTitle("Selecione o arquivo de backup");
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivos de backup", "adcomercio"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivos de backup", "sql"));
         int userSelection = fileChooser.showOpenDialog(this);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             // Se o usuário selecionou um arquivo
@@ -155,7 +155,7 @@ public class PostgresBackupRestore extends javax.swing.JInternalFrame {
         String user = "postgres";
         String password = "admin";
 
-        File directory = new File("C:\\ADComercio\\BkpAD");
+        File directory = new File("C:\\ADComercio\\backup");
         if (!directory.exists()) {
             directory.mkdirs(); // Cria o diretório se não existir
         }
@@ -166,8 +166,8 @@ public class PostgresBackupRestore extends javax.swing.JInternalFrame {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HHmmss");
         String dateTimeString = now.format(formatter);
 
-        String backupFileName = "bkp_" + database + "_" + dateTimeString + ".adcomercio";
-        String backupPath = "C:\\ADComercio\\BkpAD\\" + backupFileName;
+        String backupFileName = "bkp_" + database + "_" + dateTimeString + ".sql";
+        String backupPath = "C:\\ADComercio\\backup\\" + backupFileName;
 
         try {
             String[] command = {
