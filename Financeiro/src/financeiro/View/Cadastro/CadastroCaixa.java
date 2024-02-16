@@ -297,8 +297,10 @@ public class CadastroCaixa extends javax.swing.JInternalFrame {
                 + "\n Deseja realmente fazer alteração?",
                 "Alteração de dados.", JOptionPane.YES_NO_OPTION)) {
             case 0:
-                double novaEntrada = Double.parseDouble(txtEntrada.getText());
-                double novaSaida = Double.parseDouble(txtSaida.getText());
+
+                double novaEntrada = Double.parseDouble(txtEntrada.getText().trim().replace(",", "."));
+                double novaSaida = Double.parseDouble(txtSaida.getText().trim().replace(",", "."));
+
                 // Define os novos valores
                 l.setDescricao(txtDescricao.getText());
                 l.setEntrada(novaEntrada);
@@ -347,8 +349,9 @@ public class CadastroCaixa extends javax.swing.JInternalFrame {
     private void btSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaidaActionPerformed
         Caixa l = new Caixa();
         CaixaDao dao = new CaixaDao();
-        String entradaText = txtSaida.getText().trim();
-        if (entradaText.isEmpty()) {
+        String saidaText = txtSaida.getText().trim().replace(",", ".");
+
+        if (saidaText.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, insira um valor para saída.", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;  // Encerra o método se o campo de entrada estiver vazio
         }
@@ -366,7 +369,8 @@ public class CadastroCaixa extends javax.swing.JInternalFrame {
     private void btEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntradaActionPerformed
         Caixa l = new Caixa();
         CaixaDao dao = new CaixaDao();
-        String entradaText = txtEntrada.getText().trim();
+        String entradaText = txtEntrada.getText().trim().replace(",", ".");
+
         if (entradaText.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, insira os dados de saída.", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;  // Encerra o método se o campo de entrada estiver vazio

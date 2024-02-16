@@ -21,6 +21,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
     public CadastroControleVenda() {
         initComponents();
         carregaTabela();
+
         desativarCampos();
         CentralizarCampos();
         desativarBotao();
@@ -224,7 +225,8 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
         b.setNomeVenda(txtCliente.getText());
         b.setObservacaoVenda(txtObs.getText());
 
-        b.setValorVenda(Double.parseDouble(txtValor.getText()));
+        String entradaValor = txtValor.getText().trim().replace(",", ".");
+        b.setValorVenda(Double.parseDouble(entradaValor));
 
         // Adicionar a nova bobina no banco de dados
         dao.adicionar(b);
@@ -282,6 +284,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_bgExcluirActionPerformed
+
     private int mesAnterior = -1;
     private int anoAnterior = -1;
 
@@ -346,8 +349,9 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
                 e.printStackTrace();
             }
 
-            pstm = con.prepareStatement("SELECT id,datahoravenda, nomevenda, valorvenda, observacao FROM controlevendedor ORDER BY id DESC");
-
+            pstm = con.prepareStatement("SELECT id, datahoravenda, nomevenda, valorvenda, observacao FROM controlevendedor WHERE EXTRACT(MONTH FROM CAST(datahoravenda AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(datahoravenda AS DATE)) = ? ORDER BY id DESC");
+            pstm.setInt(1, mesAtual);
+            pstm.setInt(2, anoAtual);
             rs = pstm.executeQuery();
 
             NumberFormat currencyValor = NumberFormat.getCurrencyInstance();
@@ -371,6 +375,7 @@ public class CadastroControleVenda extends javax.swing.JInternalFrame {
         }
 
     }
+
     /* private void carregaTabela() {
 
 

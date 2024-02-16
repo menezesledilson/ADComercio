@@ -14,6 +14,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -423,7 +424,12 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                     String descricaoSelecionada = cbxProduto.getSelectedItem().toString();
                     a.setNomeProduto(descricaoSelecionada);
                     a.setValorUnitario(Double.parseDouble(txtValorUnitario.getText()));
-                    a.setPesoPapel(Double.parseDouble(txtPeso.getText()));
+
+                    String valorPeso = txtPeso.getText().trim().replace(",", ".");
+                    String valorImposto = txtIpi.getText().trim().replace(",", ".");
+
+                    a.setPesoPapel(Double.parseDouble(valorPeso));
+
                     //Calculo do valor total
                     double valorPedidoPeso = a.getValorUnitario() * a.getPesoPapel();
                     a.setTotalSipi(valorPedidoPeso);
@@ -435,7 +441,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                     // Atualiza a soma
                     lbPesoTotal.setText(String.valueOf(valorFormatado));
                     //Usuario já inserir o valor
-                    a.setIpi(Double.parseDouble(txtIpi.getText()));
+                    a.setIpi(Double.parseDouble(valorImposto));
                     //Calcula o imposto Ipi  resultado valorUnitarioIpi
                     double valorUnitarioIpi = ((a.getIpi() / 100) + 1) * a.getValorUnitario();
                     // Formata o valor para exibir apenas duas casas decimais
@@ -485,7 +491,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                     }
                     dao.adicionar(a);
                     carregaTabela();
-
+                    //desativaCampos();
                     limparCampos();
 
                     int opcao = JOptionPane.showConfirmDialog(this, "Pedido adicionado com sucesso. Deseja adicionar mais um pedido?", "Confirmação", JOptionPane.YES_NO_OPTION);
@@ -583,10 +589,12 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                 String descricaoSelecionada = cbxProduto.getSelectedItem().toString();
                 a.setNomeProduto(descricaoSelecionada);
                 a.setQuantidade(Integer.parseInt(txtQuant.getText()));
-                a.setPesoPapel(Double.parseDouble(txtPeso.getText()));
+                String valorPeso = txtPeso.getText().trim().replace(",", ".");
+                a.setPesoPapel(Double.parseDouble(valorPeso));
+
                 a.setValorUnitario(Double.parseDouble(txtValorUnitario.getText()));
-                a.setPesoPapel(Double.parseDouble(txtPeso.getText()));
-                a.setIpi(Double.parseDouble(txtIpi.getText()));
+                String valorImposto = txtIpi.getText().trim().replace(",", ".");
+                a.setIpi(Double.parseDouble(valorImposto));
                 // Entrada da Data cliente
                 try {
                     java.util.Date dataFormatada = sdfPedido.parse(txtDataPedido.getText());
@@ -754,6 +762,20 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
             NumberFormat currencyDiferencial = NumberFormat.getCurrencyInstance();
 
             while (rs.next()) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                // String dataFormatadaPedido = dateFormat.format(rs.getDate("datapedido"));
+
+                String dataFormatadaPedido = "";
+                Date dataPedido = rs.getDate("datapedido");
+                if (dataPedido != null) {
+                    dataFormatadaPedido = dateFormat.format(dataPedido);
+                }
+
+                String dataFormatadaEntrega = "";
+                Date dataEntrega = rs.getDate("dataentrega");
+                if (dataEntrega != null) {
+                    dataFormatadaEntrega = dateFormat.format(dataEntrega);
+                }
                 modelo.addRow(new Object[]{
                     rs.getString("nomeempresa"),
                     rs.getString("nomeproduto"),
@@ -765,8 +787,10 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                     currencyTotalCIpi.format(rs.getDouble("totalCipi")),
                     currencyIpi.format(rs.getDouble("ipi")),
                     currencyDiferencial.format(rs.getDouble("diferencial")),
-                    rs.getDate("datapedido"),
-                    rs.getDate("dataentrega")
+                    //rs.getDate("datapedido"),
+                    dataFormatadaPedido,
+                    //  rs.getDate("dataentrega")
+                    dataFormatadaEntrega
                 });
             }
             Conexao.closeConnection(con, pstm, rs);

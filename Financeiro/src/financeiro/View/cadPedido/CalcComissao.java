@@ -55,7 +55,6 @@ public class CalcComissao extends javax.swing.JInternalFrame {
         btGravar = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
         lbTotalComissao = new javax.swing.JLabel();
         lbTotalComiss = new javax.swing.JLabel();
 
@@ -143,8 +142,6 @@ public class CalcComissao extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel7.setText("Comissão.:");
-
         lbTotalComissao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbTotalComissao.setText("0.00");
 
@@ -178,14 +175,8 @@ public class CalcComissao extends javax.swing.JInternalFrame {
                                 .addGap(19, 19, 19)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFabrica, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbTotalComissao)
-                                .addGap(36, 36, 36)
-                                .addComponent(lbTotalComiss)))
-                        .addContainerGap(474, Short.MAX_VALUE))
+                                .addComponent(txtFabrica, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(639, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -203,7 +194,12 @@ public class CalcComissao extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lbTotalComissao)
+                                .addGap(66, 66, 66)
+                                .addComponent(lbTotalComiss))
+                            .addComponent(txtEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addComponent(jScrollPane1)
         );
@@ -234,11 +230,10 @@ public class CalcComissao extends javax.swing.JInternalFrame {
                     .addComponent(txtCheia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(txtFabrica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
                     .addComponent(lbTotalComissao)
                     .addComponent(lbTotalComiss))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -323,18 +318,24 @@ public class CalcComissao extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
             return; // Impede a continuação do método se a data estiver incorreta
         }
-        a.setPrecoCheia(Double.parseDouble(txtCheia.getText()));
-        a.setPrecoFabrica(Double.parseDouble(txtFabrica.getText()));
+        String valorCheia = txtCheia.getText().trim().replace(",", ".");
+        String valorFabrica = txtFabrica.getText().trim().replace(",", ".");
+
+        a.setPrecoCheia(Double.parseDouble(valorCheia));
+        a.setPrecoFabrica(Double.parseDouble(valorFabrica));
 
         double totalComissao = a.getPrecoCheia() - a.getPrecoFabrica();
         a.setValorComissao(totalComissao);
         // Formata o valor para exibir apenas duas casas decimais
-        DecimalFormat df = new DecimalFormat("#.##");
+        DecimalFormat df = new DecimalFormat("Comissão R$: #,##0.00");
         String valorFormatado = df.format(totalComissao);
+
         // Atualiza a soma
-        lbTotalComissao.setText(String.valueOf(valorFormatado));
+        lbTotalComissao.setText(valorFormatado);
+
         dao.adicionar(a);
         carregaTabela();
+        desativaCampos();
     }//GEN-LAST:event_btGravarActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
@@ -574,7 +575,10 @@ public class CalcComissao extends javax.swing.JInternalFrame {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            pstm = con.prepareStatement("SELECT * from comissao ORDER BY  nome ASC;");
+            pstm = con.prepareStatement("SELECT id, datahora,nome, empresa, datapedido, dataentrega, precocheia,precofabrica,valorcomissao from comissao WHERE EXTRACT(MONTH FROM CAST(datahora AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(datahora AS DATE)) = ? ORDER BY id DESC;");
+
+            pstm.setInt(1, mesAtual);
+            pstm.setInt(2, anoAtual);
             rs = pstm.executeQuery();
             NumberFormat currencyPrecoCheia = NumberFormat.getCurrencyInstance();
             NumberFormat currencyPrecoFabrica = NumberFormat.getCurrencyInstance();
@@ -582,16 +586,18 @@ public class CalcComissao extends javax.swing.JInternalFrame {
 
             while (rs.next()) {
                 // Dentro do seu loop while
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                String dataHoraFormatada = dateFormat.format(rs.getTimestamp("datahora"));
+                SimpleDateFormat dateFormatTimes = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                String dataHoraFormatada = dateFormatTimes.format(rs.getTimestamp("datahora"));
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String dataFormatadaPedido = dateFormat.format(rs.getDate("datapedido"));
+                String dataFormatadaEntrega = dateFormat.format(rs.getDate("dataentrega"));
 
                 modelo.addRow(new Object[]{
                     dataHoraFormatada,
-                    // rs.getString("datahora"),
                     rs.getString("nome"),
                     rs.getString("empresa"),
-                    rs.getDate("datapedido"),
-                    rs.getDate("dataentrega"),
+                    dataFormatadaPedido,
+                    dataFormatadaEntrega,
                     currencyPrecoCheia.format(rs.getDouble("precocheia")),
                     currencyPrecoFabrica.format(rs.getDouble("precofabrica")),
                     currencyValorComissao.format(rs.getDouble("valorcomissao")),});
@@ -614,7 +620,6 @@ public class CalcComissao extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbTotalComiss;

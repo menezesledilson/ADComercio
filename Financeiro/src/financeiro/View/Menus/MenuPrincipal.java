@@ -42,7 +42,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
-        setSize(1330, 700);
+        setSize(1330, 705);
         // setExtendedState(MAXIMIZED_BOTH);
         // Centraliza o JFrame na tela principal
         setLocationRelativeTo(null);
@@ -198,15 +198,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
 
         jDesktop.setBackground(new java.awt.Color(255, 255, 255));
-        jDesktop.setPreferredSize(new java.awt.Dimension(1330, 700));
+        jDesktop.setPreferredSize(new java.awt.Dimension(1330, 705));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1330, 700));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1330, 705));
 
-        lblBackground.setBackground(new java.awt.Color(0, 204, 204));
-        lblBackground.setForeground(new java.awt.Color(51, 255, 255));
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/background.jpg"))); // NOI18N
-        lblBackground.setPreferredSize(new java.awt.Dimension(1330, 700));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -219,8 +216,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lblBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 82, Short.MAX_VALUE))
+                .addComponent(lblBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jDesktop.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -236,8 +233,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jDesktopLayout.setVerticalGroup(
             jDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 19, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Cadastro ");

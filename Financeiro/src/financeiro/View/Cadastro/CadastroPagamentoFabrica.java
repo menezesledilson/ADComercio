@@ -16,10 +16,6 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Ledilson
- */
 public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
 
     public CadastroPagamentoFabrica() {
@@ -93,7 +89,7 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Data hora", "Descrição", "Valor", "Obs."
             }
         ));
         TbAcertoFabrica.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -188,7 +184,9 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
         PagamentoFabricaDao dao = new PagamentoFabricaDao();
         b.setNomePagamento(txtName.getText());
         b.setObservacaoVenda(txtObs.getText());
-        b.setValorPagamento(Double.parseDouble(txtValor.getText()));
+
+        String entradaValor = txtValor.getText().trim().replace(",", ".");
+        b.setValorPagamento(Double.parseDouble(entradaValor));
 
         dao.adicionar(b);
         carregaTabela();
@@ -269,6 +267,8 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
         txtValor.setHorizontalAlignment(SwingConstants.CENTER);
         txtName.setHorizontalAlignment(SwingConstants.CENTER);
     }
+    private int mesAnterior = -1;
+    private int anoAnterior = -1;
 
     private void carregaTabela() {
         DefaultTableModel modelo = (DefaultTableModel) TbAcertoFabrica.getModel();
@@ -280,11 +280,12 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
         TbAcertoFabrica.getColumnModel().getColumn(3).setPreferredWidth(200);
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         TbAcertoFabrica.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         TbAcertoFabrica.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 
+        TbAcertoFabrica.revalidate();
+        TbAcertoFabrica.repaint();
         try {
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
@@ -295,15 +296,24 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
             Calendar cal = Calendar.getInstance();
             int mesAtual = cal.get(Calendar.MONTH) + 1; // Note que os meses em Java começam do zero
             int anoAtual = cal.get(Calendar.YEAR);
+
+            if (mesAtual != mesAnterior || anoAtual != anoAnterior) {
+                modelo.setNumRows(0); // Limpa a tabela se o mês ou o ano mudaram
+                mesAnterior = mesAtual; // Atualiza o mês anterior
+                anoAnterior = anoAtual; // Atualiza o ano anterior
+            }
             try (PreparedStatement statementValor = con.prepareStatement(sqlSomaTotalReal)) {
                 statementValor.setInt(1, mesAtual);
                 statementValor.setInt(2, anoAtual);
+
                 try (ResultSet resultadoValor = statementValor.executeQuery()) {
                     if (resultadoValor.next()) {
                         Double totalValor = resultadoValor.getDouble("totalValor");
                         // Formata o valor para duas casas decimais
-                        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
-                        String formattedTotal = decimalFormat.format(totalValor);
+                        DecimalFormat df = new DecimalFormat("#,##0.00");
+                        df.setMaximumFractionDigits(2);
+                        df.setMinimumFractionDigits(2);
+                        String formattedTotal = df.format(totalValor);
                         lblSoma.setText(String.valueOf(formattedTotal));
                     } else {
                         // Se não houver resultados, define o total como zero
@@ -313,8 +323,11 @@ public class CadastroPagamentoFabrica extends javax.swing.JInternalFrame {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            pstm = con.prepareStatement("SELECT id,datahorapagamento, nomepagamento,valorpagamento,observacao FROM  pagamentofabrica ORDER BY id DESC;");
+            pstm = con.prepareStatement("SELECT id,datahorapagamento, nomepagamento,valorpagamento,observacao FROM  pagamentofabrica WHERE EXTRACT(MONTH FROM CAST(datahorapagamento AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(datahorapagamento AS DATE)) = ? ORDER BY id DESC;");
+            pstm.setInt(1, mesAtual);
+            pstm.setInt(2, anoAtual);
             rs = pstm.executeQuery();
+
             NumberFormat currencyValor = NumberFormat.getCurrencyInstance();
             while (rs.next()) {
                 // Dentro do seu loop while

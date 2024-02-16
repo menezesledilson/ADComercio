@@ -275,7 +275,15 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         bgNovo.setEnabled(true);
     }//GEN-LAST:event_bgHabilitarActionPerformed
     private void bgGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bgGravarActionPerformed
-        //Verificar se os campos estão vazios
+        String valor = txtPreco.getText().trim().replace(",", ".");
+        String valorPeso = txtPeso.getText().trim().replace(",", ".");
+        String valorCarga = txtMontante.getText().trim().replace(",", ".");
+        String valorFrete = txtFrete.getText().trim().replace(",", ".");
+        String valorImposto = txtImposto.getText().trim().replace(",", ".");
+        String valorComissao = txtComissao.getText().trim().replace(",", ".");
+        String valorApgar = txtMontanteDevido.getText().trim().replace(",", ".");
+
+//Verificar se os campos estão vazios
         if (txtPrestador.getText().isEmpty()
                 || txtTomador.getText().isEmpty()
                 || txtDescricao.getText().isEmpty()
@@ -296,13 +304,13 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
             h.setTomador(txtTomador.getText());
             h.setDescricao(txtDescricao.getText());
             h.setQuantidade(Integer.parseInt(txtQuant.getText()));
-            h.setPrecoProduto(Double.parseDouble(txtPreco.getText()));
-            h.setPesoproduto(Double.parseDouble(txtPeso.getText()));
-            h.setTotalProduto(Double.parseDouble(txtMontante.getText()));
-            h.setFreteProduto(Double.parseDouble(txtFrete.getText()));
-            h.setImpostoProduto(Double.parseDouble(txtImposto.getText()));
-            h.setComissaoProduto(Double.parseDouble(txtComissao.getText()));
-            h.setApagarProduto(Double.parseDouble(txtMontanteDevido.getText()));
+            h.setPrecoProduto(Double.parseDouble(valor));
+            h.setPesoproduto(Double.parseDouble(valorPeso));
+            h.setTotalProduto(Double.parseDouble(valorCarga));
+            h.setFreteProduto(Double.parseDouble(valorFrete));
+            h.setImpostoProduto(Double.parseDouble(valorImposto));
+            h.setComissaoProduto(Double.parseDouble(valorComissao));
+            h.setApagarProduto(Double.parseDouble(valorApgar));
             dao.adicionar(h);
             CarregarId();
             // Exibir mensagem de sucesso

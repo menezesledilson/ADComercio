@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -118,7 +120,7 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
         tbFluxoBoleto.getColumnModel().getColumn(0).setPreferredWidth(170);
         tbFluxoBoleto.getColumnModel().getColumn(1).setPreferredWidth(60);
         tbFluxoBoleto.getColumnModel().getColumn(2).setPreferredWidth(60);
-        tbFluxoBoleto.getColumnModel().getColumn(3).setPreferredWidth(20);
+        tbFluxoBoleto.getColumnModel().getColumn(3).setPreferredWidth(80);
         tbFluxoBoleto.getColumnModel().getColumn(4).setPreferredWidth(60);
         tbFluxoBoleto.getColumnModel().getColumn(5).setPreferredWidth(60);
     }
@@ -156,14 +158,30 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
             NumberFormat currencyApagar = NumberFormat.getCurrencyInstance();
 
             while (rs.next()) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                // String dataFormatadaPedido = dateFormat.format(rs.getDate("datapedido"));
+
+                String dataFormatadaReceber = "";
+                Date dataReceber = rs.getDate("databoletoreceber");
+                if (dataReceber != null) {
+                    dataFormatadaReceber = dateFormat.format(dataReceber);
+                }
+
+                String dataFormatadaPagar = "";
+                Date dataPagar = rs.getDate("databoletoapagar");
+                if (dataPagar != null) {
+                    dataFormatadaPagar = dateFormat.format(dataPagar);
+                }
                 modelo.addRow(new Object[]{
                     //rs.getString(1),
                     rs.getString("nomeboletoreceber"),
-                    rs.getString("databoletoreceber"),
+                    //rs.getString("databoletoreceber"),
+                    dataFormatadaReceber,
                     currencyReceber.format(rs.getDouble("valorboletoreceber")),
                     //rs.getString(4),
                     rs.getString("nomeboletoapagar"),
-                    rs.getString("databoletoapagar"),
+                    // rs.getString("databoletoapagar"),
+                    dataFormatadaPagar,
                     // currencyApagar.format(rs.getDouble("valorboletoApgar")),
 
                     currencyApagar.format(rs.getDouble("valorboletoapagar")),});

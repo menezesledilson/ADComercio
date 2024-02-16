@@ -1,47 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package financeiro;
 
-
-import financeiro.gui.Login;
-import financeiro.gui.MenuPrincipal;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
+import financeiro.View.Menus.MenuPrincipal;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.WindowConstants;
 
-/**
- *
- * @author Ledilson
- */
 public class FinanceiroPrincipal {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
 
-        Login mm = new Login();
+        //  Login mm = new Login();
+        MenuPrincipal mm = new MenuPrincipal();
+        try {
+            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            mm.setVisible(true);
 
-        mm.setVisible(true);
-
-        /* MenuPrincipal mm  = new MenuPrincipal();
+            /* MenuPrincipal mm  = new MenuPrincipal();
          mm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
          mm.setVisible(true);*/
+        }
     }
-
 }

@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Ledilson
- */
 public class ComissaoDao {
 
     public void adicionar(ComissaoPagamento comissaoPagamento) {
@@ -46,7 +42,7 @@ public class ComissaoDao {
     }
 
     public void alterar(ComissaoPagamento comissaoPagamento) {
-         Connection con = Conexao.getConnection();
+        Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
 
         try {
@@ -88,7 +84,7 @@ public class ComissaoDao {
         try {
             pstm = con.prepareCall("delete from comissao where id = ? ; ");
 
-           pstm.setLong(1, comissaoPagamento.getId());
+            pstm.setLong(1, comissaoPagamento.getId());
 
             pstm.executeUpdate();
 
@@ -110,8 +106,7 @@ public class ComissaoDao {
         ResultSet rs = null;
 
         try {
-            //pstm = con.prepareStatement("SELECT id,nome, empresa, datapedido, dataentrega, precocheia,precofabrica,valorcomissao FROM comissao ORDER BY  id ASC;");
-             pstm = con.prepareStatement("SELECT * FROM comissao ORDER BY  nome ASC;");
+            pstm = con.prepareStatement("SELECT id,nome, empresa, datapedido, dataentrega, precocheia,precofabrica,valorcomissao FROM comissao ORDER BY  id DESC;");
             rs = pstm.executeQuery();
 
             while (rs.next()) {
@@ -119,7 +114,7 @@ public class ComissaoDao {
                 ComissaoPagamento comissaoPagamento = new ComissaoPagamento();
 
                 comissaoPagamento.setId(rs.getLong("id"));
-                
+
                 comissaoPagamento.setNome(rs.getString("nome"));
                 comissaoPagamento.setEmpresa(rs.getString("empresa"));
 

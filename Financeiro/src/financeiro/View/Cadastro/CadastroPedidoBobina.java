@@ -12,13 +12,10 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.DateFormatter;
-import javax.swing.text.DefaultFormatterFactory;
 
 public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
 
@@ -328,7 +325,8 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                     .addComponent(jLabel12)
                     .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -432,27 +430,31 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
             }
             // Limpa a tabela antes de preencher os novos dados
             modelo.setNumRows(0);
-            pstm = con.prepareStatement("SELECT id,datahora,nomecliente,valorpedido,quantidadebobina,datapedido,dataentrega,numerochequea,numerochequeb,numerochequec,pagpedido,observacao FROM pedidobobina ORDER BY  id DESC;");
+            pstm = con.prepareStatement("SELECT id,datahora,nomecliente,valorpedido,quantidadebobina,datapedido,dataentrega,numerochequea,numerochequeb,numerochequec,pagpedido,observacao FROM pedidobobina WHERE EXTRACT(MONTH FROM CAST(datahora AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(datahora AS DATE)) = ? ORDER BY id DESC");
+            pstm.setInt(1, mesAtual);
+            pstm.setInt(2, anoAtual);
             rs = pstm.executeQuery();
             //Formatar o valor no campo jtable
             NumberFormat currencyValor = NumberFormat.getCurrencyInstance();
             while (rs.next()) {
 
                 // Dentro do seu loop while
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                String dataHoraFormatada = dateFormat.format(rs.getTimestamp("datahora"));
+                SimpleDateFormat dateFormatHora = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                String dataHoraFormatada = dateFormatHora.format(rs.getTimestamp("datahora"));
 
-                // String dataEntrega = dateFormat.format(rs.getTimestamp("dataentrega"));
-                //String dataPedido = dateFormat.format(rs.getTimestamp("datapedido"));
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String dataFormatadaEntrega = dateFormat.format(rs.getDate("dataentrega"));
+                String dataFormatadaPedido = dateFormat.format(rs.getDate("datapedido"));
+
                 modelo.addRow(new Object[]{
                     dataHoraFormatada,
                     rs.getString("nomecliente"),
                     currencyValor.format(rs.getDouble("valorpedido")),
                     rs.getString("quantidadebobina"),
-                    //dataEntrega,
-                    //dataPedido,
-                    rs.getString("dataentrega"),
-                    rs.getString("datapedido"),
+                    dataFormatadaEntrega,
+                    // rs.getString("dataentrega"),
+                    //rs.getString("datapedido"),
+                    dataFormatadaPedido,
                     rs.getString("numerochequea"),
                     rs.getString("numerochequeb"),
                     rs.getString("numerochequec"),
@@ -566,7 +568,9 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                 "Alteração de dados.", JOptionPane.YES_NO_OPTION)) {
             case 0:
                 l.setNomeClientePedido(txtNomeEmpresa.getText());
-                l.setValorPedido(Double.parseDouble(txtValor.getText()));
+                String valorPedido = txtValor.getText().trim().replace(",", ".");
+                l.setValorPedido(Double.parseDouble(valorPedido));
+
                 l.setQuantidadeBobina(Integer.parseInt(txtQuant.getText()));
                 l.setNumeroChequeA(txtChequeA.getText());
                 l.setNumeroChequeB(txtChequeB.getText());
@@ -581,6 +585,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                     l.setDataPedido(dataSQL);
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+                    break;
                 }
                 // Entrada da Data Empresa
                 try {
@@ -589,6 +594,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                     l.setDataEntrega(dataSQL);
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
+                    break;
                 }
                 dao.alterar(l);// faz alteração no banco de dados
                 carregaTabela();
@@ -622,7 +628,10 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         PedidoBobina l = new PedidoBobina();
         PedidoBobinaDao dao = new PedidoBobinaDao();
         l.setNomeClientePedido(txtNomeEmpresa.getText());
-        l.setValorPedido(Double.parseDouble(txtValor.getText()));
+
+        String valorPedido = txtValor.getText().trim().replace(",", ".");
+
+        l.setValorPedido(Double.parseDouble(valorPedido));
         //Converter integer para int
         l.setQuantidadeBobina(Integer.parseInt(txtQuant.getText()));
         l.setNumeroChequeA(txtChequeA.getText());
@@ -709,21 +718,12 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         txtChequeC.setText(g.getNumeroChequeC());
         cbxPag.setSelectedItem(g.getPagPedido());
         txtObs.setText(g.getObservacaoPagamento());
-        JFormattedTextField txtDataPedido = new JFormattedTextField(new DefaultFormatterFactory(new DateFormatter(sdfPedido)));
-        txtDataPedido.setValue(g.getDataPedido());
-        SimpleDateFormat sdfEntrega = new SimpleDateFormat("dd-MM-yyyy");
-        JFormattedTextField txtDataEntrega = new JFormattedTextField(new DefaultFormatterFactory(new DateFormatter(sdfEntrega)));
-        txtDataEntrega.setValue(g.getDataEntrega());
-        txtNomeEmpresa.setEnabled(true);
-        txtValor.setEnabled(true);
-        txtQuant.setEnabled(true);
-        txtDataEntrega.setEnabled(true);
-        txtDataPedido.setEnabled(true);
-        txtChequeA.setEnabled(true);
-        txtChequeB.setEnabled(true);
-        txtChequeC.setEnabled(true);
-        cbxPag.setEnabled(true);
-        txtObs.setEnabled(true);
+        // Definindo as datas formatadas nos JTextFields existentes
+        SimpleDateFormat formatoData = new SimpleDateFormat("dd-MM-yyyy");
+        txtDataPedido.setValue(formatoData.format(g.getDataPedido()));
+        txtDataEntrega.setValue(formatoData.format(g.getDataEntrega()));
+
+        ativaCampos();
         btGravar.setEnabled(false);
         btAlterar.setEnabled(true);
         btExcluir.setEnabled(true);

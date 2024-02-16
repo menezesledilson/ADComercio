@@ -55,6 +55,7 @@ public class EmpresaDao {
             Conexao.closeConnection(con, pstm);
         }
     }
+
     public void remover(Empresa empresa) {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
@@ -69,6 +70,7 @@ public class EmpresaDao {
             Conexao.closeConnection(con, pstm);
         }
     }
+
     public List<Empresa> listarEmpresa() {
         List<Empresa> empresas = new ArrayList<>();
         Connection con = Conexao.getConnection();
@@ -94,5 +96,27 @@ public class EmpresaDao {
             Conexao.closeConnection(con, pstm, rs);
         }
         return empresas;
+    }
+
+    public boolean clienteExistePorCNPJ(String cnpj) {
+        Connection con = Conexao.getConnection();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        boolean existe = false;
+        try {
+            pstm = con.prepareStatement("select id from empresa where cnpj=? ");
+            pstm.setString(1, cnpj);
+            rs = pstm.executeQuery();
+
+            if (rs.next()) {
+                existe = true;
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro SQL ao verificar se o cliente existe: " + sqlException.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            Conexao.closeConnection(con, pstm, rs);
+        }
+        return existe;
     }
 }

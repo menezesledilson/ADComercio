@@ -18,10 +18,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
-/**
- *
- * @author Ledilson
- */
 public class FluxoCaixa extends javax.swing.JInternalFrame {
 
     public FluxoCaixa() {

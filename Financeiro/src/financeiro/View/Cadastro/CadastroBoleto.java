@@ -2,7 +2,6 @@ package financeiro.View.Cadastro;
 
 import financeiro.DAO.BoletoEmpresaDao;
 import financeiro.conexao.Conexao;
-import javax.swing.JOptionPane;
 import financeiro.model.BoletoEmpresa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,23 +9,17 @@ import java.sql.ResultSet;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Ledilson
- */
 public class CadastroBoleto extends javax.swing.JInternalFrame {
 
     //Conversão de data
     private final SimpleDateFormat sdfC = new SimpleDateFormat("dd-MM-yyyy");
     private final SimpleDateFormat sdfE = new SimpleDateFormat("dd-MM-yyyy");
 
-    /**
-     * Creates new form CadastroBoleto
-     */
     public CadastroBoleto() {
         initComponents();
         carregaTabela();
@@ -180,7 +173,7 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
                                 .addComponent(txtDataEmpresaPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
+                                .addGap(9, 249, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -193,7 +186,7 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
                                 .addGap(8, 8, 8)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtClienteReceber, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtClienteReceber, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -277,7 +270,7 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -343,12 +336,17 @@ private void CentralizarJTextFields() {
             NumberFormat currencyReceber = NumberFormat.getCurrencyInstance();
             NumberFormat currencyApagar = NumberFormat.getCurrencyInstance();
             while (rs.next()) {
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String dataFormatadaReceber = dateFormat.format(rs.getDate("databoletoreceber"));
+                String dataFormatadaPagar = dateFormat.format(rs.getDate("databoletoapagar"));
+
                 modelo.addRow(new Object[]{
                     rs.getString("nomeboletoreceber"),
-                    rs.getString("databoletoreceber"),
+                    dataFormatadaReceber,
                     currencyReceber.format(rs.getDouble("valorboletoreceber")),
                     rs.getString("nomeboletoapagar"),
-                    rs.getString("databoletoapagar"),
+                    dataFormatadaPagar,
                     currencyApagar.format(rs.getDouble("valorboletoapagar")),
                     rs.getString("statuspago"),
                     rs.getString("observacao"),});
@@ -449,15 +447,14 @@ private void CentralizarJTextFields() {
             JOptionPane.showMessageDialog(null, "Formato de data incorreto. Por favor, insira a data no formato correto (dd-MM-yyyy).", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         /*OBTENDO O VALOR DE CLIENTE */
-        String valorReceberClienteText = txtValorClienteReceber.getText();
+        String valorReceberClienteText = txtValorClienteReceber.getText().trim().replace(",", ".");
         // Convertendo a String para double
         double valorReceberCliente = Double.parseDouble(valorReceberClienteText);
         // Definindo o valor convertido na propriedade
         e.setReceberClienteValor(valorReceberCliente);
         /*OBTENDO O VALOR DE EMPRESA */
-        String valorPagarEmpresaText = txtValorEmpresaPagar.getText();
+        String valorPagarEmpresaText = txtValorEmpresaPagar.getText().trim().replace(",", ".");
         // Convertendo a String para double
         double valorPagarEmpresa = Double.parseDouble(valorPagarEmpresaText);
         // Definindo o valor convertido na propriedade
@@ -502,8 +499,12 @@ private void CentralizarJTextFields() {
                 e.setBoletoClienteReceber(txtClienteReceber.getText());
                 e.setBoletoEmpresaPagar(txtEmpresaPagar.getText());
 
-                e.setReceberClienteValor(Double.parseDouble(txtValorClienteReceber.getText()));
-                e.setPagarEmpresaValor(Double.parseDouble(txtValorEmpresaPagar.getText()));
+                String valorReceberClienteText = txtValorClienteReceber.getText().trim().replace(",", ".");
+
+                String valorEmpresaText = txtValorEmpresaPagar.getText().trim().replace(",", ".");
+
+                e.setReceberClienteValor(Double.parseDouble(valorReceberClienteText));
+                e.setPagarEmpresaValor(Double.parseDouble(valorEmpresaText));
 
                 String descricacaoStatus = cbxStatus.getSelectedItem().toString();
                 e.setStatus(descricacaoStatus);

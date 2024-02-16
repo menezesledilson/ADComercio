@@ -244,9 +244,16 @@ private void CentralizarTabela() {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
+        String nomeCnpj = txtCnpj.getText();
+        EmpresaDao dao = new EmpresaDao();
+        if (dao.clienteExistePorCNPJ(nomeCnpj)) {
+            JOptionPane.showMessageDialog(null, "Este cliente já existe.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         // Criar uma nova instância de BobinaC
         Empresa e = new Empresa();
-        EmpresaDao dao = new EmpresaDao();
+        //EmpresaDao dao = new EmpresaDao();
 
         e.setNome(txtCliente.getText());
         e.setCidade(txtCidade.getText());
@@ -260,10 +267,8 @@ private void CentralizarTabela() {
         dao.adicionar(e);
         // Atualizar a tabela
         carregaTabela();
-
-        // Limpar os campos de texto
         limparCampos();
-
+        desativaCampos();
     }//GEN-LAST:event_btGravarActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed

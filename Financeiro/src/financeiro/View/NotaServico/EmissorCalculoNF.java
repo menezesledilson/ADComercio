@@ -339,10 +339,15 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
         }
         NotaServico a = new NotaServico();
         EmissorNotaServicoDao dao = new EmissorNotaServicoDao();
+
+        String valorCargaFinal = txtTotalCargaFinal.getText().trim().replace(",", ".");
+        String valorFrete = txtFrete.getText().trim().replace(",", ".");
+        String valorImposto = txtImposto.getText().trim().replace(",", ".");
+        String valorComissao = txtComissao.getText().trim().replace(",", ".");
         try {
             a.setClienteFornecedor(txtForncedor.getText());
-            a.setTotalCargaFinal(Double.parseDouble(txtTotalCargaFinal.getText()));
-            a.setFrete(Double.parseDouble(txtFrete.getText()));
+            a.setTotalCargaFinal(Double.parseDouble(valorCargaFinal));
+            a.setFrete(Double.parseDouble(valorFrete));
             double totalCargaFinal = a.getTotalCargaFinal();
             double frete = a.getFrete();
             double totalFreteCarga = totalCargaFinal - frete;
@@ -350,14 +355,14 @@ public class EmissorCalculoNF extends javax.swing.JInternalFrame {
             DecimalFormat decimalFormatFreteCarga = new DecimalFormat("#.##");
             String resultadoFormatadoFreteCarga = String.format("%.2f", totalFreteCarga);
             lblFrete.setText(String.valueOf(resultadoFormatadoFreteCarga));
-            a.setImposto(Double.parseDouble(txtImposto.getText()));
+            a.setImposto(Double.parseDouble(valorImposto));
             double Imposto = a.getImposto();
             double totalFreteImposto = totalFreteCarga + Imposto;
             a.setTotalImposto(totalFreteImposto);
             DecimalFormat decimalFormatImposto = new DecimalFormat("#.##");
             String resultadoFormatadoImposto = String.format("%.2f", totalFreteImposto);
             lblImposto.setText(String.valueOf(resultadoFormatadoImposto));
-            a.setComissao(Double.parseDouble(txtComissao.getText()));
+            a.setComissao(Double.parseDouble(valorComissao));
             double Comissao = a.getComissao();
             double totalFreteComissao = totalFreteImposto - Comissao;
             a.setTotalComissao(totalFreteComissao);

@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -145,19 +147,19 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
 
     private void tamanhoTabela() {
         //Defini o tamanho da tabela
-        tbFluxoPedidoBobina.getColumnModel().getColumn(0).setPreferredWidth(130);
-        tbFluxoPedidoBobina.getColumnModel().getColumn(1).setPreferredWidth(60);
-        tbFluxoPedidoBobina.getColumnModel().getColumn(2).setPreferredWidth(15);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(0).setPreferredWidth(200);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(2).setPreferredWidth(50);
 
-        tbFluxoPedidoBobina.getColumnModel().getColumn(3).setPreferredWidth(60);
-        tbFluxoPedidoBobina.getColumnModel().getColumn(4).setPreferredWidth(60);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(3).setPreferredWidth(90);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(4).setPreferredWidth(90);
 
-        tbFluxoPedidoBobina.getColumnModel().getColumn(5).setPreferredWidth(50);
-        tbFluxoPedidoBobina.getColumnModel().getColumn(6).setPreferredWidth(50);
-        tbFluxoPedidoBobina.getColumnModel().getColumn(7).setPreferredWidth(50);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(5).setPreferredWidth(90);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(6).setPreferredWidth(90);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(7).setPreferredWidth(90);
 
         tbFluxoPedidoBobina.getColumnModel().getColumn(8).setPreferredWidth(90);
-        tbFluxoPedidoBobina.getColumnModel().getColumn(9).setPreferredWidth(200);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(9).setPreferredWidth(150);
     }
 
     private void carregaTabela() {
@@ -212,13 +214,31 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
             pstm = con.prepareStatement("SELECT * FROM pedidobobina;");
             rs = pstm.executeQuery();
             while (rs.next()) {
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                // String dataFormatadaPedido = dateFormat.format(rs.getDate("datapedido"));
+
+                String dataFormatadaPedido = "";
+                Date dataPedido = rs.getDate("datapedido");
+                if (dataPedido != null) {
+                    dataFormatadaPedido = dateFormat.format(dataPedido);
+                }
+
+                String dataFormatadaEntrega = "";
+                Date dataEntrega = rs.getDate("dataentrega");
+                if (dataEntrega != null) {
+                    dataFormatadaEntrega = dateFormat.format(dataEntrega);
+                }
+
                 modelo.addRow(new Object[]{
                     //rs.getString(1), id da tabela do banco de dados
                     rs.getString("nomecliente"),
                     currencyValor.format(rs.getDouble("valorpedido")),
                     rs.getString("quantidadebobina"),
-                    rs.getString("datapedido"),
-                    rs.getString("dataentrega"),
+                    // rs.getString("datapedido"),
+                    // rs.getString("dataentrega"),
+                    dataFormatadaPedido,
+                    dataFormatadaEntrega,
                     rs.getString("numerochequea"),
                     rs.getString("numerochequeb"),
                     rs.getString("numerochequec"),

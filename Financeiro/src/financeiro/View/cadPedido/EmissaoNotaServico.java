@@ -46,7 +46,7 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtPesoUnitario = new javax.swing.JTextField();
-        txtValorUnitario1 = new javax.swing.JLabel();
+        txtValorUnitario = new javax.swing.JLabel();
         cbxProduto = new javax.swing.JComboBox();
         lbCargaInicial = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -97,8 +97,8 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Peso.:");
 
-        txtValorUnitario1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        txtValorUnitario1.setText("0.00");
+        txtValorUnitario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtValorUnitario.setText("0.00");
 
         cbxProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione" }));
         cbxProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -130,45 +130,45 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jScrollPane1)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(5, 5, 5)
-                            .addComponent(cbxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(4, 4, 4)
-                            .addComponent(jLabel3)
-                            .addGap(4, 4, 4)
-                            .addComponent(cbxProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtValorUnitario1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtPesoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lbCargaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(0, 176, Short.MAX_VALUE)))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btAtivarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87)
-                .addComponent(btGravaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
-                .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(5, 5, 5)
+                                .addComponent(cbxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel3)
+                                .addGap(4, 4, 4)
+                                .addComponent(cbxProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtPesoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lbCargaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 176, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btAtivarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(87, 87, 87)
+                        .addComponent(btGravaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(73, 73, 73)
+                        .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +189,7 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
                     .addComponent(cbxProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel6)
-                    .addComponent(txtValorUnitario1)
+                    .addComponent(txtValorUnitario)
                     .addComponent(jLabel5)
                     .addComponent(txtPesoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
@@ -289,7 +289,7 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
     public void limparCampos() {
         txtQuant.setText("");
         txtPesoUnitario.setText("");
-        txtValorUnitario1.setText("");
+        txtValorUnitario.setText("");
     }
 
     public void desativarBotao() {
@@ -320,8 +320,10 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
         NotaServicoCliente a = new NotaServicoCliente();
         EmissorNotaServicoClienteDao dao = new EmissorNotaServicoClienteDao();
+
         ativarBotao();
         try {
             String descricacaoCliente = cbxCliente.getSelectedItem().toString();
@@ -330,9 +332,11 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
             if (cbxProduto.getItemCount() > 0) {
                 String descricaoSelecionada = cbxProduto.getSelectedItem().toString();
                 a.setNomeProduto(descricaoSelecionada);
-                a.setPesoUnitario(Double.parseDouble(txtPesoUnitario.getText()));
-                a.setValorUnitario(Double.parseDouble(txtValorUnitario1.getText()));
 
+                String valorPeso = txtPesoUnitario.getText().trim().replace(",", ".");
+                a.setPesoUnitario(Double.parseDouble(valorPeso));
+
+                a.setValorUnitario(Double.parseDouble(txtValorUnitario.getText()));
                 double valorPedidoPeso = a.getValorUnitario() * a.getPesoUnitario();
                 a.setCargaInicial(valorPedidoPeso);
                 // Acumula o valor total
@@ -387,7 +391,7 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
         int selectedIndex = cbxProduto.getSelectedIndex();
         if (selectedIndex >= 0 && selectedIndex < valorUnitarioBobina1.size()) {
             double valorSelecionado = valorUnitarioBobina1.get(selectedIndex);
-            txtValorUnitario1.setText(String.valueOf(valorSelecionado));
+            txtValorUnitario.setText(String.valueOf(valorSelecionado));
         }
     }//GEN-LAST:event_cbxProdutoActionPerformed
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
@@ -457,6 +461,6 @@ public class EmissaoNotaServico extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbClientes;
     private javax.swing.JTextField txtPesoUnitario;
     private javax.swing.JTextField txtQuant;
-    private javax.swing.JLabel txtValorUnitario1;
+    private javax.swing.JLabel txtValorUnitario;
     // End of variables declaration//GEN-END:variables
 }
