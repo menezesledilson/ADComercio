@@ -17,6 +17,7 @@ import financeiro.View.Cadastro.CadastroPedidoBobina;
 import financeiro.View.Cadastro.PostgresBackupRestore;
 import financeiro.View.FluxoAnual.FluxoBoleto;
 import financeiro.View.FluxoAnual.FluxoCaixa;
+import financeiro.View.FluxoAnual.FluxoComissao;
 import financeiro.View.FluxoAnual.FluxoPagamento;
 import financeiro.View.FluxoAnual.FluxoPedidoBobina;
 import financeiro.View.FluxoAnual.FluxoVenda;
@@ -118,6 +119,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem33 = new javax.swing.JMenuItem();
         jSeparator31 = new javax.swing.JPopupMenu.Separator();
         jMenuItem30 = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem36 = new javax.swing.JMenuItem();
         jSeparator27 = new javax.swing.JPopupMenu.Separator();
         jMenuItem34 = new javax.swing.JMenuItem();
         jSeparator28 = new javax.swing.JPopupMenu.Separator();
@@ -349,6 +352,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu10.add(jMenuItem30);
+        jMenu10.add(jSeparator7);
+
+        jMenuItem36.setText("Livro Comissão");
+        jMenuItem36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem36ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem36);
         jMenu10.add(jSeparator27);
 
         jMenuItem34.setText("Livro de Vendas");
@@ -715,6 +727,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         form.abrirFormulario(tela = new CalcComissao(), jDesktop);
     }//GEN-LAST:event_jMenuItem39ActionPerformed
 
+    private void jMenuItem36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem36ActionPerformed
+        FluxoComissao tela;
+        form.abrirFormulario(tela = new FluxoComissao(), jDesktop);
+    }//GEN-LAST:event_jMenuItem36ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -800,6 +817,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem33;
     private javax.swing.JMenuItem jMenuItem34;
     private javax.swing.JMenuItem jMenuItem35;
+    private javax.swing.JMenuItem jMenuItem36;
     private javax.swing.JMenuItem jMenuItem37;
     private javax.swing.JMenuItem jMenuItem38;
     private javax.swing.JMenuItem jMenuItem39;
@@ -845,6 +863,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator42;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
     private javax.swing.JLabel lblBackground;

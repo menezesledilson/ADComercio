@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -178,12 +179,19 @@ public class FluxoComissao extends javax.swing.JInternalFrame {
             NumberFormat currencyValorComissao = NumberFormat.getCurrencyInstance();
 
             while (rs.next()) {
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String dataPedidoFormatada = dateFormat.format(rs.getTimestamp("datapedido"));
+                String dataEntregaFormatada = dateFormat.format(rs.getTimestamp("dataentrega"));
+
                 modelo.addRow(new Object[]{
                     rs.getString("datahora"),
                     rs.getString("nome"),
                     rs.getString("empresa"),
-                    rs.getDate("datapedido"),
-                    rs.getDate("dataentrega"),
+                    dataPedidoFormatada,
+                    dataEntregaFormatada,
+                    //rs.getDate("datapedido"),
+                    //rs.getDate("dataentrega"),
                     currencyPrecoCheia.format(rs.getDouble("precocheia")),
                     currencyPrecoFabrica.format(rs.getDouble("precofabrica")),
                     currencyValorComissao.format(rs.getDouble("valorcomissao")),});
