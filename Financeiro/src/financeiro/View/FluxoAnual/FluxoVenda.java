@@ -181,7 +181,7 @@ public class FluxoVenda extends javax.swing.JInternalFrame {
                 // Trate exceções SQL conforme necessário
                 e.printStackTrace();
             }
-            pstm = con.prepareStatement("SELECT * FROM controlevendedor ORDER BY datahoravenda ASC;");
+            pstm = con.prepareStatement("SELECT * FROM controlevendedor ORDER BY datahoravenda DESC;");
             rs = pstm.executeQuery();
             NumberFormat currencyValor = NumberFormat.getCurrencyInstance();
             while (rs.next()) {

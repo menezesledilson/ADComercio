@@ -185,8 +185,7 @@ private void CentralizarTabela() {
         tbCadBobinas.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 
     }
-
-    ;
+ 
 
     private void limparTexto() {
         txtDescricao.setText("");
@@ -222,7 +221,7 @@ private void CentralizarTabela() {
     }
     private void tbCadBobinasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCadBobinasMouseClicked
 
-        //Setando campos de texto com registros
+    //Setando campos de texto com registros
         BobinaC b = new BobinaC();
         BobinaDao dao = new BobinaDao();
 

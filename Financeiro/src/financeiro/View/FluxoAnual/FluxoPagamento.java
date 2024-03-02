@@ -183,7 +183,7 @@ public class FluxoPagamento extends javax.swing.JInternalFrame {
                 // Trate exceções SQL conforme necessário
                 e.printStackTrace();
             }
-            pstm = con.prepareStatement("SELECT * FROM pagamentofabrica ORDER BY datahorapagamento ASC;");
+            pstm = con.prepareStatement("SELECT * FROM pagamentofabrica ORDER BY datahorapagamento DESC;");
             rs = pstm.executeQuery();
             NumberFormat currencyValor = NumberFormat.getCurrencyInstance();
             while (rs.next()) {

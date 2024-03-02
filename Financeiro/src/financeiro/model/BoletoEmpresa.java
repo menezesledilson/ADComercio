@@ -25,6 +25,17 @@ public class BoletoEmpresa {
     private Double PagarEmpresaValor;
     private String Observacao;
     private String Status;
+    private String numeroNota;
+
+    public String getNumeroNota() {
+        return numeroNota;
+    }
+
+    public void setNumeroNota(String numeroNota) {
+        this.numeroNota = numeroNota;
+    }
+    
+    
 
     public String getObservacao() {
         return Observacao;

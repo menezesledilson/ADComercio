@@ -12,12 +12,12 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class BoletoEmpresaDao {
-    
+
     public void adicionar(BoletoEmpresa boletoEmpresa) {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
         try {
-            pstm = con.prepareStatement("insert into boletoEmpresa(nomeboletoreceber,databoletoreceber,valorboletoreceber,nomeboletoapagar,databoletoapagar,valorboletoapagar,statuspago,observacao) values (?,?,?,?,?,?,?,?);");
+            pstm = con.prepareStatement("insert into boletoEmpresa(nomeboletoreceber,databoletoreceber,valorboletoreceber,nomeboletoapagar,databoletoapagar,valorboletoapagar,statuspago,observacao,numeronota) values (?,?,?,?,?,?,?,?,?);");
             pstm.setString(1, boletoEmpresa.getBoletoClienteReceber());
             pstm.setDate(2, boletoEmpresa.getDataClienteReceber());
             pstm.setDouble(3, boletoEmpresa.getReceberClienteValor());
@@ -26,6 +26,7 @@ public class BoletoEmpresaDao {
             pstm.setDouble(6, boletoEmpresa.getPagarEmpresaValor());
             pstm.setString(7, boletoEmpresa.getStatus());
             pstm.setString(8, boletoEmpresa.getObservacao());
+            pstm.setString(9, boletoEmpresa.getNumeroNota());
             pstm.execute();
             JOptionPane.showMessageDialog(null, "Adicionado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ErroSql) {
@@ -34,12 +35,12 @@ public class BoletoEmpresaDao {
             Conexao.closeConnection(con, pstm);
         }
     }
-    
+
     public void alterar(BoletoEmpresa boletoEmpresa) {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
         try {
-           pstm = con.prepareStatement("update boletoempresa set nomeboletoreceber = ?, databoletoreceber = ?, valorboletoreceber = ?, nomeboletoapagar = ?, databoletoapagar = ?, valorboletoapagar = ?, statuspago = ?, observacao = ? where id = ?;");
+            pstm = con.prepareStatement("update boletoempresa set nomeboletoreceber = ?, databoletoreceber = ?, valorboletoreceber = ?, nomeboletoapagar = ?, databoletoapagar = ?, valorboletoapagar = ?, statuspago = ?, observacao = ?,numeronota = ? where id = ?;");
 
             pstm.setString(1, boletoEmpresa.getBoletoClienteReceber());
             pstm.setDate(2, boletoEmpresa.getDataClienteReceber());
@@ -49,9 +50,10 @@ public class BoletoEmpresaDao {
             pstm.setDouble(6, boletoEmpresa.getPagarEmpresaValor());
             pstm.setString(7, boletoEmpresa.getStatus());
             pstm.setString(8, boletoEmpresa.getObservacao());
-            
-            pstm.setLong(9, boletoEmpresa.getId());
-            
+            pstm.setString(9, boletoEmpresa.getNumeroNota());
+
+            pstm.setLong(10, boletoEmpresa.getId());
+
             pstm.executeUpdate();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ErroSql) {
@@ -60,7 +62,7 @@ public class BoletoEmpresaDao {
             Conexao.closeConnection(con, pstm);
         }
     }
-    
+
     public void remover(BoletoEmpresa boletoEmpresa) {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
@@ -75,7 +77,7 @@ public class BoletoEmpresaDao {
             Conexao.closeConnection(con, pstm);
         }
     }
-    
+
     public List<BoletoEmpresa> listarBoletoEmpresa() {
         List<BoletoEmpresa> boletoEmpresas = new ArrayList<>();
         Connection con = Conexao.getConnection();
@@ -86,7 +88,7 @@ public class BoletoEmpresaDao {
             rs = pstm.executeQuery();
             while (rs.next()) {
                 BoletoEmpresa boletoEmpresa = new BoletoEmpresa();
-                
+
                 boletoEmpresa.setId(rs.getLong("id"));
                 boletoEmpresa.setBoletoClienteReceber(rs.getString("nomeboletoreceber"));
                 boletoEmpresa.setBoletoEmpresaPagar(rs.getString("nomeboletoapagar"));
@@ -95,7 +97,9 @@ public class BoletoEmpresaDao {
                 boletoEmpresa.setDataClienteReceber(rs.getDate("databoletoreceber"));
                 boletoEmpresa.setDataEmpresaPagar(rs.getDate("databoletoapagar"));
                 boletoEmpresa.setStatus(rs.getString("statuspago"));
+                boletoEmpresa.setNumeroNota(rs.getString("numeronota"));
                 boletoEmpresa.setObservacao(rs.getString("observacao"));
+
                 boletoEmpresas.add(boletoEmpresa);
             }
         } catch (SQLException ErroSql) {
