@@ -17,7 +17,7 @@ public class PedidoBobinaDao {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
         try {
-            pstm = con.prepareStatement("INSERT into pedidobobina (nomecliente,valorpedido,quantidadebobina,datapedido,dataentrega,numerochequea,numerochequeb,numerochequec,pagpedido,observacao)values (?,?,?,?,?,?,?,?,?,? );");
+            pstm = con.prepareStatement("INSERT into pedidobobina (nomecliente,valorpedido,quantidadebobina,datapedido,dataentrega,numerochequea,numerochequeb,numerochequec,pagpedido,observacao,obsfrete)values (?,?,?,?,?,?,?,?,?,?,? );");
             pstm.setString(1, pedidobobina.getNomeClientePedido());
             pstm.setDouble(2, pedidobobina.getValorPedido());
             pstm.setInt(3, pedidobobina.getQuantidadeBobina());
@@ -28,6 +28,7 @@ public class PedidoBobinaDao {
             pstm.setString(8, pedidobobina.getNumeroChequeC());
             pstm.setString(9, pedidobobina.getPagPedido());
             pstm.setString(10, pedidobobina.getObservacaoPagamento());
+            pstm.setString(11, pedidobobina.getObservacaoFrete());
             pstm.execute();
             JOptionPane.showMessageDialog(null, "Adicionado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ErroSql) {
@@ -41,7 +42,7 @@ public class PedidoBobinaDao {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
         try {
-            pstm = con.prepareStatement("UPDATE pedidobobina SET nomecliente = ?, valorpedido = ?, quantidadebobina = ?, datapedido = ?, dataentrega = ?, numerochequea = ?, numerochequeb = ?, numerochequec = ?, pagpedido = ?, observacao = ? WHERE id = ?");
+            pstm = con.prepareStatement("UPDATE pedidobobina SET nomecliente = ?, valorpedido = ?, quantidadebobina = ?, datapedido = ?, dataentrega = ?, numerochequea = ?, numerochequeb = ?, numerochequec = ?, pagpedido = ?, observacao = ?,obsfrete = ? WHERE id = ?");
             pstm.setString(1, pedidobobina.getNomeClientePedido());
             pstm.setDouble(2, pedidobobina.getValorPedido());
             pstm.setInt(3, pedidobobina.getQuantidadeBobina());
@@ -52,7 +53,8 @@ public class PedidoBobinaDao {
             pstm.setString(8, pedidobobina.getNumeroChequeC());
             pstm.setString(9, pedidobobina.getPagPedido());
             pstm.setString(10, pedidobobina.getObservacaoPagamento());
-            pstm.setLong(11, pedidobobina.getId());
+            pstm.setString(11, pedidobobina.getObservacaoFrete());
+            pstm.setLong(12, pedidobobina.getId());
             pstm.executeUpdate();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ErroSql) {
@@ -84,7 +86,7 @@ public class PedidoBobinaDao {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         try {
-            pstm = con.prepareStatement("SELECT id,nomecliente,valorpedido,quantidadebobina,datapedido,dataentrega,numerochequea,numerochequeb,numerochequec,pagpedido,observacao FROM pedidobobina ORDER BY  id DESC;");
+            pstm = con.prepareStatement("SELECT id,nomecliente,valorpedido,quantidadebobina,datapedido,dataentrega,numerochequea,numerochequeb,numerochequec,pagpedido,observacao,obsfrete FROM pedidobobina ORDER BY  id DESC;");
             rs = pstm.executeQuery();
             while (rs.next()) {
                 PedidoBobina pedidoBobina = new PedidoBobina();
@@ -99,6 +101,7 @@ public class PedidoBobinaDao {
                 pedidoBobina.setNumeroChequeC(rs.getString("numerochequeC"));
                 pedidoBobina.setPagPedido(rs.getString("pagpedido"));
                 pedidoBobina.setObservacaoPagamento(rs.getString("observacao"));
+                pedidoBobina.setObservacaoFrete(rs.getString("obsfrete"));
                 pedidoBobinas.add(pedidoBobina);
             }
         } catch (SQLException ErroSql) {

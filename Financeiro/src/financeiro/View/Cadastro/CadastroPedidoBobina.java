@@ -66,6 +66,8 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         txtObs = new javax.swing.JTextField();
         txtDataPedido = new javax.swing.JFormattedTextField();
         txtDataEntrega = new javax.swing.JFormattedTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtObsFrete = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Cadastro de Pedidos Entregues ");
@@ -105,7 +107,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Data hora", "Empresa", "Valor", "Qtd", "Data Pedido", "Data Entrega", "N. Ch 1", "N. Ch 2", "N. Ch 3", "Forma Pag.", "Obs"
+                "Data hora", "Empresa", "Valor", "Qtd", "Data Pedido", "Data Entrega", "N. Ch 1", "N. Ch 2", "N. Ch 3", "Forma Pag.", "Obs.", "Obs.2"
             }
         ));
         tbPedido.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -181,6 +183,8 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
+        jLabel13.setText("Obs2.:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -231,33 +235,38 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtChequeA, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(txtChequeA, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(51, 51, 51)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(lbTotalBobina, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel10))
+                                .addGap(57, 57, 57)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblTotalValor)
+                                        .addGap(10, 10, 10)))
+                                .addGap(56, 56, 56))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(lbTotalBobina, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel10))
-                        .addGap(57, 57, 57)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblTotalValor)
-                                .addGap(10, 10, 10)))
-                        .addGap(56, 56, 56))))
+                        .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtObsFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel1Layout.setVerticalGroup(
@@ -323,9 +332,11 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtObsFrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -358,7 +369,8 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         tbPedido.getColumnModel().getColumn(8).setPreferredWidth(20);
 
         tbPedido.getColumnModel().getColumn(9).setPreferredWidth(50);
-        tbPedido.getColumnModel().getColumn(10).setPreferredWidth(200);
+        tbPedido.getColumnModel().getColumn(10).setPreferredWidth(130);
+        tbPedido.getColumnModel().getColumn(11).setPreferredWidth(130);
     }
 
     private void carregaTabela() {
@@ -430,7 +442,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
             }
             // Limpa a tabela antes de preencher os novos dados
             modelo.setNumRows(0);
-            pstm = con.prepareStatement("SELECT id,datahora,nomecliente,valorpedido,quantidadebobina,datapedido,dataentrega,numerochequea,numerochequeb,numerochequec,pagpedido,observacao FROM pedidobobina WHERE EXTRACT(MONTH FROM CAST(datahora AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(datahora AS DATE)) = ? ORDER BY id DESC");
+            pstm = con.prepareStatement("SELECT id,datahora,nomecliente,valorpedido,quantidadebobina,datapedido,dataentrega,numerochequea,numerochequeb,numerochequec,pagpedido,observacao,obsfrete FROM pedidobobina WHERE EXTRACT(MONTH FROM CAST(datahora AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(datahora AS DATE)) = ? ORDER BY id DESC");
             pstm.setInt(1, mesAtual);
             pstm.setInt(2, anoAtual);
             rs = pstm.executeQuery();
@@ -459,7 +471,8 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                     rs.getString("numerochequeb"),
                     rs.getString("numerochequec"),
                     rs.getString("pagpedido"),
-                    rs.getString("observacao"),});
+                    rs.getString("observacao"),
+                    rs.getString("obsfrete"),});
             }
             Conexao.closeConnection(con, pstm, rs);
         } catch (Exception ErroSql) {
@@ -480,6 +493,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         txtChequeC.setHorizontalAlignment(SwingConstants.CENTER);
         //cbxPag.setHorizontalAlignment(SwingConstants.CENTER);
         txtObs.setHorizontalAlignment(SwingConstants.CENTER);
+        txtObsFrete.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
     private void limparTexto() {
@@ -492,6 +506,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         txtChequeB.setText("");
         txtChequeC.setText("");
         txtObs.setText("");
+        txtObsFrete.setText("");
         // Limpar JComboBox (usando setSelectedItem(null))
         cbxPag.setSelectedItem(null);
         btGravar.setEnabled(false);
@@ -515,6 +530,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         txtChequeB.setEnabled(false);
         txtChequeC.setEnabled(false);
         txtObs.setEnabled(false);
+        txtObsFrete.setEnabled(false);
         cbxPag.setEnabled(false);
     }
 
@@ -534,6 +550,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         txtChequeB.setEnabled(true);
         txtChequeC.setEnabled(true);
         txtObs.setEnabled(true);
+        txtObsFrete.setEnabled(true);
         cbxPag.setEnabled(true);
     }
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
@@ -553,6 +570,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                 + "\n N. Cheque 3: " + l.getNumeroChequeC()
                 + "\n Forma Pag.: " + l.getPagPedido()
                 + "\n Obs.: " + l.getObservacaoPagamento()
+                + "\n ObsFrete.: " + l.getObservacaoFrete()
                 + "\n Será alterado \n Empresa: "
                 + txtNomeEmpresa.getText()
                 + "\n R$: " + txtValor.getText()
@@ -564,6 +582,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                 + "\n  N. Cheque 3: " + txtChequeC.getText()
                 + "\n Forma Pag.: " + cbxPag.getSelectedItem()
                 + "\n Obs.: " + txtObs.getText()
+                + "\n ObsFrete.: " + txtObsFrete.getText()
                 + "\n Deseja realmente fazer alteração?",
                 "Alteração de dados.", JOptionPane.YES_NO_OPTION)) {
             case 0:
@@ -577,7 +596,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                 l.setNumeroChequeC(txtChequeC.getText());
                 l.setPagPedido((String) cbxPag.getSelectedItem());
                 l.setObservacaoPagamento(txtObs.getText());
-
+                l.setObservacaoFrete(txtObsFrete.getText());
                 // Entrada da Data cliente
                 try {
                     java.util.Date dataFormatada = sdfPedido.parse(txtDataPedido.getText());
@@ -639,6 +658,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         l.setNumeroChequeC(txtChequeC.getText());
         l.setPagPedido((String) cbxPag.getSelectedItem());
         l.setObservacaoPagamento(txtObs.getText());
+        l.setObservacaoFrete(txtObsFrete.getText());
         // Entrada da Data cliente
         try {
             java.util.Date dataFormatada = sdfPedido.parse(txtDataPedido.getText());
@@ -675,6 +695,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         l.setNumeroChequeC(txtChequeC.getText());
         l.setPagPedido((String) cbxPag.getSelectedItem());
         l.setObservacaoPagamento(txtObs.getText());
+        l.setObservacaoFrete(txtObsFrete.getText());
         //Converte o valor
         String txtValorPedido = txtValor.getText();
         // Convertendo a String para double
@@ -691,7 +712,8 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
                 + "\n N. Cheque 2: " + l.getNumeroChequeB()
                 + "\n N. Cheque 3: " + l.getNumeroChequeC()
                 + "\n Pag.: " + l.getPagPedido()
-                + "\n Obs.:" + l.getObservacaoPagamento(), "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+                + "\n Obs.:" + l.getObservacaoPagamento()
+                + "\n ObsFrete.:" + l.getObservacaoFrete(), "Confirmação ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
             case 0:
                 dao.remover(l);
                 carregaTabela();
@@ -718,6 +740,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
         txtChequeC.setText(g.getNumeroChequeC());
         cbxPag.setSelectedItem(g.getPagPedido());
         txtObs.setText(g.getObservacaoPagamento());
+        txtObsFrete.setText(g.getObservacaoFrete());
         // Definindo as datas formatadas nos JTextFields existentes
         SimpleDateFormat formatoData = new SimpleDateFormat("dd-MM-yyyy");
         txtDataPedido.setValue(formatoData.format(g.getDataPedido()));
@@ -743,6 +766,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -763,6 +787,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField txtDataPedido;
     private javax.swing.JTextField txtNomeEmpresa;
     private javax.swing.JTextField txtObs;
+    private javax.swing.JTextField txtObsFrete;
     private javax.swing.JTextField txtQuant;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables

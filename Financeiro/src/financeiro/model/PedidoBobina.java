@@ -19,6 +19,7 @@ public class PedidoBobina {
     private double valorPedido;
     private int quantidadeBobina;
     private String observacaoPagamento;
+    private String observacaoFrete;
     private String pagPedido;
     private Date dataPedido;
     private Date dataEntrega;
@@ -44,6 +45,16 @@ public class PedidoBobina {
     public void setObservacaoPagamento(String observacaoPagamento) {
         this.observacaoPagamento = observacaoPagamento;
     }
+
+    public String getObservacaoFrete() {
+        return observacaoFrete;
+    }
+
+    public void setObservacaoFrete(String observacaoFrete) {
+        this.observacaoFrete = observacaoFrete;
+    }
+    
+    
 
     public Long getId() {
         return id;

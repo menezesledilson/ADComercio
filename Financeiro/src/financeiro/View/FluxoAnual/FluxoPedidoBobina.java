@@ -50,7 +50,7 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Empresa", "Valor", "Qtd", "Data Pedido", "Data Entrega", "Cheque 1", "Cheque 2", "Cheque 3", "Forma Pag.", "Obs."
+                "Empresa", "Valor", "Qtd", "Data Pedido", "Data Entrega", "Cheque 1", "Cheque 2", "Cheque 3", "Forma Pag.", "Obs.", "Obs.2"
             }
         ));
         jScrollPane1.setViewportView(tbFluxoPedidoBobina);
@@ -89,7 +89,7 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lbTotalBobina)
-                .addContainerGap(560, Short.MAX_VALUE))
+                .addContainerGap(657, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel1Layout.setVerticalGroup(
@@ -159,7 +159,8 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
         tbFluxoPedidoBobina.getColumnModel().getColumn(7).setPreferredWidth(90);
 
         tbFluxoPedidoBobina.getColumnModel().getColumn(8).setPreferredWidth(90);
-        tbFluxoPedidoBobina.getColumnModel().getColumn(9).setPreferredWidth(150);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(9).setPreferredWidth(130);
+        tbFluxoPedidoBobina.getColumnModel().getColumn(10).setPreferredWidth(130);
     }
 
     private void carregaTabela() {
@@ -211,7 +212,7 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
                 e.printStackTrace();
                 // Tratar a exceção conforme necessário, por exemplo, exibindo uma mensagem de erro.
             }
-            pstm = con.prepareStatement("SELECT * FROM pedidobobina;");
+            pstm = con.prepareStatement("SELECT * FROM pedidobobina ORDER BY datahora DESC;");
             rs = pstm.executeQuery();
             while (rs.next()) {
 
@@ -243,7 +244,8 @@ public class FluxoPedidoBobina extends javax.swing.JInternalFrame {
                     rs.getString("numerochequeb"),
                     rs.getString("numerochequec"),
                     rs.getString("pagpedido"),
-                    rs.getString("observacao"),});
+                    rs.getString("observacao"),
+                    rs.getString("obsfrete"),});
             }
             Conexao.closeConnection(con, pstm, rs);
 
