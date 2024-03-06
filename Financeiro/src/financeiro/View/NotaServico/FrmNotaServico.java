@@ -61,6 +61,8 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         txtMontanteDevido = new javax.swing.JTextField();
         bgNovo = new javax.swing.JButton();
         lblId = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txtObs = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Emissão Nota de Serviço");
@@ -145,6 +147,8 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         lblId.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblId.setText("0");
 
+        jLabel12.setText("Obs.:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -152,10 +156,6 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel2)
@@ -184,11 +184,11 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(bgHabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(30, 30, 30)
+                            .addGap(18, 18, 18)
                             .addComponent(bgNovo)
-                            .addGap(31, 31, 31)
+                            .addGap(18, 18, 18)
                             .addComponent(bgGravar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGap(18, 18, 18)
                             .addComponent(bgEmitir)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -207,7 +207,16 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel7)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtMontante, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtMontante, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel12)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtObs))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -232,7 +241,11 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -252,7 +265,7 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
                     .addComponent(txtComissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(txtMontanteDevido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGap(42, 42, 42))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -283,7 +296,7 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         String valorComissao = txtComissao.getText().trim().replace(",", ".");
         String valorApgar = txtMontanteDevido.getText().trim().replace(",", ".");
 
-//Verificar se os campos estão vazios
+        //Verificar se os campos estão vazios
         if (txtPrestador.getText().isEmpty()
                 || txtTomador.getText().isEmpty()
                 || txtDescricao.getText().isEmpty()
@@ -300,6 +313,7 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         } else {
             NotaServicoFinal h = new NotaServicoFinal();
             NotaServicoDao dao = new NotaServicoDao();
+            
             h.setPrestador(txtPrestador.getText());
             h.setTomador(txtTomador.getText());
             h.setDescricao(txtDescricao.getText());
@@ -311,6 +325,8 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
             h.setImpostoProduto(Double.parseDouble(valorImposto));
             h.setComissaoProduto(Double.parseDouble(valorComissao));
             h.setApagarProduto(Double.parseDouble(valorApgar));
+            h.setObservacaoNotaServicoFinal(txtObs.getText());
+
             dao.adicionar(h);
             CarregarId();
             // Exibir mensagem de sucesso
@@ -399,6 +415,7 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         txtPeso.setText("");
         txtPreco.setText("");
         txtQuant.setText("");
+        txtObs.setText("");
     }
 
     public void habilitarCampos() {
@@ -413,6 +430,7 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         txtPeso.setEnabled(true);
         txtPreco.setEnabled(true);
         txtQuant.setEnabled(true);
+        txtObs.setEnabled(true);
     }
 
     private void dasabilitarCampos() {
@@ -427,6 +445,7 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         txtPeso.setEnabled(false);
         txtPreco.setEnabled(false);
         txtQuant.setEnabled(false);
+        txtObs.setEnabled(false);
     }
 
     private void CentralizarJTextFields() {
@@ -441,6 +460,7 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
         txtPeso.setHorizontalAlignment(SwingConstants.CENTER);
         txtPreco.setHorizontalAlignment(SwingConstants.CENTER);
         txtQuant.setHorizontalAlignment(SwingConstants.CENTER);
+        txtObs.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
     public void HabilitarBotao() {
@@ -460,6 +480,7 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -476,6 +497,7 @@ public class FrmNotaServico extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtImposto;
     private javax.swing.JTextField txtMontante;
     private javax.swing.JTextField txtMontanteDevido;
+    private javax.swing.JTextField txtObs;
     private javax.swing.JTextField txtPeso;
     private javax.swing.JTextField txtPreco;
     private javax.swing.JTextField txtPrestador;

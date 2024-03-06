@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+ 
 package financeiro.model;
 
 import java.sql.Timestamp;
-
-/**
- *
- * @author Ledilson
- */
+ 
 public class NotaServicoFinal {
     
 private Long id;  
@@ -26,6 +18,8 @@ private Double freteProduto;
 private Double impostoProduto;  
 private Double comissaoProduto;  
 private Double apagarProduto;  
+private String observacaoNotaServicoFinal;
+
 
     public Long getId() {
         return id;
@@ -130,5 +124,15 @@ private Double apagarProduto;
     public void setApagarProduto(Double apagarProduto) {
         this.apagarProduto = apagarProduto;
     }
+
+    public String getObservacaoNotaServicoFinal() {
+        return observacaoNotaServicoFinal;
+    }
+
+    public void setObservacaoNotaServicoFinal(String observacaoNotaServicoFinal) {
+        this.observacaoNotaServicoFinal = observacaoNotaServicoFinal;
+    }
+    
+    
 
 }

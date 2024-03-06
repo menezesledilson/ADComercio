@@ -86,7 +86,7 @@ public class CalcComissao extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cliente", "Empresa", "Data Pedido", "Data Entrega", "Preço Nota Cheia", "Preço Pag", "Comissão"
+                "Data hora", "Cliente", "Empresa", "Data Pedido", "Data Entrega", "Preço Nota Cheia", "Preço Pag", "Comissão"
             }
         ));
         tbComissao.addMouseListener(new java.awt.event.MouseAdapter() {

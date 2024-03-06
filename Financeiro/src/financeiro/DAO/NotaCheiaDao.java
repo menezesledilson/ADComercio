@@ -81,7 +81,7 @@ public class NotaCheiaDao {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         try {
-            pstm = con.prepareStatement("SELECT * FROM notacheia ORDER BY nomeempresa ASC;");
+            pstm = con.prepareStatement("SELECT * FROM notacheia ORDER BY nomeempresa DESC;");
             rs = pstm.executeQuery();
             while (rs.next()) {
                 NotaCheia notaCheia = new NotaCheia();

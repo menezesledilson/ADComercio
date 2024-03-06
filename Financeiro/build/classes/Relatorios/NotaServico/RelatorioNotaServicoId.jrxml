@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b81ac89b-2b14-4529-8ad6-f861c95ff327">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="123"/>
+	<property name="ireport.y" value="514"/>
 	<subDataset name="dataset1" uuid="79eecd16-9fce-43a8-99f2-addde1164dc2"/>
 	<parameter name="notaId" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[$F{id}]]></defaultValueExpression>
@@ -23,6 +23,7 @@
 	<field name="impostoproduto" class="java.lang.Double"/>
 	<field name="comissaoproduto" class="java.lang.Double"/>
 	<field name="apagarproduto" class="java.lang.Double"/>
+	<field name="observacaonf" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -279,22 +280,22 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="195" splitType="Stretch">
+		<band height="238" splitType="Stretch">
 			<line>
-				<reportElement uuid="28a1faac-48ad-4aab-b5db-cc63267814b7" x="-17" y="139" width="589" height="1"/>
+				<reportElement uuid="28a1faac-48ad-4aab-b5db-cc63267814b7" x="-16" y="195" width="589" height="1"/>
 			</line>
 			<line>
-				<reportElement uuid="48b2c9f8-f168-4233-921b-c43fb8dc7025" x="-17" y="166" width="589" height="1"/>
+				<reportElement uuid="48b2c9f8-f168-4233-921b-c43fb8dc7025" x="-16" y="222" width="589" height="1"/>
 			</line>
 			<staticText>
-				<reportElement uuid="b827bba8-4a54-4694-806e-c3f2c5474e85" x="150" y="144" width="188" height="20"/>
+				<reportElement uuid="b827bba8-4a54-4694-806e-c3f2c5474e85" x="151" y="200" width="188" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="13" isBold="true"/>
 				</textElement>
 				<text><![CDATA[VALOR TOTAL DA NOTA - R$]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="f5525806-ad79-4b6b-a235-75fe9ba9837b" x="330" y="144" width="47" height="20"/>
+				<reportElement uuid="f5525806-ad79-4b6b-a235-75fe9ba9837b" x="331" y="200" width="47" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
@@ -379,6 +380,13 @@
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{comissaoproduto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5ab47f14-529c-458a-8e1a-c8c7a62b3f5e" x="145" y="149" width="222" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observacaonf}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

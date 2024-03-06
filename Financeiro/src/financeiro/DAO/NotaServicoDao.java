@@ -11,12 +11,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 public class NotaServicoDao {
+
     public void adicionar(NotaServicoFinal notaServicoFinal) {
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
         try {
-            pstm = con.prepareStatement("INSERT  INTO notaservico (prestador,tomador,descricao,quantidade,precoproduto,pesoproduto,totalproduto,freteproduto,impostoproduto,comissaoproduto,apagarproduto) VALUES (?,?,?,?,?,?,?,?,?,?,?);");
+            pstm = con.prepareStatement("INSERT  INTO notaservico (prestador,tomador,descricao,quantidade,precoproduto,pesoproduto,totalproduto,freteproduto,impostoproduto,comissaoproduto,apagarproduto,observacaonf) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);");
             pstm.setString(1, notaServicoFinal.getPrestador());
             pstm.setString(2, notaServicoFinal.getTomador());
             pstm.setString(3, notaServicoFinal.getDescricao());
@@ -28,6 +30,7 @@ public class NotaServicoDao {
             pstm.setDouble(9, notaServicoFinal.getImpostoProduto());
             pstm.setDouble(10, notaServicoFinal.getComissaoProduto());
             pstm.setDouble(11, notaServicoFinal.getApagarProduto());
+            pstm.setString(12, notaServicoFinal.getObservacaoNotaServicoFinal());
             pstm.execute();
         } catch (SQLException ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao adicionar no banco.", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -35,7 +38,38 @@ public class NotaServicoDao {
             Conexao.closeConnection(con, pstm);
         }
     }
-        public List<NotaServicoFinal> listarnotaServicoFinal() {
+
+    public void alterar(NotaServicoFinal notaServicoFinal) {
+        Connection con = Conexao.getConnection();
+        PreparedStatement pstm = null;
+
+        try {
+            pstm = con.prepareStatement("UPDATE notaservico  SET prestador = ?,tomador = ?,descricao = ?,quantidade = ?,precoproduto = ?,pesoproduto = ?,totalproduto = ?,freteproduto = ?,impostoproduto = ?,comissaoproduto = ?,apagarproduto = ?,observacaonf = ? WHERE id = ?");
+            pstm.setString(1, notaServicoFinal.getPrestador());
+            pstm.setString(2, notaServicoFinal.getTomador());
+            pstm.setString(3, notaServicoFinal.getDescricao());
+            pstm.setInt(4, notaServicoFinal.getQuantidade());
+            pstm.setDouble(5, notaServicoFinal.getPrecoProduto());
+            pstm.setDouble(6, notaServicoFinal.getPesoproduto());
+            pstm.setDouble(7, notaServicoFinal.getTotalProduto());
+            pstm.setDouble(8, notaServicoFinal.getFreteProduto());
+            pstm.setDouble(9, notaServicoFinal.getImpostoProduto());
+            pstm.setDouble(10, notaServicoFinal.getComissaoProduto());
+            pstm.setDouble(11, notaServicoFinal.getApagarProduto());
+            pstm.setString(12, notaServicoFinal.getObservacaoNotaServicoFinal());
+            pstm.setLong(13, notaServicoFinal.getId());
+
+            pstm.executeUpdate();
+
+        } catch (SQLException ErroSql) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar no banco.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            Conexao.closeConnection(con, pstm);
+        }
+
+    }
+
+    public List<NotaServicoFinal> listarnotaServicoFinal() {
         List<NotaServicoFinal> notaSfinals = new ArrayList<>();
         Connection con = Conexao.getConnection();
         PreparedStatement pstm = null;
@@ -55,9 +89,11 @@ public class NotaServicoDao {
                 notaFinal.setPesoproduto(rs.getDouble("pesoproduto"));
                 notaFinal.setTotalProduto(rs.getDouble("totalproduto"));
                 notaFinal.setFreteProduto(rs.getDouble("freteproduto"));
-                notaFinal.setImpostoProduto(rs.getDouble("impotoproduto"));
+                notaFinal.setImpostoProduto(rs.getDouble("impostoproduto"));
                 notaFinal.setComissaoProduto(rs.getDouble("comissaoproduto"));
                 notaFinal.setApagarProduto(rs.getDouble("apagarproduto"));
+                notaFinal.setObservacaoNotaServicoFinal(rs.getString("observacaonf"));
+
                 notaSfinals.add(notaFinal);
             }
         } catch (SQLException ErroSql) {

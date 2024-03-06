@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/ADComercio/Financeiro/src/financeiro/View/Cadastro/CadastroPedidoBobina.java</file>
-            <file>file:/C:/ADComercio/Financeiro/src/financeiro/View/Menus/MenuPrincipal.java</file>
+            <file>file:/C:/ADComercio/Financeiro/src/financeiro/DAO/NotaServicoDao.java</file>
+            <file>file:/C:/ADComercio/Financeiro/src/financeiro/View/NotaServico/BuscarNotaId.java</file>
+            <file>file:/C:/ADComercio/Financeiro/src/financeiro/View/NotaServico/FrmNotaServico.java</file>
+            <file>file:/C:/ADComercio/Financeiro/src/financeiro/DAO/EmpresaDao.java</file>
         </group>
     </open-files>
 </project-private>
