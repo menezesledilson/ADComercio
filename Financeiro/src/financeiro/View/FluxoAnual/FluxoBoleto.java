@@ -45,7 +45,7 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cliente", "Data Receber", "Valor Receber", "Empresa", "Data a Pagar", "Valor a Pagar"
+                "Cliente", "Data Receber", "Valor Receber", "Empresa", "Data a Pagar", "Valor a Pagar", "Status", "NF.", "Obs."
             }
         ));
         jScrollPane1.setViewportView(tbFluxoBoleto);
@@ -64,13 +64,13 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btImprimir)
-                .addContainerGap(811, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(899, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(btImprimir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -123,6 +123,9 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
         tbFluxoBoleto.getColumnModel().getColumn(3).setPreferredWidth(80);
         tbFluxoBoleto.getColumnModel().getColumn(4).setPreferredWidth(60);
         tbFluxoBoleto.getColumnModel().getColumn(5).setPreferredWidth(60);
+        tbFluxoBoleto.getColumnModel().getColumn(6).setPreferredWidth(50);
+        tbFluxoBoleto.getColumnModel().getColumn(7).setPreferredWidth(50);
+        tbFluxoBoleto.getColumnModel().getColumn(8).setPreferredWidth(50);
     }
 
     private void carregaTabela() {
@@ -144,13 +147,16 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
         tbFluxoBoleto.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         tbFluxoBoleto.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         tbFluxoBoleto.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+        tbFluxoBoleto.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
+        tbFluxoBoleto.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
+        tbFluxoBoleto.getColumnModel().getColumn(8).setCellRenderer(centerRenderer);
         try {
 
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
             ResultSet rs;
 
-            pstm = con.prepareStatement("SELECT * FROM boletoEmpresa ORDER BY databoletoreceber ASC;");
+            pstm = con.prepareStatement("SELECT * FROM boletoEmpresa ORDER BY id DESC;");
             rs = pstm.executeQuery();
 
             //Formatar o valor no campo jtable
@@ -159,7 +165,6 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
 
             while (rs.next()) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                // String dataFormatadaPedido = dateFormat.format(rs.getDate("datapedido"));
 
                 String dataFormatadaReceber = "";
                 Date dataReceber = rs.getDate("databoletoreceber");
@@ -173,18 +178,15 @@ public class FluxoBoleto extends javax.swing.JInternalFrame {
                     dataFormatadaPagar = dateFormat.format(dataPagar);
                 }
                 modelo.addRow(new Object[]{
-                    //rs.getString(1),
                     rs.getString("nomeboletoreceber"),
-                    //rs.getString("databoletoreceber"),
                     dataFormatadaReceber,
                     currencyReceber.format(rs.getDouble("valorboletoreceber")),
-                    //rs.getString(4),
                     rs.getString("nomeboletoapagar"),
-                    // rs.getString("databoletoapagar"),
                     dataFormatadaPagar,
-                    // currencyApagar.format(rs.getDouble("valorboletoApgar")),
-
-                    currencyApagar.format(rs.getDouble("valorboletoapagar")),});
+                    currencyApagar.format(rs.getDouble("valorboletoapagar")),
+                    rs.getString("statuspago"),
+                    rs.getString("numeronota"),
+                    rs.getString("observacao")});
             }
             Conexao.closeConnection(con, pstm, rs);
         } catch (Exception ErroSql) {

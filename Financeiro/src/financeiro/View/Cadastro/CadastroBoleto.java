@@ -573,7 +573,7 @@ public class CadastroBoleto extends javax.swing.JInternalFrame {
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
             ResultSet rs;
-            pstm = con.prepareStatement("SELECT * FROM boletoEmpresa ORDER BY databoletoreceber ASC;");
+            pstm = con.prepareStatement("SELECT * FROM boletoEmpresa ORDER BY id DESC;");
             rs = pstm.executeQuery();
             //Formatar o valor no campo jtable
             NumberFormat currencyReceber = NumberFormat.getCurrencyInstance();

@@ -177,7 +177,7 @@ private void CentralizarCampos() {
                 principal.setVisible(true);
 
             } else {
-                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos");
+                JOptionPane.showMessageDialog(null, "Senha inválida");
 
             }
         } catch (SQLException ErroSql) {

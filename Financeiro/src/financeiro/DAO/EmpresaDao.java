@@ -46,7 +46,7 @@ public class EmpresaDao {
             pstm.setString(4, empresa.getUF());
             pstm.setString(5, empresa.getCelular());
             pstm.setString(6, empresa.getObservacao());
-            pstm.setLong(6, empresa.getId());
+            pstm.setLong(7, empresa.getId());
             pstm.executeUpdate();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ErroSql) {

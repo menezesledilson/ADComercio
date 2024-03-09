@@ -84,7 +84,7 @@ public class BoletoEmpresaDao {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         try {
-            pstm = con.prepareStatement("SELECT * FROM boletoempresa ORDER BY databoletoreceber ASC;");
+            pstm = con.prepareStatement("SELECT * FROM boletoempresa ORDER BY id DESC;");
             rs = pstm.executeQuery();
             while (rs.next()) {
                 BoletoEmpresa boletoEmpresa = new BoletoEmpresa();
