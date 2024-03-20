@@ -349,14 +349,14 @@ public class CadastroCaixa extends javax.swing.JInternalFrame {
     private void btSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaidaActionPerformed
         Caixa l = new Caixa();
         CaixaDao dao = new CaixaDao();
-        String saidaText = txtSaida.getText().trim().replace(",", ".");
+        /*String saidaText = txtSaida.getText().trim().replace(",", ".");
 
         if (saidaText.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, insira um valor para saída.", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;  // Encerra o método se o campo de entrada estiver vazio
-        }
+        }*/
         l.setDescricao(txtDescricao.getText());
-        l.setSaida(Double.parseDouble(txtSaida.getText()));
+        l.setSaida(Double.parseDouble(txtSaida.getText().trim().replace(",", ".")));
         l.setEntrada(0.0); // Definindo a entrada como zero para saída
         dao.saida(l);
         carregaTabela();
@@ -369,14 +369,14 @@ public class CadastroCaixa extends javax.swing.JInternalFrame {
     private void btEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntradaActionPerformed
         Caixa l = new Caixa();
         CaixaDao dao = new CaixaDao();
-        String entradaText = txtEntrada.getText().trim().replace(",", ".");
+        //String entradaText = txtEntrada.getText().trim().replace(",", ".");
 
-        if (entradaText.isEmpty()) {
+        /*if (entradaText.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, insira os dados de saída.", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;  // Encerra o método se o campo de entrada estiver vazio
-        }
+        }*/
         l.setDescricao(txtDescricao.getText());
-        l.setEntrada(Double.parseDouble(txtEntrada.getText()));
+        l.setEntrada(Double.parseDouble(txtEntrada.getText().trim().replace(",", ".")));
         l.setSaida(0.0); // Definindo a saída como zero para entrada
         txtSaida.setEnabled(false);
         txtEntrada.setEnabled(false);
