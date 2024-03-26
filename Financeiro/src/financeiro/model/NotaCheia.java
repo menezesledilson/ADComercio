@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+ 
 package financeiro.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -27,8 +24,9 @@ public class NotaCheia {
     
     private Date DataPedido;
     private Date DataEntrega;
-
     private Double Ipi;
+   
+    private Timestamp dataHora;
 
     public Long getId() {
         return id;
@@ -134,5 +132,14 @@ public class NotaCheia {
         this.DataEntrega = DataEntrega;
     }
 
+    public Timestamp getDataHora() {
+        return dataHora;
+    }
+
+    public void setDataHora(Timestamp dataHora) {
+        this.dataHora = dataHora;
+    }
+
+    
    
 }

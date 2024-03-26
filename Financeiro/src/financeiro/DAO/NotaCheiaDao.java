@@ -86,6 +86,7 @@ public class NotaCheiaDao {
             while (rs.next()) {
                 NotaCheia notaCheia = new NotaCheia();
                 notaCheia.setId(rs.getLong("id"));
+                notaCheia.setDataHora(rs.getTimestamp("datahora"));
                 notaCheia.setNomeEmpresa(rs.getString("nomeempresa"));
                 notaCheia.setNomeProduto(rs.getString("nomeproduto"));
                 notaCheia.setQuantidade(rs.getInt("quantidade"));

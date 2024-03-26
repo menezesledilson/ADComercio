@@ -14,6 +14,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -168,7 +169,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cliente", "Produto", "Qtd", "Peso", "Preço S/ IPI", "Preço C/ IPI", "Total S/ IPI", "Total C/ IPI", "IPI", "Valor de IPI", "D/ Ped.", "D/ Entreg."
+                "Data hora", "Cliente", "Produto", "Qtd", "Peso", "Preço S/ IPI", "Preço C/ IPI", "Total S/ IPI", "Total C/ IPI", "IPI", "Valor de IPI", "D/ Ped.", "D/ Entreg."
             }
         ));
         tbNotaCheia.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -688,28 +689,35 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
 
     private void tamanhoTabela() {
         //Defini o tamanho da tabela
-        tbNotaCheia.getColumnModel().getColumn(0).setPreferredWidth(150);
-        tbNotaCheia.getColumnModel().getColumn(1).setPreferredWidth(150);
+        //datahora
+        tbNotaCheia.getColumnModel().getColumn(0).setPreferredWidth(60);
+        //cliente
+        tbNotaCheia.getColumnModel().getColumn(1).setPreferredWidth(100);
 
+        //produto
+        tbNotaCheia.getColumnModel().getColumn(2).setPreferredWidth(130);
         //qtd
-        tbNotaCheia.getColumnModel().getColumn(2).setPreferredWidth(20);
-        tbNotaCheia.getColumnModel().getColumn(3).setPreferredWidth(60);
-
+        tbNotaCheia.getColumnModel().getColumn(3).setPreferredWidth(20);
+        //peso
+        tbNotaCheia.getColumnModel().getColumn(4).setPreferredWidth(50);
         //preço
-        tbNotaCheia.getColumnModel().getColumn(4).setPreferredWidth(20);
         tbNotaCheia.getColumnModel().getColumn(5).setPreferredWidth(20);
         //TotalS C
         tbNotaCheia.getColumnModel().getColumn(6).setPreferredWidth(30);
+        //total IPI
         tbNotaCheia.getColumnModel().getColumn(7).setPreferredWidth(30);
         //IPI
-        tbNotaCheia.getColumnModel().getColumn(8).setPreferredWidth(20);
+        tbNotaCheia.getColumnModel().getColumn(8).setPreferredWidth(40);
 
         tbNotaCheia.getColumnModel().getColumn(9).setPreferredWidth(30);
         //data
-        tbNotaCheia.getColumnModel().getColumn(10).setPreferredWidth(30);
+        tbNotaCheia.getColumnModel().getColumn(10).setPreferredWidth(50);
+
         tbNotaCheia.getColumnModel().getColumn(11).setPreferredWidth(30);
+        tbNotaCheia.getColumnModel().getColumn(12).setPreferredWidth(30);
     }
 
+    private int mesAnterior = -1; // Inicializa com um valor que não representa um mês válido
     private void carregaTabela() {
 
         tamanhoTabela();
@@ -720,21 +728,34 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         // Aplicar o renderizador às colunas de valorpedido (índice 1) e quantidadebobina (índice 2)
         // tbNotaCheia.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        tbNotaCheia.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+
+        tbNotaCheia.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+
         tbNotaCheia.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        tbNotaCheia.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
         tbNotaCheia.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
         tbNotaCheia.getColumnModel().getColumn(8).setCellRenderer(centerRenderer);
-        //tbNotaCheia.getColumnModel().getColumn(9).setCellRenderer(centerRenderer);
+
+        tbNotaCheia.getColumnModel().getColumn(9).setCellRenderer(centerRenderer);
         tbNotaCheia.getColumnModel().getColumn(10).setCellRenderer(centerRenderer);
+
         tbNotaCheia.getColumnModel().getColumn(11).setCellRenderer(centerRenderer);
+        tbNotaCheia.getColumnModel().getColumn(12).setCellRenderer(centerRenderer);
 
         try {
             Connection con = Conexao.getConnection();
             PreparedStatement pstm;
             ResultSet rs;
 
-            pstm = con.prepareStatement("SELECT * from notacheia order by nomeempresa DESC;");
+            // Obtém o mês e o ano atuais
+            Calendar cal = Calendar.getInstance();
+            int mesAtualNovo = cal.get(Calendar.MONTH) + 1; // mês
+            int anoAtual = cal.get(Calendar.YEAR);
 
+            modelo.setNumRows(0);
+            pstm = con.prepareStatement("SELECT * FROM notacheia WHERE EXTRACT(MONTH FROM CAST(datahora AS DATE)) = ? AND EXTRACT(YEAR FROM CAST(datahora AS DATE)) = ? ORDER BY id DESC");
+            pstm.setInt(1, mesAtualNovo);
+            pstm.setInt(2, anoAtual);
             rs = pstm.executeQuery();
 
             //Formatar o valor no campo jtable
@@ -748,7 +769,8 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
 
             while (rs.next()) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                // String dataFormatadaPedido = dateFormat.format(rs.getDate("datapedido"));
+                SimpleDateFormat dateFormatTimes = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                String dataHoraFormatada = dateFormatTimes.format(rs.getTimestamp("datahora"));
 
                 String dataFormatadaPedido = "";
                 Date dataPedido = rs.getDate("datapedido");
@@ -762,6 +784,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
                     dataFormatadaEntrega = dateFormat.format(dataEntrega);
                 }
                 modelo.addRow(new Object[]{
+                    dataHoraFormatada,
                     rs.getString("nomeempresa"),
                     rs.getString("nomeproduto"),
                     rs.getString("quantidade"),
@@ -782,6 +805,7 @@ public class PedidoNotaCheia extends javax.swing.JInternalFrame {
         } catch (Exception ErroSql) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela de dados: " + ErroSql, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;

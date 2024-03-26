@@ -425,6 +425,7 @@ public class CadastroPedidoBobina extends javax.swing.JInternalFrame {
             try (PreparedStatement statementValor = con.prepareStatement(sqlSomaTotalReal)) {
                 statementValor.setInt(1, mesAtual);
                 statementValor.setInt(2, anoAtual);
+                
                 try (ResultSet resultadoValor = statementValor.executeQuery()) {
                     if (resultadoValor.next()) {
                         Double totalValor = resultadoValor.getDouble("totalValor");

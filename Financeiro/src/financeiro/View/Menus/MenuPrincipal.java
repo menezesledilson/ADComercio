@@ -129,8 +129,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jSeparator42 = new javax.swing.JPopupMenu.Separator();
         jMenuItem37 = new javax.swing.JMenuItem();
-        jSeparator37 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem38 = new javax.swing.JMenuItem();
         jSeparator39 = new javax.swing.JPopupMenu.Separator();
         jMenuItem15 = new javax.swing.JMenuItem();
         jSeparator40 = new javax.swing.JPopupMenu.Separator();
@@ -393,15 +391,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu4.add(jMenuItem37);
-        jMenu4.add(jSeparator37);
-
-        jMenuItem38.setText("Nota Baixa");
-        jMenuItem38.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem38ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem38);
         jMenu4.add(jSeparator39);
 
         jMenuItem15.setText("Pagamento Harolpel");
@@ -717,11 +706,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         form.abrirFormulario(tela = new PedidoNotaCheia(), jDesktop);
     }//GEN-LAST:event_jMenuItem37ActionPerformed
 
-    private void jMenuItem38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem38ActionPerformed
-        PedidoNotaBaixa tela;
-        form.abrirFormulario(tela = new PedidoNotaBaixa(), jDesktop);
-    }//GEN-LAST:event_jMenuItem38ActionPerformed
-
     private void jMenuItem39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem39ActionPerformed
         CalcComissao tela;
         form.abrirFormulario(tela = new CalcComissao(), jDesktop);
@@ -819,7 +803,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem35;
     private javax.swing.JMenuItem jMenuItem36;
     private javax.swing.JMenuItem jMenuItem37;
-    private javax.swing.JMenuItem jMenuItem38;
     private javax.swing.JMenuItem jMenuItem39;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -854,7 +837,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator33;
     private javax.swing.JPopupMenu.Separator jSeparator34;
     private javax.swing.JPopupMenu.Separator jSeparator35;
-    private javax.swing.JPopupMenu.Separator jSeparator37;
     private javax.swing.JPopupMenu.Separator jSeparator38;
     private javax.swing.JPopupMenu.Separator jSeparator39;
     private javax.swing.JPopupMenu.Separator jSeparator4;
